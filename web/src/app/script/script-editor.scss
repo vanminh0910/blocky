@@ -1,0 +1,173 @@
+/**
+ * Copyright © 2016-2017 The Blocky Authors
+ *
+ * Licensed under the Apache License, Version 2.0 (the "License");
+ * you may not use this file except in compliance with the License.
+ * You may obtain a copy of the License at
+ *
+ *     http://www.apache.org/licenses/LICENSE-2.0
+ *
+ * Unless required by applicable law or agreed to in writing, software
+ * distributed under the License is distributed on an "AS IS" BASIS,
+ * WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
+ * See the License for the specific language governing permissions and
+ * limitations under the License.
+ */
+
+@import "~compass-sass-mixins/lib/compass";
+@import '../../scss/constants';
+
+section.tb-script-editor-title {
+  position: absolute; 
+  top: 0;
+  left: 20px;
+}
+
+input.tb-script-editor-title {
+  font-size: 2.000rem;
+  font-weight: 500;
+  letter-spacing: 0.005em;
+  height: 38px;
+}
+
+div.tb-padded {
+  top: 60px;
+}
+
+section.tb-padded {
+  top: 60px;
+}
+
+div.tb-shrinked {
+  width: 40%;
+}
+
+tb-details-sidenav.tb-widget-details-sidenav {
+  md-sidenav.tb-sidenav-details {
+    @media (min-width: $layout-breakpoint-gt-sm) {
+      width: 85% !important;
+    }
+    @media (min-width: $layout-breakpoint-gt-md) {
+      width: 75% !important;
+    }
+    @media (min-width: $layout-breakpoint-lg) {
+      width: 60% !important;
+    }
+  }
+}
+
+/***********************
+ * script-editor toolbar
+ ***********************/
+
+section.tb-script-editor-toolbar {
+  position: absolute;
+  top: 0px;
+  left: -100%;
+  z-index: 3;
+  pointer-events: none;
+  &.tb-script-editor-toolbar-opened {
+    right: 0px;
+    @include transition(right .3s cubic-bezier(.55,0,.55,.2));
+  }
+  &.tb-script-editor-toolbar-closed {
+    right: 18px;
+    @include transition(right .3s cubic-bezier(.55,0,.55,.2) .2s);
+  }
+  md-fab-toolbar {
+    &.md-is-open {
+      md-fab-trigger {
+        .md-button {
+          &.md-fab {
+            opacity: 1;
+            @include transition(opacity .3s cubic-bezier(.55,0,.55,.2));
+          }
+        }
+      }
+    }
+    md-fab-trigger {
+      .md-button {
+        &.md-fab {
+          line-height: 36px;
+          width: 36px;
+          height: 36px;
+          margin: 4px 0 0 4px;
+          opacity: 0.5;
+          @include transition(opacity .3s cubic-bezier(.55,0,.55,.2) .2s);
+          md-icon {
+            position: absolute;
+            top: 25%;
+            margin: 0;
+            line-height: 18px;
+            height: 18px;
+            width: 18px;
+            min-height: 18px;
+            min-width: 18px;
+          }
+        }
+      }
+    }
+    .md-fab-toolbar-wrapper {
+      height: 50px;
+      md-toolbar {
+        min-height: 46px;
+        height: 46px;
+        md-fab-actions {
+          font-size: 16px;
+          margin-top: 0px;
+          .close-action {
+            margin-right: -18px;
+          }
+        }
+      }
+    }
+  }
+}
+
+.tb-script-editor-container {
+   &.tb-script-editor-toolbar-opened {
+     margin-top: 50px;
+     @include transition(margin-top .3s cubic-bezier(.55,0,.55,.2));
+   }
+   &.tb-script-editor-toolbar-closed {
+     margin-top: 0px;
+     @include transition(margin-top .3s cubic-bezier(.55,0,.55,.2) .2s);
+  }
+}
+
+/*****************************
+ * script-editor powered by footer
+ ****************************/
+
+section.tb-powered-by-footer {
+  position: absolute;
+  right: 25px;
+  bottom: 5px;
+  z-index: 3;
+  pointer-events: none;
+  span {
+    font-size: 12px;
+    a {
+      font-weight: bold;
+      text-decoration: none;
+      border: none;
+      pointer-events: all;
+    }
+  }
+}
+
+.ace_editor {
+  height: 100%;
+  margin-top: 50px;
+  font-size: 14px !important;
+}
+
+.tb-content {
+  border: 1px solid #C0C0C0;
+}
+
+.injectionDiv {
+    height: 80%;
+    position: relative;
+    overflow: hidden;
+}
