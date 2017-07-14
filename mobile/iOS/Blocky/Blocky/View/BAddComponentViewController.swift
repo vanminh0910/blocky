@@ -65,6 +65,11 @@ class BAddComponentViewController: UIViewController {
             slider.tintColor = UIColor.random()
             self.delegate?.didAddComponent(component: slider)
             
+        case 3:
+            let switchCom = UISwitch(frame: CGRect(x: 0, y: 0, width: 100, height: 50))
+            switchCom.tintColor = UIColor.random()
+            self.delegate?.didAddComponent(component: switchCom)
+            
         default:
             break;
         }
@@ -130,8 +135,12 @@ extension BAddComponentViewController:UIPickerViewDelegate,UIPickerViewDataSourc
         return 1
     }
     
+    func pickerView(_ pickerView: UIPickerView, rowHeightForComponent component: Int) -> CGFloat {
+        return 50
+    }
+    
     func pickerView(_ pickerView: UIPickerView, numberOfRowsInComponent component: Int) -> Int {
-        return 3
+        return 4
     }
     
     func pickerView(_ pickerView: UIPickerView, titleForRow row: Int, forComponent component: Int) -> String? {
@@ -142,6 +151,8 @@ extension BAddComponentViewController:UIPickerViewDelegate,UIPickerViewDataSourc
             return "Label"
         case 2:
             return "Silder"
+        case 3:
+            return "Switch"
             
         default:
             break;
