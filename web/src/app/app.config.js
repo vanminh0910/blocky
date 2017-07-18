@@ -38,7 +38,7 @@ export default function AppConfig($provide,
                                   storeProvider,
                                   locales) {
 
-    $locationProvider.html5Mode(true);
+    $locationProvider.html5Mode(false);
     $urlRouterProvider.otherwise(UrlHandler);
     storeProvider.setCaching(false);
 
