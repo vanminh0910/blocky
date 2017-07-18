@@ -27,7 +27,6 @@ module.exports = {
     devtool: 'source-map',
     entry: [
         './src/app/app.js',
-        'webpack-hot-middleware/client?reload=true',
         'webpack-material-design-icons'
     ],
     output: {

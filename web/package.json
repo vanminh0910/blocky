@@ -10,7 +10,7 @@
     }
   ],
   "scripts": {
-    "start": "webpack-dev-server",
+    "start": "webpack-dev-server --open",
     "build": "cross-env NODE_ENV=production webpack -p"
   },
   "dependencies": {
@@ -80,18 +80,8 @@
     "style-loader": "^0.13.1",
     "url-loader": "^0.5.7",
     "webpack": "^1.15.0",
-    "webpack-dev-middleware": "^1.6.1",
-    "webpack-dev-server": "^1.15.1",
-    "webpack-hot-middleware": "^2.12.2",
-    "webpack-material-design-icons": "^0.1.0"
+    "webpack-material-design-icons": "^0.1.0",
+    "webpack-dev-server": "^1.15.1"
   },
-  "engine": "node >= 5.9.0",
-  "nyc": {
-    "exclude": [
-      "test",
-      "__tests__",
-      "node_modules",
-      "target"
-    ]
-  }
+  "engine": "node >= 5.9.0"
 }
