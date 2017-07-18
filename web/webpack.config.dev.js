@@ -30,7 +30,7 @@ module.exports = {
         'webpack-material-design-icons'
     ],
     output: {
-        path: path.resolve(__dirname, 'target/generated-resources/public/static'),
+        path: path.resolve(__dirname, 'dist/static'),
         publicPath: '/',
         filename: 'bundle.js',
     },
