@@ -11,15 +11,15 @@ module.exports.signup = (event, context, callback) => {
   const timestamp = new Date().getTime();
   const data = JSON.parse(event.body);
   if (!data.email || !data.password) {
-    callback({
+    callback(null, {
       statusCode: 400,
-      body: JSON.stringify({ errorMessage: 'Please enter email and password.' }),
+      body: JSON.stringify({ error: 'Bad Request', message: 'Please enter email and password' }),
     });
     return;
   } else if (!validator.isEmail(data.email)) {
-    callback({
+    callback(null, {
       statusCode: 400,
-      body: JSON.stringify({ errorMessage: 'Invalid email address.' }),
+      body: JSON.stringify({ error: 'Bad Request', message: 'Invalid email address' }),
     });
     return;
   }
@@ -41,9 +41,9 @@ module.exports.signup = (event, context, callback) => {
     // handle potential errors
     if (error) {
       console.error(error);
-      callback({
+      callback(null, {
         statusCode: 500,
-        body: JSON.stringify({ errorMessage: 'Internal Server Error.' }),
+        body: JSON.stringify({ error: 'Internal Server Error', message: 'An internal server error occurred' }),
       });
       return;
     }

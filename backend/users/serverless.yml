@@ -56,7 +56,6 @@ functions:
       - http:
           path: changePassword
           method: post
-          integration: lambda
           authorizer: auth # See custom authorizer docs here: http://bit.ly/2gXw9pO
           cors:
             origins:

@@ -28,16 +28,19 @@ module.exports.auth = (event, context, callback) => {
     const token = event.authorizationToken.substring(4);
     jwt.verify(token, config.jwt.secret, null, (error, decoded) => {
       if (error) {
-        callback({
+        callback(null, {
           statusCode: 401,
-          body: JSON.stringify({ errorMessage: 'Unauthorized.' }),
+          body: JSON.stringify({ error: 'Unauthorized', message: 'Invalid token' }),
         });
       } else {
         callback(null, generatePolicy(decoded.user.email, 'Allow', event.methodArn));
       }
     });
   } else {
-    callback('Unauthorized');
+    callback(null, {
+      statusCode: 401,
+      body: JSON.stringify({ error: 'Unauthorized', message: 'Invalid token' }),
+    });
   }
 };
 

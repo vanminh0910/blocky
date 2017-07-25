@@ -6,13 +6,13 @@ const jwt = require('jsonwebtoken');
 const config = require('../../config/config');
 
 module.exports.changePassword = (event, context, callback) => {
-  const email = event.principalId;
-  const data = event.body;
+  const email = event.requestContext.authorizer.principalId;
+  const data = JSON.parse(event.body);
 
   if (!data.password || !data.newPassword) {
-    callback({
+    callback(null, {
       statusCode: 400,
-      body: JSON.stringify({ errorMessage: 'Please enter current and new password.' }),
+      body: JSON.stringify({ error: 'Bad Request', message: 'Please enter current and new password' }),
     });
     return;
   }
@@ -30,9 +30,9 @@ module.exports.changePassword = (event, context, callback) => {
     // handle potential errors
     if (error) {
       console.error(error);
-      callback({
+      callback(null, {
         statusCode: 500,
-        body: JSON.stringify({ errorMessage: 'Internal Server Error.' }),
+        body: JSON.stringify({ error: 'Internal Server Error', message: 'An internal server error occurred' }),
       });
       return;
     }
@@ -53,7 +53,7 @@ module.exports.changePassword = (event, context, callback) => {
           ':updatedAt': timestamp,
         },
         UpdateExpression: 'SET #password = :newPassword, updatedAt = :updatedAt',
-        ReturnValues: 'ALL_NEW',
+        ReturnValues: 'NONE',
       };
 
       // update the password in the database
@@ -61,9 +61,9 @@ module.exports.changePassword = (event, context, callback) => {
         // handle potential errors
         if (error) {
           console.error(error);
-          callback({
+          callback(null, {
             statusCode: 500,
-            body: JSON.stringify({ errorMessage: 'Internal Server Error.' }),
+            body: JSON.stringify({ error: 'Internal Server Error', message: 'An internal server error occurred' }),
           });
           return;
         }
@@ -71,14 +71,13 @@ module.exports.changePassword = (event, context, callback) => {
         // create a response
         const response = {
           statusCode: 200,
-          body: JSON.stringify(result.Attributes),
         };
         callback(null, response);
       });
     } else {
-      callback({
+      callback(null, {
         statusCode: 401,
-        body: JSON.stringify({ errorMessage: 'Invalid password.' }),
+        body: JSON.stringify({ error: 'Unauthorized', message: 'Invalid password' }),
       });
       return;
     }
