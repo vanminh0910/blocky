@@ -1,0 +1,53 @@
+{
+    "Table": {
+        "TableName": "blocky-dev-users",
+        "KeySchema": [
+            {
+                "AttributeName": "email",
+                "KeyType": "HASH"
+            }
+        ],
+        "AttributeDefinitions": [
+            {
+                "AttributeName": "username",
+                "AttributeType": "S"
+            },
+            {
+                "AttributeName": "email",
+                "AttributeType": "S"
+            },
+            {
+                "AttributeName": "name",
+                "AttributeType": "S"
+            },
+            {
+                "AttributeName": "language",
+                "AttributeType": "S"
+            },
+            {
+                "AttributeName": "role",
+                "AttributeType": "S"
+            },
+            {
+                "AttributeName": "authKey",
+                "AttributeType": "S"
+            },
+            {
+                "AttributeName": "password",
+                "AttributeType": "S"
+            },
+            {
+                "AttributeName": "resetPasswordToken",
+                "AttributeType": "S"
+            },
+            {
+                "AttributeName": "status",
+                "AttributeType": "BOOL"
+            }
+        ],
+        "ProvisionedThroughput": {
+            "ReadCapacityUnits": 1,
+            "WriteCapacityUnits": 1
+        }
+    }
+}
