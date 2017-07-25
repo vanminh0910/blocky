@@ -56,7 +56,7 @@ functions:
       - http:
           path: changePassword
           method: post
-          authorizer: auth # See custom authorizer docs here: http://bit.ly/2gXw9pO
+          authorizer: auth
           cors:
             origins:
               - '*'
