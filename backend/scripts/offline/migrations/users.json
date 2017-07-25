@@ -1,0 +1,41 @@
+{
+    "Table": {
+        "TableName": "blocky-dev-scripts",
+        "KeySchema": [
+            {
+                "AttributeName": "id",
+                "KeyType": "HASH"
+            },
+            {
+                "AttributeName": "owner",
+                "KeyType": "RANGE"
+            }
+        ],
+        "AttributeDefinitions": [
+            {
+                "AttributeName": "id",
+                "AttributeType": "S"
+            },
+            {
+                "AttributeName": "name",
+                "AttributeType": "S"
+            },
+            {
+                "AttributeName": "xml",
+                "AttributeType": "S"
+            },
+            {
+                "AttributeName": "lua",
+                "AttributeType": "S"
+            },
+            {
+                "AttributeName": "owner",
+                "AttributeType": "S"
+            }
+        ],
+        "ProvisionedThroughput": {
+            "ReadCapacityUnits": 1,
+            "WriteCapacityUnits": 1
+        }
+    }
+}
