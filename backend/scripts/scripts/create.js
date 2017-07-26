@@ -7,19 +7,13 @@ module.exports.create = (event, context, callback) => {
   const timestamp = new Date().getTime();
   const data = JSON.parse(event.body);
   const email = event.requestContext.authorizer.principalId;
-  console.log("ok");
+
   if (!data.name) {
     callback(null, {
       statusCode: 400,
       body: JSON.stringify({ error: 'Bad Request', message: 'Please enter name of the script' }),
     });
     return;
-  }
-  if (!data.xml) {
-    data.xml = '';
-  }
-  if (!data.lua) {
-    data.lua = '';
   }
 
   const params = {

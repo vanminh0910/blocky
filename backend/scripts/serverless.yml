@@ -32,10 +32,10 @@ provider:
 
 functions:
   auth:
-    handler: users/auth.auth
+    handler: scripts/auth.auth
 
   create:
-    handler: users/create.create
+    handler: scripts/create.create
     events:
       - http:
           path: scripts
@@ -51,58 +51,25 @@ functions:
               - X-Api-Key
               - X-Amz-Security-Token
 
-  get:
-    handler: scripts/get.get
-    events:
-      - http:
-          path: scripts/{id}
-          method: get
-          authorizer: auth
-          cors:
-            origins:
-              - '*'
-            headers:
-              - Content-Type
-              - X-Amz-Date
-              - Authorization
-              - X-Api-Key
-              - X-Amz-Security-Token
-
-  list:
-    handler: scripts/get.get
-    events:
-      - http:
-          path: scripts
-          method: get
-          authorizer: auth
-          cors:
-            origins:
-              - '*'
-            headers:
-              - Content-Type
-              - X-Amz-Date
-              - Authorization
-              - X-Api-Key
-              - X-Amz-Security-Token
-
 resources:
   Resources:
-    UsersDynamoDbTable:
+    ScriptsDynamoDbTable:
       Type: 'AWS::DynamoDB::Table'
       DeletionPolicy: Retain
       Properties:
         KeySchema:
+          - 
+            AttributeName: owner
+            KeyType: HASH
           -
             AttributeName: id
-            KeyType: HASH
-          - AttributeName: owner
             KeyType: RANGE
         AttributeDefinitions:
           -
-            AttributeName: id
+            AttributeName: owner
             AttributeType: S
           -
-            AttributeName: owner
+            AttributeName: id
             AttributeType: S
         ProvisionedThroughput:
           ReadCapacityUnits: 1

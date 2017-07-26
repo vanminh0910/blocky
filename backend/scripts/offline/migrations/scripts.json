@@ -3,11 +3,11 @@
         "TableName": "blocky-dev-scripts",
         "KeySchema": [
             {
-                "AttributeName": "id",
+                "AttributeName": "owner",
                 "KeyType": "HASH"
             },
             {
-                "AttributeName": "owner",
+                "AttributeName": "id",
                 "KeyType": "RANGE"
             }
         ],
