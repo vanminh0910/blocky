@@ -1,7 +1,7 @@
 'use strict';
 
-const jwt = require('jsonwebtoken');
 const config = require('../../config/config');
+const jwt = require('jsonwebtoken');
 
 // Policy helper function
 const generatePolicy = (principalId, effect, resource) => {

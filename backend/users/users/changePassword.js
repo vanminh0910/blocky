@@ -1,9 +1,9 @@
 'use strict';
 
-const dynamodb = require('../libs/dynamodb');
+const config = require('../../config/config');
+const dynamodb = require('../../libs/dynamodb');
 const bcrypt = require('bcrypt-nodejs');
 const jwt = require('jsonwebtoken');
-const config = require('../../config/config');
 
 module.exports.changePassword = (event, context, callback) => {
   const email = event.requestContext.authorizer.principalId;

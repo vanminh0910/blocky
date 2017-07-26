@@ -8,9 +8,7 @@ layout: Doc
 ## Setup
 
 ```bash
-npm install
 serverless dynamodb install
-serverless offline start
 ```
 
 ## Run service offline
