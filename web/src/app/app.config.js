@@ -15,7 +15,7 @@
  */
 
 import UrlHandler from './url.handler';
-import addLocaleKorean from './locale/locale.constant-ko';
+import addLocaleVietnamese from './locale/locale.constant-vi';
 
 /* eslint-disable import/no-unresolved, import/default */
 
@@ -38,7 +38,7 @@ export default function AppConfig($provide,
                                   storeProvider,
                                   locales) {
 
-    $locationProvider.html5Mode(true);
+    $locationProvider.html5Mode(false);
     $urlRouterProvider.otherwise(UrlHandler);
     storeProvider.setCaching(false);
 
@@ -48,12 +48,12 @@ export default function AppConfig($provide,
     $translateProvider.useMissingTranslationHandlerLog();
     $translateProvider.addInterpolation('$translateMessageFormatInterpolation');
 
-    addLocaleKorean(locales);
+    addLocaleVietnamese(locales);
     var $window = angular.injector(['ng']).get('$window');
     var lang = $window.navigator.language || $window.navigator.userLanguage;
-    if (lang === 'ko') {
+    if (lang === 'vi') {
         $translateProvider.useSanitizeValueStrategy(null);
-        $translateProvider.preferredLanguage('ko_KR');
+        $translateProvider.preferredLanguage('vi_VN');
     }
 
     for (var langKey in locales) {

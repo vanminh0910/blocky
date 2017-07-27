@@ -1,0 +1,10 @@
+{
+  "body": "{\"name\":\"Test board 3\",\"chipId\":\"111111111\"}",
+  "requestContext": {
+    "authorizer": {
+      "claims": {
+        "sub": "0b1591dd-7f2c-400c-b01b-4d5e1413b088"
+      }
+    }
+  }
+}

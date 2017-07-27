@@ -1,15 +1,17 @@
 {
-  "name": "aws-rest-with-dynamodb",
+  "name": "blocky-backend-service",
   "version": "1.0.0",
-  "description": "Serverless CRUD service exposing a REST HTTP interface",
-  "author": "",
+  "description": "Blocky Backend API",
   "license": "MIT",
   "dependencies": {
-    "serverless-dynamodb-client": "0.0.2",
-    "uuid": "^2.0.3"
+    "aws-sdk": "^2.88.0",
+    "bcrypt-nodejs": "0.0.3",
+    "jsonwebtoken": "^7.4.1",
+    "uuid": "^3.1.0",
+    "validator": "^8.0.0"
   },
   "devDependencies": {
     "serverless-dynamodb-local": "^0.2.22",
-    "serverless-offline": "^3.14.2"
+    "serverless-offline": "^3.15.1"
   }
 }
