@@ -69,7 +69,7 @@ export default function AppRun($rootScope, $window, $injector, $location, $log, 
                 } else {
                     if (to.module === 'private') {
                         evt.preventDefault();
-                        if (to.url === '/home' || to.url === '/') {
+                        if (to.url === '/home' || to.url === '/' || to.url === '') {
                             $state.go('login', params);
                         } else {
                             showUnauthorizedDialog();

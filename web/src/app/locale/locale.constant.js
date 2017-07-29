@@ -435,7 +435,7 @@ export default angular.module('blocky.locale', [])
                 "language": {
                     "language": "Language",
                     "en_US": "English",
-                    "ko_KR": "Korean"
+                    "vi_VN": "Vietnamese"
                 }
             }
         }

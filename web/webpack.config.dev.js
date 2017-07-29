@@ -27,11 +27,10 @@ module.exports = {
     devtool: 'source-map',
     entry: [
         './src/app/app.js',
-        'webpack-hot-middleware/client?reload=true',
         'webpack-material-design-icons'
     ],
     output: {
-        path: path.resolve(__dirname, 'target/generated-resources/public/static'),
+        path: path.resolve(__dirname, 'dist/static'),
         publicPath: '/',
         filename: 'bundle.js',
     },

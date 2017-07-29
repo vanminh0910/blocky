@@ -20,6 +20,7 @@ const ExtractTextPlugin = require('extract-text-webpack-plugin');
 const CopyWebpackPlugin = require('copy-webpack-plugin');
 const webpack = require('webpack');
 const path = require('path');
+const CleanWebpackPlugin = require('clean-webpack-plugin');
 
 module.exports = {
     devtool: 'source-map',
@@ -28,7 +29,7 @@ module.exports = {
         'webpack-material-design-icons'
     ],
     output: {
-        path: path.resolve(__dirname, 'target/generated-resources/public/static'),
+        path: path.resolve(__dirname, 'dist/static'),
         publicPath: '/static/',
         filename: 'bundle.[hash].js',
     },
@@ -60,6 +61,7 @@ module.exports = {
                 NODE_ENV: JSON.stringify('production'),
             },
         }),
+        new CleanWebpackPlugin(['dist']),
     ],
     node: {
         tls: "empty",

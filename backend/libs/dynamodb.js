@@ -1,9 +1,17 @@
-import AWS from 'aws-sdk';
+'use strict';
 
-AWS.config.update({region:'us-east-1'});
+const AWS = require('aws-sdk'); // eslint-disable-line import/no-extraneous-dependencies
 
-module.exports.call = function (action, params) {
-  const dynamoDb = new AWS.DynamoDB.DocumentClient();
+let options = {};
 
-  return dynamoDb[action](params).promise();
+// connect to local DB if running offline
+if (process.env.IS_OFFLINE) {
+  options = {
+    region: 'localhost',
+    endpoint: 'http://localhost:8000',
+  };
 }
+
+const client = new AWS.DynamoDB.DocumentClient(options);
+
+module.exports = client;
