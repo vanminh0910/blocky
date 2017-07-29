@@ -1,0 +1,40 @@
+<?xml version="1.0" encoding="utf-8"?>
+<FrameLayout xmlns:android="http://schemas.android.com/apk/res/android"
+          android:id="@+id/wglxy_bar"
+ 	       android:orientation="horizontal"
+ 	       android:background="#FF444444"
+ 	       android:layout_width="match_parent"
+ 	       android:layout_height="wrap_content" 
+          android:layout_gravity="bottom"
+          android:visibility="visible" >
+      <ImageView 
+	      android:id="@+id/double_star_icon"
+	      android:src="@drawable/double_star"
+         android:layout_width="32dp"
+         android:layout_height="32dp" 
+	      android:layout_gravity="left|center_vertical"
+         />
+
+      <TextView 
+        android:id="@+id/ds_text1"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:gravity="left" 
+        android:layout_gravity="center" 
+        android:textColor="#ffffffff"
+        android:textSize="14sp"
+        android:padding="2dp"
+        android:text="Double Star on Google Play"
+        android:onClick="onClickWglxy"
+        android:clickable="true"
+        android:visibility="visible" />
+      <ImageView 
+	      android:id="@+id/download_icon"
+	      android:src="@drawable/download_icon"
+	      android:layout_width="32dp"
+	      android:layout_height="32dp" 
+	      android:layout_gravity="right|center_vertical"
+         android:onClick="onClickWglxy"
+
+         />
+</FrameLayout>
