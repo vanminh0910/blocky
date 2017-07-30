@@ -1,6 +1,7 @@
 package com.stevano.blocky.dashboarddemo;
 
 import android.content.Context;
+import android.graphics.Color;
 import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
@@ -64,6 +65,7 @@ public class DashboardAdapter extends BaseAdapter {
 
 
         holder.blockItem.setImageResource(R.mipmap.block_off);
+        holder.blockItem.setBackgroundColor(Color.parseColor("#414145"));
 
 
         //Here we can do changes to the convertView, such as set a text on a TextView
@@ -71,7 +73,6 @@ public class DashboardAdapter extends BaseAdapter {
         return view;
     }
 
-    // Tìm ID của Image ứng với tên của ảnh (Trong thư mục mipmap).
 
 
     static class ViewHolder {

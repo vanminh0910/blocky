@@ -1,0 +1,21 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <dimen name="grid_cell_width">85dp</dimen>
+    <dimen name="grid_cell_height">85dp</dimen>
+    <dimen name="grid_cell_spacing">2dp</dimen>
+    <dimen name="grid_cell_padding">8dp</dimen>
+
+    <dimen name="add_image_width">80dp</dimen>
+    <dimen name="add_image_height">80dp</dimen>
+
+    <dimen name="delete_zone_size">70dip</dimen>
+    <dimen name="delete_zone_padding">14dip</dimen>
+
+
+    <dimen name="title_texture_width">120px</dimen>
+    <dimen name="button_bar_height">56dip</dimen>
+    <dimen name="button_bar_height_portrait">56dip</dimen>
+    <dimen name="status_bar_height">25dip</dimen>
+    <dimen name="half_status_bar_height">12dip</dimen>
+
+</resources>

@@ -50,6 +50,7 @@ public class GridOverlayView extends View
 
     protected void onDraw(Canvas paramCanvas)
     {
+        
         super.onDraw(paramCanvas);
         int i = gcd(getWidth(), getHeight());
         int j = getHeight() / i;
