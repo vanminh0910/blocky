@@ -10,7 +10,7 @@ module.exports.create = (event, context, callback) => {
   if (!data.name) {
     callback(null, {
       statusCode: 400,
-      body: JSON.stringify({ error: 'Bad Request', message: 'Please enter name of the script' }),
+      body: JSON.stringify({ error: 'Bad Request', message: 'Please enter name of the dashboard' }),
     });
     return;
   }
@@ -19,14 +19,11 @@ module.exports.create = (event, context, callback) => {
     Item: {
       id: uuid.v1(),
       name: data.name,
-      xml: data.xml,
-      lua: data.lua,
       owner: email,
       createdAt: timestamp,
       updatedAt: timestamp,
     },
   };
-
   // write the script to the database
   dynamodb.put(params, (error) => {
     // handle potential errors

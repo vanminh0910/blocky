@@ -56,6 +56,24 @@ functions:
       - http:
           path: changePassword
           method: post
+          integration: lambda
+          authorizer: auth # See custom authorizer docs here: http://bit.ly/2gXw9pO
+          cors:
+            origins:
+              - '*'
+            headers:
+              - Content-Type
+              - X-Amz-Date
+              - Authorization
+              - X-Api-Key
+              - X-Amz-Security-Token
+  changeProfile:
+    handler: users/changeProfile.changeProfile
+    events:
+      - http:
+          path : user/{id}
+          method: post
+          integration: lambda
           authorizer: auth
           cors:
             origins:
@@ -66,7 +84,6 @@ functions:
               - Authorization
               - X-Api-Key
               - X-Amz-Security-Token
-
 resources:
   Resources:
     UsersDynamoDbTable:

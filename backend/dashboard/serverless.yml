@@ -1,5 +1,5 @@
 
-service: scripts
+service: dashboard
 
 plugins:
   - serverless-dynamodb-local
@@ -33,13 +33,13 @@ provider:
 
 functions:
   auth:
-    handler: scripts/auth.auth
+    handler: dashboard/auth.auth
 
   create:
-    handler: scripts/create.create
+    handler: dashboard/create.create
     events:
       - http:
-          path: scripts
+          path: dashboard
           method: post
           authorizer: auth
           cors:
@@ -52,10 +52,10 @@ functions:
               - X-Api-Key
               - X-Amz-Security-Token
   delete:
-    handler: scripts/delete.delete
+    handler: dashboard/delete.delete
     events:
       - http:
-          path: deletescripts
+          path: deletedashboard
           method: delete
           authorizer: auth
           cors:
@@ -68,10 +68,10 @@ functions:
               - X-Api-Key
               - X-Amz-Security-Token
   get:
-    handler: scripts/get.get
+    handler: dashboard/get.get
     events:
       - http:
-          path: getscripts/{id}
+          path: dashboard/{id}
           method: get
           authorizer: auth
           cors:
@@ -84,10 +84,10 @@ functions:
               - X-Api-Key
               - X-Amz-Security-Token
   list:
-    handler: scripts/list.list
+    handler: dashboard/list.list
     events:
       - http:
-          path: listscripts
+          path: listdashboard
           method: get
           authorizer: auth
           cors:
@@ -99,32 +99,13 @@ functions:
               - Authorization
               - X-Api-Key
               - X-Amz-Security-Token
-  update:
-    handler: scripts/update.update
-    events:
-      - http:
-          path: updatescript/{id}
-          method: put
-          authorizer : auth
-          cors:
-            origins:
-              - '*'
-            headers:
-              - Content-Type
-              - X-Amz-Date
-              - Authorization
-              - X-Api-Key
-              - X-Amz-Security-Token
-          request:
-            parameters:
-              paths:
-                id: true
+  
   rename:
-    handler : scripts/rename.rename
+    handler : dashboard/rename.rename
     events :
       - http: 
-          path : script/{id}/rename
-          method : post
+          path : dashboard/{id}/rename
+          method : put
           authorizer : auth
           cors:
             origins:
@@ -137,24 +118,24 @@ functions:
               - X-Amz-Security-Token
 resources:
   Resources:
-    ScriptsDynamoDbTable:
+    DashboardsDynamoDbTable:
       Type: 'AWS::DynamoDB::Table'
-      DeletionPolicy: Retain
       Properties:
-        KeySchema:
+        AttributeDefinitions:
+          -
+            AttributeName: id
+            AttributeType: S
           - 
-            AttributeName: owner
-            KeyType: HASH
+            AttributeName : owner
+            AttributeType: S
+        KeySchema:
+          -
+            AttributeName : owner
+            KeyType : HASH
           -
             AttributeName: id
             KeyType: RANGE
-        AttributeDefinitions:
-          -
-            AttributeName: owner
-            AttributeType: S
-          -
-            AttributeName: id
-            AttributeType: S
+          
         ProvisionedThroughput:
           ReadCapacityUnits: 1
           WriteCapacityUnits: 1

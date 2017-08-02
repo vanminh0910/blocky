@@ -1,23 +1,23 @@
 'use strict';
 
-const config = require('../../config/config');
-const dynamodb = require('../../libs/dynamodb');
+const dynamodb = require('../libs/dynamodb');
 const validator = require('validator');
 const bcrypt = require('bcrypt-nodejs');
 const jwt = require('jsonwebtoken');
+const config = require('../../config/config');
 
 module.exports.login = (event, context, callback) => {
   const data = JSON.parse(event.body);
   if (!data.email || !data.password) {
-    callback(null, {
+    callback({
       statusCode: 400,
-      body: JSON.stringify({ error: 'Bad Request', message: 'Please enter email and password' }),
+      body: JSON.stringify({ errorMessage: 'Please enter email and password.' }),
     });
     return;
   } else if (!validator.isEmail(data.email)) {
-    callback(null, {
+    callback({
       statusCode: 400,
-      body: JSON.stringify({ error: 'Bad Request', message: 'Invalid email address' }),
+      body: JSON.stringify({ errorMessage: 'Invalid email address.' }),
     });
     return;
   }
@@ -34,9 +34,9 @@ module.exports.login = (event, context, callback) => {
     // handle potential errors
     if (error) {
       console.error(error);
-      callback(null, {
+      callback({
         statusCode: 500,
-        body: JSON.stringify({ error: 'Internal Server Error', message: 'An internal server error occurred' }),
+        body: JSON.stringify({ errorMessage: 'Internal Server Error.' }),
       });
       return;
     }
@@ -60,9 +60,9 @@ module.exports.login = (event, context, callback) => {
       callback(null, response);
 
     } else {
-      callback(null, {
-        statusCode: 401,
-        body: JSON.stringify({ error: 'Unauthorized', message: 'Invalid email or password' }),
+      callback({
+        statusCode: 400,
+        body: JSON.stringify({ errorMessage: 'Invalid email or password.' }),
       });
       return;
     }

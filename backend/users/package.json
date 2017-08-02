@@ -1,0 +1,17 @@
+{
+  "name": "blocky-users-service",
+  "version": "1.0.0",
+  "description": "Blocky User API",
+  "license": "MIT",
+  "dependencies": {
+    "aws-sdk": "^2.88.0",
+    "bcrypt-nodejs": "0.0.3",
+    "jsonwebtoken": "^7.4.1",
+    "serverless-dynamodb-local": "^0.2.22",
+    "serverless-offline": "^3.15.1",
+    "validator": "^8.0.0"
+  },
+  "devDependencies": {
+    "serverless-offline": "^3.15.1"
+  }
+}
