@@ -8,7 +8,6 @@ const config = require('../../config/config');
 module.exports.changePassword = (event, context, callback) => {
   const email = event.principalId;
   const data = event.body;
-  
   if (!data.password || !data.newPassword) {
     callback({
       statusCode: 400,

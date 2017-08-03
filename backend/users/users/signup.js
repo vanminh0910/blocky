@@ -6,6 +6,7 @@ const bcrypt = require('bcrypt-nodejs');
 const jwt = require('jsonwebtoken');
 const config = require('../../config/config');
 const uuid = require('uuid');
+var shortid = require('shortid');
 
 module.exports.signup = (event, context, callback) => {
   const timestamp = new Date().getTime();
@@ -30,6 +31,7 @@ module.exports.signup = (event, context, callback) => {
       id : uuid.v1(),
       email: data.email,
       password: bcrypt.hashSync(data.password),
+      auth_key : shortid.generate(),
       status: true,
       createdAt: timestamp,
       updatedAt: timestamp,

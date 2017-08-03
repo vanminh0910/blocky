@@ -84,6 +84,23 @@ functions:
               - Authorization
               - X-Api-Key
               - X-Amz-Security-Token
+  checkAuthenticationKey:
+    handler: users/checkAuthenticationKey.checkAuthenticationKey
+    events:
+      - http:
+          path : user/checkauthenticationkey
+          method: GET
+          integration: lambda
+          authorizer: auth
+          cors:
+            origins:
+              - '*'
+            headers:
+              - Content-Type
+              - X-Amz-Date
+              - Authorization
+              - X-Api-Key
+              - X-Amz-Security-Token
 resources:
   Resources:
     UsersDynamoDbTable:
