@@ -84,6 +84,23 @@ functions:
               - Authorization
               - X-Api-Key
               - X-Amz-Security-Token
+  changeAuthKey:
+    handler: users/changeAuthKey.changeAuthKey
+    events:
+      - http:
+          path : user/changeAuthKey
+          method: post
+          integration: lambda
+          authorizer: auth
+          cors:
+            origins:
+              - '*'
+            headers:
+              - Content-Type
+              - X-Amz-Date
+              - Authorization
+              - X-Api-Key
+              - X-Amz-Security-Token             
   checkAuthenticationKey:
     handler: users/checkAuthenticationKey.checkAuthenticationKey
     events:
