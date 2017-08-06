@@ -1,0 +1,33 @@
+<?xml version="1.0" encoding="utf-8"?>
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="100dp"
+    android:layout_height="100dp"
+    android:background="@color/colorAccent"
+    android:orientation="vertical">
+
+    <Button
+        android:id="@+id/db_button"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_below="@+id/db_text"
+        android:layout_centerHorizontal="true"
+        android:background="@drawable/blocky_button"
+        android:gravity="center_vertical|center_horizontal"
+
+        android:visibility="invisible"
+         />
+
+    <TextView
+        android:id="@+id/db_text"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_centerHorizontal="true"
+        android:layout_centerInParent="false"
+        android:layout_marginBottom="10dp"
+        android:layout_marginTop="10dp"
+        android:gravity="center_vertical|center_horizontal"
+        android:paddingTop="0dp"
+        android:text="Button Widget"
+        android:textAlignment="center"
+        android:visibility="invisible"/>
+</RelativeLayout>

@@ -12,6 +12,8 @@ public class GridOverlayView extends View
     private static final int MAX_HORIZ_BOXES = 10;
     private final Paint paint = new Paint();
 
+    public int[] GRID_ITEM_SIZE = new int[2];
+
     public GridOverlayView(Context paramContext)
     {
         super(paramContext);
@@ -69,9 +71,17 @@ public class GridOverlayView extends View
         int n = k - 1;
         int i1 = getHeight() / (m + 1);
         int i2 = getWidth() / (n + 1);
+
+        GRID_ITEM_SIZE[0] = i1;
+        GRID_ITEM_SIZE[1] = i2;
         for (int i3 = 1; i3 <= n; i3++)
             paramCanvas.drawLine(i3 * i2, 0.0F, i3 * i2, getHeight(), this.paint);
         for (int i4 = 1; i4 <= m; i4++)
             paramCanvas.drawLine(0.0F, i4 * i1, getWidth(), i4 * i1, this.paint);
+    }
+
+    public int[] getGridItemWidth()
+    {
+        return this.GRID_ITEM_SIZE;
     }
 }
