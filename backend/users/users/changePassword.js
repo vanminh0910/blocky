@@ -1,38 +1,35 @@
 'use strict';
 
-const config = require('../../config/config');
-const dynamodb = require('../../libs/dynamodb');
+const dynamodb = require('../libs/dynamodb');
 const bcrypt = require('bcrypt-nodejs');
 const jwt = require('jsonwebtoken');
+const config = require('../../config/config');
 
 module.exports.changePassword = (event, context, callback) => {
-  const email = event.requestContext.authorizer.principalId;
-  const data = JSON.parse(event.body);
-
+  const email = event.principalId;
+  const data = event.body;
   if (!data.password || !data.newPassword) {
-    callback(null, {
+    callback({
       statusCode: 400,
-      body: JSON.stringify({ error: 'Bad Request', message: 'Please enter current and new password' }),
+      body: JSON.stringify({ errorMessage: 'Please enter current and new password.' }),
     });
     return;
   }
-
-
   const getParams = {
     TableName: process.env.DYNAMODB_TABLE,
     Key: {
       email: email,
+      
     },
   };
-
   // fetch user from the database
   dynamodb.get(getParams, (error, result) => {
     // handle potential errors
     if (error) {
       console.error(error);
-      callback(null, {
+      callback({
         statusCode: 500,
-        body: JSON.stringify({ error: 'Internal Server Error', message: 'An internal server error occurred' }),
+        body: JSON.stringify({ errorMessage: 'Internal Server Error.' }),
       });
       return;
     }
@@ -53,7 +50,7 @@ module.exports.changePassword = (event, context, callback) => {
           ':updatedAt': timestamp,
         },
         UpdateExpression: 'SET #password = :newPassword, updatedAt = :updatedAt',
-        ReturnValues: 'NONE',
+        ReturnValues: 'ALL_NEW',
       };
 
       // update the password in the database
@@ -61,9 +58,9 @@ module.exports.changePassword = (event, context, callback) => {
         // handle potential errors
         if (error) {
           console.error(error);
-          callback(null, {
+          callback({
             statusCode: 500,
-            body: JSON.stringify({ error: 'Internal Server Error', message: 'An internal server error occurred' }),
+            body: JSON.stringify({ errorMessage: 'Internal Server Error.' }),
           });
           return;
         }
@@ -71,13 +68,14 @@ module.exports.changePassword = (event, context, callback) => {
         // create a response
         const response = {
           statusCode: 200,
+          body: '',
         };
         callback(null, response);
       });
     } else {
-      callback(null, {
+      callback({
         statusCode: 401,
-        body: JSON.stringify({ error: 'Unauthorized', message: 'Invalid password' }),
+        body: JSON.stringify({ errorMessage: 'Invalid password.' }),
       });
       return;
     }

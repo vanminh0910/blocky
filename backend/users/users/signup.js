@@ -1,34 +1,37 @@
 'use strict';
 
-const config = require('../../config/config');
-const dynamodb = require('../../libs/dynamodb');
+const dynamodb = require('../libs/dynamodb');
 const validator = require('validator');
 const bcrypt = require('bcrypt-nodejs');
 const jwt = require('jsonwebtoken');
-
+const config = require('../../config/config');
+const uuid = require('uuid');
+var shortid = require('shortid');
 
 module.exports.signup = (event, context, callback) => {
   const timestamp = new Date().getTime();
   const data = JSON.parse(event.body);
   if (!data.email || !data.password) {
-    callback(null, {
+    callback({
       statusCode: 400,
-      body: JSON.stringify({ error: 'Bad Request', message: 'Please enter email and password' }),
+      body: JSON.stringify({ errorMessage: 'Please enter email and password.' }),
     });
     return;
   } else if (!validator.isEmail(data.email)) {
-    callback(null, {
+    callback({
       statusCode: 400,
-      body: JSON.stringify({ error: 'Bad Request', message: 'Invalid email address' }),
+      body: JSON.stringify({ errorMessage: 'Invalid email address.' }),
     });
     return;
   }
-
+  
   const params = {
     TableName: process.env.DYNAMODB_TABLE,
     Item: {
+      id : uuid.v1(),
       email: data.email,
       password: bcrypt.hashSync(data.password),
+      auth_key : shortid.generate(),
       status: true,
       createdAt: timestamp,
       updatedAt: timestamp,
@@ -37,13 +40,13 @@ module.exports.signup = (event, context, callback) => {
   };
 
   // write the user to the database
-  dynamodb.put(params, (error) => {
+  dynamodb.put(params, (error,result) => {
     // handle potential errors
     if (error) {
       console.error(error);
-      callback(null, {
+      callback({
         statusCode: 500,
-        body: JSON.stringify({ error: 'Internal Server Error', message: 'An internal server error occurred' }),
+        body: JSON.stringify({ errorMessage: 'Internal Server Error.' }),
       });
       return;
     }
@@ -60,7 +63,7 @@ module.exports.signup = (event, context, callback) => {
 
     const response = {
       statusCode: 200,
-      body: JSON.stringify({ token: token }),
+      body: JSON.stringify({ token: token, user : params.Item }),
     };
     callback(null, response);
   });

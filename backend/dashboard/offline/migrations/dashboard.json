@@ -1,0 +1,33 @@
+{
+    "Table": {
+        "TableName": "blocky-dev-dashboard",
+        "KeySchema": [
+            {
+                "AttributeName": "id",
+                "KeyType": "RANGE"
+            },
+            {
+                "AttributeName": "owner",
+                "KeyType": "HASH"
+            }
+        ],
+        "AttributeDefinitions": [
+            {
+                "AttributeName": "id",
+                "AttributeType": "S"
+            },
+            {
+                "AttributeName": "name",
+                "AttributeType": "S"
+            },
+            {
+                "AttributeName": "owner",
+                "AttributeType": "S"
+            }
+        ],
+        "ProvisionedThroughput": {
+            "ReadCapacityUnits": 1,
+            "WriteCapacityUnits": 1
+        }
+    }
+}

@@ -1,7 +1,7 @@
 'use strict';
 
-const config = require('../../config/config');
 const jwt = require('jsonwebtoken');
+const config = require('../../config/config');
 
 // Policy helper function
 const generatePolicy = (principalId, effect, resource) => {
@@ -28,19 +28,16 @@ module.exports.auth = (event, context, callback) => {
     const token = event.authorizationToken.substring(4);
     jwt.verify(token, config.jwt.secret, null, (error, decoded) => {
       if (error) {
-        callback(null, {
+        callback({
           statusCode: 401,
-          body: JSON.stringify({ error: 'Unauthorized', message: 'Invalid token' }),
+          body: JSON.stringify({ errorMessage: 'Unauthorized.' }),
         });
       } else {
         callback(null, generatePolicy(decoded.user.email, 'Allow', event.methodArn));
       }
     });
   } else {
-    callback(null, {
-      statusCode: 401,
-      body: JSON.stringify({ error: 'Unauthorized', message: 'Invalid token' }),
-    });
+    callback('Unauthorized');
   }
 };
 
