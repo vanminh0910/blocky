@@ -1,12 +1,10 @@
 'use strict';
 
-const dynamodb = require('../libs/dynamodb');
-const validator = require('validator');
-const bcrypt = require('bcrypt-nodejs');
+const dynamodb = require('../../libs/dynamodb');
 const jwt = require('jsonwebtoken');
 const config = require('../../config/config');
 const uuid = require('uuid');
-const isEmpty = require('../libs/isEmpty');
+const isEmpty = require('../../libs/isEmpty');
 module.exports.checkAuthenticationKey = (event, context, callback) => {
   const token = event.headers.Authorization.substring(4);
   var decoded = jwt.verify(token, config.jwt.secret);

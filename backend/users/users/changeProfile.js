@@ -1,6 +1,6 @@
 'use strict';
 
-const dynamodb = require('../libs/dynamodb');
+const dynamodb = require('../../libs/dynamodb');
 const bcrypt = require('bcrypt-nodejs');
 const jwt = require('jsonwebtoken');
 const config = require('../../config/config');
@@ -11,7 +11,6 @@ module.exports.changeProfile = (event, context, callback) => {
     const data = event.body;
     const token = event.headers.Authorization.substring(4);
     const decoded = jwt.verify(token, config.jwt.secret);
-
     const timestamp = new Date().getTime();
     if (decoded.user.id != event.path.id) {
         callback(null, {

@@ -1,30 +1,24 @@
 'use strict';
 
+const dynamodb = require('../../libs/dynamodb');
 const uuid = require('uuid');
-const AWS = require('aws-sdk');
-
-const response = require('../libs/response');
-
-//const dynamoDb = new AWS.DynamoDB.DocumentClient();
-
-var dynamoDb = require('serverless-dynamodb-client').doc;
+const jwt = require('jsonwebtoken');
+const config = require('../../config/config');
 
 module.exports.create = (event, context, callback) => {
   const timestamp = new Date().getTime();
-  //console.log("User token sub: " + event.requestContext.authorizer.claims.sub);
-  console.log(event.body);
   const data = JSON.parse(event.body);
-  console.log(data);
+  const token = event.headers.Authorization.substring(4);
+  var decoded = jwt.verify(token, config.jwt.secret);
   if (typeof data.name !== 'string') {
     console.error('Validation Failed');
-    callback(null, response.failure({status: false, message: 'Couldn\'t create new board.'}));
+    callback(null, JSON.stringify({errorMessage : 'Couldn\'t create new board.'}));
     return;
   }
-
   const params = {
-    TableName: process.env.BOARDS_TABLE,
+    TableName: process.env.DYNAMODB_TABLE,
     Item: {
-      userId: 'event.requestContext.authorizer.claims.sub',
+      owner : decoded.user.email,
       id: uuid.v1(),
       name: data.name,
       chipId: data.chipId,
@@ -34,16 +28,18 @@ module.exports.create = (event, context, callback) => {
       updated_at: timestamp      
     },
   };
-
   // write the todo to the database
-  dynamoDb.put(params, (error) => {
+  dynamodb.put(params, (error,result) => {
     // handle potential errors
     if (error) {
       console.error(error);
-      callback(null, response.failure({status: false, message: 'Couldn\'t create new board.'}));
+      callback(null, JSON.stringify({errorMessage : 'Couldn\'t create new board.'}));
       return;
     }
-
-    callback(null, response.success(params.Item));
+    const response = {
+      statusCode: 200,
+      body: JSON.stringify(params.Item),
+    };
+    callback(null, response);
   });
 };

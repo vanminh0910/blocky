@@ -2,21 +2,22 @@
 
 const uuid = require('uuid');
 const dynamodb = require('../../libs/dynamodb');
-
-module.exports.list = (event, context, callback) => {
-  const email = event.requestContext.authorizer.principalId;
+const jwt = require('jsonwebtoken');
+const config = require('../../config/config');
+module.exports.getAllscripts = (event, context, callback) => {
   const params = {
     TableName: process.env.DYNAMODB_TABLE,
-    KeyConditionExpression: "#ownersub = :a",
+    KeyConditionExpression: '#ownerr = :asasadsd',
+    FilterExpression: 'owner = :owner',
     ExpressionAttributeNames:{
-      "#ownersub": "owner"
-      },
+        "#ownerr": "owner"
+    },
     ExpressionAttributeValues: {
-    ":a":email,
-    }
+        ':asasadsd': 'abc@abc.com',
+    },
   };
-  // list scripts from the database by users
-  dynamodb.query(params, (error, result) => {
+  // list scripts from the database
+  dynamodb.scan(params, (error, result) => {
     // handle potential errors
     if (error) {
       console.error(error);

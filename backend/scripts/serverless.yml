@@ -82,7 +82,7 @@ functions:
               - X-Amz-Date
               - Authorization
               - X-Api-Key
-              - X-Amz-Security-Token
+              - X-Amz-Security-Token   
   list:
     handler: scripts/list.list
     events:

@@ -1,6 +1,6 @@
 'use strict';
 
-const dynamodb = require('../libs/dynamodb');
+const dynamodb = require('../../libs/dynamodb');
 const validator = require('validator');
 const bcrypt = require('bcrypt-nodejs');
 const jwt = require('jsonwebtoken');

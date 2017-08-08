@@ -1,19 +1,23 @@
 # Welcome to Serverless!
 #
-# This file is the main config file for your service.
-service: blocky
+service: boards
 
-# You can pin your service to only deploy with a specific Serverless version
-# Check out our docs for more details
-# frameworkVersion: "=X.X.X"
-
+plugins:
+  - serverless-dynamodb-local
+  - serverless-offline
+custom:
+  dynamodb:
+    start:
+      port: 8000
+      inMemory: true
+      migrate: true
+    migration:
+      dir: offline/migrations
 provider:
   name: aws
   runtime: nodejs6.10
   environment:
-    BOARDS_TABLE: blocky-${opt:stage, self:provider.stage}-boards
-    SCRIPTS_TABLE: blocky-${opt:stage, self:provider.stage}-scripts
-    DASHBOARDS_TABLE: blocky-${opt:stage, self:provider.stage}-dashboards
+    DYNAMODB_TABLE: blocky-${opt:stage, self:provider.stage}-${self:service}
   iamRoleStatements:
     - Effect: Allow
       Action:
@@ -23,33 +27,22 @@ provider:
         - dynamodb:PutItem
         - dynamodb:UpdateItem
         - dynamodb:DeleteItem
-      Resource: "arn:aws:dynamodb:${opt:region, self:provider.region}:*:table/blocky-${opt:stage, self:provider.stage}-*"
-
-  # you can overwrite defaults here
-  stage: dev
-  region: us-east-1
-
-# you can add packaging information here
-#package:
-#  include:
-#    - include-me.js
-#    - include-me-dir/**
-#  exclude:
-#    - exclude-me.js
-#    - exclude-me-dir/**
+        - dynamodb:CreateTable
+      Resource: "arn:aws:dynamodb:${opt:region, self:provider.region}:*:table/${self:provider.environment.DYNAMODB_TABLE}" 
 
 functions:
-  board_create:
+  auth:
+    handler: boards/auth.auth
+  create:
     handler: boards/create.create
     events:
       - http:
           path: boards
           method: post
           cors: true
-          authorizer:
-            arn: arn:aws:cognito-idp:us-east-1:369779819427:userpool/us-east-1_JMGZrBm5x
+          authorizer: auth
   
-  board_get:
+  get:
     handler: boards/get.get
     events:
       - http:
@@ -57,27 +50,27 @@ functions:
           method: get
           cors: true
           authorizer:
-            arn: arn:aws:cognito-idp:us-east-1:369779819427:userpool/us-east-1_JMGZrBm5x
+            arn: auth
 
-  board_list:
+  list:
     handler: boards/list.list
     events:
       - http:
-          path: boards
+          path: boards/list
           method: get
           cors: true
-          #authorizer:
-          #  arn: arn:aws:cognito-idp:us-east-1:369779819427:userpool/us-east-1_JMGZrBm5x
+          authorizer:
+            arn : auth
 
-  board_update:
+  update:
     handler: boards/update.update
     events:
       - http:
-          path: boards/{id}
+          path: boards/{id}/update
           method: put
           cors: true
           authorizer:
-            arn: arn:aws:cognito-idp:us-east-1:369779819427:userpool/us-east-1_JMGZrBm5x
+            arn: auth
 
 resources:
   Resources:
@@ -89,11 +82,11 @@ resources:
             AttributeName: id
             AttributeType: S
           -
-            AttributeName: userId
+            AttributeName: owner
             AttributeType: S
         KeySchema:
           -
-            AttributeName: userId
+            AttributeName: owner
             KeyType: HASH
           -
             AttributeName: id
@@ -101,52 +94,4 @@ resources:
         ProvisionedThroughput:
           ReadCapacityUnits: 1
           WriteCapacityUnits: 1
-        TableName: ${self:provider.environment.BOARDS_TABLE}
-    
-    ScriptsDynamoDbTable:
-      Type: 'AWS::DynamoDB::Table'
-      Properties:
-        AttributeDefinitions:
-          -
-            AttributeName: id
-            AttributeType: S
-          -
-            AttributeName: userId
-            AttributeType: S
-        KeySchema:
-          -
-            AttributeName: userId
-            KeyType: HASH
-          -
-            AttributeName: id
-            KeyType: RANGE
-        ProvisionedThroughput:
-          ReadCapacityUnits: 1
-          WriteCapacityUnits: 1
-        TableName: ${self:provider.environment.SCRIPTS_TABLE}
-    
-    DashboardsDynamoDbTable:
-      Type: 'AWS::DynamoDB::Table'
-      Properties:
-        AttributeDefinitions:
-          -
-            AttributeName: id
-            AttributeType: S
-          -
-            AttributeName: userId
-            AttributeType: S
-        KeySchema:
-          -
-            AttributeName: userId
-            KeyType: HASH
-          -
-            AttributeName: id
-            KeyType: RANGE
-        ProvisionedThroughput:
-          ReadCapacityUnits: 1
-          WriteCapacityUnits: 1
-        TableName: ${self:provider.environment.DASHBOARDS_TABLE}
-
-plugins:
-  - serverless-dynamodb-local
-  - serverless-offline
+        TableName: ${self:provider.environment.DYNAMODB_TABLE}
