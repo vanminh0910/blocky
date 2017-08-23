@@ -118,6 +118,23 @@ functions:
               - Authorization
               - X-Api-Key
               - X-Amz-Security-Token
+  getAllscripts:
+    handler: users/getAllscripts.getAllscripts
+    events:
+      - http:
+          path : user/getAllscripts
+          method: GET
+          integration: lambda
+          authorizer: auth
+          cors:
+            origins:
+              - '*'
+            headers:
+              - Content-Type
+              - X-Amz-Date
+              - Authorization
+              - X-Api-Key
+              - X-Amz-Security-Token  
 resources:
   Resources:
     UsersDynamoDbTable:

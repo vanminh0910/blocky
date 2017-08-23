@@ -1,42 +1,35 @@
 'use strict';
 
 const uuid = require('uuid');
-const AWS = require('aws-sdk');
-
-const response = require('../libs/response');
-
-//const dynamoDb = new AWS.DynamoDB.DocumentClient();
-
-var dynamoDb = require('serverless-dynamodb-client').doc;
+const dynamodb = require('../../libs/dynamodb');
+var isEmpty = require('../../libs/isEmpty');
+const jwt = require('jsonwebtoken');
+const config = require('../../config/config');
 
 module.exports.list = (event, context, callback) => {
-  console.log('event.requestContext.authorizer');
-  console.log(event.requestContext.authorizer);
-  var userId = '';
-  if (event.requestContext.authorizer.principalId && 
-    event.requestContext.authorizer.principalId == 'offlineContext_authorizer_principalId') {
-      userId = 'event.requestContext.authorizer.claims.sub';
-  } else {
-    userId = event.requestContext.authorizer.claims.sub;
-  }
+
+  const token = event.headers.Authorization.substring(4);
+  var decoded = jwt.verify(token, config.jwt.secret);
   const params = {
-    TableName: process.env.BOARDS_TABLE,
-    // 'KeyConditionExpression' defines the condition for the query
-    // - 'userId = :userId': only return items with matching 'userId' partition key
-    // 'ExpressionAttributeValues' defines the value in the condition
-    // - ':userId': defines 'userId' to be User Pool sub of the authenticated user
-    KeyConditionExpression: "userId = :userId",
+    TableName: process.env.DYNAMODB_TABLE,
+    KeyConditionExpression: "#ownersub = :a",
+    ExpressionAttributeNames: {
+      "#ownersub": "owner"
+    },
     ExpressionAttributeValues: {
-      ":userId": userId //event.requestContext.authorizer.claims.sub,
+      ":a": decoded.user.email,
     }
   };
-  dynamoDb.query(params, (error, result) => {
+  dynamodb.query(params, (error, result) => {
     if (error) {
       console.error(error);
-      callback(null, response.failure({status: false, message: 'Couldn\'t fetch the boards.'}));
+      callback(null, JSON.stringify({ status: false, message: 'Couldn\'t list the boards.' }));
       return;
     }
-
-    callback(null, response.success(result.Items));
+    const response = {
+      statusCode: 200,
+      body: JSON.stringify(result),
+    };
+    callback(null, response);
   });
 };

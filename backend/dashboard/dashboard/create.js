@@ -1,6 +1,6 @@
 'use strict';
 
-const dynamodb = require('../libs/dynamodb');
+const dynamodb = require('../../libs/dynamodb');
 const uuid = require('uuid');
 
 module.exports.create = (event, context, callback) => {
