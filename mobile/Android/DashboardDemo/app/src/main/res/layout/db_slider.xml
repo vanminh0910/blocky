@@ -1,55 +1,70 @@
 <?xml version="1.0" encoding="utf-8"?>
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    android:layout_width="200dp"
+    android:layout_height="100dp"
+    android:orientation="vertical">
 
 
     <RelativeLayout
-    xmlns:android="http://schemas.android.com/apk/res/android"
-        xmlns:app="http://schemas.android.com/apk/res-auto"
-        xmlns:tools="http://schemas.android.com/tools"
-        android:layout_width="100dp"
-        android:layout_height="100dp">
-
-
-        <RelativeLayout
-            android:layout_width="match_parent"
+        android:layout_width="match_parent"
         android:layout_height="match_parent"
         android:layout_margin="7dp"
-        android:background="@drawable/blocky_widgetbg"
-        android:orientation="vertical">
+        android:background="@drawable/blocky_widgetbg">
 
-        <Button
-            android:id="@+id/db_button"
+        <LinearLayout
             android:layout_width="match_parent"
             android:layout_height="match_parent"
             android:layout_below="@+id/db_title"
-            android:layout_centerHorizontal="true"
-            android:layout_margin="10dip"
-            android:background="@drawable/ic_button_on"
-
-            android:gravity="center_vertical|center_horizontal"
-            android:padding="5dip"
-            android:text="GO"
-            android:textAppearance="@style/TextAppearance.AppCompat.Caption"
-            android:textColor="@color/colorWidgetbox"
-            android:textSize="24sp"
-            android:visibility="visible" />
+            android:orientation="vertical">
 
             <TextView
-                android:id="@+id/db_title"
+                android:id="@+id/db_slidevalue"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:layout_centerInParent="false"
-                android:layout_marginLeft="3dip"
-                android:layout_marginStart="3dip"
-                android:layout_marginTop="3dip"
+                android:layout_centerHorizontal="true"
+                android:layout_centerVertical="true"
+                android:layout_gravity="center"
+                android:layout_weight="1"
 
-                android:gravity="center"
+                android:gravity="center_vertical|center_horizontal"
+                android:text="100"
+                android:textColor="@color/colorWidget"
+                android:textSize="14sp" />
 
-                android:text="Label Widget"
-                android:textColor="@color/colorText"
-                android:textSize="8sp"
-                android:visibility="visible" />
+            <SeekBar
+                android:id="@+id/db_slider"
+                style="@android:style/Widget.Holo.SeekBar"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_alignLeft="@+id/db_title"
+                android:layout_alignParentBottom="true"
+                android:layout_alignStart="@+id/db_title"
+                android:layout_marginLeft="5dp"
+                android:layout_marginRight="5dp"
+                android:layout_weight="2"
+                android:max="100"
+                android:paddingLeft="5dp"
+                android:paddingRight="5dp"
+                android:progress="30"
+                android:thumb="@drawable/switch_thumb" />
+        </LinearLayout>
 
+        <TextView
+            android:id="@+id/db_title"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_centerInParent="false"
+            android:layout_marginLeft="3dip"
+            android:layout_marginStart="3dip"
 
+            android:layout_marginTop="3dip"
+
+            android:gravity="center"
+            android:text="Switch Widget"
+            android:textColor="@color/colorText"
+            android:textSize="8sp"
+            android:visibility="visible" />
     </RelativeLayout>
 
     <RelativeLayout
@@ -110,5 +125,4 @@
         </RelativeLayout>
     </RelativeLayout>
 
-
-    </RelativeLayout>
+</RelativeLayout>

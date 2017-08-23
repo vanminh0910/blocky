@@ -2,41 +2,51 @@ package com.stevano.blocky.dashboarddemo;
 
 
 
-import android.content.ClipData;
-import android.content.ClipDescription;
+import android.content.Context;
 import android.graphics.Color;
 import android.os.Build;
 import android.os.Bundle;
 import android.support.annotation.Nullable;
+import android.support.design.widget.CollapsingToolbarLayout;
 import android.support.design.widget.NavigationView;
 import android.support.v4.view.GravityCompat;
 import android.support.v4.widget.DrawerLayout;
-import android.support.v4.widget.ViewDragHelper;
-import android.support.v7.app.ActionBarDrawerToggle;
 import android.support.v7.app.AppCompatActivity;
+import android.support.v7.widget.SwitchCompat;
 import android.util.DisplayMetrics;
-import android.view.DragEvent;
+import android.util.Log;
 import android.view.Gravity;
+import android.view.KeyEvent;
 import android.view.LayoutInflater;
 import android.view.MenuItem;
 import android.view.MotionEvent;
 import android.view.View;
 import android.view.ViewGroup;
 import android.view.ViewManager;
-import android.view.Window;
 import android.view.WindowManager;
+import android.view.inputmethod.EditorInfo;
 import android.widget.Button;
-import android.widget.GridView;
+import android.widget.EditText;
 import android.widget.LinearLayout;
 import android.widget.RelativeLayout;
+import android.widget.SeekBar;
 import android.widget.TextView;
 import android.widget.Toast;
+import android.widget.ToggleButton;
 
 import com.github.florent37.awesomebar.ActionItem;
 import com.github.florent37.awesomebar.AwesomeBar;
-import com.stevano.blocky.dashboarddemo.Model.Block;
+import com.stevano.blocky.dashboarddemo.Model.Widget;
+import com.stevano.blocky.dashboarddemo.Model.WidgetEditBox;
 
-import java.lang.reflect.Field;
+import org.json.*;
+
+import java.io.BufferedReader;
+import java.io.FileNotFoundException;
+import java.io.IOException;
+import java.io.InputStream;
+import java.io.InputStreamReader;
+import java.io.OutputStreamWriter;
 import java.util.ArrayList;
 import java.util.List;
 
@@ -49,35 +59,43 @@ public class Dashboard extends AppCompatActivity
 
 {
 
+
+    int id = 0;
+    public JSONArray DashboardList;
+    final private int BUILD_MODE = 0;
+    final private int RUN_MODE = 1;
     int[] gridItemSize;
-    private List<ViewGroup> gridItems;
-
-
-
-    private boolean startDrag = false;
+    List<Widget> WidgetsList;
     RelativeLayout dashboardLayout;
     DrawerLayout drawerLayout;
     AwesomeBar bar;
     LayoutInflater layoutInflater;
-
     RelativeLayout.LayoutParams lParams;
     RelativeLayout.LayoutParams lParams_shadow;
-  //  GridView gridView;
+//    List<Block> blocks;
     GridOverlayView gridOverlayView;
-    List<Block> blocks;
-
     NavigationView navigationView;
     NavigationView createWidgetView;
-
     RelativeLayout shadowView;
-
-    final private int BUILD_MODE = 0;
-    final private int RUN_MODE = 1;
+    RelativeLayout resizeView;
+    EditText editText;
+    private List<ViewGroup> gridItems;
+    private boolean startDrag = false;
+    private boolean finishDrag = false;
+    private boolean enableResize = false;
 
     private int _yDelta;
     private int _xDelta;
 
     private int dashboard_state;
+    WidgetEditBox editBox;
+
+    View resize_top;
+    View resize_bottom;
+    View resize_left;
+    View resize_right;
+
+
 
     @Override
     protected void onCreate(@Nullable Bundle savedInstanceState) {
@@ -85,16 +103,23 @@ public class Dashboard extends AppCompatActivity
         setContentView(R.layout.activity_demo);
         setStatusBarTranslucent(true);
 
+        WidgetsList = new ArrayList<>();
 
-       // gridView = (GridView) findViewById(R.id.dashboard_gridview);
+        editBox = new WidgetEditBox(Dashboard.this);
+
+
+        // gridView = (GridView) findViewById(R.id.dashboard_gridview);
         gridOverlayView = (GridOverlayView) findViewById(R.id.gridOverlayView);
         dashboardLayout = (RelativeLayout) findViewById(R.id.dashboardLayout);
-        final int[] GridSize = getGridDimension();
 
         bar = (AwesomeBar) findViewById(R.id.bar);
         drawerLayout = (DrawerLayout) findViewById(R.id.drawer_layout);
+        editText = (EditText) findViewById(R.id.dashboard_name);
 
-        blocks = getDefaultListBlock();
+
+
+//        editText.setFocusable(false);
+//        blocks = getDefaultListBlock();
 
 //        dashboardAdapter = new DashboardAdapter(this, blocks);
 //        gridView.setAdapter(dashboardAdapter);
@@ -109,6 +134,35 @@ public class Dashboard extends AppCompatActivity
 
         bar.addAction(R.drawable.ic_build, "Build");
         bar.animate();
+        editText.setEnabled(false);
+        editText.setClickable(false);
+        editText.setCursorVisible(false);
+
+        editText.setOnEditorActionListener(new TextView.OnEditorActionListener() {
+            @Override
+            public boolean onEditorAction(TextView v, int actionId, KeyEvent event) {
+                if ( (actionId == EditorInfo.IME_ACTION_DONE) || ((event.getKeyCode() == KeyEvent.KEYCODE_ENTER) && (event.getAction() == KeyEvent.ACTION_DOWN ))) {
+
+                    // Do stuff when user presses enter
+
+//                    return true;
+
+                    editText.setCursorVisible(false);
+                }
+
+                return false;
+            }
+        });
+
+        editText.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+
+                editText.setCursorVisible(true);
+            }
+        });
+
+
 
 
         // bar.addAction(R.drawable.ic_run, "Run");
@@ -123,8 +177,17 @@ public class Dashboard extends AppCompatActivity
             public void onActionItemClicked(int position, ActionItem actionItem) {
                 Toast.makeText(getBaseContext(), actionItem.getText() + " clicked", Toast.LENGTH_LONG).show();
 
+               // Change to build mode
                 if (dashboard_state == RUN_MODE) {
                     bar.clearActions();
+
+                    editText.setEnabled(true);
+                    editText.setClickable(true);
+
+                    for(int i = 0; i< WidgetsList.size(); i++)
+                    {
+                        WidgetsList.get(i).getWidgetView().setEnabled(false);
+                    }
 
 //                    gridView.setVisibility(View.VISIBLE);
 
@@ -135,9 +198,21 @@ public class Dashboard extends AppCompatActivity
                     dashboard_state = BUILD_MODE;
 
 
-                } else {
+                }
+                // change to run mode
+                else {
                     bar.clearActions();
+
+                    editText.setEnabled(false);
+                    editText.setClickable(false);
+                    editText.setCursorVisible(false);
 //                    gridView.setVisibility(View.GONE);
+
+
+                    for(int i = 0; i< WidgetsList.size(); i++)
+                    {
+                        WidgetsList.get(i).getWidgetView().setEnabled(true);
+                    }
 
                     gridOverlayView.setVisibility(View.GONE);
                     bar.addAction(R.drawable.ic_build, "Build");
@@ -234,52 +309,133 @@ public class Dashboard extends AppCompatActivity
             public boolean onNavigationItemSelected(MenuItem item) {
                 // Handle Left navigation view item clicks here.
                 int id = item.getItemId();
-
+//button
                 if (id == R.id.create_button) {
-                    Toast.makeText(Dashboard.this, "Create Button", Toast.LENGTH_SHORT).show();
-                    Button btn = new Button(Dashboard.this);
-                    btn.setText("Click Me!");
-                    btn.setLayoutParams(new LinearLayout.LayoutParams((GridSize[0] / 4), (GridSize[0] / 8)));
-                    btn.setEnabled(true);
-                    btn.setTag("BUTTON_DRAG");
-                   // btn.setOnLongClickListener(new MyTouchListener());
-
-                    dashboardLayout.addView(btn);
-                } else if (id == R.id.create_text) {
-                    Toast.makeText(Dashboard.this, "Create Text", Toast.LENGTH_SHORT).show();
-                    // layoutInflater = LayoutInflater.from(Dashboard.this);
-                    RelativeLayout db_btns = (RelativeLayout) layoutInflater.inflate(R.layout.db_button,null,false);
-                    db_btns.setLayoutParams(new RelativeLayout.LayoutParams(gridItemSize[1]*2,gridItemSize[0]*2));
+                    RelativeLayout db_widget = (RelativeLayout) layoutInflater.inflate(R.layout.db_button,null,false);
+                    db_widget.setLayoutParams(new RelativeLayout.LayoutParams(gridItemSize[1]*4,gridItemSize[0]*2));
                     if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.LOLLIPOP) {
-                        db_btns.setElevation(2f);
+                        db_widget.setElevation(2f);
                     }
-                    db_btns.setOnLongClickListener(new WidgetOnLongClickListener());
-                    db_btns.setOnTouchListener(new WidgetOnTouchListener());
-                    TextView tv = db_btns.findViewById(R.id.db_text);
+                    db_widget.setOnLongClickListener(new WidgetOnLongClickListener());
+                    db_widget.setOnTouchListener(new WidgetOnTouchListener());
+                    TextView tv = db_widget.findViewById(R.id.db_title);
+                    tv.setText("Example Button");
+                    tv.setVisibility(View.VISIBLE);
+                    Button btn = db_widget.findViewById(R.id.db_button);
+                    btn.setVisibility(View.VISIBLE);
+
+                    btn.setEnabled(false);
+
+
+                    Widget temp = new Widget(id,"button","Example Button",btn, true, true);
+                    db_widget.setTag(temp);
+
+                    WidgetsList.add(temp);
+                    id++;
+
+
+                    dashboardLayout.addView(db_widget);
+                }
+//toggle button
+                else if (id == R.id.create_togglebtn) {
+
+                    RelativeLayout db_widget = (RelativeLayout) layoutInflater.inflate(R.layout.db_togglebutton,null,false);
+                    db_widget.setLayoutParams(new RelativeLayout.LayoutParams(gridItemSize[1]*2,gridItemSize[0]*2));
+                    if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.LOLLIPOP) {
+                        db_widget.setElevation(2f);
+                    }
+                    db_widget.setOnLongClickListener(new WidgetOnLongClickListener());
+                    db_widget.setOnTouchListener(new WidgetOnTouchListener());
+                    TextView tv = db_widget.findViewById(R.id.db_title);
+                    tv.setText("Example Toggle Button");
+                    tv.setVisibility(View.VISIBLE);
+                    ToggleButton btn = db_widget.findViewById(R.id.db_togglebtn);
+                    btn.setVisibility(View.VISIBLE);
+
+                    btn.setEnabled(false);
+
+                    Widget temp = new Widget(id,"togglebtn","Example Toggle Button",btn, true, true);
+
+                    db_widget.setTag(temp);
+                    WidgetsList.add(temp);
+                    id++;
+
+                    dashboardLayout.addView(db_widget);
+
+                }
+
+                else if (id == R.id.create_text) {
+                 //   Toast.makeText(Dashboard.this, "Create Text", Toast.LENGTH_SHORT).show();
+                    // layoutInflater = LayoutInflater.from(Dashboard.this);
+                    RelativeLayout db_widget = (RelativeLayout) layoutInflater.inflate(R.layout.db_label,null,false);
+                    db_widget.setLayoutParams(new RelativeLayout.LayoutParams(gridItemSize[1]*2,gridItemSize[0]));
+                    if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.LOLLIPOP) {
+                        db_widget.setElevation(2f);
+                    }
+                    db_widget.setOnLongClickListener(new WidgetOnLongClickListener());
+                    db_widget.setOnTouchListener(new WidgetOnTouchListener());
+                    TextView tv = db_widget.findViewById(R.id.db_title);
                     tv.setText("Example Text");
                     tv.setVisibility(View.VISIBLE);
-                    Button btn = db_btns.findViewById(R.id.db_button);
+                    TextView btn = db_widget.findViewById(R.id.db_label);
                     btn.setVisibility(View.VISIBLE);
 
-                    dashboardLayout.addView(db_btns);
-                } else if (id == R.id.create_switch) {
-                    Toast.makeText(Dashboard.this, "Create Switch", Toast.LENGTH_SHORT).show();
+                    btn.setEnabled(false);
+
+                    Widget temp = new Widget(id,"text","Example Text",btn,true, false);
+
+                    db_widget.setTag(temp);
+                    WidgetsList.add(temp);
+                    id++;
+
+                    dashboardLayout.addView(db_widget);
+
+                } else if (id == R.id.create_slider) {
+                   // Toast.makeText(Dashboard.this, "Create Switch", Toast.LENGTH_SHORT).show();
                   //   layoutInflater = LayoutInflater.from(Dashboard.this);
-                    RelativeLayout db_btn = (RelativeLayout) layoutInflater.inflate(R.layout.db_button,null,false);
-                    db_btn.setLayoutParams(new RelativeLayout.LayoutParams(gridItemSize[1]*2,gridItemSize[0]*2));
+                    RelativeLayout db_widget = (RelativeLayout) layoutInflater.inflate(R.layout.db_slider,null,false);
+                    db_widget.setLayoutParams(new RelativeLayout.LayoutParams(gridItemSize[1]*4,gridItemSize[0]*2));
                     if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.LOLLIPOP) {
-                        db_btn.setElevation(2f);
+                        db_widget.setElevation(2f);
                     }
-                    db_btn.setOnLongClickListener(new WidgetOnLongClickListener());
-                    db_btn.setOnTouchListener(new WidgetOnTouchListener());
-                    TextView tv = db_btn.findViewById(R.id.db_text);
-                    tv.setText("Example Switch");
+                    db_widget.setOnLongClickListener(new WidgetOnLongClickListener());
+                    db_widget.setOnTouchListener(new WidgetOnTouchListener());
+                    TextView tv = db_widget.findViewById(R.id.db_title);
+                    tv.setText("Example Slider");
                     tv.setVisibility(View.VISIBLE);
-                    Button btn = db_btn.findViewById(R.id.db_button);
+                    SeekBar btn = db_widget.findViewById(R.id.db_slider);
                     btn.setVisibility(View.VISIBLE);
+                    final TextView value = db_widget.findViewById(R.id.db_slidevalue);
+                    value.setText((Integer.toString(btn.getProgress())));
+                    btn.setOnSeekBarChangeListener(new SeekBar.OnSeekBarChangeListener() {
+                        @Override
+                        public void onProgressChanged(SeekBar seekBar, int i, boolean b) {
+                            value.setText(Integer.toString(i));
+                        }
+
+                        @Override
+                        public void onStartTrackingTouch(SeekBar seekBar) {
+
+                        }
+
+                        @Override
+                        public void onStopTrackingTouch(SeekBar seekBar) {
+
+                        }
+                    });
+
+                    btn.setEnabled(false);
 
 
-                    dashboardLayout.addView(db_btn);
+
+                    Widget temp = new Widget(id,"switch","Example Switch",btn, true, false);
+
+                    db_widget.setTag(temp);
+                    WidgetsList.add(temp);
+                    id++;
+
+
+                    dashboardLayout.addView(db_widget);
                 }
 
                 drawerLayout.closeDrawer(GravityCompat.END);
@@ -318,19 +474,19 @@ public class Dashboard extends AppCompatActivity
     }
 
 
-    private List<Block> getDefaultListBlock() {
-        List<Block> list = new ArrayList<Block>();
-
-        for (int j = 0; j < 16; j++) {
-            for (int i = 0; i < 8; i++) {
-                Block k = new Block(i, j, i + 8 * j);
-                list.add(k);
-            }
-        }
-
-
-        return list;
-    }
+//    private List<Block> getDefaultListBlock() {
+//        List<Block> list = new ArrayList<Block>();
+//
+//        for (int j = 0; j < 16; j++) {
+//            for (int i = 0; i < 8; i++) {
+//                Block k = new Block(i, j, i + 8 * j);
+//                list.add(k);
+//            }
+//        }
+//
+//
+//        return list;
+//    }
 
     private int[] getGridDimension() {
         DisplayMetrics dm = new DisplayMetrics();
@@ -351,6 +507,51 @@ public class Dashboard extends AppCompatActivity
         return screenInformation;
     }
 
+    private void writeToFile(String data) {
+        try {
+            OutputStreamWriter outputStreamWriter = new OutputStreamWriter(openFileOutput("DashboardList.txt", Context.MODE_PRIVATE));
+            outputStreamWriter.write(data);
+            outputStreamWriter.close();
+        }
+        catch (IOException e) {
+            Log.e("Exception", "File write failed: " + e.toString());
+        }
+    }
+
+    private String readFromFile() {
+
+        String ret = "";
+
+        try {
+            InputStream inputStream = openFileInput("DashboardList.txt");
+
+            if ( inputStream != null ) {
+                InputStreamReader inputStreamReader = new InputStreamReader(inputStream);
+                BufferedReader bufferedReader = new BufferedReader(inputStreamReader);
+                String receiveString = "";
+                StringBuilder stringBuilder = new StringBuilder();
+
+                while ( (receiveString = bufferedReader.readLine()) != null ) {
+                    stringBuilder.append(receiveString);
+                }
+
+                inputStream.close();
+                ret = stringBuilder.toString();
+            }
+        }
+        catch (FileNotFoundException e) {
+            Log.e("login activity", "File not found: " + e.toString());
+        } catch (IOException e) {
+            Log.e("login activity", "Can not read file: " + e.toString());
+        }
+
+        return ret;
+    }
+
+    public int Round(int number, int roundfactor)
+    {
+        return (number/ roundfactor) * roundfactor;
+    }
 
     private final class WidgetOnLongClickListener implements View.OnLongClickListener {
         public boolean onLongClick(View view) {
@@ -358,22 +559,14 @@ public class Dashboard extends AppCompatActivity
             lParams_shadow =  new RelativeLayout.LayoutParams(view.getLayoutParams());
             lParams = (RelativeLayout.LayoutParams) view.getLayoutParams();
 
-            shadowView = (RelativeLayout) layoutInflater.inflate(R.layout.db_button,null,false);
+            shadowView = (RelativeLayout) layoutInflater.inflate(R.layout.db_shadow,null,false);
             shadowView.setLayoutParams(lParams_shadow);
             shadowView.setAlpha(0.2f);
             shadowView.setBackgroundColor(Color.GREEN);
             shadowView.setVisibility(View.INVISIBLE);
             dashboardLayout.addView(shadowView);
 
-
-//
-//                if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.N) {
-//                    view.startDragAndDrop(data, shadowBuilder, view, 0);
-//                }
-//                else {
-//                    view.startDrag(data, shadowBuilder, view, 0);
-//                }
-//                view.setVisibility(View.INVISIBLE);
+            view.setAlpha(0.6f);
 
             startDrag = true;
                 return true;
@@ -385,11 +578,19 @@ public class Dashboard extends AppCompatActivity
         @Override
         public boolean onTouch(View view, MotionEvent event) {
 
-            //if (startDrag) {
-                view.setAlpha(0.6f);
+
+    if(resizeView != null)
+    {
+        resizeView.setVisibility(View.INVISIBLE);
+        
+    }
+
+            Widget currentWidget = (Widget) view.getTag();
 
                 final int X = (int) event.getRawX();
                 final int Y = (int) event.getRawY();
+                int width = view.getLayoutParams().width;
+                int height =  view.getLayoutParams().height;
 
                 switch (event.getAction() & MotionEvent.ACTION_MASK) {
                     case MotionEvent.ACTION_DOWN:
@@ -399,109 +600,78 @@ public class Dashboard extends AppCompatActivity
 
                         break;
                     case MotionEvent.ACTION_UP:
+                        if (!startDrag)
+                        {
+                            Toast.makeText(Dashboard.this,"Edit Mode on " + currentWidget.getTitle()  ,Toast.LENGTH_LONG).show();
+                            editBox.show();
 
+                        }
+if ((startDrag) && (finishDrag))  {
                         dashboardLayout.invalidate();
                         view.setLayoutParams(lParams_shadow);
                         view.setAlpha(1f);
-if (startDrag)
-                        ((ViewManager) shadowView.getParent()).removeView(shadowView);
-                        startDrag = false;
+
+
+    if (!enableResize) {
+
+        resizeView = view.findViewById(R.id.Resize_layout);
+        resizeView.setVisibility(View.VISIBLE);
+        resize_left = view.findViewById(R.id.resize_left);
+        resize_right = view.findViewById(R.id.resize_right);
+        resize_top = view.findViewById(R.id.resize_top);
+        resize_bottom = view.findViewById(R.id.resize_bottom);
+
+        if (currentWidget.ishScroll())
+        {
+            resize_left.setVisibility(View.VISIBLE);
+            resize_right.setVisibility(View.VISIBLE);
+        }
+
+        if (currentWidget.isvScroll())
+        {
+            resize_top.setVisibility(View.VISIBLE);
+            resize_bottom.setVisibility(View.VISIBLE);
+        }
+
+
+    }
+                    ((ViewManager) shadowView.getParent()).removeView(shadowView);
+                    startDrag = false;
+                    finishDrag = false;
+                    //Toast.makeText(Dashboard.this, "X: " + Round((X - _xDelta + view.getWidth() / 4), gridItemSize[1])/gridItemSize[1] +  " -  Y: " + Round((Y - _yDelta + view.getHeight() / 4), gridItemSize[0])/gridItemSize[0] , Toast.LENGTH_SHORT).show();
+                currentWidget.setX(Round((X - _xDelta + view.getWidth() / 4), gridItemSize[1])/gridItemSize[1]);
+                currentWidget.setY(Round((Y - _yDelta + view.getHeight() / 4), gridItemSize[0])/gridItemSize[0]);
+
+
+                                }
+                if (!finishDrag)
+                {
+                    view.setAlpha(1f);
+                }
                         break;
                     case MotionEvent.ACTION_POINTER_DOWN:
                         break;
                     case MotionEvent.ACTION_POINTER_UP:
                         break;
                     case MotionEvent.ACTION_MOVE:
-                        shadowView.setVisibility(View.VISIBLE);
-                        lParams_shadow.topMargin = Round((Y - _yDelta + view.getHeight()/4), gridItemSize[0]);
-                        lParams_shadow.leftMargin = Round((X - _xDelta + view.getWidth()/4 ), gridItemSize[1]);
-                        shadowView.setLayoutParams(lParams_shadow);
-                        lParams.topMargin = (Y - _yDelta);
-                        lParams.leftMargin = (X - _xDelta );
+if (startDrag) {
+                            shadowView.setVisibility(View.VISIBLE);
+                            lParams_shadow.topMargin = Round((Y - _yDelta + view.getHeight() / 4), gridItemSize[0]);
+                            lParams_shadow.leftMargin = Round((X - _xDelta + view.getWidth() / 4), gridItemSize[1]);
+                            shadowView.setLayoutParams(lParams_shadow);
+                            lParams.topMargin = (Y - _yDelta);
+                            lParams.leftMargin = (X - _xDelta);
 
-                        view.setLayoutParams(lParams);
+                            view.setLayoutParams(lParams);
+                        finishDrag = true;
+                }
                         break;
                 }
 
 return false;
-//                return false;
-//            } else {
-//                return false;
-//            }
+
 
         }
-    }
-
-
-
-    private class MyDragListener implements View.OnDragListener {
-
-        @Override
-        public boolean onDrag(View v, DragEvent event) {
-
-            View view = (View) event.getLocalState();
-
-            switch (event.getAction()) {
-                case DragEvent.ACTION_DRAG_STARTED:
-                    lParams = (RelativeLayout.LayoutParams) view.getLayoutParams();
-                    break;
-                case DragEvent.ACTION_DRAG_ENTERED:
-
-
-                    int x_cord = (int) event.getX();
-                    int y_cord = (int) event.getY();
-
-                    break;
-                case DragEvent.ACTION_DRAG_EXITED:
-
-
-                    ViewGroup.MarginLayoutParams marginParams = new ViewGroup.MarginLayoutParams(view.getLayoutParams());
-                    x_cord = (int) event.getX() + v.getWidth()/2 + 100;
-                    y_cord = (int) event.getY() + v.getHeight()/2;
-                    marginParams.setMargins(x_cord, y_cord, 0, 0);
-                    lParams = new RelativeLayout.LayoutParams(v.getWidth(), v.getHeight());
-
-
-                    lParams.leftMargin = (int) (event.getX() - (v.getWidth() / 2));
-                    lParams.topMargin = (int) (event.getY() - (v.getHeight()));
-
-
-                    view.setLayoutParams(lParams);
-
-//                    x_cord = (int) event.getX();
-//                    y_cord = (int) event.getY();
-//                    lParams.leftMargin = x_cord;
-//                    lParams.topMargin = y_cord;
-//
-//                    view.setLayoutParams(lParams);
-
-                    break;
-                case DragEvent.ACTION_DROP:
-                    // Dropped, reassign View to ViewGroup
-                    view.setX(event.getX());
-                    view.setY(event.getY());
-                    ViewGroup owner = (ViewGroup) view.getParent();
-                    owner.removeView(view);
-                    RelativeLayout container = (RelativeLayout) v;
-                    container.addView(view);
-                    view.setVisibility(View.VISIBLE);
-                    break;
-                case DragEvent.ACTION_DRAG_ENDED:
-
-                    break;
-                default:
-                    break;
-
-            }
-
-            return true;
-        }
-    }
-
-
-    public int Round(int number, int roundfactor)
-    {
-        return (number/ roundfactor) * roundfactor;
     }
 
 

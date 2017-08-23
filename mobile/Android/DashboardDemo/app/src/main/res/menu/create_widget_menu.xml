@@ -2,19 +2,36 @@
 <menu xmlns:android="http://schemas.android.com/apk/res/android">
 
     <group android:checkableBehavior="none">
+        <item android:title="Input">
+            <menu>
         <item
             android:id="@+id/create_button"
             android:icon="@android:drawable/btn_default"
             android:title="Button" />
+
+                <item
+                    android:id="@+id/create_togglebtn"
+                    android:icon="@android:drawable/btn_default"
+                    android:title="Toggle Button" />
+
+        <item
+            android:id="@+id/create_slider"
+            android:icon="@android:drawable/btn_dialog"
+            android:title="Slider" />
+
+            </menu>
+        </item>
+    </group>
+
+    <group android:checkableBehavior="none">
+        <item android:title="Output">
+            <menu>
         <item
             android:id="@+id/create_text"
             android:icon="@android:drawable/ic_menu_edit"
             android:title="Label" />
-        <item
-            android:id="@+id/create_switch"
-            android:icon="@android:drawable/btn_dialog"
-            android:title="Switch" />
-
+            </menu>
+        </item>
     </group>
 
 

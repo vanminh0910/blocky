@@ -5,4 +5,13 @@
     <string name="navigation_drawer_close">Close navigation drawer</string>
 
     <string name="action_settings">Settings</string>
+    <string name="title_activity_blocky_main">BlockyMain</string>
+    <string name="code_lab">Code Lab</string>
+    <string name="dashboard">Dashboard</string>
+    <string name="examples">Examples</string>
+    <string name="community">Community</string>
+    <string name="roboto">Roboto.ttf</string>
+    <string name="rubik">Rubik.ttf</string>
+
+
 </resources>

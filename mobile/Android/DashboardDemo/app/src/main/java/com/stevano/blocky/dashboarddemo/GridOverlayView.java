@@ -2,6 +2,7 @@ package com.stevano.blocky.dashboarddemo;
 
 import android.content.Context;
 import android.graphics.Canvas;
+import android.graphics.Color;
 import android.graphics.Paint;
 import android.util.AttributeSet;
 import android.view.View;
@@ -9,7 +10,7 @@ import android.view.View;
 public class GridOverlayView extends View
 {
     private static final int ALPHA = 65;
-    private static final int MAX_HORIZ_BOXES = 10;
+    private static final int MAX_VERTI_BOXES = 8;
     private final Paint paint = new Paint();
 
     public int[] GRID_ITEM_SIZE = new int[2];
@@ -47,13 +48,17 @@ public class GridOverlayView extends View
 
     private void init()
     {
-        this.paint.setAlpha(80);
+        //this.paint.setAlpha(90);
     }
 
     protected void onDraw(Canvas paramCanvas)
     {
-        
+
+        //this.paint.setAlpha(90);
+
+        this.paint.setColor(Color.BLACK);
         super.onDraw(paramCanvas);
+
         int i = gcd(getWidth(), getHeight());
         int j = getHeight() / i;
         int k = getWidth() / i;
@@ -62,10 +67,18 @@ public class GridOverlayView extends View
             j *= 2;
             k *= 2;
         }
-        if (j > MAX_HORIZ_BOXES)
+//        if (j > MAX_HORIZ_BOXES)
+//        {
+//            j = MAX_HORIZ_BOXES;
+//            k = Math.round(MAX_HORIZ_BOXES * getWidth() / getHeight());
+//        }
+
+
+
+        if (k > MAX_VERTI_BOXES)
         {
-            j = MAX_HORIZ_BOXES;
-            k = Math.round(MAX_HORIZ_BOXES * getWidth() / getHeight());
+            k = MAX_VERTI_BOXES;
+            j = Math.round(MAX_VERTI_BOXES * getHeight() / getWidth());
         }
         int m = j - 1;
         int n = k - 1;

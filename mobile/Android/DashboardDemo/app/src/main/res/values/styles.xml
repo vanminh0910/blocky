@@ -8,7 +8,18 @@
         <item name="colorAccent">@color/colorAccent</item>
         <!--<item name="android:windowTranslucentStatus">true</item>-->
         <!--<item name="android:windowTranslucentNavigation">true</item>-->
+
     </style>
 
+    <style name="SwitchCompatTheme" >
+        <item name="colorControlActivated">@color/colorPrimaryLight</item>
+    </style>
+    <style name="SwitchCompatStyle" >
+        <item name="android:thumb">@drawable/switch_thumb</item>
+
+        <item name="thumbTint">@color/white_trans</item>
+        <item name="trackTint">@color/switch_color</item>
+
+    </style>
 
 </resources>

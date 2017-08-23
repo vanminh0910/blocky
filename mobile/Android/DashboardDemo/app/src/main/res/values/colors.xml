@@ -2,8 +2,16 @@
 <resources>
     <color name="colorPrimary">#3F51B5</color>
     <color name="colorPrimaryDark">#303F9F</color>
-    <color name="colorAccent">#7D98A1</color>
+    <color name="colorAccent">#2A6FA5</color>
     <color name="colorBackground">#414145</color>
+    <color name="colorText">#9fa8da</color>
+    <color name="colorLapis">#266DD3</color>
 
     <color name="colorPrimaryLight">#3d5afe</color>
+<color name="colorWidget">#34A6FE</color>
+    <color name="colorWidgetDark">#2A6FA5</color>
+    <color name="white">#FFFFFF</color>
+    <color name="white_trans">#99FFFFFF</color>
+
+    <color name="colorWidgetbox">#2A2E2C</color>
 </resources>

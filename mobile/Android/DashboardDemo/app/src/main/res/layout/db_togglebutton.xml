@@ -1,55 +1,51 @@
 <?xml version="1.0" encoding="utf-8"?>
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="100dp"
+    android:layout_height="100dp">
 
 
     <RelativeLayout
-    xmlns:android="http://schemas.android.com/apk/res/android"
-        xmlns:app="http://schemas.android.com/apk/res-auto"
-        xmlns:tools="http://schemas.android.com/tools"
-        android:layout_width="100dp"
-        android:layout_height="100dp">
-
-
-        <RelativeLayout
-            android:layout_width="match_parent"
+        android:layout_width="match_parent"
         android:layout_height="match_parent"
         android:layout_margin="7dp"
         android:background="@drawable/blocky_widgetbg"
         android:orientation="vertical">
 
-        <Button
-            android:id="@+id/db_button"
+        <TextView
+            android:id="@+id/db_title"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_centerInParent="false"
+            android:layout_marginLeft="3dip"
+            android:layout_marginStart="3dip"
+            android:layout_marginTop="3dip"
+
+            android:gravity="center"
+
+            android:text="Label Widget"
+            android:textColor="@color/colorText"
+            android:textSize="8sp"
+            android:visibility="visible" />
+
+        <ToggleButton
+            android:id="@+id/db_togglebtn"
             android:layout_width="match_parent"
             android:layout_height="match_parent"
             android:layout_below="@+id/db_title"
             android:layout_centerHorizontal="true"
             android:layout_margin="10dip"
-            android:background="@drawable/ic_button_on"
-
+            android:background="@drawable/db_btn_statelist"
+            android:enabled="false"
             android:gravity="center_vertical|center_horizontal"
             android:padding="5dip"
-            android:text="GO"
             android:textAppearance="@style/TextAppearance.AppCompat.Caption"
-            android:textColor="@color/colorWidgetbox"
+            android:textColor="@drawable/db_btntv_statelist"
+            android:textOff="OFF"
+            android:textOn="ON"
             android:textSize="24sp"
             android:visibility="visible" />
-
-            <TextView
-                android:id="@+id/db_title"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:layout_centerInParent="false"
-                android:layout_marginLeft="3dip"
-                android:layout_marginStart="3dip"
-                android:layout_marginTop="3dip"
-
-                android:gravity="center"
-
-                android:text="Label Widget"
-                android:textColor="@color/colorText"
-                android:textSize="8sp"
-                android:visibility="visible" />
-
-
     </RelativeLayout>
 
     <RelativeLayout
@@ -111,4 +107,4 @@
     </RelativeLayout>
 
 
-    </RelativeLayout>
+</RelativeLayout>

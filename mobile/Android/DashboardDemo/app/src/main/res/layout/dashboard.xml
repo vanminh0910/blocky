@@ -19,14 +19,20 @@
         android:elevation="4dp"
         android:fitsSystemWindows="true">
 
-        <TextView
-            android:id="@+id/Db_name"
+        <EditText
+            android:id="@+id/dashboard_name"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
+            android:layout_gravity="center"
             android:ems="10"
             android:gravity="center"
-            android:layout_gravity="center"
-            android:text="Dashboard 1"
+            android:text="Dashboard 2"
+            android:ellipsize="end"
+            android:maxLines="1"
+            android:inputType="text"
+            android:background="@android:color/transparent"
+            android:scrollHorizontally="true"
+            android:maxLength="12"
             android:textAlignment="center"
             android:textColor="@color/colorAccent" />
     </com.github.florent37.awesomebar.AwesomeBar>

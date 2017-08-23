@@ -1,0 +1,24 @@
+<?xml version="1.0" encoding="utf-8"?>
+<menu xmlns:android="http://schemas.android.com/apk/res/android">
+
+    <item
+        android:id="@+id/code_lab"
+        android:icon="@drawable/ic_home_black_24dp"
+        android:title="@string/code_lab" />
+
+    <item
+        android:id="@+id/dashboard"
+        android:icon="@drawable/ic_dashboard_black_24dp"
+        android:title="@string/dashboard" />
+
+    <item
+        android:id="@+id/examples"
+        android:icon="@drawable/ic_notifications_black_24dp"
+        android:title="@string/examples" />
+
+    <item
+        android:id="@+id/community"
+        android:icon="@drawable/ic_menu_send"
+        android:title="@string/community" />
+
+</menu>
