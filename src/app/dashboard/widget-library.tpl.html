@@ -1,0 +1,87 @@
+<md-sidenav id="widget-library" class="md-whiteframe-4dp md-sidenav-left" md-component-id="widget-library">
+    <div layout="row" layout-align="center">
+        <h5 flex>Widget Library</h5>
+        <md-button aria-label="Close Widget Lib" ng-click="vm.closeWidgetLibrarySideNav()">
+            <i class="fa fa-chevron-left" aria-hidden="true"></i>
+        </md-button>
+    </div>
+    <md-divider></md-divider>
+    <div layout="column" layout-margin ng-cloak>
+        <div layout="row">
+            <md-whiteframe layout="row" layout-margin ng-click="vm.addWidget('button')" class="md-whiteframe-4dp tb-widget-button" flex="40">
+                <div class="tb-widget-tile-header">
+                    <h4>Button</h4>
+                </div>
+                <ripple r-disabled>
+                    <div class="tb-widget-tile-body" layout-fill layout="column" layout-align="center center">
+                        <i class="fa fa-play-circle" aria-hidden="true"></i>
+                    </div>
+                </ripple>
+            </md-whiteframe>
+
+            <md-whiteframe layout="row" layout-margin ng-click="vm.addWidget('switch')" class="md-whiteframe-4dp tb-widget-switch" flex="40">
+                <div class="tb-widget-tile-header">
+                    <h4>Switch</h4>
+                </div>
+                <ripple r-disabled>
+                    <div class="tb-widget-tile-body" layout-fill layout="column" layout-align="center center">
+                        <i class="fa fa-lightbulb-o" aria-hidden="true"></i>
+                    </div>
+                </ripple>
+            </md-whiteframe>
+        </div>
+
+        <div layout="row">
+            <md-whiteframe layout="row" layout-margin ng-click="vm.addWidget('slider')" class="md-whiteframe-4dp tb-widget-slider" flex="40">
+                <div class="tb-widget-tile-header">
+                    <h4>Slider</h4>
+                </div>
+                <ripple r-disabled>
+                    <div class="tb-widget-tile-body" layout-fill layout="column" layout-align="center center">
+                        <i class="fa fa-thermometer-half" aria-hidden="true"></i>
+                    </div>
+                </ripple>
+                <md-slider ng-disabled="true" flex min="0" max="100" aria-label="Slider" ng-model="vm.defaultSliderValue">
+                </md-slider>
+            </md-whiteframe>
+
+            <md-whiteframe layout="row" layout-margin ng-click="vm.addWidget('gauge')" class="md-whiteframe-4dp tb-widget-gauge" flex="40">
+                <ripple r-disabled>
+                    <div class="tb-widget-tile-body" layout-fill layout="column" layout-align="center center">
+                        <ng-gauge thick="10" size="80" type="arch" min="0" max="100" value="50" cap="round" label="" foreground-color="gold" append="">
+                        </ng-gauge>
+                    </div>
+                </ripple>
+            </md-whiteframe>
+        </div>
+
+        <div layout="row">
+            <md-whiteframe layout="row" layout-margin ng-click="vm.addWidget('valuedisplay')" class="md-whiteframe-4dp tb-widget-value-display" flex="40">
+                <div class="tb-widget-tile-header">
+                    <h4>Display</h4>
+                </div>
+                <ripple r-disabled>
+                    <div class="tb-widget-tile-body" layout-fill layout="column" layout-align="center center">
+                        <span>50%</span>
+                    </div>
+                </ripple>
+                <div class="tb-widget-value-display-icon">
+                    <i class="fa fa-battery-half" aria-hidden="true"></i>
+                </div>
+            </md-whiteframe>
+
+            <md-whiteframe layout="row" layout-margin ng-click="vm.addWidget('chart')" class="md-whiteframe-4dp tb-widget-chart" flex="40">
+                <div class="tb-widget-tile-header">
+                    <h4>Chart</h4>
+                </div>
+                <ripple r-disabled>
+                    <div class="tb-widget-tile-body" layout-fill layout="column" layout-align="center center">
+                        <div>
+                            <i class="fa fa-line-chart" aria-hidden="true"></i>
+                        </div>
+                    </div>
+                </ripple>
+            </md-whiteframe>
+        </div>
+    </div>
+</md-sidenav>

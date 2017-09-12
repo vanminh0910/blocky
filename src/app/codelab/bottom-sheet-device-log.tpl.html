@@ -1,0 +1,11 @@
+<md-bottom-sheet id="device-log-bottom-sheet" class="md-list md-has-header">
+    <div layout="row">
+        <h5 flex>Device Log</h5>
+        <md-button aria-label="Clear Log" ng-click="vm.clearDeviceLog()">
+            <i class="fa fa-ban" aria-hidden="true"></i>
+        </md-button>
+    </div>
+
+    <p ng-bind-html="vm.currentLog"></p>
+
+</md-bottom-sheet>

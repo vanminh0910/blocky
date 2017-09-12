@@ -1,0 +1,43 @@
+<!--
+
+    Copyright © 2017 The Blocky Authors
+
+    Licensed under the Apache License, Version 2.0 (the "License");
+    you may not use this file except in compliance with the License.
+    You may obtain a copy of the License at
+
+        http://www.apache.org/licenses/LICENSE-2.0
+
+    Unless required by applicable law or agreed to in writing, software
+    distributed under the License is distributed on an "AS IS" BASIS,
+    WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
+    See the License for the specific language governing permissions and
+    limitations under the License.
+
+-->
+<div id="home" flex layout="column" tabIndex="-1" role="main">
+    <md-toolbar class="md-whiteframe-z1" ng-hide="vm.Fullscreen.isEnabled()">
+        <div layout="row" layout-align="space-between center" flex class="md-toolbar-tools">
+            <div layout="column">
+                <h1 hide-xs><img src="./logo.png" width="36">locky</h1>
+                <h6 hide-xs hide-sm>
+                    Anyone can make
+                </h6>
+            </div>
+            <md-nav-bar layout="row" md-selected-nav-item="vm.currentNavItem" nav-bar-aria-label="navigation links">
+                <md-nav-item ng-repeat="item in vm.navItems" md-nav-sref="{{item.state}}" name="{{item.attributeName}}">
+                    <i class="fa {{item.faIcon}} fa-2x" aria-hidden="true"></i>
+                    <span hide-xs hide-sm>{{item.name | translate}}</span>
+                </md-nav-item>
+            </md-nav-bar>
+
+            <tb-user-menu></tb-user-menu>
+        </div>
+    </md-toolbar>
+    <md-progress-linear class="md-warn" style="z-index: 10; max-height: 0px; width: 100%;" md-mode="indeterminate" ng-disabled="!loading"
+        ng-show="loading"></md-progress-linear>
+
+    <div flex layout="column" id="toast-parent" style="position: relative;">
+        <md-content ng-cloak flex layout="column" class="page-content" ui-view name="content"></md-content>
+    </div>
+</div>

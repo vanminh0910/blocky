@@ -1,0 +1,145 @@
+/**
+ * Copyright © 2017 The Blocky Authors
+ *
+ * Licensed under the Apache License, Version 2.0 (the "License");
+ * you may not use this file except in compliance with the License.
+ * You may obtain a copy of the License at
+ *
+ *     http://www.apache.org/licenses/LICENSE-2.0
+ *
+ * Unless required by applicable law or agreed to in writing, software
+ * distributed under the License is distributed on an "AS IS" BASIS,
+ * WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
+ * See the License for the specific language governing permissions and
+ * limitations under the License.
+ */
+
+@import '../../scss/constants';
+#footer {
+  height: 60px;
+  i {
+    vertical-align: middle;
+    font-size: 1.5em !important;
+  }
+  .md-button {
+    text-transform: none;
+  }
+  md-select {
+    margin: 0;
+    max-width: 45%;
+    padding-bottom: 2px;
+  }
+  md-select-value {
+    i {
+      font-size: 1em !important;
+    }
+  }
+  .md-button {
+    min-width: 1%;
+    min-height: 1%;
+  }
+}
+
+#footer md-input-container {
+  margin-left: 20px;
+}
+
+.tb-editor-mode {
+  min-width: 130px !important;
+  @media (max-width: $layout-breakpoint-sm) {
+    min-width: 40px !important;
+  }
+}
+
+#side-bar {
+  #device-actions {
+    justify-content: space-between !important;
+    button>i {
+      font-size: 1.5em;
+    }
+    md-select-value {
+      i {
+        font-size: 18px;
+      }
+    }
+    md-select {
+      margin: 0;
+      max-width: 70%;
+    }
+  }
+  md-toolbar {
+    min-height: 30px;
+    .md-title {
+      font-size: 18px;
+    }
+    md-card-header {
+      padding-top: 8px;
+      padding-bottom: 8px;
+    }
+  }
+}
+
+.device {
+  font-size: 18px !important;
+  &-online {
+    color: green !important;
+  }
+  &-offline {
+    color: gray !important;
+  }
+}
+
+.ace_editor {
+  height: 100%;
+  font-size: 14px !important;
+}
+
+.md-toolbar-tools {
+  align-items: center !important;
+}
+
+md-bottom-sheet {
+  z-index: 100 !important;
+  i {
+    font-size: 1.5em !important;
+    vertical-align: middle;
+    margin-right: 8px;
+  }
+  .md-subheader-inner {
+    padding-top: 0 !important;
+    padding-bottom: 0 !important;
+    font-size: 18px;
+  }
+}
+
+#device-log {
+  md-card-header-text {
+    justify-content: center;
+  }
+  .md-button {
+    height: 30px;
+    margin: 0;
+    i {
+      font-size: 1.5em !important;
+    }
+  }
+  md-card-content {
+    overflow-y: auto;
+    p {
+      font: 14px Consolas;
+    }
+  }
+}
+
+#device-log-bottom-sheet {
+  p {
+    font: 14px Consolas;
+    max-height: 100px;
+    overflow-y: auto;
+  }
+  .md-button {
+    min-width: 1%;
+    height: 30px;
+    width: 30px;
+  }
+}

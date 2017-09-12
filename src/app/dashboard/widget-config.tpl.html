@@ -1,0 +1,177 @@
+<md-sidenav id="widget-config" class="md-whiteframe-4dp md-sidenav-right" md-component-id="widget-config">
+    <div layout="row" layout-align="center">
+        <md-button aria-label="Close Widget Config" ng-click="vm.closeWidgetConfigSideNav()">
+            <i class="fa fa-chevron-right" aria-hidden="true"></i>
+        </md-button>
+        <h5 flex>{{vm.selectedWidget.type==='valuedisplay'?'Display':vm.selectedWidget.type}} Settings</h5>
+    </div>
+    <md-divider></md-divider>
+    <div layout-padding>
+        <div ng-if="vm.selectedWidget.type=='button'">
+            <md-input-container>
+                <label>Name</label>
+                <input ng-model="vm.selectedWidget.name">
+            </md-input-container>
+            <div layout="row" layout-align="space-around none">
+                <tb-icon-picker icon="vm.selectedWidget.icon"></tb-icon-picker>
+                <tb-color-picker color="vm.selectedWidget.bgColor"></tb-color-picker>
+            </div>
+            <md-input-container>
+                <label>Output Topic</label>
+                <input type="text" ng-model="vm.selectedWidget.publishMessage.topic" />
+            </md-input-container>
+            <md-input-container>
+                <label>Message</label>
+                <input type="text" ng-model="vm.selectedWidget.publishMessage.message" />
+            </md-input-container>
+        </div>
+
+        <div ng-if="vm.selectedWidget.type=='switch'">
+            <md-input-container>
+                <label>Name</label>
+                <input ng-model="vm.selectedWidget.name">
+            </md-input-container>
+            <div layout="row" layout-align="space-around none">
+                <tb-icon-picker icon="vm.selectedWidget.icon"></tb-icon-picker>
+                <tb-color-picker color="vm.selectedWidget.bgColor"></tb-color-picker>
+            </div>
+            <md-input-container>
+                <label>Output Topic</label>
+                <input type="text" ng-model="vm.selectedWidget.subscribeMessage.topic" />
+            </md-input-container>
+            <div layout="row" layout-align="space-between none">
+                <md-input-container>
+                    <label>ON Message</label>
+                    <input type="text" ng-model="vm.selectedWidget.subscribeMessage.onMessage" />
+                </md-input-container>
+                <span flex="10"></span>
+                <md-input-container>
+                    <label>OFF Message</label>
+                    <input type="text" ng-model="vm.selectedWidget.subscribeMessage.offMessage" />
+                </md-input-container>
+            </div>
+        </div>
+
+        <div ng-if="vm.selectedWidget.type=='slider'">
+            <md-input-container>
+                <label>Name</label>
+                <input ng-model="vm.selectedWidget.name">
+            </md-input-container>
+            <div layout="row" layout-align="space-around none">
+                <tb-icon-picker icon="vm.selectedWidget.icon"></tb-icon-picker>
+                <tb-color-picker color="vm.selectedWidget.bgColor"></tb-color-picker>
+            </div>
+            <md-input-container>
+                <label>Output Topic</label>
+                <input type="text" ng-model="vm.selectedWidget.subscribeMessage.topic" />
+            </md-input-container>
+            <div layout="row" layout-align="space-between none">
+                <md-input-container>
+                    <label>Min Value</label>
+                    <input ng-model="vm.selectedWidget.min">
+                </md-input-container>
+                <span flex="10"></span>
+                <md-input-container>
+                    <label>Max Value</label>
+                    <input ng-model="vm.selectedWidget.max">
+                </md-input-container>
+            </div>
+        </div>
+
+        <div class="tb-gauge-config" ng-if="vm.selectedWidget.type=='gauge'">
+            <md-input-container>
+                <label>Name</label>
+                <input ng-model="vm.selectedWidget.name">
+            </md-input-container>
+            <div layout="row" layout-align="space-between none">
+                <div>
+                    <span>Gauge Size</span>
+                    <md-slider flex min="50" max="300" ng-model="vm.selectedWidget.size" aria-label="Gauge Size" class="md-primary">
+                    </md-slider>
+                </div>
+                <tb-icon-picker icon="vm.selectedWidget.icon"></tb-icon-picker>
+            </div>
+
+            <div layout="row" layout-align="space-between none">
+                <md-input-container>
+                    <label>Min Value</label>
+                    <input ng-model="vm.selectedWidget.min">
+                </md-input-container>
+                <span flex="10"></span>
+                <md-input-container>
+                    <label>Max Value</label>
+                    <input ng-model="vm.selectedWidget.max">
+                </md-input-container>
+            </div>
+            <md-input-container>
+                <label>Input Topic</label>
+                <input type="text" ng-model="vm.selectedWidget.subscribeMessage.topic" />
+            </md-input-container>
+            <md-input-container>
+                <label>Display Format</label>
+                <input type="text" ng-model="vm.selectedWidget.displayFormat" />
+            </md-input-container>
+            <md-radio-group ng-model="vm.selectedWidget.displayFormat">
+                <md-radio-button value="">no formatting (12.6789)</md-radio-button>
+                <md-radio-button value="#">rounded value (13)</md-radio-button>
+                <md-radio-button value="#.#">one decimal digit (12.7)</md-radio-button>
+                <md-radio-button value="#.##">two decimal places (12.69)</md-radio-button>
+                <md-radio-button value="#.#°C">one decimal and text (12.7°C)</md-radio-button>
+            </md-radio-group>
+        </div>
+
+        <div ng-if="vm.selectedWidget.type=='valuedisplay'">
+            <md-input-container>
+                <label>Name</label>
+                <input ng-model="vm.selectedWidget.name">
+            </md-input-container>
+            <div layout="row" layout-align="space-around none">
+                <tb-icon-picker icon="vm.selectedWidget.icon"></tb-icon-picker>
+                <tb-color-picker color="vm.selectedWidget.bgColor"></tb-color-picker>
+            </div>
+            <md-input-container>
+                <label>Input Topic</label>
+                <input type="text" ng-model="vm.selectedWidget.subscribeMessage.topic" />
+            </md-input-container>
+            <md-input-container>
+                <label>Display Format</label>
+                <input type="text" ng-model="vm.selectedWidget.displayFormat" />
+            </md-input-container>
+            <md-radio-group ng-model="vm.selectedWidget.displayFormat">
+                <md-radio-button value="">no formatting (12.6789)</md-radio-button>
+                <md-radio-button value="#">rounded value (13)</md-radio-button>
+                <md-radio-button value="#.#">one decimal digit (12.7)</md-radio-button>
+                <md-radio-button value="#.##">two decimal places (12.69)</md-radio-button>
+                <md-radio-button value="#.#°C">one decimal and text (12.7°C)</md-radio-button>
+            </md-radio-group>
+        </div>
+
+        <div ng-if="vm.selectedWidget.type=='chart'" id="chart-widget-config">
+            <md-input-container>
+                <label>Name</label>
+                <input ng-model="vm.selectedWidget.name">
+            </md-input-container>
+            <md-input-container>
+                <label>Input Topic</label>
+                <input type="text" ng-model="vm.selectedWidget.subscribeMessage.topic" />
+            </md-input-container>
+            <md-input-container>
+                <label>Period</label>
+                <md-select ng-model="vm.selectedWidget.subscribeMessage.dataType">
+                    <md-option value="4h">4 hours</md-option>
+                    <md-option value="8h">8 hours</md-option>
+                    <md-option value="1h">1 day</md-option>
+                    <md-option value="2d">3 days</md-option>
+                    <md-option value="1w">1 week</md-option>
+                    <md-option value="2w">2 weeks</md-option>
+                </md-select>
+            </md-input-container>
+        </div>
+    </div>
+    <div layout="row">
+        <md-button class="md-warn" ng-click="vm.removeWidget()">
+            <md-icon aria-label="Remove Widget" class="material-icons">delete</md-icon>
+            <span translate>Remove</span>
+        </md-button>
+    </div>
+</md-sidenav>

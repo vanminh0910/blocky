@@ -1,0 +1,47 @@
+<md-bottom-sheet class="md-list">
+    <md-subheader ng-if="vm.script.name" ng-cloak>Project: {{vm.script.name}}</md-subheader>
+    <md-list ng-cloak>
+        <md-list-item>
+            <md-button aria-label="New Project" ng-click="vm.newProject()" class="md-list-item-content">
+                <i class="fa fa-file-text-o" aria-hidden="true"></i><span> New Project</span>
+            </md-button>
+        </md-list-item>
+        <md-list-item ng-show="vm.isUserLoaded">
+            <md-button md-autofocus="true" aria-label="Open Project" ng-click="vm.openProject($event)" class="md-list-item-content">
+                <i class="fa fa-folder-open-o" aria-hidden="true"></i><span> Open Project</span>
+            </md-button>
+        </md-list-item>
+        <md-list-item>
+            <md-button ng-click="vm.downloadProject()" aria-label="Download Project" class="md-list-item-content">
+                <i class="fa fa-download" aria-hidden="true"></i><span> Download Project</span>
+            </md-button>
+        </md-list-item>
+        <md-list-item ng-show="vm.script.id">
+            <md-button aria-label="Rename Project" ng-click="vm.renameProject()" class="md-list-item-content">
+                <i class="fa fa-pencil" aria-hidden="true"></i><span> Rename Project</span>
+            </md-button>
+        </md-list-item>
+        <md-list-item ng-show="vm.script.id">
+            <md-button aria-label="Delete Project" ng-click="vm.deleteProject()" class="md-list-item-content">
+                <i class="fa fa-trash-o" aria-hidden="true"></i><span> Delete Project</span>
+            </md-button>
+        </md-list-item>
+        <md-divider ng-show="vm.currentDevice"></md-divider>
+        <md-list-item ng-show="vm.currentDevice">
+            <md-button aria-label="Rename Device" ng-click="vm.renameDevice()" class="md-list-item-content">
+                <i class="fa fa-pencil" aria-hidden="true"></i><span> Rename Device</span>
+            </md-button>
+        </md-list-item>
+        <md-list-item ng-show="vm.currentDevice">
+            <md-button aria-label="Delete Device" ng-click="vm.deleteDevice()" class="md-list-item-content">
+                <i class="fa fa-trash-o" aria-hidden="true"></i><span> Delete Device</span>
+            </md-button>
+        </md-list-item>
+        <md-divider ng-show="vm.currentDevice"></md-divider>
+        <md-list-item ng-show="vm.currentDevice">
+            <md-button aria-label="Show Device Log" ng-click="vm.showDeviceLog()" class="md-list-item-content">
+                <i class="fa fa-file-text-o" aria-hidden="true"></i><span> Show Device Log</span>
+            </md-button>
+        </md-list-item>
+    </md-list>
+</md-bottom-sheet>

@@ -1,0 +1,74 @@
+<!--
+
+    Copyright © 2017 The Blocky Authors
+
+    Licensed under the Apache License, Version 2.0 (the "License");
+    you may not use this file except in compliance with the License.
+    You may obtain a copy of the License at
+
+        http://www.apache.org/licenses/LICENSE-2.0
+
+    Unless required by applicable law or agreed to in writing, software
+    distributed under the License is distributed on an "AS IS" BASIS,
+    WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
+    See the License for the specific language governing permissions and
+    limitations under the License.
+
+-->
+<div id="sub-header" layout="row" class="md-whiteframe-4dp" ng-hide="vm.Fullscreen.isEnabled()">
+    <md-button ng-click="vm.addNewDashboard()" class="md-icon-button" aria-label="Add Dashboard" ng-if="!vm.editMode">
+        <ng-md-icon icon="add_circle_outline"></ng-md-icon>
+    </md-button>
+    <md-select ng-model="vm.currentDashboard" placeholder="Select a dashboard" class="md-no-underline" ng-disabled="vm.editMode"
+        ng-model-options="{trackBy: '$value.id'}">
+        <md-option ng-repeat="dashboard in vm.dashboards | orderBy: '-name'" ng-value="dashboard" ng-selected="$first" ng-click="vm.currentDashboardIndex = $index">
+            {{dashboard.name}}
+        </md-option>
+    </md-select>
+    <span flex></span>
+    <md-button class="md-icon-button" aria-label="Edit Dashboard" ng-show="!vm.editMode && vm.currentDashboard.id" ng-click="vm.editDashboard()">
+        <ng-md-icon icon="edit"></ng-md-icon>
+    </md-button>
+    <md-button class="md-icon-button" aria-label="Add Widget" ng-show="vm.editMode" ng-click="vm.toggleWidgetList()">
+        <ng-md-icon icon="add_circle_outline"></ng-md-icon>
+    </md-button>
+    <md-menu ng-if="vm.isUserLoaded" md-position-mode="target-right target" ng-show="vm.editMode">
+        <md-button class="md-icon-button" aria-label="Dashboard Menu" ng-click="$mdOpenMenu($event)">
+            <ng-md-icon icon="settings"></ng-md-icon>
+        </md-button>
+        <md-menu-content width="4">
+            <md-menu-item>
+                <md-button ng-click="vm.renameDashboard()">
+                    <md-icon md-menu-align-target aria-label="Rename Dashboard" class="material-icons">edit</md-icon>
+                    <span translate>Rename Dashboard</span>
+                </md-button>
+            </md-menu-item>
+            <md-menu-item>
+                <md-button ng-click="vm.deleteDashboard()">
+                    <md-icon md-menu-align-target aria-label="Delete Dashboard" class="material-icons">delete</md-icon>
+                    <span translate>Delete Dashboard</span>
+                </md-button>
+            </md-menu-item>
+        </md-menu-content>
+    </md-menu>
+    <md-button class="md-icon-button" aria-label="Run Dashboard" ng-show="vm.editMode" ng-click="vm.runDashboard()">
+        <ng-md-icon icon="play_circle_outline"></ng-md-icon>
+    </md-button>
+    <md-button ng-click="vm.toggleFullScreen()" class="md-icon-button" aria-label="Fullscreen" ng-show="!vm.editMode">
+        <ng-md-icon icon="{{vm.Fullscreen.isEnabled() ? 'fullscreen_exit' : 'fullscreen'}}"></ng-md-icon>
+    </md-button>
+</div>
+<div flex layout="column">
+    <div ng-include src="vm.widgetLibrary"></div>
+
+    <gridster options="vm.gridsterOptions" id="gridster" ng-class="vm.editMode ? 'tb-gridster-edit' : ''">
+        <gridster-item item="item" ng-repeat="item in vm.currentDashboard.content track by $index">
+            <div ng-include="item.type + '.html'" style="height: 100%;"></div>
+        </gridster-item>
+    </gridster>
+
+    <div ng-include src="vm.widgetConfig"></div>
+</div>
+
+<!-- Area for template -->
+<div ng-include src="vm.widgetTemplates"></div>

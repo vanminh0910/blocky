@@ -1,0 +1,79 @@
+<!--
+
+    Copyright © 2017 The Blocky Authors
+
+    Licensed under the Apache License, Version 2.0 (the "License");
+    you may not use this file except in compliance with the License.
+    You may obtain a copy of the License at
+
+        http://www.apache.org/licenses/LICENSE-2.0
+
+    Unless required by applicable law or agreed to in writing, software
+    distributed under the License is distributed on an "AS IS" BASIS,
+    WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
+    See the License for the specific language governing permissions and
+    limitations under the License.
+
+-->
+<md-dialog flex="30" aria-label="Projects">
+  <md-toolbar>
+    <div class="md-toolbar-tools">
+      <h2 translate>Projects</h2>
+      <span flex></span>
+      <md-button aria-label="Close" class="md-icon-button" ng-click="vm.cancel()">
+        <ng-md-icon icon="close" aria-label="Close"></ng-md-icon>
+      </md-button>
+    </div>
+  </md-toolbar>
+
+  <md-toolbar class="md-table-toolbar md-default" ng-hide="vm.selected.length || filter.show">
+    <div class="md-toolbar-tools">
+      <span flex></span>
+      <md-button aria-label="Search" class="md-icon-button" ng-click="filter.show = true">
+        <md-icon>search</md-icon>
+      </md-button>
+      <md-button aria-label="Add Project" class="md-icon-button" ng-click="vm.addItem($event)">
+        <md-icon>add</md-icon>
+      </md-button>
+    </div>
+  </md-toolbar>
+
+  <md-toolbar class="md-table-toolbar md-default" ng-show="filter.show && !vm.selected.length">
+    <div class="md-toolbar-tools">
+      <md-icon>search</md-icon>
+      <input flex ng-model="filter.search">
+      <md-button aria-label="Close" class="md-icon-button" ng-click="vm.removeFilter()">
+        <md-icon>close</md-icon>
+      </md-button>
+    </div>
+  </md-toolbar>
+
+  <md-toolbar class="md-table-toolbar alternate md-hue-3" ng-show="vm.selected.length">
+    <div class="md-toolbar-tools" layout-align="space-between">
+      <span>{{vm.selected.length}} {{vm.selected.length > 1 ? 'items' : 'item'}} selected</span>
+      <span flex></span>
+      <md-button aria-label="Delete Project" class="md-icon-button" ng-click="delete($event)">
+        <md-icon>delete</md-icon>
+      </md-button>
+    </div>
+  </md-toolbar>
+
+  <md-table-container>
+    <table md-table md-row-select multiple="" ng-model="vm.selected" md-progress="promise">
+      <thead fix-head md-head md-order="vm.query.order">
+        <tr md-row>
+          <th flex md-column md-order-by="name"><span>Name</span></th>
+          <th md-column md-numeric md-order-by="updatedAt" md-desc><span>Updated Date</span></th>
+        </tr>
+      </thead>
+      <tbody md-body>
+        <tr ng-click="vm.openProject(item.id)" md-row md-select="item" ng-repeat="item in vm.projects | filter: vm.customSearch | orderBy: vm.query.order | limitTo: vm.query.limit : (vm.query.page -1) * vm.query.limit">
+          <td md-cell>{{item.name}}</td>
+          <td md-cell>{{item.updatedAt | date:'yyyy-MM-dd HH:mm:ss'}}</td>
+        </tr>
+      </tbody>
+    </table>
+  </md-table-container>
+
+  <md-table-pagination md-limit="vm.query.limit" md-page="vm.query.page" md-total="{{vm.projects.length}}" md-page-select></md-table-pagination>
+</md-dialog>

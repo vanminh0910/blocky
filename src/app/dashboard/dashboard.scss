@@ -1,0 +1,241 @@
+/**
+ * Copyright © 2017 The Blocky Authors
+ *
+ * Licensed under the Apache License, Version 2.0 (the "License");
+ * you may not use this file except in compliance with the License.
+ * You may obtain a copy of the License at
+ *
+ *     http://www.apache.org/licenses/LICENSE-2.0
+ *
+ * Unless required by applicable law or agreed to in writing, software
+ * distributed under the License is distributed on an "AS IS" BASIS,
+ * WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
+ * See the License for the specific language governing permissions and
+ * limitations under the License.
+ */
+
+@import '../../scss/constants';
+#sub-header {
+    md-select {
+        margin-top: 0 !important;
+        margin-bottom: 0 !important;
+        max-width: 45%;
+        margin-left: 15px !important;
+    }
+    button+md-select {
+        margin-left: unset !important;
+    }
+}
+
+
+/* Widget styles */
+
+gridster {
+    background-color: #000 !important;
+    md-whiteframe {
+        height: 100%;
+    }
+    i {
+        color: #ffffff;
+    }
+    .tb-widget-chart h4 {
+        color: rgba(0, 0, 0, 0.87);
+    }
+    md-slider[md-discrete] .md-sign,
+    md-slider[md-discrete] .md-sign:after {
+        opacity: 1;
+        -webkit-transform: translate3d(0, 0, 0) scale(1);
+        transform: translate3d(0, 0, 0) scale(1);
+    }
+    md-slider .md-track.md-track-fill {
+        z-index: 100 !important;
+    }
+}
+
+.gridster-item-resizable-handler.handle-se {
+    border-width: 0 0 20px 20px !important;
+}
+
+md-sidenav h5 {
+    text-align: center;
+}
+
+gridster-item {
+    background-color: #000 !important;
+}
+
+md-whiteframe {
+    border-radius: 3px !important;
+    position: relative;
+}
+
+.ripple-cont {
+    min-width: 100% !important;
+}
+
+.tb-widget-tile-header {
+    position: absolute;
+    text-align: center;
+    width: 100%;
+    h4 {
+        font-size: 18px;
+        margin: 8px;
+        line-height: 18px;
+        color: #ffffff;
+    }
+}
+
+.tb-widget-tile-body {
+    i {
+        font-size: 48px;
+    }
+}
+
+.tb-widget-button {
+    background-color: #e91e63;
+}
+
+.tb-widget-switch {
+    background-color: #e91e63;
+}
+
+.tb-widget-slider {
+    background-color: #e91e63;
+    md-slider {
+        position: absolute;
+        bottom: 0;
+        min-width: 50px;
+        left: 10px;
+        right: 10px;
+    }
+}
+
+.tb-widget-chart {
+    background-color: #2196f3;
+}
+
+.tb-widget-gauge {
+    background-color: #2196f3;
+    color: #ffffff;
+    .tb-widget-gauge-icon {
+        position: absolute;
+        bottom: 10px;
+        left: 50%;
+        div {
+            position: relative;
+            left: -50%;
+        }
+    }
+}
+
+.tb-widget-value-display {
+    background-color: #2196f3;
+    color: #ffffff;
+    .tb-widget-tile-body {
+        font-size: 36px;
+    }
+    .tb-widget-value-display-icon {
+        position: absolute;
+        left: 10px;
+        bottom: 10px;
+        i {
+            font-size: 28px !important;
+        }
+    }
+}
+
+.white-slider .md-thumb:after,
+.white-slider .md-track-fill {
+    background-color: #ffffff !important;
+    border-color: #ffffff !important;
+}
+
+.white-slider .md-focus-thumb,
+.white-slider .md-focus-ring {
+    background-color: #ffffff;
+}
+
+.tb-widget-edit {
+    position: absolute;
+    top: 0;
+    right: 0;
+    z-index: 100;
+    button {
+        min-width: 36px;
+    }
+}
+
+#widget-library {
+    &>div>.md-button {
+        font-size: 20px;
+        width: 50px !important;
+        min-width: 1%;
+    }
+    div.layout-margin.layout-column > div {
+        margin-top: 0 !important;
+        margin-bottom: 0 !important;
+    }
+    md-whiteframe {
+        .tb-widget-tile-header {
+            margin: 0 !important;
+        }
+        .tb-widget-tile-body {
+            color: #ffffff;
+        }
+        border-radius: 2px;
+        &:before {
+            content: "";
+            float: left;
+            padding-top: 100%;
+        }
+        i {
+            font-size: 36px;
+            color: #ffffff;
+        }
+        md-slider {
+            height: 40px;
+        }
+        .tb-widget-value-display-icon {
+            margin: 0 !important;
+        }
+    }
+}
+
+#widget-config {
+    &>div {
+        &.layout-align-center-stretch.layout-row>.md-button {
+            font-size: 20px;
+            width: 50px !important;
+            min-width: 1%;
+        }
+        h5 {
+            text-transform: capitalize;
+        }
+    }
+    .md-select-value span {
+        font-size: 36px;
+        color: rgba(0, 0, 0, 0.54);
+    }
+    #chart-widget-config {
+        .md-select-value span {
+            font-size: unset;
+        }
+    }
+    .md-errors-spacer {
+        display: none;
+    }
+    md-select {
+        margin-top: 0;
+    }
+    .tb-gauge-config {
+        md-select {
+            margin-top: 20px !important;
+        }
+    }
+}
+
+
+/* Custom scrollbar */
+.tb-gridster-edit::-webkit-scrollbar {
+    width: 10px;
+}

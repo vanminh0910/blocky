@@ -1,0 +1,112 @@
+<!-- Template for button widget -->
+<script type="text/ng-template" id="button.html">
+    <md-whiteframe flex layout class="md-whiteframe-4dp tb-widget-button" ng-attr-style="background-color: {{item.bgColor}};">
+        <div class="tb-widget-tile-header">
+            <h4 ng-if="item.name.length">{{item.name}}</h4>
+        </div>
+        <div ng-if="vm.editMode" class="tb-widget-edit">
+            <md-button ng-click="vm.toggleWidgetConfig($index)" ng-touchstart="vm.toggleWidgetConfig($index)">
+                <md-icon class="material-icons md-light md-48">mode_edit</md-icon>
+            </md-button>
+        </div>
+        <ripple ng-class="vm.editMode ? 'disabled' : ''" ng-click="vm.widgetAction(item)">
+            <div class="tb-widget-tile-body" layout-fill layout="column" layout-align="center center">
+                <i class="fa {{item.icon}}" aria-hidden="true"></i>
+            </div>
+        </ripple>
+    </md-whiteframe>
+</script>
+
+<!-- Template for switch widget -->
+<script type="text/ng-template" id="switch.html">
+    <tb-switch-widget item="item" vm="vm" index="$index">
+    </tb-switch-widget>
+</script>
+
+<!-- Template for slider widget -->
+<script type="text/ng-template" id="slider.html">
+    <md-whiteframe flex layout class="md-whiteframe-4dp tb-widget-slider" ng-attr-style="background-color: {{item.bgColor}};">
+        <div class="tb-widget-tile-header">
+            <h4 ng-if="item.name.length">{{item.name}}</h4>
+        </div>
+        <div ng-if="vm.editMode" class="tb-widget-edit">
+            <md-button ng-click="vm.toggleWidgetConfig($index)" ng-touchstart="vm.toggleWidgetConfig($index)">
+                <md-icon class="material-icons md-light md-48">mode_edit</md-icon>
+            </md-button>
+        </div>
+        <div class="tb-widget-tile-body" layout-fill layout="row" layout-align="center center">
+            <div>
+                <i class="fa {{item.icon}}" aria-hidden="true"></i>
+            </div>
+        </div>
+        <md-slider md-discrete ng-change="vm.widgetAction(item)" class="white-slider" ng-disabled="vm.editMode" ng-model="item.value"
+            flex min="{{item.min}}" max="{{item.max}}" aria-label="Slider" class="md-primary">
+        </md-slider>
+    </md-whiteframe>
+</script>
+
+<!-- Template for gauge widget -->
+<script type="text/ng-template" id="gauge.html">
+    <md-whiteframe flex layout class="md-whiteframe-4dp tb-widget-gauge" ng-attr-style="background-color: {{item.bgColor}};">
+        <div class="tb-widget-tile-header">
+            <h4 ng-if="item.name.length">{{item.name}}</h4>
+        </div>
+        <div ng-if="vm.editMode" class="tb-widget-edit">
+            <md-button ng-click="vm.toggleWidgetConfig($index)" ng-touchstart="vm.toggleWidgetConfig($index)">
+                <md-icon class="material-icons md-light md-48">mode_edit</md-icon>
+            </md-button>
+        </div>
+        <div class="tb-widget-tile-body" layout-fill layout="column" layout-align="center center">
+            <ng-gauge thick="10" size="{{item.size}}" type="arch" min="item.min" max="item.max" value="item.value | displayFormat:item.displayFormat:0"
+                cap="round" label="" foreground-color="gold" prepend="{{item.value | displayFormat:item.displayFormat:-1}}" append="{{item.value | displayFormat:item.displayFormat:1}}">
+            </ng-gauge>
+            <div class="tb-widget-gauge-icon">
+                <div>
+                    <i class="fa {{item.icon}}" aria-hidden="true"></i>
+                </div>
+            </div>
+        </div>
+    </md-whiteframe>
+</script>
+
+<!-- Template for value display widget -->
+<script type="text/ng-template" id="valuedisplay.html">
+    <md-whiteframe flex layout class="md-whiteframe-4dp tb-widget-value-display" ng-attr-style="background-color: {{item.bgColor}};">
+        <div class="tb-widget-tile-header">
+            <h4 ng-if="item.name.length">{{item.name}}</h4>
+        </div>
+        <div ng-if="vm.editMode" class="tb-widget-edit">
+            <md-button ng-click="vm.toggleWidgetConfig($index)" ng-touchstart="vm.toggleWidgetConfig($index)">
+                <md-icon class="material-icons md-light md-48">mode_edit</md-icon>
+            </md-button>
+        </div>
+        <div class="tb-widget-tile-body" layout-fill layout="column" layout-align="center center">
+            <div>
+                <span>{{item.value | displayFormat:item.displayFormat}}</span>
+            </div>
+        </div>
+        <div class="tb-widget-value-display-icon">
+            <i class="fa {{item.icon}}" aria-hidden="true"></i>
+        </div>
+    </md-whiteframe>
+</script>
+
+<!-- Template for value chart widget -->
+<script type="text/ng-template" id="chart.html">
+    <md-whiteframe flex layout class="md-whiteframe-4dp tb-widget-chart" ng-attr-style="background-color: {{item.bgColor}};">
+        <div class="tb-widget-tile-header">
+            <h4 ng-if="item.name.length">{{item.name}}</h4>
+        </div>
+        <div ng-if="vm.editMode" class="tb-widget-edit">
+            <md-button ng-click="vm.toggleWidgetConfig($index)" ng-touchstart="vm.toggleWidgetConfig($index)">
+                <md-icon class="material-icons md-light md-48">mode_edit</md-icon>
+            </md-button>
+        </div>
+        <div class="tb-widget-tile-body" layout-fill layout="column" layout-align="center center">
+            <div>
+                <canvas id="line" class="chart chart-line" chart-data="item.data" chart-labels="item.labels" chart-options="vm.lineChartOptions">
+                </canvas>
+            </div>
+        </div>
+    </md-whiteframe>
+</script>
