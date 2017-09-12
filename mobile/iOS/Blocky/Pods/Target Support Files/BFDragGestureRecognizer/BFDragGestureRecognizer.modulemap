@@ -1,6 +1,0 @@
-framework module BFDragGestureRecognizer {
-  umbrella header "BFDragGestureRecognizer-umbrella.h"
-
-  export *
-  module * { export * }
-}

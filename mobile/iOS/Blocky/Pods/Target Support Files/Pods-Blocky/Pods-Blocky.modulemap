@@ -1,6 +1,0 @@
-framework module Pods_Blocky {
-  umbrella header "Pods-Blocky-umbrella.h"
-
-  export *
-  module * { export * }
-}
