@@ -22,10 +22,10 @@
         <div flex ui-ace="vm.luaEditorOptions" ng-show="vm.script.mode ==='lua'" ng-model="vm.script.lua"></div>
     </div>
 
-    <md-sidenav flex id="side-bar" class="md-whiteframe-1dp md-sidenav-right" md-is-locked-open="vm.isSidenavOpen && $mdMedia('gt-xs')"
+    <md-sidenav flex-gt-sm="25" flex="30" id="side-bar" class="md-whiteframe-1dp md-sidenav-right" md-is-locked-open="vm.isSidenavOpen && $mdMedia('gt-xs')"
         md-component-id="right">
         <div flex layout="column" layout-padding>
-            <img src="./esp8266.png" height="200">
+            <img src="./esp8266.png">
             <div layout="row" id="device-actions">
                 <md-button ng-disabled="!vm.isUserLoaded || !vm.currentDevice" ng-click="vm.uploadScript()" class="md-icon-button" aria-label="Device Menu">
                     <md-tooltip md-direction="bottom">

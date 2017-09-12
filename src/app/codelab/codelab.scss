@@ -52,6 +52,10 @@
 }
 
 #side-bar {
+  img {
+    width: 100%;
+    height: auto;
+  }
   #device-actions {
     justify-content: space-between !important;
     button>i {
@@ -64,7 +68,10 @@
     }
     md-select {
       margin: 0;
-      max-width: 70%;
+      max-width: 65%;
+      @media (max-width: $layout-breakpoint-sm) {
+        max-width: 50%;
+      }
     }
   }
   md-toolbar {
