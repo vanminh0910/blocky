@@ -55,6 +55,10 @@
     overflow-y: hidden !important;
   }
 
+  md-select-menu md-content {
+    overflow-y: auto !important;
+  }
+
   [ng-click],
   [data-ng-click],
   [x-ng-click] {
