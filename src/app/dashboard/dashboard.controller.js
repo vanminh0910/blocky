@@ -58,7 +58,7 @@ export default function DashboardController($scope, userService, dashboardServic
             content: [{
                 name: 'Play Music',
                 type: 'button',
-                icon: 'fa-play-circle',
+                icon: 'icon-bluetooth',
                 bgColor: '#e91e63',
                 publishMessage: {
                     topic: 'playMusic',
@@ -307,7 +307,7 @@ export default function DashboardController($scope, userService, dashboardServic
             vm.currentDashboard.content.push({
                 name: 'Button',
                 type: 'button',
-                icon: 'fa-play-circle',
+                icon: 'icon-bluetooth',
                 bgColor: '#e91e63',
                 publishMessage: {
                     topic: '',
@@ -321,7 +321,7 @@ export default function DashboardController($scope, userService, dashboardServic
             vm.currentDashboard.content.push({
                 name: 'Switch',
                 type: 'switch',
-                icon: 'fa-lightbulb-o',
+                icon: 'icon-unlock',
                 bgColor: '#e91e63',
                 value: false,
                 subscribeMessage: {
@@ -340,7 +340,7 @@ export default function DashboardController($scope, userService, dashboardServic
             vm.currentDashboard.content.push({
                 name: 'Slider',
                 type: 'slider',
-                icon: 'fa-thermometer-half',
+                icon: 'icon-volume-medium',
                 bgColor: '#e91e63',
                 min: 0,
                 max: 100,
@@ -359,7 +359,7 @@ export default function DashboardController($scope, userService, dashboardServic
             vm.currentDashboard.content.push({
                 name: 'Speed',
                 type: 'gauge',
-                icon: 'fa-snowflake-o',
+                icon: 'icon-volume-medium',
                 bgColor: '#2196f3',
                 displayFormat: '',
                 size: 120,
@@ -379,7 +379,7 @@ export default function DashboardController($scope, userService, dashboardServic
             vm.currentDashboard.content.push({
                 name: 'Value Display',
                 type: 'valuedisplay',
-                icon: 'fa-battery-half',
+                icon: 'icon-fan',
                 bgColor: '#2196f3',
                 displayFormat: '',
                 subscribeMessage: {

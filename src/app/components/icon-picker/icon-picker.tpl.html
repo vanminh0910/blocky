@@ -17,9 +17,9 @@
 -->
 <md-select ng-model="icon">
     <div layout="row" layout-wrap class="tb-icon-picker">
-        <md-option ng-repeat="icon in iconsList" ng-click="closeDropdown()" class="tb-icon-picker-item" value="{{icon.icon}}" aria-hidden="true"
+        <md-option ng-repeat="icon in iconsList" ng-click="closeDropdown()" class="tb-icon-picker-item" value="icon-{{icon.icon}}" aria-hidden="true"
             layout-align="center center">
-            <i class="fa {{icon.icon}}"></i>
+            <i class="icon-{{icon.icon}}"></i>
         </md-option>
     </div>
 </md-select>
