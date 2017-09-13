@@ -50,6 +50,12 @@ gridster {
     md-slider .md-track.md-track-fill {
         z-index: 100 !important;
     }
+
+    [class^="icon-"], [class*=" icon-"] {
+        font-size: 48px;
+        display: inline-block; 
+        fill: currentColor; 
+    }
 }
 
 .gridster-item-resizable-handler.handle-se {
@@ -212,9 +218,12 @@ md-whiteframe {
             text-transform: capitalize;
         }
     }
-    .md-select-value span {
-        font-size: 36px;
+    tb-icon-picker .md-select-value span i {
+        font-size: 28px;
         color: rgba(0, 0, 0, 0.54);
+    }
+    tb-color-picker .md-select-value span {
+        font-size: 36px;
     }
     #chart-widget-config {
         .md-select-value span {
