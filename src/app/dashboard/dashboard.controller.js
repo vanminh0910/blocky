@@ -460,7 +460,13 @@ export default function DashboardController($scope, userService, dashboardServic
 
     function removeWidget() {
         vm.currentDashboard.content.splice(vm.selectedWidgetIndex, 1);
-        $mdSidenav('widget-config').close();
+        $mdSidenav('widget-config').close()
+            .then(function () {
+                if (angular.isDefined(vm.gridsterOptions.api)) {
+                    vm.gridsterOptions.api.optionsChanged();
+                    vm.gridsterOptions.api.resize();
+                }
+            });
     }
 
     function cancel() {
