@@ -379,7 +379,7 @@ export default function DashboardController($scope, userService, dashboardServic
             vm.currentDashboard.content.push({
                 name: 'Value Display',
                 type: 'valuedisplay',
-                icon: 'icon-fan',
+                icon: 'icon-hot-thermometer',
                 bgColor: '#2196f3',
                 displayFormat: '',
                 subscribeMessage: {
