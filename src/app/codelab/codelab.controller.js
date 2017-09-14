@@ -104,6 +104,7 @@ export default function CodeLabController($mdSidenav, toast, scriptService, user
     $scope.$watch(() => this.script.lua, function (newValue, oldValue) {
         if (newValue && !angular.equals(newValue, oldValue)) {
             var script = store.get('script');
+            script.mode = 'lua';
             script.lua = newValue;
             store.set('script', script);
         }
@@ -327,6 +328,7 @@ export default function CodeLabController($mdSidenav, toast, scriptService, user
         $log.log('watch workspace');
         var script = store.get('script');
         var xml = Blockly.Xml.workspaceToDom(vm.workspace);
+        script.mode = 'block';
         script.xml = Blockly.Xml.domToText(xml);
         script.lua = Blockly.Lua.workspaceToCode(vm.workspace);
         store.set('script', script);
@@ -397,26 +399,24 @@ export default function CodeLabController($mdSidenav, toast, scriptService, user
                     .cancel($translate.instant('script.confirm-convert-cancel'));
 
                 $mdDialog.show(confirm).then(function () {
-                    vm.script.mode = 'block';
-                    if (!vm.workspace) {
-                        $timeout(function () {
-                            onResize();
-                        }, 500);
-                    }
+                    restoreBlockMode();
                 });
             } else {
-                vm.script.mode = 'block';
-                if (!vm.workspace) {
-                    $timeout(function () {
-                        onResize();
-                    }, 500);
-                }
+                restoreBlockMode();
             }
         } else {
             vm.script.mode = 'lua';
             vm.script.lua = Blockly.Lua.workspaceToCode(vm.workspace);
         }
-        store.set('script', vm.script);
+    }
+
+    function restoreBlockMode() {
+        vm.script.mode = 'block';
+        $timeout(function () {
+            if (document.getElementById('blocklyDiv').clientHeight === 0) {
+                onResize();
+            }
+        });
     }
 
     function saveProject() {
