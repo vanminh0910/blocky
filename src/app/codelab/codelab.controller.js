@@ -398,9 +398,11 @@ export default function CodeLabController($mdSidenav, toast, scriptService, user
 
                 $mdDialog.show(confirm).then(function () {
                     vm.script.mode = 'block';
-                    $timeout(function () {
-                        onResize();
-                    }, 500);
+                    if (!vm.workspace) {
+                        $timeout(function () {
+                            onResize();
+                        }, 500);
+                    }
                 });
             } else {
                 vm.script.mode = 'block';
