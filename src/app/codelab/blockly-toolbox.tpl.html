@@ -41,7 +41,7 @@
     </block>
     <block type="blockycloud_on_message_received">
       <field name="topic">topic</field>
-      <field name="message" id="F3x_4FNuK3PTuF`8jgT3" variabletype="">message</field>
+      <field name="message" id="iIxcQzB$tI!VP2[n;vbR" variabletype="">message</field>
       <field name="type">STRING</field>
     </block>
     <block type="blockycloud_send_log">
@@ -79,7 +79,7 @@
       <field name="MODE">WHILE</field>
     </block>
     <block type="controls_for">
-      <field name="VAR" id="b`Ll*htgbb-zZW-g9U(b" variabletype="">i</field>
+      <field name="VAR" id="HXeJ;W:B8gN`X4^~K2:T" variabletype="">i</field>
       <value name="FROM">
         <shadow type="math_number">
           <field name="NUM">1</field>
@@ -97,28 +97,23 @@
       </value>
     </block>
     <block type="controls_forEach">
-      <field name="VAR" id="@C0qfHgixWSUj2e.ymvS" variabletype="">j</field>
+      <field name="VAR" id=")eHr6]NqNzPnH.xg}(O," variabletype="">j</field>
     </block>
     <block type="controls_flow_statements">
       <field name="FLOW">BREAK</field>
     </block>
   </category>
   <category name="Math" colour="#5C68A6">
+    <block type="math_round">
+      <field name="OP">ROUND</field>
+      <value name="NUM">
+        <shadow type="math_number">
+          <field name="NUM">3.1</field>
+        </shadow>
+      </value>
+    </block>
     <block type="math_number">
       <field name="NUM">0</field>
-    </block>
-    <block type="math_arithmetic">
-      <field name="OP">ADD</field>
-      <value name="A">
-        <shadow type="math_number">
-          <field name="NUM">1</field>
-        </shadow>
-      </value>
-      <value name="B">
-        <shadow type="math_number">
-          <field name="NUM">1</field>
-        </shadow>
-      </value>
     </block>
     <block type="math_single">
       <field name="OP">ROOT</field>
@@ -148,11 +143,16 @@
         </shadow>
       </value>
     </block>
-    <block type="math_round">
-      <field name="OP">ROUND</field>
-      <value name="NUM">
+    <block type="math_arithmetic">
+      <field name="OP">ADD</field>
+      <value name="A">
         <shadow type="math_number">
-          <field name="NUM">3.1</field>
+          <field name="NUM">1</field>
+        </shadow>
+      </value>
+      <value name="B">
+        <shadow type="math_number">
+          <field name="NUM">1</field>
         </shadow>
       </value>
     </block>
@@ -204,14 +204,20 @@
     <block type="math_random_float"></block>
   </category>
   <category name="Text" colour="#5CA68D">
+    <block type="text_charAt">
+      <mutation at="true"></mutation>
+      <field name="WHERE">FROM_START</field>
+      <value name="VALUE">
+        <block type="variables_get">
+          <field name="VAR" id="nqP5,q7A|!I#b-qDR:!R" variabletype="">text</field>
+        </block>
+      </value>
+    </block>
     <block type="text">
       <field name="TEXT"></field>
     </block>
-    <block type="text_join">
-      <mutation items="2"></mutation>
-    </block>
     <block type="text_append">
-      <field name="VAR" id="cc:vwM|gnP=vn:!525qj" variabletype="">item</field>
+      <field name="VAR" id="d}7#L|]^HDTa4I|71u1L" variabletype="">item</field>
       <value name="TEXT">
         <shadow type="text">
           <field name="TEXT"></field>
@@ -236,7 +242,7 @@
       <field name="END">FIRST</field>
       <value name="VALUE">
         <block type="variables_get">
-          <field name="VAR" id="$n_S=HsX(FHxXs|!`:V@" variabletype="">text</field>
+          <field name="VAR" id="nqP5,q7A|!I#b-qDR:!R" variabletype="">text</field>
         </block>
       </value>
       <value name="FIND">
@@ -245,14 +251,8 @@
         </shadow>
       </value>
     </block>
-    <block type="text_charAt">
-      <mutation at="true"></mutation>
-      <field name="WHERE">FROM_START</field>
-      <value name="VALUE">
-        <block type="variables_get">
-          <field name="VAR" id="$n_S=HsX(FHxXs|!`:V@" variabletype="">text</field>
-        </block>
-      </value>
+    <block type="text_join">
+      <mutation items="2"></mutation>
     </block>
     <block type="text_getSubstring">
       <mutation at1="true" at2="true"></mutation>
@@ -260,7 +260,7 @@
       <field name="WHERE2">FROM_START</field>
       <value name="STRING">
         <block type="variables_get">
-          <field name="VAR" id="$n_S=HsX(FHxXs|!`:V@" variabletype="">text</field>
+          <field name="VAR" id="nqP5,q7A|!I#b-qDR:!R" variabletype="">text</field>
         </block>
       </value>
     </block>
@@ -298,11 +298,16 @@
     </block>
   </category>
   <category name="Lists" colour="#745CA6">
-    <block type="lists_create_with">
-      <mutation items="0"></mutation>
+    <block type="lists_indexOf">
+      <field name="END">FIRST</field>
+      <value name="VALUE">
+        <block type="variables_get">
+          <field name="VAR" id="%V@.q9/Qj@nH%?e[B.TT" variabletype="">list</field>
+        </block>
+      </value>
     </block>
     <block type="lists_create_with">
-      <mutation items="3"></mutation>
+      <mutation items="0"></mutation>
     </block>
     <block type="lists_repeat">
       <value name="NUM">
@@ -313,13 +318,8 @@
     </block>
     <block type="lists_length"></block>
     <block type="lists_isEmpty"></block>
-    <block type="lists_indexOf">
-      <field name="END">FIRST</field>
-      <value name="VALUE">
-        <block type="variables_get">
-          <field name="VAR" id="ADzqU[W%,i.*dte4_m1;" variabletype="">list</field>
-        </block>
-      </value>
+    <block type="lists_create_with">
+      <mutation items="3"></mutation>
     </block>
     <block type="lists_getIndex">
       <mutation statement="false" at="true"></mutation>
@@ -327,7 +327,7 @@
       <field name="WHERE">FROM_START</field>
       <value name="VALUE">
         <block type="variables_get">
-          <field name="VAR" id="ADzqU[W%,i.*dte4_m1;" variabletype="">list</field>
+          <field name="VAR" id="%V@.q9/Qj@nH%?e[B.TT" variabletype="">list</field>
         </block>
       </value>
     </block>
@@ -337,7 +337,7 @@
       <field name="WHERE">FROM_START</field>
       <value name="LIST">
         <block type="variables_get">
-          <field name="VAR" id="ADzqU[W%,i.*dte4_m1;" variabletype="">list</field>
+          <field name="VAR" id="%V@.q9/Qj@nH%?e[B.TT" variabletype="">list</field>
         </block>
       </value>
     </block>
@@ -347,7 +347,7 @@
       <field name="WHERE2">FROM_START</field>
       <value name="LIST">
         <block type="variables_get">
-          <field name="VAR" id="ADzqU[W%,i.*dte4_m1;" variabletype="">list</field>
+          <field name="VAR" id="%V@.q9/Qj@nH%?e[B.TT" variabletype="">list</field>
         </block>
       </value>
     </block>
@@ -448,28 +448,28 @@
       <field name="SDA">2</field>
     </block>
     <block type="i2c_address">
+      <field name="ADDR">0x00</field>
       <field name="DIR">READ</field>
-      <value name="ADDR">
-        <block type="text">
-          <field name="TEXT">0x00</field>
-        </block>
-      </value>
     </block>
     <block type="i2c_start"></block>
     <block type="i2c_write">
-      <value name="DATA">
-        <block type="text">
-          <field name="TEXT">0</field>
-        </block>
-      </value>
+      <field name="DATA">0</field>
     </block>
     <block type="i2c_stop"></block>
     <block type="i2c_read">
-      <value name="LEN">
+      <field name="LEN">1</field>
+    </block>
+  </category>
+  <category name="NeoPixel" colour="#a55b6d">
+    <block type="neopixel_setup"></block>
+    <block type="neopixel_set_brightness">
+      <value name="BRIGHT">
         <block type="math_number">
-          <field name="NUM">1</field>
+          <field name="NUM">255</field>
         </block>
       </value>
     </block>
+    <block type="neopixel_set_color_all"></block>
+    <block type="neopixel_set_color"></block>
   </category>
 </xml>
