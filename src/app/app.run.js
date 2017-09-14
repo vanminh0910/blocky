@@ -16,7 +16,7 @@
 import UrlHandler from './url.handler';
 
 /*@ngInject*/
-export default function AppRun($rootScope, $injector, $location, $state, $mdDialog, userService, $translate) {
+export default function AppRun($rootScope, $injector, $location, $state, $mdDialog, userService, $translate, store) {
 
     var forbiddenDialog = null;
 
@@ -42,9 +42,14 @@ export default function AppRun($rootScope, $injector, $location, $state, $mdDial
         $rootScope.pageTitle = 'Blocky';
 
         $rootScope.stateChangeSuccessHandle = $rootScope.$on('$stateChangeSuccess', function (evt, to) {
-            if (to.name === 'home') {
-                $state.go('home.codelab');                
+            var lastState = store.get('lastState');
+            if (to.name === 'home' && lastState) {
+                $state.go(lastState);
+            } else if (to.name === 'home') {
+                $state.go('home.codelab');
             }
+
+            store.set('lastState', to.name);
             if (angular.isDefined(to.data.pageTitle)) {
                 $translate(to.data.pageTitle).then(function (translation) {
                     $rootScope.pageTitle = 'Blocky | ' + translation;
