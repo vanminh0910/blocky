@@ -90,7 +90,7 @@ export default function HomeController(menu, $state, Fullscreen, deviceService, 
             chipId = topic.replace('/log', '');
             var deviceLog = store.get('deviceLog_' + chipId) || '';
             if (deviceLog.length) {
-                message = deviceLog + '<br>' + message;
+                message = message + '<br>' + deviceLog;
             }
             store.set('deviceLog_' + chipId, message);
         }
