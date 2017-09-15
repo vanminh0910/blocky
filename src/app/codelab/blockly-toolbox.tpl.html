@@ -569,4 +569,54 @@
       </value>
     </block>
   </category>
+  <category name="IOExpander" colour="#5b93a5">
+    <block type="io_expander_setup"></block>
+    <block type="io_expander_set_mode">
+      <field name="MODE">ADC</field>
+      <value name="CHANNEL">
+        <block type="math_number">
+          <field name="NUM">1</field>
+        </block>
+      </value>
+    </block>
+    <block type="io_expander_set_data">
+      <value name="CHANNEL">
+        <block type="math_number">
+          <field name="NUM">1</field>
+        </block>
+      </value>
+      <value name="DATA">
+        <block type="math_number">
+          <field name="NUM">0</field>
+        </block>
+      </value>
+    </block>
+    <block type="io_expander_get_data">
+      <value name="CHANNEL">
+        <block type="math_number">
+          <field name="NUM">1</field>
+        </block>
+      </value>
+    </block>
+  </category>
+  <category name="Motor" colour="#5b93a5">
+    <block type="motor_setup"></block>
+    <block type="motor_set_speed">
+      <value name="CHANNEL">
+        <block type="math_number">
+          <field name="NUM">1</field>
+        </block>
+      </value>
+      <value name="DIR">
+        <block type="math_number">
+          <field name="NUM">90</field>
+        </block>
+      </value>
+      <value name="SPEED">
+        <block type="math_number">
+          <field name="NUM">100</field>
+        </block>
+      </value>
+    </block>
+  </category>
 </xml>
