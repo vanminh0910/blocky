@@ -307,7 +307,7 @@ export default function DashboardController($scope, userService, dashboardServic
             vm.currentDashboard.content.push({
                 name: 'Button',
                 type: 'button',
-                icon: 'icon-bluetooth',
+                icon: 'icon-play-button',
                 bgColor: '#e91e63',
                 publishMessage: {
                     topic: '',
@@ -321,7 +321,7 @@ export default function DashboardController($scope, userService, dashboardServic
             vm.currentDashboard.content.push({
                 name: 'Switch',
                 type: 'switch',
-                icon: 'icon-unlock',
+                icon: 'icon-switch',
                 bgColor: '#e91e63',
                 value: false,
                 subscribeMessage: {
@@ -357,7 +357,7 @@ export default function DashboardController($scope, userService, dashboardServic
             })
         } else if (type === 'gauge') {
             vm.currentDashboard.content.push({
-                name: 'Speed',
+                name: 'Gauge',
                 type: 'gauge',
                 icon: 'icon-volume-medium',
                 bgColor: '#2196f3',
