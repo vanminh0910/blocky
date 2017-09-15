@@ -244,6 +244,7 @@ export default function DashboardController($scope, userService, dashboardServic
             if (isMobileDevice()) {
                 vm.gridsterOptions.margin = 15;
                 vm.gridsterOptions.resizable = {
+                    enabled: true,
                     handles: {
                         s: false,
                         e: true,
