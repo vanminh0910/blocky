@@ -50,11 +50,14 @@ gridster {
     md-slider .md-track.md-track-fill {
         z-index: 100 !important;
     }
-
-    [class^="icon-"], [class*=" icon-"] {
+    [class^="icon-"],
+    [class*=" icon-"] {
         font-size: 48px;
-        display: inline-block; 
-        fill: currentColor; 
+        display: inline-block;
+        fill: currentColor;
+    }
+    gridster-item .gridster-item-resizable-handler.handle-se {
+        border-color: transparent transparent #ccc
     }
 }
 
@@ -241,10 +244,4 @@ md-whiteframe {
             margin-top: 20px !important;
         }
     }
-}
-
-
-/* Custom scrollbar */
-.tb-gridster-edit::-webkit-scrollbar {
-    width: 10px;
 }

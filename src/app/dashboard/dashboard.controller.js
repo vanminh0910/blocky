@@ -70,6 +70,7 @@ export default function DashboardController($scope, userService, dashboardServic
                 x: 0
             }]
         }];
+        vm.currentDashboard = vm.dashboards[0];
     }
 
     vm.gridsterOptions = {
@@ -240,6 +241,21 @@ export default function DashboardController($scope, userService, dashboardServic
         vm.gridsterOptions.draggable.enabled = true;
         vm.gridsterOptions.resizable.enabled = true;
         if (angular.isDefined(vm.gridsterOptions.api)) {
+            if (isMobileDevice()) {
+                vm.gridsterOptions.margin = 15;
+                vm.gridsterOptions.resizable = {
+                    handles: {
+                        s: false,
+                        e: true,
+                        n: false,
+                        w: true,
+                        se: true,
+                        ne: true,
+                        sw: true,
+                        nw: true
+                    }
+                }
+            }
             vm.gridsterOptions.api.optionsChanged();
             vm.gridsterOptions.api.resize();
         }
@@ -280,6 +296,7 @@ export default function DashboardController($scope, userService, dashboardServic
         vm.gridsterOptions.draggable.enabled = false;
         vm.gridsterOptions.resizable.enabled = false;
         if (angular.isDefined(vm.gridsterOptions.api)) {
+            vm.gridsterOptions.api.margin = 4;
             vm.gridsterOptions.api.optionsChanged();
             vm.gridsterOptions.api.resize();
         }
@@ -659,5 +676,9 @@ export default function DashboardController($scope, userService, dashboardServic
             }
             return 0;
         }
+    }
+
+    function isMobileDevice() {
+        return angular.isDefined(window.orientation) || (navigator.userAgent.indexOf('IEMobile') !== -1);
     }
 }
