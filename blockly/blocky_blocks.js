@@ -436,7 +436,7 @@ Blockly.Blocks['mp3player_reset'] = {
 Blockly.Blocks['mp3player_play'] = {
   init: function() {
     this.appendValueInput("NAME")
-        .setCheck("String")
+        .setCheck("Number")
         .appendField("Play song");
     this.setInputsInline(true);
     this.setPreviousStatement(true, null);
@@ -531,8 +531,8 @@ Blockly.Blocks['mp3player_volume_down'] = {
 Blockly.Blocks['mp3player_loop'] = {
   init: function() {
     this.appendValueInput("NAME")
-        .setCheck("String")
-        .appendField("Loop music");
+        .setCheck("Number")
+        .appendField("Play loop song");
     this.setInputsInline(true);
     this.setPreviousStatement(true, null);
     this.setNextStatement(true, null);
@@ -642,6 +642,43 @@ Blockly.Blocks['io_expander_get_data'] = {
         .setCheck("Number")
         .appendField("Get data of channel (1-6)");
     this.setInputsInline(true);
+    this.setOutput(true, "Number");
+    this.setColour(230);
+ this.setTooltip("");
+ this.setHelpUrl("");
+  }
+};
+
+Blockly.Blocks['ir_setup'] = {
+  init: function() {
+    this.appendDummyInput()
+        .appendField("Setup IR module");
+    this.setPreviousStatement(true, null);
+    this.setNextStatement(true, null);
+    this.setColour(230);
+ this.setTooltip("");
+ this.setHelpUrl("");
+  }
+};
+
+Blockly.Blocks['ir_learn'] = {
+  init: function() {
+    this.appendValueInput("ID")
+        .setCheck("Number")
+        .appendField("Enter learn mode for command");
+    this.setPreviousStatement(true, null);
+    this.setNextStatement(true, null);
+    this.setColour(230);
+ this.setTooltip("");
+ this.setHelpUrl("");
+  }
+};
+
+Blockly.Blocks['ir_send'] = {
+  init: function() {
+    this.appendValueInput("ID")
+        .setCheck("Number")
+        .appendField("Send IR command");
     this.setPreviousStatement(true, null);
     this.setNextStatement(true, null);
     this.setColour(230);

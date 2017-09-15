@@ -369,3 +369,31 @@ Blockly.Lua['io_expander_get_data'] = function(block) {
   var code = 'ioexpander.getData(' + value_channel + ')\n';
   return code;
 };
+
+Blockly.Lua['io_expander_get_data'] = function(block) {
+  var value_channel = Blockly.Lua.valueToCode(block, 'CHANNEL', Blockly.Lua.ORDER_ATOMIC);
+  // TODO: Assemble Lua into code variable.
+  var code = 'ioexpander.getData(' + value_channel + ')';
+  // TODO: Change ORDER_NONE to the correct strength.
+  return [code, Blockly.Lua.ORDER_NONE];
+};
+
+Blockly.Lua['ir_setup'] = function(block) {
+  // TODO: Assemble Lua into code variable.
+  var code = 'irBlaster = require(\'ir\')\nirBlaster.setup()\n';
+  return code;
+};
+
+Blockly.Lua['ir_learn'] = function(block) {
+  var value_id = Blockly.Lua.valueToCode(block, 'ID', Blockly.Lua.ORDER_ATOMIC);
+  // TODO: Assemble Lua into code variable.
+  var code = 'irBlaster.learn(' + value_id + ')\n';
+  return code;
+};
+
+Blockly.Lua['ir_send'] = function(block) {
+  var value_id = Blockly.Lua.valueToCode(block, 'ID', Blockly.Lua.ORDER_ATOMIC);
+  // TODO: Assemble Lua into code variable.
+  var code = 'irBlaster.send(' + value_id + ')\n';
+  return code;
+};
