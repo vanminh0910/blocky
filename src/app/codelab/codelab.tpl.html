@@ -16,7 +16,7 @@
 
 -->
 <div flex layout="row" id="code-lab">
-    <div flex id="main-content">
+    <div flex id="main-content" layout="column">
         <div ng-include src="vm.blocklyToolbox"></div>
         <div id="blocklyDiv" style="position: absolute" ng-show="!vm.script.mode || vm.script.mode ==='block'"></div>
         <div flex ui-ace="vm.luaEditorOptions" ng-show="vm.script.mode ==='lua'" ng-model="vm.script.lua"></div>
