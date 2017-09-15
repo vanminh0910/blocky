@@ -21,7 +21,7 @@
     </md-button>
     <md-select ng-model="vm.currentDashboard" placeholder="Select a dashboard" class="md-no-underline" ng-disabled="vm.editMode"
         ng-model-options="{trackBy: '$value.id'}">
-        <md-option ng-repeat="dashboard in vm.dashboards | orderBy: 'name'" ng-value="dashboard" ng-selected="$first" ng-click="vm.currentDashboardIndex = $index">
+        <md-option ng-repeat="dashboard in vm.dashboards | orderBy: 'name'" ng-value="dashboard" ng-click="vm.currentDashboardIndex = $index">
             {{dashboard.name}}
         </md-option>
     </md-select>

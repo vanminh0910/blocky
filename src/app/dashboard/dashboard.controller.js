@@ -43,7 +43,6 @@ export default function DashboardController($scope, userService, dashboardServic
     vm.selectedWidgetIndex;
     vm.currentDashboard.content = [];
     vm.currentDashboard.subscribedTopics = [];
-    vm.currentDashboardIndex = 0;
     vm.editMode = false;
     vm.isUserLoaded = userService.isAuthenticated();
 
@@ -104,6 +103,14 @@ export default function DashboardController($scope, userService, dashboardServic
         onresize();
     });
 
+    $scope.$watch(() => this.currentDashboard, function (newValue, oldValue) {
+        if (newValue && !angular.equals(newValue, oldValue)) {
+            if (vm.currentDashboard.id) {
+                store.set('selectedDashboardId', vm.currentDashboard.id);
+            }
+        }
+    });
+
     $scope.$on("$destroy", function () {
         if (mqttClient) {
             mqttClient.end();
@@ -129,8 +136,6 @@ export default function DashboardController($scope, userService, dashboardServic
     vm.closeWidgetConfigSideNav = closeWidgetConfigSideNav;
     vm.toggleFullScreen = toggleFullScreen;
     vm.Fullscreen = Fullscreen;
-    vm.nextDashboard = nextDashboard;
-    vm.backDashboard = backDashboard;
 
     function closeWidgetLibrarySideNav() {
         $mdSidenav('widget-library').close();
@@ -143,7 +148,12 @@ export default function DashboardController($scope, userService, dashboardServic
     function loadUserDashboards() {
         dashboardService.getAllDashboards().then(function success(data) {
             var dashboards = data.dashboards;
+            var selectedDashboardId = store.get('selectedDashboardId');
+            var selectedDashboardIndex = undefined;
             for (var i = 0; i < dashboards.length; i++) {
+                if (dashboards[i].id === selectedDashboardId) {
+                    selectedDashboardIndex = i;
+                }
                 var content = angular.fromJson(dashboards[i].content);
                 if (content instanceof Array) {
                     dashboards[i].content = content;
@@ -151,7 +161,13 @@ export default function DashboardController($scope, userService, dashboardServic
                     dashboards[i].content = [];
                 }
             }
+
             vm.dashboards = dashboards;
+            if (angular.isDefined(selectedDashboardIndex)) {
+                vm.currentDashboard = vm.dashboards[selectedDashboardIndex];
+            } else {
+                vm.currentDashboard = vm.dashboards[0];
+            }
 
             if (mqtt) {
                 mqttClient = mqtt.connect(settings.mqtt.url, {
@@ -632,32 +648,6 @@ export default function DashboardController($scope, userService, dashboardServic
         } else {
             Fullscreen.all();
         }
-    }
-
-    function nextDashboard() {
-        if (vm.editMode) {
-            return;
-        }
-        var end = vm.dashboards.length;
-        var next = vm.currentDashboardIndex + 1;
-        if (next === end) {
-            next = 0;
-        }
-        vm.currentDashboardIndex = next;
-        vm.currentDashboard = vm.dashboards[next];
-    }
-
-    function backDashboard() {
-        if (vm.editMode) {
-            return;
-        }
-        var end = vm.dashboards.length;
-        var back = vm.currentDashboardIndex - 1;
-        if (back < 0) {
-            back = end - 1;
-        }
-        vm.currentDashboardIndex = back;
-        vm.currentDashboard = vm.dashboards[back];
     }
 
     function predicateBy(prop) {
