@@ -43,6 +43,7 @@
     "compass-sass-mixins": "^0.12.7",
     "font-awesome": "^4.7.0",
     "jquery": "^3.2.1",
+    "md-steppers": "^0.3.4",
     "moment": "^2.18.1",
     "ng-ripple": "^1.0.3",
     "ngtouch": "^1.0.1",
