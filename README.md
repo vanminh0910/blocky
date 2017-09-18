@@ -1,7 +1,7 @@
 # blocky
 This is public repository for all works related the amazing product Blocky
 
-![](https://ksr-ugc.imgix.net/assets/004/976/751/7d273f1694c9c37b446ae820ea49c92a_original.jpg?v=1448431948&w=680&fit=max&auto=format&q=92&s=d0c984a9f958d807035d12c045619660)
+![](https://www.getblocky.com/images/specs.png)
 
 ## Introduction
 Blocky is created to simplify the way to learn or develop IoT solution. It is an ESP8266 based Wi-Fi development board for you to create IoT applications with open-source, plug and play electronics, visual programming, remote control via cloud with both web and mobile app.The key feature of this project is that users never need to do any wiring or soldering or program one line of code when he makes an IoT solution up and running. 
@@ -17,7 +17,7 @@ Features:
 * Lightweighted and open sourced broker server based on MQTT
 * Able to deploy a private server with Docker
 
-[Video: Build IoT Device.](http://www.youtube.com/watch?v=p3Oynbe5zx4)
+[Video: Build IoT Device.](https://youtu.be/z-Spw_wk3Uc)
 
 
 ## About the Server
