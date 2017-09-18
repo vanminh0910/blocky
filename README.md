@@ -3,6 +3,8 @@ This is public repository for all works related the amazing product Blocky
 
 ![](https://www.getblocky.com/images/specs.png)
 
+More information can be found on our home page [http://getblocky.com] (http://getblocky.com)
+
 ## Introduction
 Blocky is created to simplify the way to learn or develop IoT solution. It is an ESP8266 based Wi-Fi development board for you to create IoT applications with open-source, plug and play electronics, visual programming, remote control via cloud with both web and mobile app.The key feature of this project is that users never need to do any wiring or soldering or program one line of code when he makes an IoT solution up and running. 
 
@@ -22,7 +24,7 @@ Features:
 
 ## About the Server
 
-Currently we have a sandbox server for beta demo purpose only but we can't guarantee the quality of the service persists good if the amount of connections becomes large. The server can be accessed via this link http://cloud.easytech.vn
+Currently we have a sandbox server for beta demo purpose only but we can't guarantee the quality of the service persists good if the amount of connections becomes large. The server can be accessed via this link http://play.getblocky.com
 
 
 ## Documentation
