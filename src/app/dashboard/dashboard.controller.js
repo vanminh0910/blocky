@@ -57,7 +57,7 @@ export default function DashboardController($scope, userService, dashboardServic
             content: [{
                 name: 'Play Music',
                 type: 'button',
-                icon: 'icon-bluetooth',
+                icon: 'icon-play-button',
                 bgColor: '#e91e63',
                 publishMessage: {
                     topic: 'playMusic',
@@ -442,11 +442,30 @@ export default function DashboardController($scope, userService, dashboardServic
                 rows: 3,
                 maxItemCols: 8
             })
+        } else if (type === 'stepControl') {
+            vm.currentDashboard.content.push({
+                name: 'Step Control',
+                type: 'stepControl',
+                icon: 'icon-sun',
+                bgColor: '#e91e63',
+                steps: 1,
+                min: 0,
+                max: 100,
+                value: 0,
+                subscribeMessage: {
+                    topic: '',
+                    dataType: '1'
+                },
+                cols: 2,
+                rows: 3,
+                minItemCols: 2,
+                minItemRows: 3
+            })
         }
         $mdSidenav('widget-library').close();
     }
 
-    function widgetAction(widget) {
+    function widgetAction(widget, position) {
         if (vm.editMode) {
             return;
         }
@@ -460,6 +479,32 @@ export default function DashboardController($scope, userService, dashboardServic
                 sendMessage(widget.subscribeMessage.topic, widget.subscribeMessage.offMessage.toString());
             }
         } else if (widget.type === 'slider') {
+            sendMessage(widget.subscribeMessage.topic, widget.value.toString());
+        } else if (widget.type === 'stepControl') {
+            if (widget.steps === 0 || widget.min > widget.max) {
+                return;
+            }
+            var currentValue = parseFloat(widget.value);
+            widget.steps = parseFloat(widget.steps);
+            widget.max = parseFloat(widget.max);
+            widget.min = parseFloat(widget.min);
+
+            if (position === 1) {
+                currentValue = currentValue + widget.steps;
+                if (currentValue > widget.max) {
+                    currentValue = widget.max;
+                }
+            } else if (position === -1) {
+                currentValue = currentValue - widget.steps;
+                if (currentValue < widget.min) {
+                    currentValue = widget.min;
+                }
+            } else {
+                return;
+            }
+
+            widget.value = currentValue;
+
             sendMessage(widget.subscribeMessage.topic, widget.value.toString());
         }
     }

@@ -68,12 +68,12 @@
             <div layout="row" layout-align="space-between none">
                 <md-input-container>
                     <label>Min Value</label>
-                    <input ng-model="vm.selectedWidget.min">
+                    <input type="number" ng-model="vm.selectedWidget.min">
                 </md-input-container>
                 <span flex="10"></span>
                 <md-input-container>
                     <label>Max Value</label>
-                    <input ng-model="vm.selectedWidget.max">
+                    <input type="number" ng-model="vm.selectedWidget.max">
                 </md-input-container>
             </div>
         </div>
@@ -166,6 +166,37 @@
                     <md-option value="2w">2 weeks</md-option>
                 </md-select>
             </md-input-container>
+        </div>
+
+        <div ng-if="vm.selectedWidget.type=='stepControl'">
+            <md-input-container>
+                <label>Name</label>
+                <input ng-model="vm.selectedWidget.name">
+            </md-input-container>
+            <div layout="row" layout-align="space-around end">
+                <tb-icon-picker icon="vm.selectedWidget.icon"></tb-icon-picker>
+                <tb-color-picker color="vm.selectedWidget.bgColor"></tb-color-picker>
+            </div>
+            <md-input-container>
+                <label>Output Topic</label>
+                <input type="text" ng-model="vm.selectedWidget.subscribeMessage.topic" />
+            </md-input-container>
+            <div layout="row" layout-align="space-between end">
+                <md-input-container>
+                    <label>Steps</label>
+                    <input type="number" ng-model="vm.selectedWidget.steps">
+                </md-input-container>
+                <span flex="10"></span>
+                <md-input-container>
+                    <label>Min Value</label>
+                    <input type="number" ng-model="vm.selectedWidget.min">
+                </md-input-container>
+                <span flex="10"></span>
+                <md-input-container>
+                    <label>Max Value</label>
+                    <input type="number" ng-model="vm.selectedWidget.max">
+                </md-input-container>
+            </div>
         </div>
     </div>
     <div layout="row">

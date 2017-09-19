@@ -59,6 +59,21 @@ gridster {
     gridster-item .gridster-item-resizable-handler.handle-se {
         border-color: transparent transparent #ccc
     }
+
+    .tb-widget-step-control {
+        .tb-widget-tile-body {
+            color: #ffffff;
+            font-size: 36px;
+        }
+        .tb-widget-step-control-icon {
+            position: absolute;
+            left: 10px;
+            bottom: 10px;
+            i {
+                font-size: 28px !important;
+            }
+        }
+    }
 }
 
 .gridster-item-resizable-handler.handle-se {
@@ -180,7 +195,7 @@ md-whiteframe {
         width: 50px !important;
         min-width: 1%;
     }
-    div.layout-margin.layout-column > div {
+    div.layout-margin.layout-column>div {
         margin-top: 0 !important;
         margin-bottom: 0 !important;
     }
@@ -199,13 +214,38 @@ md-whiteframe {
         }
         i {
             font-size: 36px;
-            color: white;
+            color: #ffffff;
         }
         md-slider {
             height: 40px;
         }
+    }
+    .tb-widget-value-display {
         .tb-widget-value-display-icon {
             margin: 0 !important;
+        }
+        .tb-widget-tile-body {
+            font-size: 28px !important;
+        }
+    }
+    .tb-widget-step-control {
+        background-color: #2196f3;
+        color: #ffffff;
+        position: relative;
+        text-align: center;
+        .tb-widget-tile-body {
+            font-size: 28px !important;
+        }
+        .tb-icon-up {
+            top: -5px;
+        }
+        .tb-icon-down {
+            bottom: -5px;
+        }
+        .tb-icon-up, .tb-icon-down {
+            position: absolute;
+            left: 0;
+            right: 0;
         }
     }
 }
