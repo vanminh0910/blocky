@@ -31,6 +31,7 @@ function DeviceService($http, $q, $rootScope, $filter, settings) {
         deleteDevice: deleteDevice,
         saveDevice: saveDevice,
         loadAPList: loadAPList,
+        postToBlocky: postToBlocky,
     }
 
     return service;
@@ -107,6 +108,16 @@ function DeviceService($http, $q, $rootScope, $filter, settings) {
     function loadAPList() {
         var deferred = $q.defer();
         var url = settings.localApiUrl;
+        $http.get(url, null).then(function success(response) {
+            deferred.resolve(response.data);
+        }, function fail(response) {
+            deferred.reject(response.data);
+        });
+        return deferred.promise;
+    }
+
+    function postToBlocky(url) {
+        var deferred = $q.defer();
         $http.get(url, null).then(function success(response) {
             deferred.resolve(response.data);
         }, function fail(response) {

@@ -19,13 +19,14 @@
 /* eslint-enable import/no-unresolved, import/default */
 
 /*@ngInject*/
-export default function RegisterNewDeviceController($scope, $mdDialog, $log, $q, $timeout, deviceService) {
+export default function RegisterNewDeviceController($scope, $mdDialog, $log, $q, $timeout, deviceService, $rootScope) {
     var vm = this;
-    vm.submitCurrentStep = submitCurrentStep;
     vm.enableNextStep = enableNextStep;
     vm.moveToPreviousStep = moveToPreviousStep;
     vm.closeDialog = closeDialog;
     vm.loadAPList = loadAPList;
+    vm.getSSID = getSSID;
+    vm.saveSetting = saveSetting;
 
     function closeDialog() {
         $mdDialog.hide();
@@ -33,7 +34,7 @@ export default function RegisterNewDeviceController($scope, $mdDialog, $log, $q,
 
     vm.selectedStep = 0;
     vm.stepProgress = 1;
-    vm.maxStep = 3;
+    vm.maxStep = 4;
     vm.showBusyText = false;
     vm.stepData = [{
             step: 1,
@@ -49,6 +50,12 @@ export default function RegisterNewDeviceController($scope, $mdDialog, $log, $q,
         },
         {
             step: 3,
+            completed: false,
+            optional: false,
+            data: {}
+        },
+        {
+            step: 4,
             completed: false,
             optional: false,
             data: {}
@@ -73,30 +80,6 @@ export default function RegisterNewDeviceController($scope, $mdDialog, $log, $q,
         }
     }
 
-    function submitCurrentStep(stepData, isSkip) {
-        var deferred = $q.defer();
-        vm.showBusyText = true;
-        $log.log('On before submit');
-        if (!stepData.completed && !isSkip) {
-            //simulate $http
-            $timeout(function () {
-                vm.showBusyText = false;
-                $log.log('On submit success');
-                deferred.resolve({
-                    status: 200,
-                    statusText: 'success',
-                    data: {}
-                });
-                //move to next step when success
-                stepData.completed = true;
-                vm.enableNextStep();
-            }, 1000)
-        } else {
-            vm.showBusyText = false;
-            vm.enableNextStep();
-        }
-    }
-
     function loadAPList() {
         $log.log('loadUserDevices');
         deviceService.loadAPList().then(function success(APList) {
@@ -105,5 +88,19 @@ export default function RegisterNewDeviceController($scope, $mdDialog, $log, $q,
                 $log.log(vm.APList);
             }
         });
+    }
+
+    function getSSID(params) {
+        vm.ssid = params;
+        $log.log(vm.ssid);
+    }
+
+    function saveSetting(pass, name) {
+        vm.passWifi = pass;
+        vm.blockyName = name;
+        vm.authKey = $rootScope.authKey;
+        vm.urlCommitInfo = 'http://192.168.4.1/set?ssid=' + vm.ssid + '&password=' + vm.passWifi + '&authKey=' + vm.authKey;
+        $log.log(vm.urlCommitInfo);
+        deviceService.postToBlocky(vm.urlCommitInfo);
     }
 }
