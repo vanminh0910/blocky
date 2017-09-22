@@ -30,6 +30,7 @@ function DeviceService($http, $q, $rootScope, $filter, settings) {
         getDevice: getDevice,
         deleteDevice: deleteDevice,
         saveDevice: saveDevice,
+        loadAPList: loadAPList,
     }
 
     return service;
@@ -103,4 +104,14 @@ function DeviceService($http, $q, $rootScope, $filter, settings) {
         return deferred.promise;
     }
 
+    function loadAPList() {
+        var deferred = $q.defer();
+        var url = settings.localApiUrl;
+        $http.get(url, null).then(function success(response) {
+            deferred.resolve(response.data);
+        }, function fail(response) {
+            deferred.reject(response.data);
+        });
+        return deferred.promise;
+    }
 }

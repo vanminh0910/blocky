@@ -29,7 +29,7 @@ import bottomSheetActionsTemplate from './bottom-sheet-actions.tpl.html';
 import bottomSheetDeviceLogTemplate from './bottom-sheet-device-log.tpl.html';
 import blocklyToolbox from './blockly-toolbox.tpl.html';
 import renameDeviceTemplate from './rename-device.tpl.html';
-import registerDevice from './register.tpl.html';
+import registerDevice from './register-new-device.tpl.html';
 import RegisterNewDeviceController from './register-new-device.controller.js';
 
 /* eslint-disable no-undef, angular/window-service, angular/document-service */
