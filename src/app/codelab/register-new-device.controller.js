@@ -19,19 +19,17 @@
 /* eslint-enable import/no-unresolved, import/default */
 
 /*@ngInject*/
-export default function RegisterNewDeviceController($scope, $mdDialog, $log, $q, $timeout, deviceService, $rootScope) {
+export default function RegisterNewDeviceController($scope, $mdDialog, $log, $q, $timeout, deviceService, $rootScope, $interval, settings) {
     var vm = this;
+    var promise
+
     vm.enableNextStep = enableNextStep;
     vm.moveToPreviousStep = moveToPreviousStep;
     vm.closeDialog = closeDialog;
     vm.loadAPList = loadAPList;
     vm.getSSID = getSSID;
     vm.saveSetting = saveSetting;
-
-    function closeDialog() {
-        $mdDialog.hide();
-    }
-
+    vm.pingToBlocky = pingToBlocky;
     vm.selectedStep = 0;
     vm.stepProgress = 1;
     vm.maxStep = 4;
@@ -62,6 +60,11 @@ export default function RegisterNewDeviceController($scope, $mdDialog, $log, $q,
         },
     ];
 
+    function closeDialog() {
+        $interval.cancel(promise);
+        $mdDialog.hide();
+    }
+
     function enableNextStep() {
         //do not exceed into max step
         if (vm.selectedStep >= vm.maxStep) {
@@ -75,6 +78,7 @@ export default function RegisterNewDeviceController($scope, $mdDialog, $log, $q,
     }
 
     function moveToPreviousStep() {
+        $interval.cancel(promise);
         if (vm.selectedStep > 0) {
             vm.selectedStep = vm.selectedStep - 1;
         }
@@ -85,12 +89,21 @@ export default function RegisterNewDeviceController($scope, $mdDialog, $log, $q,
         deviceService.loadAPList().then(function success(APList) {
             if (APList.length) {
                 vm.APList = APList;
+                $interval.cancel(promise);
                 $log.log(vm.APList);
             }
+        }, function fail(APList) {
+            $log.log(APList);
+            vm.pingToBlocky();
         });
     }
 
+    function pingToBlocky() {
+        promise = $interval(vm.loadAPList, 2000);
+    }
+
     function getSSID(params) {
+        $interval.cancel(promise);
         vm.ssid = params;
         $log.log(vm.ssid);
     }
@@ -99,7 +112,7 @@ export default function RegisterNewDeviceController($scope, $mdDialog, $log, $q,
         vm.passWifi = pass;
         vm.blockyName = name;
         vm.authKey = $rootScope.authKey;
-        vm.urlCommitInfo = 'http://192.168.4.1/set?ssid=' + vm.ssid + '&password=' + vm.passWifi + '&authKey=' + vm.authKey;
+        vm.urlCommitInfo = settings.localApiUrl + '/set?ssid=' + vm.ssid + '&password=' + vm.passWifi + '&authKey=' + vm.authKey;
         $log.log(vm.urlCommitInfo);
         deviceService.postToBlocky(vm.urlCommitInfo);
     }

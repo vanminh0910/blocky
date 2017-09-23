@@ -107,7 +107,7 @@ function DeviceService($http, $q, $rootScope, $filter, settings) {
 
     function loadAPList() {
         var deferred = $q.defer();
-        var url = settings.localApiUrl;
+        var url = settings.localApiUrl + '/aplist';
         $http.get(url, null).then(function success(response) {
             deferred.resolve(response.data);
         }, function fail(response) {
