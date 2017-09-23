@@ -1,5 +1,5 @@
 <div layout="row">
-    <md-content flex="nogrow" style="width: 800px; margin: 40px auto">
+    <md-content flex="nogrow" style="width: 800px;">
         <div>
             <md-card>
                 <md-toolbar>
@@ -51,38 +51,12 @@
                         </md-step>
                         <md-step label="Choose Network" md-complete="vm.stepData[2].data.completed" ng-disabled="vm.stepProgress < 3">
                             <md-step-body>
-                                <div class="headercontainer">
-                                    <div class="tablecontainer">
-                                        <table>
-                                            <thead>
-                                                <tr>
-                                                    <th>
-                                                        <a href="#" ng-click="sortType = 'ssid'; sortReverse = !sortReverse">
-                                                            <div>SSID</div>
-                                                            <span ng-show="sortType == 'ssid' && !sortReverse" class="fa fa-caret-down"></span>
-                                                            <span ng-show="sortType == 'ssid' && sortReverse" class="fa fa-caret-up"></span>
-                                                        </a>
-                                                    </th>
-                                                    <th>
-                                                        <a href="#" ng-click="sortType = 'rssi'; sortReverse = !sortReverse">
-                                                            <div>RSSI</div>
-                                                            <span ng-show="sortType == 'rssi' && !sortReverse" class="fa fa-caret-down"></span>
-                                                            <span ng-show="sortType == 'rssi' && sortReverse" class="fa fa-caret-up"></span>
-                                                        </a>
-                                                    </th>
-                                                </tr>
-                                            </thead>
-                                            <tbody>
-                                                <tr ng-repeat="aplist in vm.APList | orderBy:sortType:sortReverse">
-                                                    <td>
-                                                        <div ng-click="vm.getSSID(aplist.ssid); vm.enableNextStep()">{{aplist.ssid}}</div>
-                                                    </td>
-                                                    <td>
-                                                        <div>{{aplist.rssi}}</div>
-                                                    </td>
-                                                </tr>
-                                            </tbody>
-                                        </table>
+                                <div layout="column">
+                                    <div class="tb-wifi_info" flex ng-repeat="aplist in vm.APList" ng-click="vm.getSSID(aplist.ssid); vm.enableNextStep()">
+                                        <div layout="row">
+                                            <div flex="10">{{aplist.rssi}}</div>
+                                            <div flex="90">{{aplist.ssid}}</div>
+                                        </div>
                                     </div>
                                 </div>
                                 <md-step-actions layout="row">
