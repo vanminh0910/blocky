@@ -56,19 +56,23 @@
                                         <div layout="row" layout-align="space-around center">
                                             <div flex="10" ng-if="aplist.rssi < -100">
                                                 <!-- Poor -->
-                                                <i class="icon-poor-wifi-signal"></i>
+                                                <!-- <i class="icon-poor-wifi-signal"></i> -->
+                                                <img src="images/poor-wifi-signal.svg" alt="poor wifi" style="width:25px;height:25px;">
                                             </div>
                                             <div flex="10" ng-if="aplist.rssi < -86 && aplist.rssi >= -100">
                                                 <!-- Fair -->
-                                                <i class="icon-fair-wifi-signal"></i>
+                                                <!-- <i class="icon-fair-wifi-signal"></i> -->
+                                                <img src="images/fair-wifi-signal.svg" alt="fair wifi" style="width:25px;height:25px;">
                                             </div>
                                             <div flex="10" ng-if="aplist.rssi < -70 && aplist.rssi >= -85">
                                                 <!-- Good -->
-                                                <i class="icon-good-wifi-signal"></i>
+                                                <!-- <i class="icon-good-wifi-signal"></i> -->
+                                                <img src="images/good-wifi-signal.svg" alt="good wifi" style="width:25px;height:25px;">
                                             </div>
                                             <div flex="10" ng-if="aplist.rssi >= -70">
                                                 <!-- Excellent -->
-                                                <i class="icon-excellent-wifi-signal"></i>
+                                                <!-- <i class="icon-excellent-wifi-signal"></i> -->
+                                                <img src="images/excellent-wifi-signal.svg" alt="excellent wifi" style="width:25px;height:25px;">
                                             </div>
                                             <div flex="90">{{aplist.ssid}}</div>
                                         </div>
