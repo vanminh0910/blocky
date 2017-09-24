@@ -53,8 +53,23 @@
                             <md-step-body>
                                 <div layout="column">
                                     <div class="tb-wifi_info" flex ng-repeat="aplist in vm.APList" ng-click="vm.getSSID(aplist.ssid); vm.enableNextStep()">
-                                        <div layout="row">
-                                            <div flex="10">{{aplist.rssi}}</div>
+                                        <div layout="row" layout-align="space-around center">
+                                            <div flex="10" ng-if="aplist.rssi < -100">
+                                                <!-- Poor -->
+                                                <i class="icon-poor-wifi-signal"></i>
+                                            </div>
+                                            <div flex="10" ng-if="aplist.rssi < -86 && aplist.rssi >= -100">
+                                                <!-- Fair -->
+                                                <i class="icon-fair-wifi-signal"></i>
+                                            </div>
+                                            <div flex="10" ng-if="aplist.rssi < -70 && aplist.rssi >= -85">
+                                                <!-- Good -->
+                                                <i class="icon-good-wifi-signal"></i>
+                                            </div>
+                                            <div flex="10" ng-if="aplist.rssi >= -70">
+                                                <!-- Excellent -->
+                                                <i class="icon-excellent-wifi-signal"></i>
+                                            </div>
                                             <div flex="90">{{aplist.ssid}}</div>
                                         </div>
                                     </div>
