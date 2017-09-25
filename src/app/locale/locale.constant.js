@@ -286,7 +286,8 @@ export default angular.module('blocky.locale', [])
                     "delete-device-text": "Be careful, after the confirmation the device and all related data will become unrecoverable.",
                     "no-boards-text": "No boards found",
                     "device-details": "Device details",
-                    "details": "Details"
+                    "details": "Details",
+                    "register-new-device": "Register new device"
                 },
                 "script": {
                     "scripts": "Scripts",

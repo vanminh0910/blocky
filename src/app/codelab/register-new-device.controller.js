@@ -19,17 +19,14 @@
 /* eslint-enable import/no-unresolved, import/default */
 
 /*@ngInject*/
-export default function RegisterNewDeviceController($scope, $mdDialog, $log, $q, $timeout, deviceService, $rootScope, $interval, settings) {
+export default function RegisterNewDeviceController($scope, $mdDialog, $log, $q, $timeout, deviceService, $rootScope, settings) {
     var vm = this;
-    var promise
 
     vm.enableNextStep = enableNextStep;
     vm.moveToPreviousStep = moveToPreviousStep;
     vm.closeDialog = closeDialog;
     vm.loadAPList = loadAPList;
-    vm.getSSID = getSSID;
     vm.saveSetting = saveSetting;
-    vm.pingToBlocky = pingToBlocky;
     vm.selectedStep = 0;
     vm.stepProgress = 1;
     vm.maxStep = 4;
@@ -51,17 +48,11 @@ export default function RegisterNewDeviceController($scope, $mdDialog, $log, $q,
             completed: false,
             optional: false,
             data: {}
-        },
-        {
-            step: 4,
-            completed: false,
-            optional: false,
-            data: {}
-        },
+        }
     ];
 
     function closeDialog() {
-        $interval.cancel(promise);
+
         $mdDialog.hide();
     }
 
@@ -78,7 +69,6 @@ export default function RegisterNewDeviceController($scope, $mdDialog, $log, $q,
     }
 
     function moveToPreviousStep() {
-        $interval.cancel(promise);
         if (vm.selectedStep > 0) {
             vm.selectedStep = vm.selectedStep - 1;
         }
@@ -88,8 +78,7 @@ export default function RegisterNewDeviceController($scope, $mdDialog, $log, $q,
         $log.log('loadUserDevices');
         deviceService.loadAPList().then(function success(APList) {
             if (APList.length) {
-                vm.APList = APList;
-                $interval.cancel(promise);
+                vm.APList = APList;        
                 $log.log(vm.APList);
             }
         }, function fail(APList) {
@@ -98,17 +87,8 @@ export default function RegisterNewDeviceController($scope, $mdDialog, $log, $q,
         });
     }
 
-    function pingToBlocky() {
-        promise = $interval(vm.loadAPList, 2000);
-    }
-
-    function getSSID(params) {
-        $interval.cancel(promise);
-        vm.ssid = params;
-        $log.log(vm.ssid);
-    }
-
-    function saveSetting(pass, name) {
+    function saveSetting(ssid, pass, name) {
+        vm.ssid = ssid;
         vm.passWifi = pass;
         vm.blockyName = name;
         vm.authKey = $rootScope.authKey;
