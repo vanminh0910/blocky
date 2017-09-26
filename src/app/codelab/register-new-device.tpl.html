@@ -43,8 +43,23 @@
                         <!-- Start step two -->
                         <md-step label="" ng-disabled="vm.stepProgress < 2">
                             <md-step-body>
-                                <div layout="row" layout-align="center center">
-                                    <img flex layout-fill src="images/radar2.gif" alt="radar gif">
+                                <div layout="column" layout-align="center center" layout-padding>
+                                    <div flex layout="column" layout-align="center center" class="md-block">
+                                        <h6>Scanning blocky Device</h6>
+                                        <img ng-show="vm.connectNotification" flex layout-fill src="images/radar2.gif" alt="radar gif" style="max-width: 400px;">
+                                        <h5 ng-hide="vm.connectNotification">Cannot connect to Blocky, re-connect to your home wifi and click button "Reload"</h5>
+                                    </div>
+                                    <md-step-actions flex layout="row">
+                                        <div flex ng-show="vm.connectNotification">
+                                            <md-button ng-click="vm.moveToPreviousStep()">PREVIOUS</md-button>
+                                        </div>
+                                        <div flex layout="row" layout-align="end top" ng-show="vm.connectNotification">
+                                            <md-button class="md-warn" ng-click="vm.closeDialog(); vm.showConfirmCancel()">CANCEL</md-button>
+                                        </div>
+                                        <div flex ng-hide="vm.connectNotification">
+                                            <md-button ng-click="vm.reloadPage()">RELOAD</md-button>
+                                        </div>
+                                    </md-step-actions>
                                 </div>
                             </md-step-body>
                         </md-step>
@@ -57,8 +72,8 @@
                                     <md-content layout-padding>
                                         <div layout="column">
                                             <div flex="60">
-                                                <md-select ng-model="selectedWifi">
-                                                    <md-option ng-value="wifi" ng-repeat="wifi in vm.APList">
+                                                <md-select ng-model="selectedWifi" placeholder="Select a wifi">
+                                                    <md-option ng-value="wifi" ng-repeat="wifi in vm.APList" required>
                                                         <div layout="row" layout-align="space-around center">
                                                             <div flex="10" ng-if="wifi.rssi < -100">
                                                                 <img src="images/poor-wifi-signal.svg" alt="poor wifi" style="width:25px;height:25px;">
@@ -96,10 +111,10 @@
 
                                 <md-step-actions layout="row">
                                     <div flex>
-                                        <md-button ng-click="vm.moveToPreviousStep()">PREVIOUS</md-button>
+                                        <md-button ng-click="vm.moveToPreviousStep(); vm.loadAPList()">PREVIOUS</md-button>
                                     </div>
                                     <div flex layout="row" layout-align="end top">
-                                        <md-button class="md-warn" ng-click="vm.closeDialog()">CANCEL</md-button>
+                                        <md-button class="md-warn" ng-click="vm.closeDialog(); vm.showConfirmCancel()">CANCEL</md-button>
                                         <md-button type="submit" class="md-primary md-raised" ng-disabled="myForm.$invalid" ng-click="vm.enableNextStep(); vm.saveSetting(selectedWifi.ssid, passWifi, blockyName); vm.closeDialog(); vm.showConfirmReload()">SAVE</md-button>
                                     </div>
                                 </md-step-actions>

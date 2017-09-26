@@ -23,13 +23,16 @@ export default function RegisterNewDeviceController($scope, $mdDialog, $log, $q,
     var vm = this;
     var promise;
 
+    vm.connectNotification = true;
+
     vm.enableNextStep = enableNextStep;
     vm.moveToPreviousStep = moveToPreviousStep;
     vm.closeDialog = closeDialog;
     vm.loadAPList = loadAPList;
     vm.saveSetting = saveSetting;
     vm.showConfirmReload = showConfirmReload;
-    vm.showConfirmReloadByError = showConfirmReloadByError;
+    vm.reloadPage = reloadPage;
+    vm.showConfirmCancel = showConfirmCancel;
     vm.selectedStep = 0;
     vm.stepProgress = 1;
     vm.maxStep = 4;
@@ -55,8 +58,8 @@ export default function RegisterNewDeviceController($scope, $mdDialog, $log, $q,
     ];
 
     function closeDialog() {
-
         $mdDialog.hide();
+        $interval.cancel(promise);
     }
 
     function enableNextStep() {
@@ -72,6 +75,7 @@ export default function RegisterNewDeviceController($scope, $mdDialog, $log, $q,
     }
 
     function moveToPreviousStep() {
+        $interval.cancel(promise);
         if (vm.selectedStep > 0) {
             vm.selectedStep = vm.selectedStep - 1;
         }
@@ -91,11 +95,11 @@ export default function RegisterNewDeviceController($scope, $mdDialog, $log, $q,
             }, function fail(APList) {
                 vm.APList = APList;
                 vm.counter++;
-                if (vm.counter > 5) {
-                    vm.showConfirmReloadByError();
+                if (vm.counter > 1) {
+                    $interval.cancel(promise);
+                    vm.connectNotification = false;
+                    $log.log(vm.counter);
                 }
-                $log.log(vm.APList);
-                $log.log(vm.counter);
             });
         }, 2000);
     }
@@ -121,27 +125,31 @@ export default function RegisterNewDeviceController($scope, $mdDialog, $log, $q,
             .cancel('Cancel');
 
         $mdDialog.show(confirm).then(function () {
-            $window.location.reload();
+            vm.reloadPage();
         }, function () {
             // do somethings when click cancel
         });
     }
 
-    function showConfirmReloadByError(ev) {
+    function showConfirmCancel(ev) {
         // Appending dialog to document.body to cover sidenav in docs app
         var confirm = $mdDialog.confirm()
-            .title('Cannot connect to blocky')
-            .textContent('Trouble connecting to Blocky. Re-connect you your wifi, click button "Reload" and do step one again.')
+            .title('You setup unsuccess')
+            .textContent('You have to wait 10 seconds, re-connect to your home wifi, after that click "Reload" button below.')
             .ariaLabel('setup unsuccess')
             .targetEvent(ev)
             .ok('Reload')
             .cancel('Cancel');
 
         $mdDialog.show(confirm).then(function () {
-            $interval.cancel(promise);
-            $window.location.reload();
+            vm.reloadPage();
         }, function () {
             // do somethings when click cancel
         });
+    }
+
+
+    function reloadPage() {
+        $window.location.reload();
     }
 }
