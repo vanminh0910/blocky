@@ -40,17 +40,6 @@ function Menu() {
                 attributeName: 'home.dashboard',
                 state: 'home.dashboard',
                 faIcon: 'fa-th'
-            },{
-                name: 'home.examples',
-                attributeName: 'home.examples',
-                state: 'home.examples',
-                faIcon: 'fa-graduation-cap'
-            },
-            {
-                name: 'home.community',
-                attributeName: 'home.community',
-                state: 'home.community',
-                faIcon: 'fa-users'
             }
         ];
 

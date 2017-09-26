@@ -23,8 +23,6 @@ import HomeController from './home.controller';
 
 import blockyCodeLab from '../codelab';
 import blockyDashboard from '../dashboard';
-import blockyExamples from '../examples';
-import blockyCommunity from '../community';
 import blockyUserMenu from '../components/user-menu/user-menu.directive';
 import blockyMenu from '../services/menu.service';
 import blockProfile from '../profile';
@@ -36,8 +34,6 @@ export default angular.module('blocky.home', [
     blockyUserMenu,
     blockyMenu,
     blockyDashboard,
-    blockyExamples,
-    blockyCommunity,
     blockProfile
 ])
     .config(HomeRoutes)
