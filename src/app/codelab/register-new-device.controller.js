@@ -21,13 +21,15 @@
 /*@ngInject*/
 export default function RegisterNewDeviceController($scope, $mdDialog, $log, $q, $timeout, deviceService, $rootScope, settings, $window, $interval) {
     var vm = this;
+    var promise;
 
     vm.enableNextStep = enableNextStep;
     vm.moveToPreviousStep = moveToPreviousStep;
     vm.closeDialog = closeDialog;
     vm.loadAPList = loadAPList;
     vm.saveSetting = saveSetting;
-    vm.showConfirm = showConfirm;
+    vm.showConfirmReload = showConfirmReload;
+    vm.showConfirmReloadByError = showConfirmReloadByError;
     vm.selectedStep = 0;
     vm.stepProgress = 1;
     vm.maxStep = 4;
@@ -78,8 +80,9 @@ export default function RegisterNewDeviceController($scope, $mdDialog, $log, $q,
     function loadAPList() {
         $log.log('loadUserDevices');
         vm.APList;
+        vm.counter = 1;
 
-        var promise = $interval(function () {
+        promise = $interval(function () {
             deviceService.loadAPList().then(function success(APList) {
                 vm.APList = APList;
                 $interval.cancel(promise);
@@ -87,7 +90,12 @@ export default function RegisterNewDeviceController($scope, $mdDialog, $log, $q,
                 $log.log(vm.APList);
             }, function fail(APList) {
                 vm.APList = APList;
+                vm.counter++;
+                if (vm.counter > 5) {
+                    vm.showConfirmReloadByError();
+                }
                 $log.log(vm.APList);
+                $log.log(vm.counter);
             });
         }, 2000);
     }
@@ -102,7 +110,7 @@ export default function RegisterNewDeviceController($scope, $mdDialog, $log, $q,
         deviceService.postToBlocky(vm.urlCommitInfo);
     }
 
-    function showConfirm(ev) {
+    function showConfirmReload(ev) {
         // Appending dialog to document.body to cover sidenav in docs app
         var confirm = $mdDialog.confirm()
             .title('You setup success')
@@ -113,6 +121,24 @@ export default function RegisterNewDeviceController($scope, $mdDialog, $log, $q,
             .cancel('Cancel');
 
         $mdDialog.show(confirm).then(function () {
+            $window.location.reload();
+        }, function () {
+            // do somethings when click cancel
+        });
+    }
+
+    function showConfirmReloadByError(ev) {
+        // Appending dialog to document.body to cover sidenav in docs app
+        var confirm = $mdDialog.confirm()
+            .title('Cannot connect to blocky')
+            .textContent('Trouble connecting to Blocky. Re-connect you your wifi, click button "Reload" and do step one again.')
+            .ariaLabel('setup unsuccess')
+            .targetEvent(ev)
+            .ok('Reload')
+            .cancel('Cancel');
+
+        $mdDialog.show(confirm).then(function () {
+            $interval.cancel(promise);
             $window.location.reload();
         }, function () {
             // do somethings when click cancel
