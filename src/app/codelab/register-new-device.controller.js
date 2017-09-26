@@ -19,7 +19,7 @@
 /* eslint-enable import/no-unresolved, import/default */
 
 /*@ngInject*/
-export default function RegisterNewDeviceController($scope, $mdDialog, $log, $q, $timeout, deviceService, $rootScope, settings) {
+export default function RegisterNewDeviceController($scope, $mdDialog, $log, $q, $timeout, deviceService, $rootScope, settings, $window, $interval) {
     var vm = this;
 
     vm.enableNextStep = enableNextStep;
@@ -27,6 +27,7 @@ export default function RegisterNewDeviceController($scope, $mdDialog, $log, $q,
     vm.closeDialog = closeDialog;
     vm.loadAPList = loadAPList;
     vm.saveSetting = saveSetting;
+    vm.showConfirm = showConfirm;
     vm.selectedStep = 0;
     vm.stepProgress = 1;
     vm.maxStep = 4;
@@ -76,15 +77,19 @@ export default function RegisterNewDeviceController($scope, $mdDialog, $log, $q,
 
     function loadAPList() {
         $log.log('loadUserDevices');
-        deviceService.loadAPList().then(function success(APList) {
-            if (APList.length) {
-                vm.APList = APList;        
+        vm.APList;
+
+        var promise = $interval(function () {
+            deviceService.loadAPList().then(function success(APList) {
+                vm.APList = APList;
+                $interval.cancel(promise);
+                vm.enableNextStep();
                 $log.log(vm.APList);
-            }
-        }, function fail(APList) {
-            $log.log(APList);
-            vm.pingToBlocky();
-        });
+            }, function fail(APList) {
+                vm.APList = APList;
+                $log.log(vm.APList);
+            });
+        }, 2000);
     }
 
     function saveSetting(ssid, pass, name) {
@@ -95,5 +100,22 @@ export default function RegisterNewDeviceController($scope, $mdDialog, $log, $q,
         vm.urlCommitInfo = settings.localApiUrl + '/set?ssid=' + vm.ssid + '&password=' + vm.passWifi + '&authKey=' + vm.authKey;
         $log.log(vm.urlCommitInfo);
         deviceService.postToBlocky(vm.urlCommitInfo);
+    }
+
+    function showConfirm(ev) {
+        // Appending dialog to document.body to cover sidenav in docs app
+        var confirm = $mdDialog.confirm()
+            .title('You setup success')
+            .textContent('You have to wait 10 seconds, re-connect to your home wifi, after that click "Reload" button below.')
+            .ariaLabel('setup success')
+            .targetEvent(ev)
+            .ok('Reload')
+            .cancel('Cancel');
+
+        $mdDialog.show(confirm).then(function () {
+            $window.location.reload();
+        }, function () {
+            // do somethings when click cancel
+        });
     }
 }

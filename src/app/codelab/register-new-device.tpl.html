@@ -16,22 +16,24 @@
                         <!-- Start step one -->
                         <md-step label="" ng-disabled="vm.stepProgress < 1">
                             <md-step-body>
-                                <!-- <md-content class="md-padding">
-                                    <img src="images/stepOne.png" alt="stepOne" height="100%" width="100%">
-                                </md-content> -->
-
                                 <div layout="column" layout-align="space-between center">
                                     <div flex layout="row" layout-align="center center">
-                                        <img src="images/stepOne.png" alt="stepOne" height="50%" width="50%">
+                                        <img src="images/step1.1.png" alt="images for step 1.A" height="50%" width="50%">
                                     </div>
                                     <div flex>
-                                        <h6>Press the button as a image for 2 seconds. Blocky will switch to config mode.</h6>
+                                        <h6>A) Press the button as a image for 2 seconds. Blocky will switch to config mode.</h6>
+                                    </div>
+                                    <div flex layout="row" layout-align="center center">
+                                        <img src="images/step1.2.png" alt="images for step 1.B" height="60%" width="60%">
+                                    </div>
+                                    <div flex>
+                                        <h6>B) Connect to Blocky with name BLOCKY_XXXXXXX.</h6>
                                     </div>
                                 </div>
                                 <md-step-actions layout="row">
                                     <div flex layout="row" layout-align="end top">
                                         <md-button class="md-warn" ng-click="vm.closeDialog()">CANCEL</md-button>
-                                        <md-button type="submit" class="md-primary md-raised" ng-click="vm.enableNextStep()">NEXT</md-button>
+                                        <md-button type="submit" class="md-primary md-raised" ng-click="vm.enableNextStep(); vm.loadAPList()">NEXT</md-button>
                                     </div>
                                 </md-step-actions>
                             </md-step-body>
@@ -41,38 +43,21 @@
                         <!-- Start step two -->
                         <md-step label="" ng-disabled="vm.stepProgress < 2">
                             <md-step-body>
-                                <md-content class="md-padding">
-                                    <div layout="row" layout-align="space-between center">
-                                        <div flex>
-                                            <h6>Open the wireless utility on your computer, select the name (SSID) of the BLOCKY_XXXXXXX
-                                                network, and no password for enter (both of these are found on the included
-                                                Wi-Fi Configuration Card).
-                                            </h6>
-                                        </div>
-                                        <div flex layout="row" layout-align="center center"><img src="images/stepTwo.png" alt="stepOne" height="350px" width="250px"></div>
-                                    </div>
-                                </md-content>
-                                <md-step-actions layout="row">
-                                    <div flex>
-                                        <md-button ng-click="vm.moveToPreviousStep()">PREVIOUS</md-button>
-                                    </div>
-                                    <div flex layout="row" layout-align="end top">
-                                        <md-button class="md-warn" ng-click="vm.closeDialog()">CANCEL</md-button>
-                                        <md-button type="submit" class="md-primary md-raised" ng-click="vm.enableNextStep(); vm.loadAPList()">NEXT</md-button>
-                                    </div>
-                                </md-step-actions>
+                                <div layout="row" layout-align="center center">
+                                    <img flex layout-fill src="images/radar2.gif" alt="radar gif">
+                                </div>
                             </md-step-body>
                         </md-step>
                         <!-- End step two -->
 
-                        <!-- Start step four -->
+                        <!-- Start step three -->
                         <md-step label="" md-complete="vm.stepData[2].data.completed" ng-disabled="vm.stepProgress < 3">
                             <md-step-body>
                                 <form name="myForm">
                                     <md-content layout-padding>
                                         <div layout="column">
                                             <div flex="60">
-                                                <md-select ng-model="selectedWifi" required>
+                                                <md-select ng-model="selectedWifi">
                                                     <md-option ng-value="wifi" ng-repeat="wifi in vm.APList">
                                                         <div layout="row" layout-align="space-around center">
                                                             <div flex="10" ng-if="wifi.rssi < -100">
@@ -115,12 +100,12 @@
                                     </div>
                                     <div flex layout="row" layout-align="end top">
                                         <md-button class="md-warn" ng-click="vm.closeDialog()">CANCEL</md-button>
-                                        <md-button type="submit" class="md-primary md-raised" ng-disabled="myForm.$invalid" ng-click="vm.enableNextStep(); vm.saveSetting(selectedWifi.ssid, passWifi, blockyName); vm.closeDialog()">SAVE</md-button>
+                                        <md-button type="submit" class="md-primary md-raised" ng-disabled="myForm.$invalid" ng-click="vm.enableNextStep(); vm.saveSetting(selectedWifi.ssid, passWifi, blockyName); vm.closeDialog(); vm.showConfirm()">SAVE</md-button>
                                     </div>
                                 </md-step-actions>
                             </md-step-body>
                         </md-step>
-                        <!-- End step four -->
+                        <!-- End step three -->
 
                     </md-steppers>
                 </md-stepper-card-content>
