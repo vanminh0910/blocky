@@ -40,20 +40,20 @@
                 </md-select>
 
                 <md-menu md-position-mode="target-right target">
-                    <md-button ng-disabled="!vm.isUserLoaded || !vm.currentDevice" class="md-icon-button" aria-label="Device Menu" ng-click="$mdOpenMenu($event)">
+                    <md-button ng-disabled="!vm.isUserLoaded" class="md-icon-button" aria-label="Device Menu" ng-click="$mdOpenMenu($event)">
                         <md-tooltip md-direction="bottom">
                             Device Settings
                         </md-tooltip>
                         <i class="fa fa-cog" aria-hidden="true"></i>
                     </md-button>
                     <md-menu-content width="4">
-                        <md-menu-item>
+                        <md-menu-item ng-show="vm.currentDevice">
                             <md-button ng-click="vm.renameDevice()">
                                 <md-icon md-menu-align-target aria-label="Rename Device" class="material-icons">edit</md-icon>
                                 <span translate>Rename Device</span>
                             </md-button>
                         </md-menu-item>
-                        <md-menu-item>
+                        <md-menu-item ng-show="vm.currentDevice">
                             <md-button ng-click="vm.deleteDevice()">
                                 <md-icon md-menu-align-target aria-label="Delete Device" class="material-icons">delete</md-icon>
                                 <span translate>Delete Device</span>

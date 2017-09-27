@@ -630,9 +630,9 @@ export default function CodeLabController($mdSidenav, toast, scriptService, user
             },
             function () {});
     }
-    
-    /// Add new devices function
+
     function addDevice($event) {
+        $mdBottomSheet.hide();
         $mdDialog.show({
                 controller: RegisterNewDeviceController,
                 controllerAs: 'vm',
@@ -645,7 +645,6 @@ export default function CodeLabController($mdSidenav, toast, scriptService, user
 
     }
 
-    /// End add new devices function
     function saveDevice() {
         deviceService.saveDevice(vm.currentDevice);
         $mdDialog.hide();
