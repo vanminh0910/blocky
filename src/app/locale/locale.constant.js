@@ -27,9 +27,7 @@ export default angular.module('blocky.locale', [])
                     "profile": "Profile",
                     "logout": "Logout",
                     "codelab": "Code Lab",
-                    "dashboard": "Dasboard",
-                    "examples": "Examples",
-                    "community": "Community"
+                    "dashboard": "Dasboard"
                 },
                 "access": {
                     "unauthorized": "Unauthorized",

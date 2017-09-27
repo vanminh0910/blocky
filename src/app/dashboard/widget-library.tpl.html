@@ -83,5 +83,18 @@
                 </ripple>
             </md-whiteframe>
         </div>
+
+        <div layout="row">
+            <md-whiteframe layout="row" layout-margin ng-click="vm.addWidget('stepControl')" class="md-whiteframe-4dp tb-widget-step-control"
+                flex="40">
+                <div class="tb-icon-up"><i class="icon-chevron-up" aria-hidden="true"></i></div>
+                <ripple r-disabled>
+                    <div class="tb-widget-tile-body" layout-fill layout="column" layout-align="center center">
+                        <div class="tb-widget-tile-body"><span>50</span></div>
+                    </div>
+                </ripple>
+                <div class="tb-icon-down"><i class="icon-chevron-down" aria-hidden="true"></i></div>
+            </md-whiteframe>
+        </div>
     </div>
 </md-sidenav>
