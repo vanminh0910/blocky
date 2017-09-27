@@ -29,6 +29,8 @@ import bottomSheetActionsTemplate from './bottom-sheet-actions.tpl.html';
 import bottomSheetDeviceLogTemplate from './bottom-sheet-device-log.tpl.html';
 import blocklyToolbox from './blockly-toolbox.tpl.html';
 import renameDeviceTemplate from './rename-device.tpl.html';
+import registerDeviceTemplate from './register-new-device.tpl.html';
+import RegisterNewDeviceController from './register-new-device.controller.js';
 
 /* eslint-disable no-undef, angular/window-service, angular/document-service */
 
@@ -42,6 +44,7 @@ export default function CodeLabController($mdSidenav, toast, scriptService, user
     vm.isUserLoaded = userService.isAuthenticated();
     if (vm.isUserLoaded) {
         authKey = userService.getCurrentUser().authKey;
+        $rootScope.authKey = authKey;
         baseTopicUrl = '/' + authKey + '/';
     }
 
@@ -165,6 +168,7 @@ export default function CodeLabController($mdSidenav, toast, scriptService, user
     vm.renameDevice = renameDevice;
     vm.saveDevice = saveDevice;
     vm.deleteDevice = deleteDevice;
+    vm.addDevice = addDevice;
     vm.clearDeviceLog = clearDeviceLog;
 
     function initMqttSession() {
@@ -626,7 +630,22 @@ export default function CodeLabController($mdSidenav, toast, scriptService, user
             },
             function () {});
     }
+    
+    /// Add new devices function
+    function addDevice($event) {
+        $mdDialog.show({
+                controller: RegisterNewDeviceController,
+                controllerAs: 'vm',
+                templateUrl: registerDeviceTemplate,
+                parent: angular.element($document[0].body),
+                fullscreen: false,
+                targetEvent: $event
+            })
+            .then(function () {}, function () {});
 
+    }
+
+    /// End add new devices function
     function saveDevice() {
         deviceService.saveDevice(vm.currentDevice);
         $mdDialog.hide();

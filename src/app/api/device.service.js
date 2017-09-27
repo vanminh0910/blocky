@@ -30,6 +30,8 @@ function DeviceService($http, $q, $rootScope, $filter, settings) {
         getDevice: getDevice,
         deleteDevice: deleteDevice,
         saveDevice: saveDevice,
+        loadAccessPointList: loadAccessPointList,
+        saveDeviceConfig: saveDeviceConfig,
     }
 
     return service;
@@ -103,4 +105,24 @@ function DeviceService($http, $q, $rootScope, $filter, settings) {
         return deferred.promise;
     }
 
+    function loadAccessPointList() {
+        var deferred = $q.defer();
+        var url = settings.localApiUrl + '/aplist';
+        $http.get(url, null).then(function success(response) {
+            deferred.resolve(response.data);
+        }, function fail(response) {
+            deferred.reject(response.data);
+        });
+        return deferred.promise;
+    }
+
+    function saveDeviceConfig(url) {
+        var deferred = $q.defer();
+        $http.get(url, null).then(function success(response) {
+            deferred.resolve(response.data);
+        }, function fail(response) {
+            deferred.reject(response.data);
+        });
+        return deferred.promise;
+    }
 }

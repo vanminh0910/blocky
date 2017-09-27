@@ -17,6 +17,7 @@ export default angular.module('blocky.settings', [])
     .constant('settings',
         {
             baseApiUrl: 'https://b8e46hjgr7.execute-api.us-east-1.amazonaws.com/dev',
+            localApiUrl: 'http://192.168.4.1',
             entryPoints: {
                 login: '/users/signup',
                 signup: '/users/login'

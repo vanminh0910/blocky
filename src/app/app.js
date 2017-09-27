@@ -59,6 +59,9 @@ import AppConfig from './app.config';
 import GlobalInterceptor from './global-interceptor.service';
 import AppRun from './app.run';
 
+import 'md-steppers/dist/md-steppers.css';
+import 'md-steppers/dist/md-steppers.js';
+
 angular.module('blocky', [
         ngMaterial,
         ngMdIcons,
@@ -80,7 +83,8 @@ angular.module('blocky', [
         blockySettings,
         blockyApiLogin,
         blockyApiUser,
-        uiRouter
+        uiRouter,
+        'md-steppers'
     ])
     .config(AppConfig)
     .factory('globalInterceptor', GlobalInterceptor)
