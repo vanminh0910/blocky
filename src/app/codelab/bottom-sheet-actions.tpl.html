@@ -27,6 +27,11 @@
             </md-button>
         </md-list-item>
         <md-divider ng-show="vm.currentDevice"></md-divider>
+        <md-list-item>
+            <md-button ng-click="vm.addDevice($event)">
+                <i class="fa fa-plus" aria-hidden="true"></i><span> Register new device</span>
+            </md-button>
+        </md-list-item>
         <md-list-item ng-show="vm.currentDevice">
             <md-button aria-label="Rename Device" ng-click="vm.renameDevice()" class="md-list-item-content">
                 <i class="fa fa-pencil" aria-hidden="true"></i><span> Rename Device</span>
