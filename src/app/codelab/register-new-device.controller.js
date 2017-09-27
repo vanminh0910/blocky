@@ -28,7 +28,7 @@ export default function RegisterNewDeviceController($scope, $mdDialog, $log, $q,
     vm.enableNextStep = enableNextStep;
     vm.moveToPreviousStep = moveToPreviousStep;
     vm.closeDialog = closeDialog;
-    vm.loadAPList = loadAPList;
+    vm.loadAccessPointList = loadAccessPointList;
     vm.saveSetting = saveSetting;
     vm.showConfirmReload = showConfirmReload;
     vm.reloadPage = reloadPage;
@@ -81,21 +81,22 @@ export default function RegisterNewDeviceController($scope, $mdDialog, $log, $q,
         }
     }
 
-    function loadAPList() {
+    function loadAccessPointList() {
         $log.log('loadUserDevices');
         vm.APList;
         vm.counter = 1;
 
         promise = $interval(function () {
-            deviceService.loadAPList().then(function success(APList) {
+            deviceService.loadAccessPointList().then(function success(APList) {
                 vm.APList = APList;
                 $interval.cancel(promise);
                 vm.enableNextStep();
                 $log.log(vm.APList);
             }, function fail(APList) {
                 vm.APList = APList;
-                vm.counter++;
-                if (vm.counter > 1) {
+                if (vm.counter < 3) {
+                    vm.counter++;
+                } else {
                     $interval.cancel(promise);
                     vm.connectNotification = false;
                     $log.log(vm.counter);
@@ -111,7 +112,7 @@ export default function RegisterNewDeviceController($scope, $mdDialog, $log, $q,
         vm.authKey = $rootScope.authKey;
         vm.urlCommitInfo = settings.localApiUrl + '/set?ssid=' + vm.ssid + '&password=' + vm.passWifi + '&authKey=' + vm.authKey;
         $log.log(vm.urlCommitInfo);
-        deviceService.postToBlocky(vm.urlCommitInfo);
+        deviceService.saveDeviceConfig(vm.urlCommitInfo);
     }
 
     function showConfirmReload(ev) {

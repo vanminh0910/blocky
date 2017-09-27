@@ -29,7 +29,7 @@ import bottomSheetActionsTemplate from './bottom-sheet-actions.tpl.html';
 import bottomSheetDeviceLogTemplate from './bottom-sheet-device-log.tpl.html';
 import blocklyToolbox from './blockly-toolbox.tpl.html';
 import renameDeviceTemplate from './rename-device.tpl.html';
-import registerDevice from './register-new-device.tpl.html';
+import registerDeviceTemplate from './register-new-device.tpl.html';
 import RegisterNewDeviceController from './register-new-device.controller.js';
 
 /* eslint-disable no-undef, angular/window-service, angular/document-service */
@@ -630,23 +630,21 @@ export default function CodeLabController($mdSidenav, toast, scriptService, user
             },
             function () {});
     }
+    
     /// Add new devices function
     function addDevice($event) {
         $mdDialog.show({
                 controller: RegisterNewDeviceController,
                 controllerAs: 'vm',
-                templateUrl: registerDevice,
+                templateUrl: registerDeviceTemplate,
                 parent: angular.element($document[0].body),
-                fullscreen: true,
+                fullscreen: false,
                 targetEvent: $event
             })
-            .then(function (answer) {
-                $scope.status = 'You said the information was "' + answer + '".';
-            }, function () {
-                $scope.status = 'You cancelled the dialog.';
-            });
+            .then(function () {}, function () {});
 
     }
+
     /// End add new devices function
     function saveDevice() {
         deviceService.saveDevice(vm.currentDevice);
