@@ -45,6 +45,7 @@ export default function DashboardController($scope, userService, dashboardServic
     vm.currentDashboard.subscribedTopics = [];
     vm.editMode = false;
     vm.isUserLoaded = userService.isAuthenticated();
+    vm.weatherData;
 
     if (vm.isUserLoaded) {
         authKey = userService.getCurrentUser().authKey;
@@ -137,6 +138,7 @@ export default function DashboardController($scope, userService, dashboardServic
     vm.closeWidgetConfigSideNav = closeWidgetConfigSideNav;
     vm.toggleFullScreen = toggleFullScreen;
     vm.Fullscreen = Fullscreen;
+    vm.getWeatherInfo = getWeatherInfo;
 
     function closeWidgetLibrarySideNav() {
         $mdSidenav('widget-library').close();
@@ -461,6 +463,27 @@ export default function DashboardController($scope, userService, dashboardServic
                 minItemCols: 2,
                 minItemRows: 3
             })
+        } else if (type === 'weather') {
+            vm.currentDashboard.content.push({
+                name: 'Weather',
+                type: 'weather',
+                icon: '',
+                bgColor: '#e91e63',
+                weatherUndergroundKey: 'a76243138fee79ee',
+                country: 'vn',
+                city: 'ha_noi',
+                temperature: 0,
+                weather: '',
+                wind_gust_kph:'',            
+                subscribeMessage: {
+                    topic: '',
+                    dataType: '1'
+                },
+                cols: 3,
+                rows: 2,
+                minItemCols: 3,
+                minItemRows: 2
+            })
         }
         $mdSidenav('widget-library').close();
     }
@@ -506,6 +529,16 @@ export default function DashboardController($scope, userService, dashboardServic
             widget.value = currentValue;
 
             sendMessage(widget.subscribeMessage.topic, widget.value.toString());
+        } else if (widget.type == 'weather') {
+            if (!vm.weatherData) {
+                vm.getWeatherInfo(widget.weatherUndergroundKey, widget.country, widget.city);
+            } else {
+                widget.city = vm.weatherData.display_location.city;
+                widget.icon  = vm.weatherData.icon_url;
+                widget.temperature = vm.weatherData.temp_c;
+                widget.weather = vm.weatherData.weather;
+                widget.wind_gust_kph = vm.weatherData.wind_gust_kph;
+            }
         }
     }
 
@@ -726,5 +759,15 @@ export default function DashboardController($scope, userService, dashboardServic
 
     function isMobileDevice() {
         return angular.isDefined(window.orientation) || (navigator.userAgent.indexOf('IEMobile') !== -1);
+    }
+
+    function getWeatherInfo(key, country, city) {
+        dashboardService.getWeatherApi(key, country, city).then(
+            function success(data) {
+                vm.weatherData = data.current_observation;
+                $log.log(vm.weatherData);
+            },
+            function fail() {}
+        );
     }
 }

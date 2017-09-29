@@ -31,7 +31,8 @@ function DashboardService($http, $q, $rootScope, $filter, settings) {
         deleteDashboard: deleteDashboard,
         saveDashboard: saveDashboard,
         addDashboard: addDashboard,
-        widgetAction: widgetAction
+        widgetAction: widgetAction,
+        getWeatherApi: getWeatherApi
     }
 
     return service;
@@ -138,4 +139,15 @@ function DashboardService($http, $q, $rootScope, $filter, settings) {
         return deferred.promise;
     }
 
+
+    function getWeatherApi(key, country, city) {
+        var deferred = $q.defer();
+        var url = settings.weatherUndergroundApiUrl + key + '/conditions/q/' + country + '/' + city + '.json';
+        $http.get(url).then(function success(response) {
+            deferred.resolve(response.data);
+        }, function fail(response) {
+            deferred.reject(response.data);
+        });
+        return deferred.promise;
+    }
 }

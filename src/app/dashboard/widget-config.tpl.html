@@ -198,6 +198,37 @@
                 </md-input-container>
             </div>
         </div>
+
+        <div ng-if="vm.selectedWidget.type=='weather'">
+            <md-input-container>
+                <label>Name</label>
+                <input ng-model="vm.selectedWidget.name">
+            </md-input-container>
+            <div layout="row" layout-align="space-around end">
+                <tb-icon-picker icon="vm.selectedWidget.icon"></tb-icon-picker>
+                <tb-color-picker color="vm.selectedWidget.bgColor"></tb-color-picker>
+            </div>
+            <md-input-container>
+                <label>Output Topic</label>
+                <input type="text" ng-model="vm.selectedWidget.publishMessage.topic" />
+            </md-input-container>
+            <md-input-container>
+                <label>Message</label>
+                <input type="text" ng-model="vm.selectedWidget.publishMessage.message" />
+            </md-input-container>
+            <md-input-container>
+                <label>Country</label>
+                <input type="text" ng-model="vm.selectedWidget.country" />
+            </md-input-container>
+            <md-input-container>
+                <label>City</label>
+                <input type="text" ng-model="vm.selectedWidget.city" />
+            </md-input-container>
+            <md-input-container>
+                <label>WUnderground API Key</label>
+                <input type="text" ng-model="vm.selectedWidget.weatherUndergroundKey" />
+            </md-input-container>
+        </div>
     </div>
     <div layout="row">
         <md-button class="md-warn" ng-click="vm.removeWidget()">

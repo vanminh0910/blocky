@@ -14,19 +14,18 @@
  * limitations under the License.
  */
 export default angular.module('blocky.settings', [])
-    .constant('settings',
-        {
-            baseApiUrl: 'https://b8e46hjgr7.execute-api.us-east-1.amazonaws.com/dev',
-            localApiUrl: 'http://192.168.4.1',
-            entryPoints: {
-                login: '/users/signup',
-                signup: '/users/login'
-            },
-            mqtt: {
-                url: 'mqtt://staging.broker.blocky.easytech.vn',
-                host: 'staging.broker.blocky.easytech.vn',
-                port: '8083'
-            },
-            maxBytesUpload: 900
-        }
-    ).name;
+    .constant('settings', {
+        baseApiUrl: 'https://b8e46hjgr7.execute-api.us-east-1.amazonaws.com/dev',
+        localApiUrl: 'http://192.168.4.1',
+        weatherUndergroundApiUrl: 'http://api.wunderground.com/api/',
+        entryPoints: {
+            login: '/users/signup',
+            signup: '/users/login'
+        },
+        mqtt: {
+            url: 'mqtt://staging.broker.blocky.easytech.vn',
+            host: 'staging.broker.blocky.easytech.vn',
+            port: '8083'
+        },
+        maxBytesUpload: 900
+    }).name;
