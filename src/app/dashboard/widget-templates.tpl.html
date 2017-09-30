@@ -1,7 +1,7 @@
 <!-- Template for button widget -->
 <script type="text/ng-template" id="button.html">
-    <md-whiteframe flex layout class="md-whiteframe-4dp tb-widget-button" ng-attr-style="background-color: {{item.bgColor}};">
-        <div class="tb-widget-tile-header">
+    <md-whiteframe flex layout class="md-whiteframe-4dp tb-widget-button" ng-attr-style="background-color: {{item.bgColor}};" ng-click="vm.initMap()">
+        <!-- <div class="tb-widget-tile-header">
             <h4 ng-if="item.name.length">{{item.name}}</h4>
         </div>
         <div ng-if="vm.editMode" class="tb-widget-edit">
@@ -13,7 +13,8 @@
             <div class="tb-widget-tile-body" layout-fill layout="column" layout-align="center center">
                 <i class="fa {{item.icon}}" aria-hidden="true"></i>
             </div>
-        </ripple>
+        </ripple> -->
+        <div id="map"></div>
     </md-whiteframe>
 </script>
 

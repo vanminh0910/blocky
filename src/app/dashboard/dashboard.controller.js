@@ -28,7 +28,7 @@ import moment from 'moment';
 /* eslint-disable no-undef, angular/window-service, angular/document-service */
 
 /*@ngInject*/
-export default function DashboardController($scope, userService, dashboardService, store, $window, $mdMedia, $mdSidenav, $document, $timeout, $mdDialog, $rootScope, $translate, toast, $state, settings, Fullscreen, $log, $interval, $q) {
+export default function DashboardController($scope, userService, dashboardService, store, $window, $mdMedia, $mdSidenav, $document, $timeout, $mdDialog, $rootScope, $translate, toast, $state, settings, Fullscreen, $log, $interval, $q, $geolocation) {
     var vm = this;
     var mqttClient;
     var authKey = '';
@@ -138,6 +138,7 @@ export default function DashboardController($scope, userService, dashboardServic
     vm.toggleFullScreen = toggleFullScreen;
     vm.Fullscreen = Fullscreen;
     vm.getWeatherInfo = getWeatherInfo;
+    vm.initMap = initMap;
 
     function closeWidgetLibrarySideNav() {
         $mdSidenav('widget-library').close();
@@ -483,7 +484,7 @@ export default function DashboardController($scope, userService, dashboardServic
                 minItemCols: 2,
                 minItemRows: 2
             })
-        }else if (type === 'digitalClock') {
+        } else if (type === 'digitalClock') {
             vm.currentDashboard.content.push({
                 name: 'Clock',
                 type: 'digitalClock',
@@ -786,5 +787,18 @@ export default function DashboardController($scope, userService, dashboardServic
         });
 
         return deferred.promise;
+    }
+
+    function initMap() {
+        $geolocation.getCurrentPosition().then(function(position) {
+            $log.log(position);
+            vm.map = new google.maps.Map(document.getElementById('map'), {
+                center: {
+                    lat: position.coords.latitude,
+                    lng: position.coords.longitude
+                },
+                zoom: 8
+            });
+         });
     }
 }

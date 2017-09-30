@@ -64,6 +64,7 @@ import 'md-steppers/dist/md-steppers.js';
 
 import '../../bower_components/angular-ui-clock/dist/angular-clock.js';
 import '../../bower_components/angular-ui-clock/dist/angular-clock.css';
+import '../../bower_components/ngGeolocation/ngGeolocation.js';
 
 angular.module('blocky', [
         ngMaterial,
@@ -88,7 +89,8 @@ angular.module('blocky', [
         blockyApiUser,
         uiRouter,
         'md-steppers',
-        'ds.clock'
+        'ds.clock',
+        'ngGeolocation'
     ])
     .config(AppConfig)
     .factory('globalInterceptor', GlobalInterceptor)
