@@ -488,6 +488,7 @@ export default function DashboardController($scope, userService, dashboardServic
                 name: 'Clock',
                 type: 'digitalClock',
                 bgColor: '#e91e63',
+                gmtOffset: '5.3',
                 subscribeMessage: {
                     topic: '',
                     dataType: '1'

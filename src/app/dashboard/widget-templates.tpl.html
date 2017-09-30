@@ -183,7 +183,7 @@
         </div>
         <ripple ng-class="vm.editMode ? 'disabled' : ''" ng-click="vm.widgetAction(item)">
             <div class="tb-widget-tile-body" layout-fill layout="column" layout-align="center center">
-                <ds-widget-clock show-digital theme="blue-light" digital-format="'hh:mm:ss a'"></ds-widget-clock>
+                <ds-widget-clock data-show-digital theme="blue-light" gmt-offset="item.gmtOffset"></ds-widget-clock>
             </div>
         </ripple>
     </md-whiteframe>

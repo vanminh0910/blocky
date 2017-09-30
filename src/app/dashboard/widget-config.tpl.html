@@ -229,6 +229,25 @@
                 <input type="text" ng-model="vm.selectedWidget.weatherUndergroundKey" />
             </md-input-container>
         </div>
+
+        <div ng-if="vm.selectedWidget.type=='digitalClock'">
+            <md-input-container>
+                <label>Name</label>
+                <input ng-model="vm.selectedWidget.name">
+            </md-input-container>
+            <md-input-container>
+                <label>GMT offset</label>
+                <input type="text" ng-model="vm.selectedWidget.gmtOffset" />
+            </md-input-container>
+            <md-input-container>
+                <label>Output Topic</label>
+                <input type="text" ng-model="vm.selectedWidget.publishMessage.topic" />
+            </md-input-container>
+            <md-input-container>
+                <label>Message</label>
+                <input type="text" ng-model="vm.selectedWidget.publishMessage.message" />
+            </md-input-container>
+        </div>
     </div>
     <div layout="row">
         <md-button class="md-warn" ng-click="vm.removeWidget()">
