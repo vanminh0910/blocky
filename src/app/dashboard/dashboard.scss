@@ -189,6 +189,22 @@ md-whiteframe {
     }
 }
 
+.tb-widget-weather {
+    .tb-widget-tile-body {
+        color: #ffffff;
+        width: 300px;
+        .tb-widget-icon {
+            width: 100%;
+        }
+        .tb-widget-temperature {
+            font-size: 24px;
+        }
+        .tb-widget-location {
+            font-size: 15px;
+        }
+    }
+}
+
 #widget-library {
     &>div>.md-button {
         font-size: 20px;

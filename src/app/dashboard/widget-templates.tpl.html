@@ -143,24 +143,26 @@
     </md-whiteframe>
 </script>
 
-<!-- Template for weather widget -->
+<!-- Test -->
 <script type="text/ng-template" id="weather.html">
-    <md-whiteframe flex layout class="md-whiteframe-4dp tb-widget-button" ng-attr-style="background-color: {{item.bgColor}};">
-        <div class="tb-widget-tile-header">
+    <md-whiteframe flex layout class="md-whiteframe-4dp tb-widget-weather" ng-attr-style="background-color: {{item.bgColor}};">
+        <!-- <div class="tb-widget-tile-header">
             <h4 ng-if="item.name.length">{{item.name}}</h4>
-        </div>
+        </div> -->
         <div ng-if="vm.editMode" class="tb-widget-edit">
             <md-button ng-click="vm.toggleWidgetConfig($index)" ng-touchstart="vm.toggleWidgetConfig($index)">
                 <md-icon class="material-icons md-light md-48">mode_edit</md-icon>
             </md-button>
         </div>
         <ripple ng-class="vm.editMode ? 'disabled' : ''" ng-click="vm.widgetAction(item)">
-            <div class="tb-widget-tile-body" layout-fill layout="row" layout-align="center center" style=" width: 500px; ">
+            <div class="tb-widget-tile-body" layout-fill layout="row" layout-align="center center">
                 <div flex layout="column" layout-align="center center">
-                    <img src="{{item.icon}}" alt="weather icon">
+                    <img class="tb-widget-icon" src="{{item.icon}}" alt="weather icon">
                 </div>
-                <span flex layout-fill layout="column" layout-align="center start">{{item.temperature}}°C</span>
-                <div flex layout="column" layout-align="center start" style="max-height: 70px;">
+                <span class="tb-widget-temperature" flex layout-fill layout="column" layout-align="center start">
+                    {{item.temperature}}°C
+                </span>
+                <div flex class="tb-widget-location" layout="column" layout-align="center start">
                     <span flex>{{item.city}}</span>
                     <span flex>{{item.weather}}</span>
                     <span flex>{{item.wind_gust_kph}} KPH</span>

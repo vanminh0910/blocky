@@ -17,7 +17,7 @@ export default angular.module('blocky.api.dashboard', [])
     .factory('dashboardService', DashboardService).name;
 
 /*@ngInject*/
-function DashboardService($http, $q, $rootScope, $filter, settings) {
+function DashboardService($http, $q, $rootScope, $filter, settings, $log) {
 
     var allDashboards = undefined;
 
@@ -143,6 +143,7 @@ function DashboardService($http, $q, $rootScope, $filter, settings) {
     function getWeatherApi(key, country, city) {
         var deferred = $q.defer();
         var url = settings.weatherUndergroundApiUrl + key + '/conditions/q/' + country + '/' + city + '.json';
+        $log.log(url);
         $http.get(url).then(function success(response) {
             deferred.resolve(response.data);
         }, function fail(response) {
