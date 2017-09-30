@@ -143,7 +143,7 @@
     </md-whiteframe>
 </script>
 
-<!-- Test -->
+<!-- Template for value weather widget -->
 <script type="text/ng-template" id="weather.html">
     <md-whiteframe flex layout class="md-whiteframe-4dp tb-widget-weather" ng-attr-style="background-color: {{item.bgColor}};">
         <div class="tb-widget-tile-header">
@@ -165,6 +165,25 @@
                 <span class="tb-widget-weather-status" flex layout-fill layout="column" layout-align="center center">
                     {{item.weather}}
                 </span>
+            </div>
+        </ripple>
+    </md-whiteframe>
+</script>
+
+<!-- Template for digital clock widget -->
+<script type="text/ng-template" id="digitalClock.html">
+    <md-whiteframe flex layout class="md-whiteframe-4dp tb-widget-button" ng-attr-style="background-color: {{item.bgColor}};">
+        <div class="tb-widget-tile-header">
+            <h4 ng-if="item.name.length">{{item.name}}</h4>
+        </div>
+        <div ng-if="vm.editMode" class="tb-widget-edit">
+            <md-button ng-click="vm.toggleWidgetConfig($index)" ng-touchstart="vm.toggleWidgetConfig($index)">
+                <md-icon class="material-icons md-light md-48">mode_edit</md-icon>
+            </md-button>
+        </div>
+        <ripple ng-class="vm.editMode ? 'disabled' : ''" ng-click="vm.widgetAction(item)">
+            <div class="tb-widget-tile-body" layout-fill layout="column" layout-align="center center">
+                <ds-widget-clock show-digital theme="blue-light" digital-format="'hh:mm:ss a'"></ds-widget-clock>
             </div>
         </ripple>
     </md-whiteframe>

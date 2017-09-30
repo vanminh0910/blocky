@@ -40,6 +40,7 @@
     "angular-ui-ace": "^0.2.3",
     "angular-ui-router": "^0.3.1",
     "angularjs-gauge": "^2.1.0",
+    "bower": "^1.8.2",
     "compass-sass-mixins": "^0.12.7",
     "font-awesome": "^4.7.0",
     "jquery": "^3.2.1",

@@ -59,7 +59,6 @@ gridster {
     gridster-item .gridster-item-resizable-handler.handle-se {
         border-color: transparent transparent #ccc
     }
-
     .tb-widget-step-control {
         .tb-widget-tile-body {
             color: #ffffff;
@@ -207,6 +206,16 @@ md-whiteframe {
     }
 }
 
+.widget-clock.blue-light .digital {
+    text-align: center;
+}
+
+.widget-clock.blue-light .time {
+    font-family: 'Rationale', sans-serif;
+    font-size: 1.6em;
+    color: #ffffff;
+}
+
 #widget-library {
     &>div>.md-button {
         font-size: 20px;
@@ -260,7 +269,8 @@ md-whiteframe {
         .tb-icon-down {
             bottom: -5px;
         }
-        .tb-icon-up, .tb-icon-down {
+        .tb-icon-up,
+        .tb-icon-down {
             position: absolute;
             left: 0;
             right: 0;

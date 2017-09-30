@@ -483,6 +483,20 @@ export default function DashboardController($scope, userService, dashboardServic
                 minItemCols: 2,
                 minItemRows: 2
             })
+        }else if (type === 'digitalClock') {
+            vm.currentDashboard.content.push({
+                name: 'Clock',
+                type: 'digitalClock',
+                bgColor: '#e91e63',
+                subscribeMessage: {
+                    topic: '',
+                    dataType: '1'
+                },
+                cols: 2,
+                rows: 2,
+                minItemCols: 2,
+                minItemRows: 2
+            })
         }
         $mdSidenav('widget-library').close();
     }

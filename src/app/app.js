@@ -62,6 +62,9 @@ import AppRun from './app.run';
 import 'md-steppers/dist/md-steppers.css';
 import 'md-steppers/dist/md-steppers.js';
 
+import '../../bower_components/angular-ui-clock/dist/angular-clock.js';
+import '../../bower_components/angular-ui-clock/dist/angular-clock.css';
+
 angular.module('blocky', [
         ngMaterial,
         ngMdIcons,
@@ -84,7 +87,8 @@ angular.module('blocky', [
         blockyApiLogin,
         blockyApiUser,
         uiRouter,
-        'md-steppers'
+        'md-steppers',
+        'ds.clock'
     ])
     .config(AppConfig)
     .factory('globalInterceptor', GlobalInterceptor)
