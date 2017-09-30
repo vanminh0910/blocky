@@ -192,15 +192,17 @@ md-whiteframe {
 .tb-widget-weather {
     .tb-widget-tile-body {
         color: #ffffff;
-        width: 300px;
         .tb-widget-icon {
-            width: 100%;
+            width: 80px;
+            height: 70px;
         }
         .tb-widget-temperature {
-            font-size: 24px;
+            font-size: 20px;
+            height: 20px;
         }
-        .tb-widget-location {
-            font-size: 15px;
+        .tb-widget-weather-status {
+            font-size: 10px;
+            height: 20px;
         }
     }
 }

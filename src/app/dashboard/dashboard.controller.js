@@ -478,9 +478,9 @@ export default function DashboardController($scope, userService, dashboardServic
                     topic: '',
                     dataType: '1'
                 },
-                cols: 4,
+                cols: 2,
                 rows: 2,
-                minItemCols: 4,
+                minItemCols: 2,
                 minItemRows: 2
             })
         }
@@ -531,7 +531,11 @@ export default function DashboardController($scope, userService, dashboardServic
         } else if (widget.type === 'weather') {
             vm.getWeatherInfo(widget.weatherUndergroundKey, widget.country, widget.city).then(function success(response) {
                 $log.log(response.current_observation);
-                widget.city = response.current_observation.display_location.city
+                widget.city = response.current_observation.display_location.city;
+                widget.icon = response.current_observation.icon_url;
+                widget.temperature = response.current_observation.dewpoint_c;
+                widget.weather = response.current_observation.weather;
+                widget.wind_gust_kph = response.current_observation.wind_gust_kph;
             }, function fail(response) {
                 $log.log(response);
             });
