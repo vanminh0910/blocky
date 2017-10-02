@@ -70,7 +70,7 @@
     }
     md-select {
       margin: 0;
-      max-width: 65%;
+      max-width: 55%;
       @media (max-width: $layout-breakpoint-sm) {
         max-width: 50%;
       }
@@ -150,5 +150,11 @@ md-bottom-sheet {
     min-width: 1%;
     height: 30px;
     width: 30px;
+  }
+}
+
+.md-table {
+  .md-checkbox-column, .md-checkbox-cell {
+    display: none;
   }
 }

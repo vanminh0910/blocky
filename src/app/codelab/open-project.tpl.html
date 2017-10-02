@@ -48,16 +48,6 @@
     </div>
   </md-toolbar>
 
-  <md-toolbar class="md-table-toolbar alternate md-hue-3" ng-show="vm.selected.length">
-    <div class="md-toolbar-tools" layout-align="space-between">
-      <span>{{vm.selected.length}} {{vm.selected.length > 1 ? 'items' : 'item'}} selected</span>
-      <span flex></span>
-      <md-button aria-label="Delete Project" class="md-icon-button" ng-click="delete($event)">
-        <md-icon>delete</md-icon>
-      </md-button>
-    </div>
-  </md-toolbar>
-
   <md-table-container>
     <table md-table md-row-select multiple="" ng-model="vm.selected" md-progress="promise">
       <thead fix-head md-head md-order="vm.query.order">
