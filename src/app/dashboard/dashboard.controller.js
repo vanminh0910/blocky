@@ -231,7 +231,7 @@ export default function DashboardController($scope, userService, dashboardServic
                 });
             },
             function fail() {
-                toast.showError($translate.instant('dashboard.dasboard-save-failed-error'));
+                toast.showError($translate.instant('dashboard.dashboard-save-failed-error'));
             }
         );
     }
