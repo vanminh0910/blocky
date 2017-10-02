@@ -18,12 +18,16 @@
 <div id="home" flex layout="column" tabIndex="-1" role="main">
     <md-toolbar class="md-whiteframe-z1" ng-hide="vm.Fullscreen.isEnabled()">
         <div layout="row" layout-align="space-between center" flex class="md-toolbar-tools">
-            <div layout="column">
-                <h1 hide-xs><img src="./logo.png" width="36"> Blocky</h1>
-                <h6 hide-xs hide-sm>
-                    Anyone can make
-                </h6>
+            <div layout="row" layout-align="space-between center">
+                    <img src="./logo.png" width="40">
+                    <div layout="column">
+                        <h1 hide-xs> Blocky</h1>
+                        <h6 hide-xs hide-sm>
+                            Anyone can make
+                        </h6>
+                    </div>
             </div>
+            
             <md-nav-bar layout="row" md-selected-nav-item="vm.currentNavItem" nav-bar-aria-label="navigation links">
                 <md-nav-item ng-repeat="item in vm.navItems" md-nav-sref="{{item.state}}" name="{{item.attributeName}}">
                     <i class="fa {{item.faIcon}} fa-2x" aria-hidden="true"></i>
