@@ -23,8 +23,8 @@ export default angular.module('blocky.settings', [])
                 signup: '/users/login'
             },
             mqtt: {
-                url: 'mqtt://staging.broker.blocky.easytech.vn',
-                host: 'staging.broker.blocky.easytech.vn',
+                url: 'ssl://staging.broker.getblocky.com',
+                host: 'staging.broker.getblocky.com',
                 port: '8083'
             },
             maxBytesUpload: 900

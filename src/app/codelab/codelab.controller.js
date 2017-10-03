@@ -46,7 +46,13 @@ export default function CodeLabController($mdSidenav, toast, scriptService, user
         authKey = userService.getCurrentUser().authKey;
         $rootScope.authKey = authKey;
         baseTopicUrl = '/' + authKey + '/';
-    }
+    } else {
+        vm.devices = [{
+            id: 0,
+            name: 'Demo device',
+            status: 0
+        }];
+    } 
 
     initMqttSession();
 
@@ -85,11 +91,6 @@ export default function CodeLabController($mdSidenav, toast, scriptService, user
     };
     vm.currentDevice = null;
     vm.currentLog = '';
-    vm.devices = [{
-        id: 0,
-        name: 'Demo device',
-        status: 0
-    }];
     vm.isUploadSuccess = false;
 
     if ($state.current.name === 'home.codelab.new') {
