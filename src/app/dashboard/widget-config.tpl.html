@@ -199,6 +199,17 @@
             </div>
         </div>
     </div>
+
+    <div ng-if="vm.selectedWidget.type=='clock'">
+        <div layout="row" layout-align="space-around end">
+            <tb-color-picker color="vm.selectedWidget.bgColor"></tb-color-picker>
+            <md-select ng-model="vm.selectedWidget.Zone">
+                <md-option ng-value="hour" ng-repeat="hour in vm.timeZone">GMT {{ hour }}</md-option>
+            </md-select>
+        </div>
+
+    </div>
+
     <div layout="row">
         <md-button class="md-warn" ng-click="vm.removeWidget()">
             <md-icon aria-label="Remove Widget" class="material-icons">delete</md-icon>

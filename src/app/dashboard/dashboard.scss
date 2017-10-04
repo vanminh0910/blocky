@@ -168,6 +168,33 @@ md-whiteframe {
     }
 }
 
+.tb-widget-clock {
+    background-color: #454447;
+    padding: 0%;
+    font-family: 'digital-7';
+    ds-widget-clock {
+        font-size: 90%;
+        color: white;
+        text-align: center;
+    }
+    .tb-timeZone {
+        font-family: 'digital-7';
+        color: white;
+        text-align: center;
+        font-size: 1.2em;
+    }
+    .tb-day {
+        font-size: 45%;
+    }
+    hr {
+        color: aquamarine;
+        background-color: aquamarine;
+        border: 3px;
+        height: 2px;
+        width: 100%;
+    }
+}
+
 .white-slider .md-thumb:after,
 .white-slider .md-track-fill {
     background-color: #ffffff !important;
@@ -242,7 +269,8 @@ md-whiteframe {
         .tb-icon-down {
             bottom: -5px;
         }
-        .tb-icon-up, .tb-icon-down {
+        .tb-icon-up,
+        .tb-icon-down {
             position: absolute;
             left: 0;
             right: 0;
