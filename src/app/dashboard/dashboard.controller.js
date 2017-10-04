@@ -660,6 +660,8 @@ export default function DashboardController($scope, userService, dashboardServic
                         } else if (widget.type === 'colorPicker') {
                             widget.color = message;
                             widget.displayColor = hexToRgb(widget.color);
+                        } else if (widget.type === 'gmap') {
+                            updateMapData(widget, message);
                         } else {
                             widget.value = message;
                         }
@@ -676,6 +678,10 @@ export default function DashboardController($scope, userService, dashboardServic
         widget.data[0].push(
             Number(value)
         );
+    }
+
+    function updateMapData(widget, value) {
+        widget.listCoordinates.push(angular.fromJson(value));
     }
 
     function subscribeDashboardsTopics(data) {
