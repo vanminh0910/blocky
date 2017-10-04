@@ -2,3 +2,5 @@ node_modules
 .tern-project
 dist
 debug.log
+bower_components
+package-lock.json
