@@ -3,3 +3,4 @@ node_modules
 dist
 *.log
 bower_components
+package-lock.json
