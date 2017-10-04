@@ -658,6 +658,7 @@ export default function DashboardController($scope, userService, dashboardServic
 
     function updateMapData(widget, value) {
         widget.listCoordinates.push(angular.fromJson(value));
+        vm.polylineMap(widget.listCoordinates);
     }
 
     function subscribeDashboardsTopics(data) {
