@@ -28,7 +28,7 @@ import moment from 'moment';
 /* eslint-disable no-undef, angular/window-service, angular/document-service */
 
 /*@ngInject*/
-export default function DashboardController($scope, userService, dashboardService, store, $window, $mdMedia, $mdSidenav, $document, $timeout, $mdDialog, $rootScope, $translate, toast, $state, settings, Fullscreen, $log) {
+export default function DashboardController($scope, userService, dashboardService, store, $window, $mdMedia, $mdSidenav, $document, $timeout, $mdDialog, $rootScope, $translate, toast, $state, settings, Fullscreen, $log, $geolocation) {
     var vm = this;
     var mqttClient;
     var authKey = '';
@@ -137,6 +137,8 @@ export default function DashboardController($scope, userService, dashboardServic
     vm.closeWidgetConfigSideNav = closeWidgetConfigSideNav;
     vm.toggleFullScreen = toggleFullScreen;
     vm.Fullscreen = Fullscreen;
+    vm.initMap = initMap;
+    vm.polylineMap = polylineMap;
 
     function closeWidgetLibrarySideNav() {
         $mdSidenav('widget-library').close();
@@ -461,6 +463,20 @@ export default function DashboardController($scope, userService, dashboardServic
                 minItemCols: 2,
                 minItemRows: 3
             })
+        } else if (type === 'gmap') {
+            vm.currentDashboard.content.push({
+                name: 'gmap',
+                type: 'gmap',
+                bgColor: '#e91e63',
+                subscribeMessage: {
+                    topic: '',
+                    dataType: '1'
+                },
+                cols: 4,
+                rows: 3,
+                minItemCols: 4,
+                minItemRows: 3
+            })
         }
         $mdSidenav('widget-library').close();
     }
@@ -726,5 +742,73 @@ export default function DashboardController($scope, userService, dashboardServic
 
     function isMobileDevice() {
         return angular.isDefined(window.orientation) || (navigator.userAgent.indexOf('IEMobile') !== -1);
+    }
+
+    function initMap() {
+        $geolocation.getCurrentPosition().then(function (position) {
+            // $log.log(position);
+            vm.map = new google.maps.Map(document.getElementById('tb-gmap-widget'), {
+                center: {
+                    lat: position.coords.latitude,
+                    lng: position.coords.longitude
+                },
+                zoom: 15
+            });
+            vm.marker = new google.maps.Marker({
+                position: {
+                    lat: position.coords.latitude,
+                    lng: position.coords.longitude
+                },
+                map: vm.map
+            });
+        });
+    }
+
+    function polylineMap() {
+        vm.map = new google.maps.Map(document.getElementById('tb-gmap-widget'), {
+            zoom: 3,
+            center: {
+                lat: 0,
+                lng: -180
+            },
+            mapTypeId: 'terrain'
+        });
+
+        vm.listCoordinates = [{
+                lat: 37.772,
+                lng: -122.214
+            },
+            {
+                lat: 21.291,
+                lng: -157.821
+            },
+            {
+                lat: -18.142,
+                lng: 178.431
+            },
+            {
+                lat: -27.467,
+                lng: 153.027
+            }
+        ];
+
+        vm.flightPath = new google.maps.Polyline({
+            path: vm.listCoordinates,
+            geodesic: true,
+            strokeColor: '#FF0000',
+            strokeOpacity: 1.0,
+            strokeWeight: 2
+        });
+
+        vm.flightPath.setMap(vm.map);
+
+        $log.log(vm.listCoordinates.length);
+
+        for (var i = 0; i < vm.listCoordinates.length; i++) {
+            vm.marker = new google.maps.Marker({
+                position: vm.listCoordinates[i],
+                map: vm.map
+            });
+        }
     }
 }

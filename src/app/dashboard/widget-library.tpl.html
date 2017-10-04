@@ -56,7 +56,8 @@
         </div>
 
         <div layout="row">
-            <md-whiteframe layout="row" layout-margin ng-click="vm.addWidget('valuedisplay')" class="md-whiteframe-4dp tb-widget-value-display" flex="40">
+            <md-whiteframe layout="row" layout-margin ng-click="vm.addWidget('valuedisplay')" class="md-whiteframe-4dp tb-widget-value-display"
+                flex="40">
                 <div class="tb-widget-tile-header">
                     <h4>Display</h4>
                 </div>
@@ -94,6 +95,17 @@
                     </div>
                 </ripple>
                 <div class="tb-icon-down"><i class="icon-chevron-down" aria-hidden="true"></i></div>
+            </md-whiteframe>
+
+            <md-whiteframe layout="row" layout-margin ng-click="vm.addWidget('gmap')" class="md-whiteframe-4dp tb-widget-button" flex="40">
+                <div class="tb-widget-tile-header">
+                    <h4>GMap</h4>
+                </div>
+                <ripple r-disabled>
+                    <div class="tb-widget-tile-body" layout-fill layout="column" layout-align="center center">
+                        <i class="icon-sun" aria-hidden="true"></i>
+                    </div>
+                </ripple>
             </md-whiteframe>
         </div>
     </div>

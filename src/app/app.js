@@ -62,6 +62,8 @@ import AppRun from './app.run';
 import 'md-steppers/dist/md-steppers.css';
 import 'md-steppers/dist/md-steppers.js';
 
+import '../../bower_components/ngGeolocation/ngGeolocation.js';
+
 angular.module('blocky', [
         ngMaterial,
         ngMdIcons,
@@ -84,7 +86,8 @@ angular.module('blocky', [
         blockyApiLogin,
         blockyApiUser,
         uiRouter,
-        'md-steppers'
+        'md-steppers',
+        'ngGeolocation'
     ])
     .config(AppConfig)
     .factory('globalInterceptor', GlobalInterceptor)
