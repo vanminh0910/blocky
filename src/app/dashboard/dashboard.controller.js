@@ -636,6 +636,8 @@ export default function DashboardController($scope, userService, dashboardServic
                             widget.value = Number(message);
                         } else if (widget.type === 'chart') {
                             updateChartData(widget, message);
+                        } else if (widget.type === 'gmap') {
+                            updateMapData(widget, message);
                         } else {
                             widget.value = message;
                         }
@@ -652,6 +654,10 @@ export default function DashboardController($scope, userService, dashboardServic
         widget.data[0].push(
             Number(value)
         );
+    }
+
+    function updateMapData(widget, value) {
+        widget.listCoordinates.push(angular.fromJson(value));
     }
 
     function subscribeDashboardsTopics(data) {

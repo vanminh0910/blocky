@@ -209,12 +209,8 @@
                 <md-button aria-label="gmapModeOne" ng-click="vm.polylineMap(vm.selectedWidget.listCoordinates)"> GMap Mode 2 </md-button>
             </md-input-container>
             <md-input-container>
-                <label>Output Topic</label>
-                <input type="text" ng-model="vm.selectedWidget.publishMessage.topic" />
-            </md-input-container>
-            <md-input-container>
-                <label>Message</label>
-                <input type="text" ng-model="vm.selectedWidget.publishMessage.message" />
+                <label>Input Topic</label>
+                <input type="text" ng-model="vm.selectedWidget.subscribeMessage.topic" />
             </md-input-container>
         </div>
     </div>
