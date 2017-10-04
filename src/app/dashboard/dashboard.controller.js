@@ -491,6 +491,23 @@ export default function DashboardController($scope, userService, dashboardServic
                     topic: '',
                     dataType: '1'
                 },
+                listCoordinates: [{
+                        lat: 37.772,
+                        lng: -122.214
+                    },
+                    {
+                        lat: 21.291,
+                        lng: -157.821
+                    },
+                    {
+                        lat: -18.142,
+                        lng: 178.431
+                    },
+                    {
+                        lat: -27.467,
+                        lng: 153.027
+                    }
+                ],
                 cols: 4,
                 rows: 3,
                 minItemCols: 4,
@@ -819,7 +836,7 @@ export default function DashboardController($scope, userService, dashboardServic
         });
     }
 
-    function polylineMap() {
+    function polylineMap(coordinates) {
         vm.map = new google.maps.Map(document.getElementById('tb-gmap-widget'), {
             zoom: 3,
             center: {
@@ -829,26 +846,8 @@ export default function DashboardController($scope, userService, dashboardServic
             mapTypeId: 'terrain'
         });
 
-        vm.listCoordinates = [{
-                lat: 37.772,
-                lng: -122.214
-            },
-            {
-                lat: 21.291,
-                lng: -157.821
-            },
-            {
-                lat: -18.142,
-                lng: 178.431
-            },
-            {
-                lat: -27.467,
-                lng: 153.027
-            }
-        ];
-
         vm.flightPath = new google.maps.Polyline({
-            path: vm.listCoordinates,
+            path: coordinates,
             geodesic: true,
             strokeColor: '#FF0000',
             strokeOpacity: 1.0,
@@ -856,12 +855,11 @@ export default function DashboardController($scope, userService, dashboardServic
         });
 
         vm.flightPath.setMap(vm.map);
+        // $log.log(coordinates.length);
 
-        $log.log(vm.listCoordinates.length);
-
-        for (var i = 0; i < vm.listCoordinates.length; i++) {
+        for (var i = 0; i < coordinates.length; i++) {
             vm.marker = new google.maps.Marker({
-                position: vm.listCoordinates[i],
+                position: coordinates[i],
                 map: vm.map
             });
         }
