@@ -201,6 +201,12 @@ md-whiteframe {
     }
 }
 
+#tb-gmap-widget {
+    height: 100%;
+    position: static !important;
+    overflow: auto;
+}
+
 #widget-library {
     &>div>.md-button {
         font-size: 20px;

@@ -63,6 +63,7 @@ import 'md-steppers/dist/md-steppers.css';
 import 'md-steppers/dist/md-steppers.js';
 
 import 'angular-cookie-law/dist/angular-cookie-law.min.js';
+import '../../bower_components/ngGeolocation/ngGeolocation.js';
 
 angular.module('blocky', [
         ngMaterial,
@@ -87,7 +88,8 @@ angular.module('blocky', [
         blockyApiUser,
         uiRouter,
         'md-steppers',
-        'angular-cookie-law'
+        'angular-cookie-law',
+        'ngGeolocation'
     ])
     .config(AppConfig)
     .factory('globalInterceptor', GlobalInterceptor)
