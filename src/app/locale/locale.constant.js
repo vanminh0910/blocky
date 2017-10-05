@@ -40,10 +40,10 @@ export default angular.module('blocky.locale', [])
             "action": {
                 //"activate": "Activate",
                 //"suspend": "Suspend",
-                // "save": "Save",
+                "save": "Save",
                 //"saveAs": "Save as",
-                // "cancel": "Cancel",
-                // "ok": "OK",
+                "cancel": "Cancel",
+                "ok": "OK",
                 "delete": "Delete",
                 // "add": "Add",
                 //"yes": "Yes",
