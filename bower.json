@@ -1,0 +1,22 @@
+{
+  "name": "blocky",
+  "description": "Blocky UI",
+  "main": "",
+  "authors": [
+    "TMA\\nbxtruong <omega220@gmail.com>"
+  ],
+  "license": "MIT",
+  "homepage": "https://github.com/vanminh0910/blocky",
+  "ignore": [
+    "**/.*",
+    "node_modules",
+    "bower_components",
+    "test",
+    "tests"
+  ],
+  "dependencies": {
+    "angular": "1.x",
+    "ngGeolocation": "^0.0.8",
+    "angular-ui-clock": "^0.5.1"
+  }
+}
