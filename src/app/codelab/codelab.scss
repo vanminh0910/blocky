@@ -160,8 +160,20 @@ md-bottom-sheet {
 }
 
 #register-new-device {
+  width: 550px;
   @media (min-width: $layout-breakpoint-sm) {
     min-height: 600px;
     overflow: hidden;
+  }
+  h6 {
+    @media (max-width: $layout-breakpoint-xs) {
+      margin: 0;
+    }
+  }
+}
+
+.blocklyTreeLabel {
+  @media (max-width: $layout-breakpoint-xs) {
+    display: none;
   }
 }
