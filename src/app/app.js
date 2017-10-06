@@ -61,7 +61,7 @@ import AppRun from './app.run';
 
 import 'md-steppers/dist/md-steppers.css';
 import 'md-steppers/dist/md-steppers.js';
-
+import 'angular-drag-and-drop-lists';
 angular.module('blocky', [
         ngMaterial,
         ngMdIcons,
@@ -84,7 +84,8 @@ angular.module('blocky', [
         blockyApiLogin,
         blockyApiUser,
         uiRouter,
-        'md-steppers'
+        'md-steppers',
+        'dndLists'
     ])
     .config(AppConfig)
     .factory('globalInterceptor', GlobalInterceptor)
