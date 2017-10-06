@@ -56,7 +56,8 @@
         </div>
 
         <div layout="row">
-            <md-whiteframe layout="row" layout-margin ng-click="vm.addWidget('valuedisplay')" class="md-whiteframe-4dp tb-widget-value-display" flex="40">
+            <md-whiteframe layout="row" layout-margin ng-click="vm.addWidget('valuedisplay')" class="md-whiteframe-4dp tb-widget-value-display"
+                flex="40">
                 <div class="tb-widget-tile-header">
                     <h4>Display</h4>
                 </div>
@@ -87,13 +88,28 @@
         <div layout="row">
             <md-whiteframe layout="row" layout-margin ng-click="vm.addWidget('stepControl')" class="md-whiteframe-4dp tb-widget-step-control"
                 flex="40">
-                <div class="tb-icon-up"><i class="icon-chevron-up" aria-hidden="true"></i></div>
+                <div class="tb-icon-up">
+                    <i class="icon-chevron-up" aria-hidden="true"></i>
+                </div>
                 <ripple r-disabled>
                     <div class="tb-widget-tile-body" layout-fill layout="column" layout-align="center center">
-                        <div class="tb-widget-tile-body"><span>50</span></div>
+                        <div class="tb-widget-tile-body">
+                            <span>50</span>
+                        </div>
                     </div>
                 </ripple>
-                <div class="tb-icon-down"><i class="icon-chevron-down" aria-hidden="true"></i></div>
+                <div class="tb-icon-down">
+                    <i class="icon-chevron-down" aria-hidden="true"></i>
+                </div>
+            </md-whiteframe>
+
+            <md-whiteframe layout="row" layout-margin ng-click="vm.addWidget('colorPicker')" class="md-whiteframe-4dp tb-widget-switch"
+                flex="40">
+                <ripple r-disabled>
+                    <div class="tb-widget-tile-body" layout-fill layout="column" layout-align="center center">
+                        <i class="icon-switch" aria-hidden="true"></i>
+                    </div>
+                </ripple>
             </md-whiteframe>
         </div>
     </div>

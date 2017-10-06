@@ -461,6 +461,19 @@ export default function DashboardController($scope, userService, dashboardServic
                 minItemCols: 2,
                 minItemRows: 3
             })
+        } else if (type === 'colorPicker') {
+            vm.currentDashboard.content.push({
+                name: 'Color Picker',
+                type: 'colorPicker',
+                color: '#ffffff',
+                subscribeMessage: {
+                    topic: '',
+                },
+                cols: 2,
+                rows: 2,
+                minItemCols: 2,
+                minItemRows: 2
+            })
         }
         $mdSidenav('widget-library').close();
     }
