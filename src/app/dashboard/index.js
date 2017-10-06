@@ -27,6 +27,7 @@ import blockyDisplayFormat from '../components/display-format.filter';
 import 'angular-radial-color-picker/dist/js/color-picker.min.js';
 import 'Propeller/dist/propeller.min.js';
 
+import menuService from '../components/bottom-sheet-grid/bottom-sheet-grid.service';
 export default angular.module('blocky.dashboard', [
     uiRouter,
     blockyApiDashboard,
@@ -34,7 +35,8 @@ export default angular.module('blocky.dashboard', [
     blockyColorPicker,
     blockySwitchWidget,
     blockyDisplayFormat,
-    'color.picker.core'
+    'color.picker.core',
+    menuService,
 ])
     .config(DashboardRoutes)
     .controller('DashboardController', DashboardController)

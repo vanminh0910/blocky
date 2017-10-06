@@ -24,11 +24,12 @@ import widgetTemplates from './widget-templates.tpl.html';
 import newDashboardTemplate from './new-dashboard.tpl.html';
 import renameDashboardTemplate from './rename-dashboard.tpl.html';
 import moment from 'moment';
-
+import GridBottomSheetCtrl from '../components/bottom-sheet-grid/bottom-sheet-grid.controller.js';
+import bottomSheetGridTpl from '../components/bottom-sheet-grid/bottom-sheet-grid.tpl.html';
 /* eslint-disable no-undef, angular/window-service, angular/document-service */
 
 /*@ngInject*/
-export default function DashboardController($scope, userService, dashboardService, store, $window, $mdMedia, $mdSidenav, $document, $timeout, $mdDialog, $rootScope, $translate, toast, $state, settings, Fullscreen, $log) {
+export default function DashboardController($scope, userService, dashboardService, store, $window, $mdMedia, $mdSidenav, $document, $timeout, $mdDialog, $rootScope, $translate, toast, $state, settings, Fullscreen, $log,menuService,$mdBottomSheet,$mdToast) {
     var vm = this;
     var mqttClient;
     var authKey = '';
@@ -47,6 +48,8 @@ export default function DashboardController($scope, userService, dashboardServic
     vm.isUserLoaded = userService.isAuthenticated();
     vm.selectedColor = '';
 
+    vm.editMenuWidget=editMenuWidget;
+    vm.showGridBottomSheet=showGridBottomSheet;
     if (vm.isUserLoaded) {
         authKey = userService.getCurrentUser().authKey;
         baseUserTopicUrl = authKey + '/user/';
@@ -481,6 +484,34 @@ export default function DashboardController($scope, userService, dashboardServic
                 minItemRows: 2
             })
         }
+        else if (type === 'menu') {
+            var Menu = {
+                name: 'Menu',
+                type: 'menu',
+                icon: 'icon-sun',
+                bgColor: '#e91e63',
+                pendingItem:{name:'Default',icon:'',pending:true,type:'pendingItem'},
+                iconlist:[
+                    { name: 'Volumn', icon: 'icon-volume-medium' },
+                    { name: 'Bluetooth', icon: 'icon-bluetooth' },
+                    { name: 'Lock', icon: 'icon-unlock' },
+                ],
+                steps: 1,
+                min: 0,
+                max: 100,
+                value: 0,
+                subscribeMessage: {
+                    topic: '',
+                    dataType: '1',
+                },
+                cols: 2,
+                rows: 2,
+                minItemCols: 2,
+                minItemRows: 2
+            };
+            vm.currentDashboard.content.push(Menu);
+            menuService.saveData(Menu.iconlist);
+        }
         $mdSidenav('widget-library').close();
     }
 
@@ -518,7 +549,8 @@ export default function DashboardController($scope, userService, dashboardServic
                 if (currentValue < widget.min) {
                     currentValue = widget.min;
                 }
-            } else {
+            }
+             else {
                 return;
             }
 
@@ -527,6 +559,62 @@ export default function DashboardController($scope, userService, dashboardServic
             sendMessage(widget.subscribeMessage.topic, widget.value.toString());
         } else if (widget.type === 'colorPicker') {
             sendMessage(widget.subscribeMessage.topic, widget.color.toString());
+        }
+        else if(widget.type==='menu')
+        {
+            if(position.type==='action')
+            {
+                widget.icon= position.icon;
+                menuService.saveData(widget.iconlist);
+                sendMessage(widget.subscribeMessage.topic, widget.subscribeMessage.dataType.toString());
+                saveDashboard();
+            }
+        }
+    }
+
+    function editMenuWidget(widget,pendingItem)
+    {
+        if(pendingItem.type==='pendingItem')
+        {
+            for(var i=0;i<widget.iconlist.length;i++)
+            {
+                if(widget.iconlist[i].icon == pendingItem.icon)
+                {
+                    alert("This icon already exists in the icon list,select something else");
+                    return;
+                }
+            }
+            widget.iconlist.push(
+            {
+                name:pendingItem.name,icon:pendingItem.icon
+            }
+            );
+            sendMessage(widget.subscribeMessage.topic, widget.subscribeMessage.dataType.toString());
+            saveDashboard();
+        }
+        else if(pendingItem.type==='reorganizeIcon')
+        {
+            var currentItem =widget.iconlist[pendingItem.index];
+            
+            if(pendingItem.go==='up')
+            {
+                var upperItem =widget.iconlist[pendingItem.index-1];
+                widget.iconlist[pendingItem.index]=upperItem;
+                widget.iconlist[pendingItem.index-1]=currentItem;
+            }
+            
+            else if(pendingItem.go==='down')
+            {
+                var lowerItem =widget.iconlist[pendingItem.index+1];
+                widget.iconlist[pendingItem.index]=lowerItem;
+                widget.iconlist[pendingItem.index+1]=currentItem;
+            }
+            saveDashboard();
+        }
+        else if(pendingItem.type==='delete')
+        {
+            widget.iconlist.splice(pendingItem.index,1);
+            saveDashboard();
         }
     }
 
@@ -657,6 +745,7 @@ export default function DashboardController($scope, userService, dashboardServic
     }
 
     function initDashboardData(data) {
+        initMenuService();
         if (!data.length) {
             return;
         }
@@ -695,7 +784,23 @@ export default function DashboardController($scope, userService, dashboardServic
             }
         }
     }
-
+    function initMenuService()
+    {
+        for(var i = 0;i<vm.dashboards.length;i++)
+        {
+            if(vm.dashboards[i].content.length)
+            {
+                for(var j = 0; j<vm.dashboards[i].content.length;j++)
+                {
+                    var widget = vm.dashboards[i].content[j];
+                    if(widget.type==="menu")
+                    {
+                        menuService.saveData(widget.iconlist);
+                    }
+                }
+            }
+        }
+    }
     function initChartData(widget, data) {
         var labels = [];
         var chartData = [];
@@ -781,5 +886,29 @@ export default function DashboardController($scope, userService, dashboardServic
         widget.displayColor = hexToRgb(widget.color);
 
         widgetAction(widget);
+    }
+    function showGridBottomSheet(item,editMode) {
+        if(editMode)
+        {
+            return;
+        }
+        $scope.alert = '';
+        $mdBottomSheet.show({
+            templateUrl: bottomSheetGridTpl,
+            controller: GridBottomSheetCtrl,
+            controllerAs: 'vm',
+            clickOutsideToClose: true
+        }).then(function (clickedItem) {
+            widgetAction(item,{name:clickedItem.name,icon:clickedItem.icon,type:'action'});
+            $mdToast.show(
+                $mdToast.simple()
+                .textContent("Icon changed to:"+clickedItem.name)
+                .position('top center')
+                .hideDelay(2000)
+            );
+        }).catch(function () {
+
+            // User clicked outside or hit escape
+        });
     }
 }
