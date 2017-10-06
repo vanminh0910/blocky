@@ -63,6 +63,7 @@ import 'md-steppers/dist/md-steppers.js';
 
 import 'angular-cookie-law/dist/angular-cookie-law.min.js';
 
+import 'angular-drag-and-drop-lists';
 angular.module('blocky', [
         ngMaterial,
         ngMdIcons,
@@ -85,7 +86,8 @@ angular.module('blocky', [
         blockyApiUser,
         uiRouter,
         'md-steppers',
-        'angular-cookie-law'
+        'angular-cookie-law',
+        'dndLists'
     ])
     .config(AppConfig)
     .factory('globalInterceptor', GlobalInterceptor)
