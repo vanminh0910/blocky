@@ -145,9 +145,9 @@
 
 <!-- Template for menu widget -->
 <script type="text/ng-template" id="menu.html">
-    <md-whiteframe flex layout class="md-whiteframe-4dp tb-widget-bottom-sheet" ng-attr-style="background-color: {{item.bgColor}};">
+    <md-whiteframe id="menuToast" flex layout class="md-whiteframe-4dp tb-widget-bottom-sheet" ng-attr-style="background-color: {{item.bgColor}};">
         <div class="tb-widget-tile-header">
-            <h4 ng-if="item.name.length">{{item.name}}</h4>
+            <h4 ng-if="item.name.length">{{item.message}}</h4>
         </div>
         <div ng-if="vm.editMode" class="tb-widget-edit">
             <md-button ng-click="vm.toggleWidgetConfig($index)" ng-touchstart="vm.toggleWidgetConfig($index)">
