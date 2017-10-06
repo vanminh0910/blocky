@@ -46,6 +46,8 @@ export default function DashboardController($scope, userService, dashboardServic
     vm.editMode = false;
     vm.isUserLoaded = userService.isAuthenticated();
     vm.selectedColor = '';
+    vm.gmapDraggable = true;
+    vm.gmapWidgetMode;
 
     if (vm.isUserLoaded) {
         authKey = userService.getCurrentUser().authKey;
@@ -247,6 +249,13 @@ export default function DashboardController($scope, userService, dashboardServic
 
     function editDashboard() {
         vm.editMode = true;
+        vm.gmapDraggable = false;
+        if (vm.gmapWidgetMode === true) {
+            vm.initMap();
+        }
+        if (vm.gmapWidgetMode === false) {
+            vm.polylineMap(vm.selectedWidget.listCoordinates);
+        }
         vm.gridsterOptions.draggable.enabled = true;
         vm.gridsterOptions.resizable.enabled = true;
         if (angular.isDefined(vm.gridsterOptions.api)) {
@@ -302,6 +311,13 @@ export default function DashboardController($scope, userService, dashboardServic
 
     function runDashboard() {
         vm.editMode = false;
+        vm.gmapDraggable = true;
+        if (vm.gmapWidgetMode === true) {
+            vm.initMap();
+        }
+        if (vm.gmapWidgetMode === false) {
+            vm.polylineMap(vm.selectedWidget.listCoordinates)
+        }
         vm.gridsterOptions.draggable.enabled = false;
         vm.gridsterOptions.resizable.enabled = false;
         if (angular.isDefined(vm.gridsterOptions.api)) {
@@ -825,14 +841,15 @@ export default function DashboardController($scope, userService, dashboardServic
 
     function initMap() {
         $geolocation.getCurrentPosition().then(function (position) {
-            // $log.log(position);
             vm.map = new google.maps.Map(document.getElementById('tb-gmap-widget'), {
                 center: {
                     lat: position.coords.latitude,
                     lng: position.coords.longitude
                 },
-                zoom: 15
+                zoom: 15,
+                draggable: vm.gmapDraggable
             });
+            vm.gmapWidgetMode = true;
             vm.marker = new google.maps.Marker({
                 position: {
                     lat: position.coords.latitude,
@@ -850,9 +867,10 @@ export default function DashboardController($scope, userService, dashboardServic
                 lat: 0,
                 lng: -180
             },
-            mapTypeId: 'terrain'
+            mapTypeId: 'terrain',
+            draggable: vm.gmapDraggable,
         });
-
+        vm.gmapWidgetMode = false;
         vm.flightPath = new google.maps.Polyline({
             path: coordinates,
             geodesic: true,
