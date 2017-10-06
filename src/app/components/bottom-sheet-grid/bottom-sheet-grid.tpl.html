@@ -1,0 +1,17 @@
+<md-bottom-sheet class="md-grid" layout="column">
+    <div layout="row" layout-align="center center" ng-cloak>
+          <h4>Click Outside or Press Esc To Close</h4>
+    </div>
+    <div ng-cloak>
+        <md-list flex layout="row" layout-align="center center">
+            <md-list-item ng-repeat="item in vm.items">
+                <div layout-fill layout-align="center center" layout="column">
+                    <md-button aria-label="iconView" layout-fill layout="row" layout-align="center center" class="md-grid-item-content"  ng-click="vm.listItemClick($index)">
+                        <md-icon layout-fill layout="row" layout-align="center center" class="{{item.icon}}"></md-icon>
+                    </md-button>
+                    <div class="md-grid-text"> {{ item.name }} </div>
+                </div>
+            </md-list-item>
+        </md-list>
+    </div>
+</md-bottom-sheet>

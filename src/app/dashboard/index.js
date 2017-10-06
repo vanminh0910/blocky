@@ -23,7 +23,7 @@ import blockyIconPicker from '../components/icon-picker/icon-picker.directive';
 import blockyColorPicker from '../components/color-picker/color-picker.directive';
 import blockySwitchWidget from '../components/switch-widget/switch-widget.directive';
 import blockyDisplayFormat from '../components/display-format.filter';
-
+import menuService from '../components/bottom-sheet-grid/bottom-sheet-grid.service';
 export default angular.module('blocky.dashboard', [
     uiRouter,
     blockyApiDashboard,
@@ -31,6 +31,7 @@ export default angular.module('blocky.dashboard', [
     blockyColorPicker,
     blockySwitchWidget,
     blockyDisplayFormat,
+    menuService,
 ])
     .config(DashboardRoutes)
     .controller('DashboardController', DashboardController)
