@@ -29,7 +29,7 @@ import bottomSheetGridTpl from '../components/bottom-sheet-grid/bottom-sheet-gri
 /* eslint-disable no-undef, angular/window-service, angular/document-service */
 
 /*@ngInject*/
-export default function DashboardController($scope, userService, dashboardService, store, $window, $mdMedia, $mdSidenav, $document, $timeout, $mdDialog, $rootScope, $translate, toast, $state, settings, Fullscreen, $log,menuService,$mdBottomSheet,$mdToast) {
+export default function DashboardController($scope, userService, dashboardService, store, $window, $mdMedia, $mdSidenav, $document, $timeout, $mdDialog, $rootScope, $translate, toast, $state, settings, Fullscreen, $log,menuService,$mdBottomSheet) {
     var vm = this;
     var mqttClient;
     var authKey = '';
@@ -492,9 +492,9 @@ export default function DashboardController($scope, userService, dashboardServic
                 bgColor: '#e91e63',
                 pendingItem:{name:'Default',icon:'',pending:true,type:'pendingItem'},
                 iconlist:[
-                    { name: 'Volumn', icon: 'icon-volume-medium' },
-                    { name: 'Bluetooth', icon: 'icon-bluetooth' },
-                    { name: 'Lock', icon: 'icon-unlock' },
+                    { message: 'Volumn', icon: 'icon-volume-medium' },
+                    { message: 'Bluetooth', icon: 'icon-bluetooth' },
+                    { message: 'Lock', icon: 'icon-unlock' },
                 ],
                 selected:null,
                 steps: 1,
@@ -503,7 +503,7 @@ export default function DashboardController($scope, userService, dashboardServic
                 value: 0,
                 subscribeMessage: {
                     topic: '',
-                    dataType: '1',
+                    message:'',
                 },
                 cols: 2,
                 rows: 2,
@@ -565,9 +565,9 @@ export default function DashboardController($scope, userService, dashboardServic
         {
             if(position.type==='action')
             {
-                widget.icon= position.icon;
+                widget.subscribeMessage.message= position.message;
                 menuService.saveData(widget.iconlist);
-                sendMessage(widget.subscribeMessage.topic, widget.subscribeMessage.dataType.toString());
+                sendMessage(widget.subscribeMessage.topic, widget.subscribeMessage.message.toString());
                 saveDashboard();
             }
         }
@@ -735,7 +735,12 @@ export default function DashboardController($scope, userService, dashboardServic
                                 } else if (widget.type === 'colorPicker') {
                                     widget.color = singleValue;
                                     widget.displayColor = hexToRgb(widget.color);
-                                } else {
+                                }
+                                else if(widget.type==='menu')
+                                {
+                                    widget.value = singleValue;
+                                }
+                                 else {
                                     widget.value = singleValue;
                                 }
                             }
@@ -860,16 +865,13 @@ export default function DashboardController($scope, userService, dashboardServic
             controllerAs: 'vm',
             clickOutsideToClose: true
         }).then(function (clickedItem) {
-            widgetAction(item,{name:clickedItem.name,icon:clickedItem.icon,type:'action'});
-            $mdToast.show(
-                $mdToast.simple()
-                .textContent("Icon changed to:"+clickedItem.name)
-                .position('top center')
-                .hideDelay(2000)
-            );
-        }).catch(function () {
-
-            // User clicked outside or hit escape
+            widgetAction(item,{message:clickedItem.message,icon:clickedItem.icon,type:'action'});
+            toast.showSuccess(clickedItem.message +" was chosen",1500,"menuToast");
+        }).catch(function (error) {
+            if(error)
+            {
+                toast.showError(error,"menuToast");
+            }
         });
     }
 }
