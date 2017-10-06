@@ -59,7 +59,6 @@ gridster {
     gridster-item .gridster-item-resizable-handler.handle-se {
         border-color: transparent transparent #ccc
     }
-
     .tb-widget-step-control {
         .tb-widget-tile-body {
             color: #ffffff;
@@ -169,29 +168,18 @@ md-whiteframe {
 }
 
 .tb-widget-clock {
-    background-color: #454447;
-    padding: 0%;
-    font-family: 'digital-7';
+    background-color: #e91e63;
+    text-align: center;
     ds-widget-clock {
-        font-size: 90%;
+        font-size: 1.5em;
+        padding-top: 0%;
+        font-weight: bold;
         color: white;
         text-align: center;
-    }
-    .tb-timeZone {
-        font-family: 'digital-7';
-        color: white;
-        text-align: center;
-        font-size: 1.2em;
-    }
+    } 
     .tb-day {
-        font-size: 45%;
-    }
-    hr {
-        color: aquamarine;
-        background-color: aquamarine;
-        border: 3px;
-        height: 2px;
-        width: 100%;
+        padding-top: 10%;
+        font-size: 0.7em;
     }
 }
 
@@ -276,6 +264,10 @@ md-whiteframe {
             right: 0;
         }
     }
+}
+
+.tb-label-color {
+    font-size: 14px;
 }
 
 #widget-config {

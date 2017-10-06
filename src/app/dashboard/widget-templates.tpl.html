@@ -152,10 +152,8 @@
             </md-button>
         </div>
         <ripple ng-class="vm.editMode ? 'disabled' : ''" ng-click="vm.widgetAction(item)">
-            <span class="tb-timeZone">GMT {{item.Zone}}</span>
-            <ds-widget-clock show-digital digital-format="'HH:mm'" gmt-offset="item.Zone"></ds-widget-clock>
-            <hr/>
-            <ds-widget-clock class="tb-day" show-digital digital-format="'EEE, dd MMM'" gmt-offset="item.Zone"></ds-widget-clock>
+            <ds-widget-clock ng-attr-style="color: {{item.txtColor}};" class="tb-day" show-digital digital-format="'MM/d/yyyy'"></ds-widget-clock>
+            <ds-widget-clock ng-attr-style="color: {{item.txtColor}};" show-digital digital-format="'hh:mm a'"></ds-widget-clock>
         </ripple>
     </md-whiteframe>
 </script>

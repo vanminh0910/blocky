@@ -202,10 +202,12 @@
 
     <div ng-if="vm.selectedWidget.type=='clock'">
         <div layout="row" layout-align="space-around end">
+            <label class="tb-label-color">Widget Color</label>
+            <label class="tb-label-color">Text Color</label>
+        </div>
+        <div layout="row" layout-align="space-around end">
             <tb-color-picker color="vm.selectedWidget.bgColor"></tb-color-picker>
-            <md-select ng-model="vm.selectedWidget.Zone">
-                <md-option ng-value="hour" ng-repeat="hour in vm.timeZone">GMT {{ hour }}</md-option>
-            </md-select>
+            <tb-color-picker color="vm.selectedWidget.txtColor"></tb-color-picker>
         </div>
 
     </div>

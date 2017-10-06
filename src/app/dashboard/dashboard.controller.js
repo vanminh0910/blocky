@@ -45,9 +45,6 @@ export default function DashboardController($scope, userService, dashboardServic
     vm.currentDashboard.subscribedTopics = [];
     vm.editMode = false;
     vm.isUserLoaded = userService.isAuthenticated();
-    vm.timeZone = [-12, -11, -10, -9, -8, -7, -6, -5, -4, -3, -2, -1, 0,
-        "+" + 1, "+" + 2, "+" + 3, "+" + 3.3, "+" + 4, "+" + 4.3, "+" + 5, "+" + 5.3, "+" + 6, "+" + 6.3, "+" + 7, "+" + 8, "+" + 9, "+" + 10, "+" + 11, "+" + 12, "+" + 13
-    ];
 
     if (vm.isUserLoaded) {
         authKey = userService.getCurrentUser().authKey;
@@ -468,11 +465,11 @@ export default function DashboardController($scope, userService, dashboardServic
             vm.currentDashboard.content.push({
                 type: 'clock',
                 icon: 'icon-calender',
-                bgColor: '#9e9e9e',
-                Zone: "+" + 7,
-                cols: 2,
+                bgColor: '#e91e63',
+                txtColor: '#ffffff',
+                cols: 4,
                 rows: 2,
-                minItemCols: 2,
+                minItemCols: 4,
                 minItemRows: 2
             })
         }
