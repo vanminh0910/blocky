@@ -15,7 +15,8 @@
     "tests"
   ],
   "dependencies": {
-    "angular-ui-clock": "^0.5.1",
-    "ngGeolocation": "^0.0.8"
+    "angular": "1.x",
+    "ngGeolocation": "^0.0.8",
+    "angular-ui-clock": "^0.5.1"
   }
 }
