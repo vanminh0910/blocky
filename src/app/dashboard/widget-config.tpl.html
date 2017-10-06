@@ -207,35 +207,24 @@
                 <label>Name</label>
                 <input ng-model="vm.selectedWidget.name" aria-label="MenuName">
             </md-input-container>
-            <div ng-repeat="item in vm.selectedWidget.iconlist" layout="row" layout-align="space-between start">
-                <ng-container layout-wrap layout="column" layout-align="start start">   
-                    <label class="icon-name-input" layout="column" layout-align="center center"> {{$index}})</label>
-                </ng-container>
-                <tb-icon-picker  icon="item.icon"></tb-icon-picker>
+            <div dnd-list="vm.selectedWidget.iconlist" layout-fill layout-align="start start">
+                <div ng-repeat="item in vm.selectedWidget.iconlist" dnd-draggable="item" dnd-dragstart="vm.selectedWidget.iconlist.splice($index,1)" dnd-selected="vm.selectedWidget.selected =item" ng-class="{'selected':vm.selectedWidget.selected===item}" dnd-effect-allowed="move" layout-wrap layout="row" layout-align="space-between start">
+                    <ng-container layout-wrap layout="column" layout-align="start start">   
+                        <div class="icon-index" layout="column" layout-align="center center"> {{$index+1}}</div>
+                    </ng-container>
+                    <tb-icon-picker  icon="item.icon"></tb-icon-picker>
 
-                <md-input-container class="icon-name-input">
-                        <label>Icon Name</label>
-                        <input type="text" ng-model="item.name" aria-label="MenuName">
-                </md-input-container>
-                <ng-container layout="column" class="bottom-sheet-widget-relocateIcon">
-                        <div flex layout-fill>
-                                <i ng-if="$index >0" class="icon-chevron-up" layout-align="end end" layout="column" ng-click="vm.editMenuWidget(vm.selectedWidget,{index:$index,go:'up',type:'reorganizeIcon'})"></i>
-                        </div>
-                        <div flex layout-fill>
-                                <i ng-if="$index != vm.selectedWidget.iconlist.length-1" class="icon-chevron-down" layout-align="end end" layout="column" ng-click="vm.editMenuWidget(vm.selectedWidget,{index:$index,go:'down',type:'reorganizeIcon'})"></i>   
-                        </div>
-                </ng-container>
-                <ng-container class="bottom-sheet-widget-relocateIcon" layout="row" layout-align="center center">
-                    <md-icon class="material-icons" ng-click="vm.editMenuWidget(vm.selectedWidget,{index:$index,type:'delete'})">delete</md-icon>
-                </ng-container>
-            </div>
-            <div layout="row" layout-align="space-between start">
-                    <tb-icon-picker icon="vm.selectedWidget.pendingItem.icon"></tb-icon-picker>
                     <md-input-container class="icon-name-input">
-                        <label>Icon name</label>
-                        <input ng-model="vm.selectedWidget.pendingItem.name">
+                            <label>Icon Name</label>
+                            <input type="text" ng-model="item.name" aria-label="MenuName">
                     </md-input-container>
-                    <md-button class="md-raised" class="icon-name-input" ng-click="vm.editMenuWidget(vm.selectedWidget,vm.selectedWidget.pendingItem)">Add Item</md-button>
+                </div>
+                <div class="dndPlaceholder" layout="row" layout-fill layout-align="space-between start">
+                    <div layout-fill class="dragPlaceHolder">Drop Here or Drag Outside To Delete</div>
+                </div>
+            </div>
+            <div layout="row" layout-fill>
+                <md-button class="md-raised md-primary" ng-click="vm.editMenuWidget(vm.selectedWidget)" layout-fill>Add</md-button>
             </div>
         </div>
     </div>

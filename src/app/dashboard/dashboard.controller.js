@@ -476,6 +476,7 @@ export default function DashboardController($scope, userService, dashboardServic
                     { name: 'Bluetooth', icon: 'icon-bluetooth' },
                     { name: 'Lock', icon: 'icon-unlock' },
                 ],
+                selected:null,
                 steps: 1,
                 min: 0,
                 max: 100,
@@ -550,50 +551,10 @@ export default function DashboardController($scope, userService, dashboardServic
         }
     }
 
-    function editMenuWidget(widget,pendingItem)
+    function editMenuWidget(widget)
     {
-        if(pendingItem.type==='pendingItem')
-        {
-            for(var i=0;i<widget.iconlist.length;i++)
-            {
-                if(widget.iconlist[i].icon == pendingItem.icon)
-                {
-                    alert("This icon already exists in the icon list,select something else");
-                    return;
-                }
-            }
-            widget.iconlist.push(
-            {
-                name:pendingItem.name,icon:pendingItem.icon
-            }
-            );
-            sendMessage(widget.subscribeMessage.topic, widget.subscribeMessage.dataType.toString());
-            saveDashboard();
-        }
-        else if(pendingItem.type==='reorganizeIcon')
-        {
-            var currentItem =widget.iconlist[pendingItem.index];
-            
-            if(pendingItem.go==='up')
-            {
-                var upperItem =widget.iconlist[pendingItem.index-1];
-                widget.iconlist[pendingItem.index]=upperItem;
-                widget.iconlist[pendingItem.index-1]=currentItem;
-            }
-            
-            else if(pendingItem.go==='down')
-            {
-                var lowerItem =widget.iconlist[pendingItem.index+1];
-                widget.iconlist[pendingItem.index]=lowerItem;
-                widget.iconlist[pendingItem.index+1]=currentItem;
-            }
-            saveDashboard();
-        }
-        else if(pendingItem.type==='delete')
-        {
-            widget.iconlist.splice(pendingItem.index,1);
-            saveDashboard();
-        }
+        widget.iconlist.push({name:'',icon:''});
+        saveDashboard();
     }
 
     function sendMessage(topic, message) {

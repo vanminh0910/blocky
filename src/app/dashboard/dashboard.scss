@@ -293,58 +293,20 @@ md-bottom-sheet{
         font-size:48px;
     }
 }
+.tb-widget-menu-item-border{
+    border:1px solid black!important;
+}
 .icon-name-input{
     margin:6.5px!important;
 }
-.tb-widget-timer{
-    background-color: #2196f3;
-    color: #ffffff;
-    .tb-widget-timer-icon{
-        position:absolute;
-        left:50%;
-        bottom:10px;
-        div{
-            position:relative;
-            left:-50%;
-        }
-    }
-    .foot{
-        position:relative;
-        bottom:15px;
-    }
-    i{
-        overflow:hidden!important;
-    }
-    i:focus{
-        outline: none;
-        border:0;
-    }
-    .running{
-        color:yellow!important;
-    }
-    .dateTracker{
-        background-color:transparent;
-        color:yellow;
-        label{
-            background-color:transparent;
-            color:white;
-            font-weight:bolder;
-            width:100%!important;
-            font-size:32px!important;
-        }
-    }
-    label{
-        font-size:32px!important;
-        color:white;
-    }
-    .tb-widget-timer-milisecond{
-        font-size:30%;
-        color:blue
-    }
-    span{
-        color:blue;
-        font-size:60%!important;
-    }
+.icon-index{
+    margin-top:6.5px!important;
+    font-size:10px!important;
+    color: #2A4FF7;
+    border-radius:100%;
+    border:1px solid blue;
+    height:15px;
+    width:15px;
 }
 .bottom-sheet-widget-relocateIcon{
     i:focus{
@@ -359,4 +321,11 @@ md-bottom-sheet{
 }
 .tb-widget-bottom-sheet {
     background-color: #e91e63;
+}
+.dragPlaceHolder{
+    border:1px solid #2A4FF7;
+    color:blue;
+}
+.test{
+    background-color:green!important;
 }
