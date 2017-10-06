@@ -302,3 +302,78 @@ md-whiteframe {
         }
     }
 }
+
+
+md-bottom-sheet{
+    min-height:30vh;
+    md-icon{
+        font-size:48px;
+    }
+}
+.icon-name-input{
+    margin:6.5px!important;
+}
+.tb-widget-timer{
+    background-color: #2196f3;
+    color: #ffffff;
+    .tb-widget-timer-icon{
+        position:absolute;
+        left:50%;
+        bottom:10px;
+        div{
+            position:relative;
+            left:-50%;
+        }
+    }
+    .foot{
+        position:relative;
+        bottom:15px;
+    }
+    i{
+        overflow:hidden!important;
+    }
+    i:focus{
+        outline: none;
+        border:0;
+    }
+    .running{
+        color:yellow!important;
+    }
+    .dateTracker{
+        background-color:transparent;
+        color:yellow;
+        label{
+            background-color:transparent;
+            color:white;
+            font-weight:bolder;
+            width:100%!important;
+            font-size:32px!important;
+        }
+    }
+    label{
+        font-size:32px!important;
+        color:white;
+    }
+    .tb-widget-timer-milisecond{
+        font-size:30%;
+        color:blue
+    }
+    span{
+        color:blue;
+        font-size:60%!important;
+    }
+}
+.bottom-sheet-widget-relocateIcon{
+    i:focus{
+        outline:none!important;
+        border:0 !important;
+        margin-top:4px!important;
+        
+    }
+    md-button{
+        margin-bottom:4px!important;
+    }
+}
+.tb-widget-bottom-sheet {
+    background-color: #e91e63;
+}
