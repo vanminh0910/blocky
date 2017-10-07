@@ -172,7 +172,147 @@ md-bottom-sheet {
   }
 }
 
+/* Customize toolbox */
+.blocklyTreeRow {
+  height: 40px;
+  line-height: 40px;
+  position: relative;
+}
+
 .blocklyTreeLabel {
   @media (max-width: $layout-breakpoint-xs) {
+    display: none;
   }
+}
+
+.blocklyTreeIcon {
+  font-size: 1.5rem;
+  margin-left: 5px;
+  margin-right: 8px;
+}
+
+.blocklyTreeSelected {
+  .blocklyTreeIcon:before {
+    color: #ffffff !important;
+  }
+}
+
+.blocklyTreeIcon:before {
+  font-family: FontAwesome;
+  position: absolute;
+  top: 0;
+}
+
+/* In/Out */
+#\3a 1 .blocklyTreeIcon:before {
+  content: "\f192";
+  color: rgb(109, 91, 165);
+}
+
+/* Timer */
+#\3a 2 .blocklyTreeIcon:before {
+  content: "\f017";
+  color: rgb(165, 91, 91);
+}
+
+/* Blocky */
+#\3a 3 .blocklyTreeIcon:before {
+  content: "\f0c2";
+  color: rgb(91, 165, 165);
+}
+
+/* Logic */
+#\3a 4 .blocklyTreeIcon:before {
+  content: "\f074";
+  color: rgb(92, 129, 166);
+}
+
+/* Loops */
+#\3a 5 .blocklyTreeIcon:before {
+  content: "\f01e";
+  color: rgb(92, 166, 92);
+}
+
+/* Math */
+#\3a 6 .blocklyTreeIcon:before {
+  content: "\f1ec";
+  color: rgb(92, 104, 166);
+}
+
+/* Text */
+#\3a 7 .blocklyTreeIcon:before {
+  content: "\f031";
+  color: rgb(92, 166, 141);
+}
+
+/* Lists */
+#\3a 8 .blocklyTreeIcon:before {
+  content: "\f03a";
+  color: rgb(116, 92, 166);
+}
+
+/* Colour */
+#\3a 9 .blocklyTreeIcon:before {
+  content: "\f123";
+  color: rgb(166, 116, 92);
+}
+
+/* Variables */
+#\3a b .blocklyTreeIcon:before {
+  content: "\f0a9";
+  color: rgb(166, 92, 129);
+}
+
+/* Functions */
+#\3a c .blocklyTreeIcon:before {
+  content: "\f0a9";
+  color: rgb(154, 92, 166);
+}
+
+/* Temperature */
+#\3a e .blocklyTreeIcon:before {
+  content: "\f0a9";
+  color: rgb(147, 165, 91);
+}
+
+/* PWM */
+#\3a f .blocklyTreeIcon:before {
+  content: "\f0a9";
+  color: rgb(109, 91, 165);
+}
+
+/* I2C */
+#\3a g .blocklyTreeIcon:before {
+  content: "\f0a9";
+  color: rgb(91, 109, 165);
+}
+
+/* NeoPixel */
+#\3a h .blocklyTreeIcon:before {
+  content: "\f0a9";
+  color: rgb(165, 91, 109);
+}
+
+/* MP3Player */
+#\3a i .blocklyTreeIcon:before {
+  content: "\f0a9";
+  color: rgb(165, 91, 91);
+}
+
+/* IOExpander */
+#\3a j .blocklyTreeIcon:before {
+  content: "\f0a9";
+  color: rgb(91, 147, 165);
+}
+
+/* Motor */
+#\3a k .blocklyTreeIcon:before {
+  content: "\f0a9";
+  color: rgb(91, 147, 165);
+}
+
+/* IR Remote */
+#\3a l .blocklyTreeIcon:before {
+  content: "\f0a9";
+  color: rgb(91, 128, 165);
 }
