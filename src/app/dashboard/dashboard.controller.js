@@ -466,6 +466,7 @@ export default function DashboardController($scope, userService, dashboardServic
                 name: 'Color Picker',
                 type: 'colorPicker',
                 color: '',
+                displayColor: {},
                 subscribeMessage: {
                     topic: '',
                 },
@@ -532,6 +533,7 @@ export default function DashboardController($scope, userService, dashboardServic
                 vm.selectedColor = '#' + color.hex;
 
                 widget.color = vm.selectedColor;
+                widget.displayColor = hexToRgb(widget.color);
                 sendMessage(widget.subscribeMessage.topic, widget.color.toString());
             });
 
@@ -637,7 +639,7 @@ export default function DashboardController($scope, userService, dashboardServic
                             updateChartData(widget, message);
                         } else if (widget.type === 'colorPicker') {
                             widget.color = message;
-                            $log.log('update dashboard' + message)
+                            widget.displayColor = hexToRgb(widget.color);
                         } else {
                             widget.value = message;
                         }
@@ -695,6 +697,7 @@ export default function DashboardController($scope, userService, dashboardServic
                                     initChartData(widget, wantedData[0].data);
                                 } else if (widget.type === 'colorPicker') {
                                     widget.color = singleValue;
+                                    widget.displayColor = hexToRgb(widget.color);
                                 } else {
                                     widget.value = singleValue;
                                 }
@@ -763,5 +766,14 @@ export default function DashboardController($scope, userService, dashboardServic
 
     function isMobileDevice() {
         return angular.isDefined(window.orientation) || (navigator.userAgent.indexOf('IEMobile') !== -1);
+    }
+
+    function hexToRgb(hex) {
+        var result = /^#?([a-f\d]{2})([a-f\d]{2})([a-f\d]{2})$/i.exec(hex);
+        return result ? {
+            red: parseInt(result[1], 16),
+            green: parseInt(result[2], 16),
+            blue: parseInt(result[3], 16)
+        } : null;
     }
 }

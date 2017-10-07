@@ -153,7 +153,7 @@
         </div>
         <ripple ng-class="vm.editMode ? 'disabled' : ''" ng-click="vm.widgetAction(item)">
             <div class="tb-widget-tile-body" layout-fill layout="column" layout-align="center center">
-                <color-picker></color-picker>
+                <color-picker ng-model="item.displayColor"></color-picker>
             </div>
         </ripple>
     </md-whiteframe>
