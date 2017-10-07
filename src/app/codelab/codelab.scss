@@ -188,7 +188,7 @@ md-bottom-sheet {
 .blocklyTreeIcon {
   font-size: 1.5rem;
   margin-left: 5px;
-  margin-right: 8px;
+  margin-right: 12px;
 }
 
 .blocklyTreeSelected {
@@ -241,7 +241,7 @@ md-bottom-sheet {
 
 /* Text */
 #\3a 7 .blocklyTreeIcon:before {
-  content: "\f031";
+  content: "\f035";
   color: rgb(92, 166, 141);
 }
 
@@ -259,60 +259,62 @@ md-bottom-sheet {
 
 /* Variables */
 #\3a b .blocklyTreeIcon:before {
-  content: "\f0a9";
+  content: "\f27d";
   color: rgb(166, 92, 129);
 }
 
 /* Functions */
 #\3a c .blocklyTreeIcon:before {
-  content: "\f0a9";
+  content: "\f085";
   color: rgb(154, 92, 166);
 }
 
 /* Temperature */
 #\3a e .blocklyTreeIcon:before {
-  content: "\f0a9";
+  content: "\f2c9";
   color: rgb(147, 165, 91);
+  margin-left: 5px;
 }
 
 /* PWM */
 #\3a f .blocklyTreeIcon:before {
-  content: "\f0a9";
+  content: "\f21e";
   color: rgb(109, 91, 165);
 }
 
 /* I2C */
 #\3a g .blocklyTreeIcon:before {
-  content: "\f0a9";
+  content: "\f287";
   color: rgb(91, 109, 165);
 }
 
 /* NeoPixel */
 #\3a h .blocklyTreeIcon:before {
-  content: "\f0a9";
+  content: "\f00a";
   color: rgb(165, 91, 109);
 }
 
 /* MP3Player */
 #\3a i .blocklyTreeIcon:before {
-  content: "\f0a9";
+  content: "\f001";
   color: rgb(165, 91, 91);
 }
 
 /* IOExpander */
 #\3a j .blocklyTreeIcon:before {
-  content: "\f0a9";
+  content: "\f126";
   color: rgb(91, 147, 165);
+  margin-left: 5px;
 }
 
 /* Motor */
 #\3a k .blocklyTreeIcon:before {
-  content: "\f0a9";
+  content: "\f11b";
   color: rgb(91, 147, 165);
 }
 
 /* IR Remote */
 #\3a l .blocklyTreeIcon:before {
-  content: "\f0a9";
+  content: "\f012";
   color: rgb(91, 128, 165);
 }
