@@ -465,7 +465,7 @@ export default function DashboardController($scope, userService, dashboardServic
             vm.currentDashboard.content.push({
                 name: 'Color Picker',
                 type: 'colorPicker',
-                color: '#ffffff',
+                color: '',
                 subscribeMessage: {
                     topic: '',
                 },
@@ -530,15 +530,14 @@ export default function DashboardController($scope, userService, dashboardServic
 
                 // c) plain old hex 
                 vm.selectedColor = '#' + color.hex;
+
+                widget.color = vm.selectedColor;
+                sendMessage(widget.subscribeMessage.topic, widget.color.toString());
             });
 
             // The good'n'tested "poke-it-with-a-stick" method: 
             $rootScope.$broadcast('color-picker.open');
             $rootScope.$on('$destroy', deregisterationCallback);
-
-            widget.color = vm.selectedColor;
-
-            sendMessage(widget.subscribeMessage.topic, widget.color.toString());
         }
     }
 
@@ -636,6 +635,9 @@ export default function DashboardController($scope, userService, dashboardServic
                             widget.value = Number(message);
                         } else if (widget.type === 'chart') {
                             updateChartData(widget, message);
+                        } else if (widget.type === 'colorPicker') {
+                            widget.color = message;
+                            $log.log('update dashboard' + message)
                         } else {
                             widget.value = message;
                         }
@@ -691,6 +693,8 @@ export default function DashboardController($scope, userService, dashboardServic
                                     widget.value = Number(singleValue);
                                 } else if (widget.type === 'chart') {
                                     initChartData(widget, wantedData[0].data);
+                                } else if (widget.type === 'colorPicker') {
+                                    widget.color = singleValue;
                                 } else {
                                     widget.value = singleValue;
                                 }
