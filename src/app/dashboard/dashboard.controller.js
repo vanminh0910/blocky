@@ -519,6 +519,26 @@ export default function DashboardController($scope, userService, dashboardServic
             widget.value = currentValue;
 
             sendMessage(widget.subscribeMessage.topic, widget.value.toString());
+        } else if (widget.type === 'colorPicker') {
+            // Listening for something interesting to happen: 
+            var deregisterationCallback = $rootScope.$on('color-picker.selected', function (ev, color) {
+                // a) using HSLA color model 
+                // vm.selectedColor = 'hsla(' + color.hsla.hue + ', ' + color.hsla.saturation + '%, ' + color.hsla.luminosity + '%, ' + color.hsla.alpha + ')';
+
+                // b) using RGB color model 
+                // vm.selectedColor = 'rgb(' + color.rgb.red + ', ' + color.rgb.green + ', ' + color.rgb.blue + ')';
+
+                // c) plain old hex 
+                vm.selectedColor = '#' + color.hex;
+            });
+
+            // The good'n'tested "poke-it-with-a-stick" method: 
+            $rootScope.$broadcast('color-picker.open');
+            $rootScope.$on('$destroy', deregisterationCallback);
+
+            widget.color = vm.selectedColor;
+
+            sendMessage(widget.subscribeMessage.topic, widget.color.toString());
         }
     }
 
