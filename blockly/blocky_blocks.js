@@ -88,11 +88,12 @@ Blockly.Blocks['timer_delay'] = {
   init: function() {
     this.appendDummyInput()
         .appendField("wait for")
-        .appendField(new Blockly.FieldNumber(0, 0), "value")
-        .appendField("(microseconds)");
+        .appendField(new Blockly.FieldNumber(100, 0, 200000), "value")
+        .appendField(new Blockly.FieldDropdown([["seconds","SECONDS"], ["millisecond","MILLIS"], ["microsecond","MICROS"]]), "TIME_UNIT")
+        .appendField("(not recommend)");
     this.setPreviousStatement(true, null);
     this.setNextStatement(true, null);
-    this.setColour(20);
+    this.setColour(60);
  this.setTooltip("");
  this.setHelpUrl("");
   }
@@ -113,39 +114,15 @@ Blockly.Blocks['timer_event'] = {
   init: function() {
     this.appendDummyInput()
         .appendField(new Blockly.FieldDropdown([["every","tmr.ALARM_AUTO"], ["after","tmr.ALARM_SINGLE"]]), "when")
-        .appendField(new Blockly.FieldNumber(0, 0), "time")
-        .appendField("milliseconds");
+        .appendField(new Blockly.FieldNumber(1, 0), "time")
+        .appendField(new Blockly.FieldDropdown([["seconds","SECONDS"], ["milliseconds","MILLIS"], ["microseconds","MICROS"]]), "TIME_UNIT");
     this.appendDummyInput()
-        .appendField("do");
+        .appendField("Blocky will");
     this.appendStatementInput("handler")
         .setCheck(null);
     this.setPreviousStatement(true, null);
     this.setNextStatement(true, null);
     this.setColour(20);
- this.setTooltip("");
- this.setHelpUrl("");
-  }
-};
-
-Blockly.Blocks['temp_read_temp_pin'] = {
-  init: function() {
-    this.appendDummyInput()
-        .appendField("read temperature on pin")
-        .appendField(new Blockly.FieldNumber(0, 0), "pin");
-    this.setOutput(true, "Number");
-    this.setColour(65);
- this.setTooltip("");
- this.setHelpUrl("");
-  }
-};
-
-Blockly.Blocks['temp_read_humid_pin'] = {
-  init: function() {
-    this.appendDummyInput()
-        .appendField("read humidity on pin")
-        .appendField(new Blockly.FieldNumber(0, 0), "pin");
-    this.setOutput(true, "Number");
-    this.setColour(65);
  this.setTooltip("");
  this.setHelpUrl("");
   }
@@ -679,6 +656,314 @@ Blockly.Blocks['ir_send'] = {
     this.appendValueInput("ID")
         .setCheck("Number")
         .appendField("Send IR command");
+    this.setPreviousStatement(true, null);
+    this.setNextStatement(true, null);
+    this.setColour(230);
+ this.setTooltip("");
+ this.setHelpUrl("");
+  }
+};
+
+Blockly.Blocks['button'] = {
+  init: function() {
+    this.appendDummyInput()
+        .appendField("When button at pin")
+        .appendField(new Blockly.FieldNumber(5, 0), "PIN")
+        .appendField("is pressed");
+    this.appendStatementInput("handler")
+        .setCheck(null);
+    this.setPreviousStatement(true, null);
+    this.setNextStatement(true, null);
+    this.setColour(230);
+ this.setTooltip("");
+ this.setHelpUrl("");
+  }
+};
+
+Blockly.Blocks['button_released'] = {
+  init: function() {
+    this.appendDummyInput()
+        .appendField("When button at pin")
+        .appendField(new Blockly.FieldNumber(5, 0), "PIN")
+        .appendField("is released");
+    this.appendStatementInput("handler")
+        .setCheck(null);
+    this.setPreviousStatement(true, null);
+    this.setNextStatement(true, null);
+    this.setColour(230);
+ this.setTooltip("");
+ this.setHelpUrl("");
+  }
+};
+
+Blockly.Blocks['light_ldr'] = {
+  init: function() {
+    this.appendDummyInput()
+        .appendField("Photocell light level");
+    this.setOutput(true, "Number");
+    this.setColour(230);
+ this.setTooltip("");
+ this.setHelpUrl("");
+  }
+};
+
+Blockly.Blocks['light_bh1750_setup'] = {
+  init: function() {
+    this.appendDummyInput()
+        .appendField("Setup BH1750 light sensor");
+    this.setPreviousStatement(true, null);
+    this.setNextStatement(true, null);
+    this.setColour(230);
+ this.setTooltip("");
+ this.setHelpUrl("");
+  }
+};
+
+Blockly.Blocks['temp_dht_read_temp'] = {
+  init: function() {
+    this.appendDummyInput()
+        .appendField("DHT temperature (°C) on pin")
+        .appendField(new Blockly.FieldNumber(5, 0), "PIN");
+    this.setOutput(true, "Number");
+    this.setColour(230);
+ this.setTooltip("");
+ this.setHelpUrl("");
+  }
+};
+
+Blockly.Blocks['temp_dht_read_humid'] = {
+  init: function() {
+    this.appendDummyInput()
+        .appendField("DHT humidity (%) on pin")
+        .appendField(new Blockly.FieldNumber(5, 0), "PIN");
+    this.setOutput(true, "Number");
+    this.setColour(230);
+ this.setTooltip("");
+ this.setHelpUrl("");
+  }
+};
+
+Blockly.Blocks['temp_am2320_setup'] = {
+  init: function() {
+    this.appendDummyInput()
+        .appendField("Setup AM2320 temperature sensor");
+    this.setPreviousStatement(true, null);
+    this.setNextStatement(true, null);
+    this.setColour(230);
+ this.setTooltip("");
+ this.setHelpUrl("");
+  }
+};
+
+Blockly.Blocks['temp_am2320_read_temp'] = {
+  init: function() {
+    this.appendDummyInput()
+        .appendField("AM2320 temperature (°C)");
+    this.setOutput(true, "Number");
+    this.setColour(230);
+ this.setTooltip("");
+ this.setHelpUrl("");
+  }
+};
+
+Blockly.Blocks['temp_am2320_read_humid'] = {
+  init: function() {
+    this.appendDummyInput()
+        .appendField("AM2320 humidity (%)");
+    this.setOutput(true, "Number");
+    this.setColour(230);
+ this.setTooltip("");
+ this.setHelpUrl("");
+  }
+};
+
+Blockly.Blocks['moisture_read'] = {
+  init: function() {
+    this.appendDummyInput()
+        .appendField("Soil moisture level");
+    this.setOutput(true, "Number");
+    this.setColour(230);
+ this.setTooltip("");
+ this.setHelpUrl("");
+  }
+};
+
+Blockly.Blocks['motion_read'] = {
+  init: function() {
+    this.appendDummyInput()
+        .appendField("When motion detected on pin")
+        .appendField(new Blockly.FieldNumber(5, 0), "PIN");
+    this.appendStatementInput("handler")
+        .setCheck(null);
+    this.setPreviousStatement(true, null);
+    this.setNextStatement(true, null);
+    this.setColour(230);
+ this.setTooltip("");
+ this.setHelpUrl("");
+  }
+};
+
+Blockly.Blocks['gas_read'] = {
+  init: function() {
+    this.appendDummyInput()
+        .appendField("gas level");
+    this.setOutput(true, null);
+    this.setColour(230);
+ this.setTooltip("");
+ this.setHelpUrl("");
+  }
+};
+
+Blockly.Blocks['touch_read'] = {
+  init: function() {
+    this.appendDummyInput()
+        .appendField("When touch sensor on pin")
+        .appendField(new Blockly.FieldNumber(5, 0), "PIN")
+        .appendField("detects touch");
+    this.appendStatementInput("handler")
+        .setCheck(null);
+    this.setPreviousStatement(true, null);
+    this.setNextStatement(true, null);
+    this.setColour(230);
+ this.setTooltip("");
+ this.setHelpUrl("");
+  }
+};
+
+Blockly.Blocks['touch_released'] = {
+  init: function() {
+    this.appendDummyInput()
+        .appendField("When touch sensor on pin")
+        .appendField(new Blockly.FieldNumber(5, 0), "PIN")
+        .appendField("detects touch released");
+    this.appendStatementInput("handler")
+        .setCheck(null);
+    this.setPreviousStatement(true, null);
+    this.setNextStatement(true, null);
+    this.setColour(230);
+ this.setTooltip("");
+ this.setHelpUrl("");
+  }
+};
+
+Blockly.Blocks['current_read'] = {
+  init: function() {
+    this.appendDummyInput()
+        .appendField("current level");
+    this.setOutput(true, "Number");
+    this.setColour(230);
+ this.setTooltip("");
+ this.setHelpUrl("");
+  }
+};
+
+Blockly.Blocks['buzzer_on'] = {
+  init: function() {
+    this.appendDummyInput()
+        .appendField("Turn on buzzer on pin")
+        .appendField(new Blockly.FieldNumber(5, 0), "PIN");
+    this.setPreviousStatement(true, null);
+    this.setNextStatement(true, null);
+    this.setColour(230);
+ this.setTooltip("");
+ this.setHelpUrl("");
+  }
+};
+
+Blockly.Blocks['buzzer_off'] = {
+  init: function() {
+    this.appendDummyInput()
+        .appendField("Turn off buzzer on pin")
+        .appendField(new Blockly.FieldNumber(5, 0), "PIN");
+    this.setPreviousStatement(true, null);
+    this.setNextStatement(true, null);
+    this.setColour(230);
+ this.setTooltip("");
+ this.setHelpUrl("");
+  }
+};
+
+Blockly.Blocks['relay_off'] = {
+  init: function() {
+    this.appendDummyInput()
+        .appendField("Turn off relay on pin")
+        .appendField(new Blockly.FieldNumber(5, 0), "PIN");
+    this.setPreviousStatement(true, null);
+    this.setNextStatement(true, null);
+    this.setColour(230);
+ this.setTooltip("");
+ this.setHelpUrl("");
+  }
+};
+
+Blockly.Blocks['mosfet_on'] = {
+  init: function() {
+    this.appendDummyInput()
+        .appendField("Turn on mosfet on pin")
+        .appendField(new Blockly.FieldNumber(5, 0), "PIN");
+    this.setPreviousStatement(true, null);
+    this.setNextStatement(true, null);
+    this.setColour(230);
+ this.setTooltip("");
+ this.setHelpUrl("");
+  }
+};
+
+Blockly.Blocks['mosfet_off'] = {
+  init: function() {
+    this.appendDummyInput()
+        .appendField("Turn off mosfet on pin")
+        .appendField(new Blockly.FieldNumber(5, 0), "PIN");
+    this.setPreviousStatement(true, null);
+    this.setNextStatement(true, null);
+    this.setColour(230);
+ this.setTooltip("");
+ this.setHelpUrl("");
+  }
+};
+
+Blockly.Blocks['led_off'] = {
+  init: function() {
+    this.appendDummyInput()
+        .appendField("Turn off LED on pin")
+        .appendField(new Blockly.FieldNumber(5, 0), "PIN");
+    this.setPreviousStatement(true, null);
+    this.setNextStatement(true, null);
+    this.setColour(230);
+ this.setTooltip("");
+ this.setHelpUrl("");
+  }
+};
+
+Blockly.Blocks['led_on'] = {
+  init: function() {
+    this.appendDummyInput()
+        .appendField("Turn on LED on pin")
+        .appendField(new Blockly.FieldNumber(5, 0), "PIN");
+    this.setPreviousStatement(true, null);
+    this.setNextStatement(true, null);
+    this.setColour(230);
+ this.setTooltip("");
+ this.setHelpUrl("");
+  }
+};
+
+Blockly.Blocks['light_bh1750_read'] = {
+  init: function() {
+    this.appendDummyInput()
+        .appendField("BH1750 light level");
+    this.setOutput(true, "Number");
+    this.setColour(230);
+ this.setTooltip("");
+ this.setHelpUrl("");
+  }
+};
+
+Blockly.Blocks['relay_on'] = {
+  init: function() {
+    this.appendDummyInput()
+        .appendField("Turn on relay on pin")
+        .appendField(new Blockly.FieldNumber(5, 0), "PIN");
     this.setPreviousStatement(true, null);
     this.setNextStatement(true, null);
     this.setColour(230);
