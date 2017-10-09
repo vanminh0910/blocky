@@ -502,14 +502,14 @@ export default function DashboardController($scope, userService, dashboardServic
                     topic: '',
                     message:'',
                 },
-                cols: 2,
-                rows: 2,
-                minItemCols: 2,
-                minItemRows: 2
+                cols: 1,
+                rows: 1,
+                minItemCols: 1,
+                minItemRows: 1
             };
             vm.currentDashboard.content.push(Menu);
             menuService.saveData(Menu.iconlist);
-        }
+        }   
         $mdSidenav('widget-library').close();
     }
 
@@ -570,10 +570,16 @@ export default function DashboardController($scope, userService, dashboardServic
         }
     }
 
-    function editMenuWidget(widget)
+    function editMenuWidget(widget,command)
     {
-        widget.iconlist.push({name:'',icon:''});
-        saveDashboard();
+        if(command==="add")
+        {
+            widget.iconlist.push({name:'',icon:''});
+        }
+        else
+        {
+            widget.iconlist.splice(command,1);
+        }
     }
 
     function sendMessage(topic, message) {
@@ -694,7 +700,6 @@ export default function DashboardController($scope, userService, dashboardServic
         {
             if(widget.iconlist[v].message === message)
             {
-                $log.log(widget.iconlist.length);
                 widget.icon = widget.iconlist[v].icon;
                 widget.value=Number(message);
             }

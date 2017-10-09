@@ -225,7 +225,7 @@
                 <input ng-model="vm.selectedWidget.subscribeMessage.topic" aria-label="MenuTopic">
             </md-input-container>
             <div dnd-list="vm.selectedWidget.iconlist" layout-fill layout-align="start start">
-                <div ng-repeat="item in vm.selectedWidget.iconlist" dnd-draggable="item" dnd-dragstart="vm.selectedWidget.iconlist.splice($index,1)" dnd-selected="vm.selectedWidget.selected =item" ng-class="{'selected':vm.selectedWidget.selected===item}" dnd-effect-allowed="move" layout-wrap layout="row" layout-align="space-between start">
+                <div ng-repeat="item in vm.selectedWidget.iconlist" dnd-draggable="item" dnd-dragstart="vm.editMenuWidget(vm.selectedWidget,$index)" dnd-selected="vm.selectedWidget.selected =item" ng-class="{'selected':vm.selectedWidget.selected===item}" dnd-effect-allowed="move" layout-wrap layout="row" layout-align="space-between start">
                     <ng-container layout-wrap layout="column" layout-align="start start">   
                         <div class="icon-index" layout="column" layout-align="center center"> {{$index+1}}</div>
                     </ng-container>
@@ -241,7 +241,7 @@
                 </div>
             </div>
             <div layout="row" layout-fill>
-                <md-button class="md-raised md-primary" ng-click="vm.editMenuWidget(vm.selectedWidget)" layout-fill>Add</md-button>
+                <md-button class="md-raised md-primary" ng-click="vm.editMenuWidget(vm.selectedWidget,'add')" layout-fill>Add</md-button>
             </div>
     </div>
     <div layout="row">
