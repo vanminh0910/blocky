@@ -651,6 +651,7 @@ export default function DashboardController($scope, userService, dashboardServic
                             updateChartData(widget, message);
                         } else if (widget.type === 'menu') {
                             widget.value=Number(message);
+                            updateMenuState(widget,message);
                         }
                          else {
                             widget.value = message;
@@ -660,7 +661,15 @@ export default function DashboardController($scope, userService, dashboardServic
             }
         }
     }
-
+    function updateMenuState(widget,message){
+        for(var v = 0;v < widget.iconlist.length;v++)
+        {
+            if(widget.iconlist[v].message === message)
+            {
+                widget.icon = widget.iconlist[v].icon;
+            }
+        }
+    }
     function updateChartData(widget, value) {
         widget.labels.push(
             moment(Date.now()).format('MMM Do HH:mm')
