@@ -465,15 +465,17 @@ export default function DashboardController($scope, userService, dashboardServic
             vm.currentDashboard.content.push({
                 name: 'Color Picker',
                 type: 'colorPicker',
+                icon: 'icon-sun',
+                bgColor: '#e91e63',
                 color: '',
                 displayColor: {},
                 subscribeMessage: {
                     topic: '',
                 },
                 cols: 2,
-                rows: 3,
+                rows: 2,
                 minItemCols: 2,
-                minItemRows: 3
+                minItemRows: 2
             })
         }
         $mdSidenav('widget-library').close();
