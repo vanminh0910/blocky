@@ -544,7 +544,6 @@ export default function DashboardController($scope, userService, dashboardServic
                 widget.subscribeMessage.message= position.message;
                 menuService.saveData(widget.iconlist);
                 sendMessage(widget.subscribeMessage.topic, widget.subscribeMessage.message.toString());
-                saveDashboard();
             }
         }
     }
@@ -650,7 +649,6 @@ export default function DashboardController($scope, userService, dashboardServic
                         } else if (widget.type === 'chart') {
                             updateChartData(widget, message);
                         } else if (widget.type === 'menu') {
-                            widget.value=Number(message);
                             updateMenuState(widget,message);
                         }
                          else {
@@ -658,16 +656,21 @@ export default function DashboardController($scope, userService, dashboardServic
                         }
                     }
                 }
+                
             }
         }
+        
+        saveDashboard();
+        
     }
     function updateMenuState(widget,message){
         for(var v = 0;v < widget.iconlist.length;v++)
         {
             if(widget.iconlist[v].message === message)
             {
+                $log.log(widget.iconlist.length);
                 widget.icon = widget.iconlist[v].icon;
-                saveDashboard();
+                widget.value=Number(message);
             }
         }
     }
@@ -719,7 +722,6 @@ export default function DashboardController($scope, userService, dashboardServic
                                     initChartData(widget, wantedData[0].data);
                                 } else if(widget.type==='menu')
                                 {
-                                    widget.value = Number(singleValue);
                                     updateMenuState(widget,singleValue);
                                 }
                                  else {

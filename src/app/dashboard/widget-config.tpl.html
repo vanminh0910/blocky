@@ -200,12 +200,12 @@
         </div>
         <div ng-if="vm.selectedWidget.type=='menu'" layout="column" layout-align="start start">
             <md-input-container>
-                <label>Input Topic</label>
-                <input ng-model="vm.selectedWidget.subscribeMessage.topic" aria-label="MenuTopic">
-            </md-input-container>
-            <md-input-container>
                 <label>Name</label>
                 <input ng-model="vm.selectedWidget.name" aria-label="MenuName">
+            </md-input-container>
+            <md-input-container>
+                <label>Input Topic</label>
+                <input ng-model="vm.selectedWidget.subscribeMessage.topic" aria-label="MenuTopic">
             </md-input-container>
             <div dnd-list="vm.selectedWidget.iconlist" layout-fill layout-align="start start">
                 <div ng-repeat="item in vm.selectedWidget.iconlist" dnd-draggable="item" dnd-dragstart="vm.selectedWidget.iconlist.splice($index,1)" dnd-selected="vm.selectedWidget.selected =item" ng-class="{'selected':vm.selectedWidget.selected===item}" dnd-effect-allowed="move" layout-wrap layout="row" layout-align="space-between start">
@@ -219,8 +219,8 @@
                             <input type="text" ng-model="item.message" aria-label="MenuName">
                     </md-input-container>
                 </div>
-                <div class="dndPlaceholder" layout="row" layout-fill layout-align="space-between start">
-                    <div layout-fill class="dragPlaceHolder">Drop Here or Drag Outside To Delete</div>
+                <div class="dndPlaceholder" layout="row" layout-padding layout-fill layout-align="space-between start">
+                    <div layout-fill class="dragPlaceHolder">Drop Inside To Insert<br/>Drop Outside To Remove</div>
                 </div>
             </div>
             <div layout="row" layout-fill>
