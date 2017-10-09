@@ -15,7 +15,7 @@
     limitations under the License.
 
 -->
-<md-select ng-model="icon">
+<md-select aria-label="iconpicker" ng-model="icon">
     <div layout="row" layout-wrap class="tb-icon-picker">
         <md-option ng-repeat="icon in iconsList" ng-click="closeDropdown()" class="tb-icon-picker-item" value="icon-{{icon.icon}}" aria-hidden="true"
             layout-align="center center">
