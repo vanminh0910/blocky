@@ -225,12 +225,11 @@
                 <input ng-model="vm.selectedWidget.subscribeMessage.topic" aria-label="MenuTopic">
             </md-input-container>
             <div dnd-list="vm.selectedWidget.iconlist" layout-fill layout-align="start start">
-                <div ng-repeat="item in vm.selectedWidget.iconlist" dnd-draggable="item" dnd-dragstart="vm.editMenuWidget(vm.selectedWidget,$index)" dnd-selected="vm.selectedWidget.selected =item" ng-class="{'selected':vm.selectedWidget.selected===item}" dnd-effect-allowed="move" layout-wrap layout="row" layout-align="space-between start">
+                <div ng-repeat="item in vm.selectedWidget.iconlist" dnd-draggable="item" dnd-moved="vm.editMenuWidget(vm.selectedWidget,$index)" dnd-selected="vm.selectedWidget.selected =item" ng-class="{'selected':vm.selectedWidget.selected===item}" dnd-effect-allowed="move" layout-fill layout="row" layout-align="space-between start">
                     <ng-container layout-wrap layout="column" layout-align="start start">   
                         <div class="icon-index" layout="column" layout-align="center center"> {{$index+1}}</div>
                     </ng-container>
                     <tb-icon-picker  icon="item.icon"></tb-icon-picker>
-
                     <md-input-container class="icon-name-input">
                             <label>Message</label>
                             <input type="text" ng-model="item.message" aria-label="MenuName">
