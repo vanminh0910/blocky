@@ -667,6 +667,7 @@ export default function DashboardController($scope, userService, dashboardServic
             if(widget.iconlist[v].message === message)
             {
                 widget.icon = widget.iconlist[v].icon;
+                saveDashboard();
             }
         }
     }
@@ -719,6 +720,7 @@ export default function DashboardController($scope, userService, dashboardServic
                                 } else if(widget.type==='menu')
                                 {
                                     widget.value = Number(singleValue);
+                                    updateMenuState(widget,singleValue);
                                 }
                                  else {
                                     widget.value = singleValue;
