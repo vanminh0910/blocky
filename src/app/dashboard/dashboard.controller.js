@@ -242,7 +242,7 @@ export default function DashboardController($scope, userService, dashboardServic
         vm.gridsterOptions.resizable.enabled = true;
         if (angular.isDefined(vm.gridsterOptions.api)) {
             if (isMobileDevice()) {
-                vm.gridsterOptions.draggable.delayStart = 1000;
+                vm.gridsterOptions.draggable.delayStart = 300;
                 vm.gridsterOptions.resizable = {
                     enabled: true,
                     handles: {
