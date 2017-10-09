@@ -319,9 +319,9 @@ md-bottom-sheet{
 .icon-index{
     margin-top:6.5px!important;
     font-size:10px!important;
-    color: #2A4FF7;
+    color: black;
     border-radius:100%;
-    border:1px solid blue;
+    border:1px solid black;
     height:15px;
     width:15px;
 }
@@ -342,6 +342,9 @@ md-bottom-sheet{
 .dragPlaceHolder{
     border:1px solid #2A4FF7;
     color:blue;
+    font-size:14px;
+    padding-top:5px!important;
+    margin-bottom:10px!important;
 }
 .test{
     background-color:green!important;
