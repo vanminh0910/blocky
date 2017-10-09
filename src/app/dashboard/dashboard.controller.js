@@ -565,6 +565,7 @@ export default function DashboardController($scope, userService, dashboardServic
         {
             if(position.type==='action')
             {
+                widget.icon = position.icon;
                 widget.subscribeMessage.message= position.message;
                 menuService.saveData(widget.iconlist);
                 sendMessage(widget.subscribeMessage.topic, widget.subscribeMessage.message.toString());
@@ -676,7 +677,11 @@ export default function DashboardController($scope, userService, dashboardServic
                         } else if (widget.type === 'colorPicker') {
                             widget.color = message;
                             widget.displayColor = hexToRgb(widget.color);
-                        } else {
+                        }
+                        else if (widget.type === 'menu') {
+                            widget.value=Number(message);
+                        }
+                         else {
                             widget.value = message;
                         }
                     }
@@ -738,7 +743,7 @@ export default function DashboardController($scope, userService, dashboardServic
                                 }
                                 else if(widget.type==='menu')
                                 {
-                                    widget.value = singleValue;
+                                    widget.value = Number(singleValue);
                                 }
                                  else {
                                     widget.value = singleValue;
