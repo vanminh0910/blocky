@@ -471,9 +471,9 @@ export default function DashboardController($scope, userService, dashboardServic
                     topic: '',
                 },
                 cols: 2,
-                rows: 2,
+                rows: 3,
                 minItemCols: 2,
-                minItemRows: 2
+                minItemRows: 3
             })
         }
         $mdSidenav('widget-library').close();

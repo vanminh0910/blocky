@@ -103,11 +103,12 @@
                 </div>
             </md-whiteframe>
 
-            <md-whiteframe layout="row" layout-margin ng-click="vm.addWidget('colorPicker')" class="md-whiteframe-4dp tb-widget-switch"
+            <md-whiteframe layout="row" layout-margin ng-click="vm.addWidget('colorPicker')" class="md-whiteframe-4dp tb-widget-color-picker"
                 flex="40">
+
                 <ripple r-disabled>
                     <div class="tb-widget-tile-body" layout-fill layout="column" layout-align="center center">
-                        <i class="icon-switch" aria-hidden="true"></i>
+                        <color-picker style="pointer-events:none !IMPORTANT"></color-picker>
                     </div>
                 </ripple>
             </md-whiteframe>

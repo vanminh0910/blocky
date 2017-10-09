@@ -167,6 +167,38 @@ md-whiteframe {
     }
 }
 
+.tb-widget-color-picker {
+    background-color: #e91e63;
+    .tb-widget-color {
+        position: absolute;
+        top: -40px;
+        right: -80px;
+    }
+    color-picker {
+        width: 160px !important;
+        height: 160px !important;
+        .color-palette {
+            /* color wheel animation */
+            transition-duration: .35s;
+        }
+        .color {
+            /* selector (middle button) pulse animation */
+            animation-duration: .28s;
+            /* selector (middle button) appear/disappear */
+            transition-duration: .49s;
+        }
+        .color-shadow-animate {
+            /* ripple animation */
+            animation-duration: .35s;
+        }
+        .knob {
+            /* first property is for knob shadow on drag */
+            /* second property is for knob appear/disappear */
+            transition-duration: .2s, .28s;
+        }
+    }
+}
+
 .white-slider .md-thumb:after,
 .white-slider .md-track-fill {
     background-color: #ffffff !important;
@@ -185,30 +217,6 @@ md-whiteframe {
     z-index: 100;
     button {
         min-width: 36px;
-    }
-}
-
-color-picker {
-    width: 160px !important;
-    height: 160px !important;
-    .color-palette {
-        /* color wheel animation */
-        transition-duration: .35s;
-    }
-    .color {
-        /* selector (middle button) pulse animation */
-        animation-duration: .28s;
-        /* selector (middle button) appear/disappear */
-        transition-duration: .49s;
-    }
-    .color-shadow-animate {
-        /* ripple animation */
-        animation-duration: .35s;
-    }
-    .knob {
-        /* first property is for knob shadow on drag */
-        /* second property is for knob appear/disappear */
-        transition-duration: .2s, .28s;
     }
 }
 
@@ -271,6 +279,10 @@ color-picker {
             left: 0;
             right: 0;
         }
+    }
+    color-picker {
+        width: 100px !important;
+        height: 100px !important;
     }
 }
 
