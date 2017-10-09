@@ -497,9 +497,6 @@ export default function DashboardController($scope, userService, dashboardServic
                     { message: 'Lock', icon: 'icon-unlock' },
                 ],
                 selected:null,
-                steps: 1,
-                min: 0,
-                max: 100,
                 value: 0,
                 subscribeMessage: {
                     topic: '',
@@ -711,7 +708,6 @@ export default function DashboardController($scope, userService, dashboardServic
     }
 
     function initDashboardData(data) {
-        initMenuService();
         if (!data.length) {
             return;
         }
@@ -750,23 +746,6 @@ export default function DashboardController($scope, userService, dashboardServic
                                 }
                             }
                         }
-                    }
-                }
-            }
-        }
-    }
-    function initMenuService()
-    {
-        for(var i = 0;i<vm.dashboards.length;i++)
-        {
-            if(vm.dashboards[i].content.length)
-            {
-                for(var j = 0; j<vm.dashboards[i].content.length;j++)
-                {
-                    var widget = vm.dashboards[i].content[j];
-                    if(widget.type==="menu")
-                    {
-                        menuService.saveData(widget.iconlist);
                     }
                 }
             }
@@ -863,7 +842,7 @@ export default function DashboardController($scope, userService, dashboardServic
         {
             return;
         }
-        $scope.alert = '';
+        menuService.saveData(item.iconlist);
         $mdBottomSheet.show({
             templateUrl: bottomSheetGridTpl,
             controller: GridBottomSheetCtrl,
