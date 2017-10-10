@@ -490,22 +490,23 @@ export default function DashboardController($scope, userService, dashboardServic
                 type: 'menu',
                 icon: 'icon-sun',
                 bgColor: '#e91e63',
-                pendingItem:{name:'Default',icon:'',pending:true,type:'pendingItem'},
+                pendingItem:{message:'',label:'',pending:true,type:'pendingItem'},
                 iconlist:[
-                    { message: 'Volumn', icon: 'icon-volume-medium' },
-                    { message: 'Bluetooth', icon: 'icon-bluetooth' },
-                    { message: 'Lock', icon: 'icon-unlock' },
+                    { message: '0', label: 'Mute' },
+                    { message: '100', label: 'Max' },
+                    { message: '50', label: 'Half' },
                 ],
-                selected:null,
                 value: 0,
                 subscribeMessage: {
                     topic: '',
                     message:'',
                 },
-                cols: 1,
-                rows: 1,
-                minItemCols: 1,
-                minItemRows: 1
+                cols: 2,
+                rows: 2,
+                minItemCols: 2,
+                minItemRows: 2,
+                maxItemCols:4,
+                maxItemRows:4,
             };
             vm.currentDashboard.content.push(Menu);
             menuService.saveData(Menu.iconlist);
@@ -562,7 +563,7 @@ export default function DashboardController($scope, userService, dashboardServic
         {
             if(position.type==='action')
             {
-                widget.icon = position.icon;
+                widget.name = position.label;
                 widget.subscribeMessage.message= position.message;
                 menuService.saveData(widget.iconlist);
                 sendMessage(widget.subscribeMessage.topic, widget.subscribeMessage.message.toString());
@@ -700,7 +701,7 @@ export default function DashboardController($scope, userService, dashboardServic
         {
             if(widget.iconlist[v].message === message)
             {
-                widget.icon = widget.iconlist[v].icon;
+                widget.name = widget.iconlist[v].label;
                 widget.value=Number(message);
             }
         }
@@ -867,8 +868,8 @@ export default function DashboardController($scope, userService, dashboardServic
             controllerAs: 'vm',
             clickOutsideToClose: true
         }).then(function (clickedItem) {
-            widgetAction(item,{message:clickedItem.message,icon:clickedItem.icon,type:'action'});
-            toast.showSuccess(clickedItem.message +" was chosen",1500,"menuToast");
+            widgetAction(item,{message:clickedItem.message,label:clickedItem.label,type:'action'});
+            toast.showSuccess(clickedItem.label +" was chosen",1500,"menuToast");
         }).catch(function (error) {
             if(error)
             {

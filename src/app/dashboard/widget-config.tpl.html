@@ -215,7 +215,7 @@
         </div>
 
 
-        <div ng-if="vm.selectedWidget.type=='menu'" layout="column" layout-align="start start">
+        <div class="tb-menu-Widget" ng-if="vm.selectedWidget.type=='menu'" layout="column" layout-align="start start">
             <md-input-container>
                 <label>Name</label>
                 <input ng-model="vm.selectedWidget.name" aria-label="MenuName">
@@ -224,23 +224,33 @@
                 <label>Input Topic</label>
                 <input ng-model="vm.selectedWidget.subscribeMessage.topic" aria-label="MenuTopic">
             </md-input-container>
-            <div dnd-list="vm.selectedWidget.iconlist"  layout-fill layout-align="start start">
-                <div ng-repeat="item in vm.selectedWidget.iconlist" draggable="true" dnd-draggable="item" dnd-dragstart="vm.editMenuWidget(vm.selectedWidget,$index)" dnd-selected="vm.selectedWidget.selected =item" ng-class="{'selected':vm.selectedWidget.selected===item}" dnd-effect-allowed="move" layout-fill layout="row" layout-align="space-between start">
-                    <ng-container layout-wrap layout="column" layout-align="start start">   
-                        <div class="icon-index" layout="column" layout-align="center center"> {{$index+1}}</div>
-                    </ng-container>
-                    <tb-icon-picker  icon="item.icon"></tb-icon-picker>
-                    <md-input-container class="icon-name-input">
-                            <label>Message</label>
-                            <input type="text" ng-model="item.message" aria-label="MenuName">
-                    </md-input-container>
-                    <ng-container hide-gt-sm layout-padding layout-wrap layout="column" layout-align="start start">   
-                            <md-icon ng-click="vm.editMenuWidget(vm.selectedWidget,$index)" class="material-icons" layout="column" layout-align="center center">delete</md-icon>
-                    </ng-container>
-                        
-                </div>
-                <div class="dndPlaceholder" layout="row" layout-padding layout-fill layout-align="space-between start">
-                    <div layout-fill class="dragPlaceHolder">Drop Inside To Insert<br/>Drop Outside To Remove</div>
+            <div layout="row" layout-fill layout-align="space-around center">
+                    <tb-icon-picker icon="vm.selectedWidget.icon"></tb-icon-picker>
+                    <tb-color-picker color="vm.selectedWidget.bgColor"></tb-color-picker>
+            </div>
+            <div ui-tree layout-align="center center" layout>
+                <div ui-tree-nodes="" ng-model="vm.selectedWidget.iconlist" layout-fill >
+                    <div ui-tree-node ng-repeat="item in vm.selectedWidget.iconlist" layout-fill>
+                        <div layout="row" layout-align="center center">
+                                <ng-container layout-wrap layout="column" layout-align="start start">   
+                                        <div class="icon-index" layout="column" layout-align="center center"> {{$index+1}}</div>
+                                </ng-container>
+                            <md-input-container class="icon-label-input">
+                                    <label>Label</label>
+                                    <input type="text" ng-model="item.label" aria-label="MenuName">
+                            </md-input-container>
+                            <md-input-container class="icon-name-input">
+                                    <label>Message</label>
+                                    <input type="text" ng-model="item.message" aria-label="MenuName">
+                            </md-input-container>
+                            <div class="treeHandle" ui-tree-handle layout-padding>
+                                :::
+                            </div>
+                            <div ng-click="vm.selectedWidget.iconlist.splice($index,1)">
+                                <md-icon aria-label="Remove Widget" class="material-icons deleteIcon">delete</md-icon>
+                            </div>
+                        </div>
+                    </div>
                 </div>
             </div>
             <div layout="row" layout-fill>

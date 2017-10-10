@@ -15,7 +15,7 @@
     limitations under the License.
 
 -->
-<md-select ng-model="color">
+<md-select aria-label="colorpicker" ng-model="color">
     <div layout="row" layout-wrap class="tb-color-picker">
         <md-option ng-repeat="color in colorsList" ng-click="vm.closeDropdown()" class="tb-color-picker-item" value="{{color.color}}"
             aria-hidden="true" layout-align="center center" ng-attr-style="background-color: {{color.color}};">
