@@ -207,8 +207,8 @@
                 <label>Input Topic</label>
                 <input ng-model="vm.selectedWidget.subscribeMessage.topic" aria-label="MenuTopic">
             </md-input-container>
-            <div dnd-list="vm.selectedWidget.iconlist" layout-fill layout-align="start start">
-                <div ng-repeat="item in vm.selectedWidget.iconlist" dnd-draggable="item" dnd-moved="vm.editMenuWidget(vm.selectedWidget,$index)" dnd-selected="vm.selectedWidget.selected =item" ng-class="{'selected':vm.selectedWidget.selected===item}" dnd-effect-allowed="move" layout-fill layout="row" layout-align="space-between start">
+            <div dnd-list="vm.selectedWidget.iconlist"  layout-fill layout-align="start start">
+                <div ng-repeat="item in vm.selectedWidget.iconlist" draggable="true" dnd-draggable="item" dnd-dragstart="vm.editMenuWidget(vm.selectedWidget,$index)" dnd-selected="vm.selectedWidget.selected =item" ng-class="{'selected':vm.selectedWidget.selected===item}" dnd-effect-allowed="move" layout-fill layout="row" layout-align="space-between start">
                     <ng-container layout-wrap layout="column" layout-align="start start">   
                         <div class="icon-index" layout="column" layout-align="center center"> {{$index+1}}</div>
                     </ng-container>
@@ -217,6 +217,10 @@
                             <label>Message</label>
                             <input type="text" ng-model="item.message" aria-label="MenuName">
                     </md-input-container>
+                    <ng-container hide-gt-sm layout-padding layout-wrap layout="column" layout-align="start start">   
+                            <md-icon ng-click="vm.editMenuWidget(vm.selectedWidget,$index)" class="material-icons" layout="column" layout-align="center center">delete</md-icon>
+                    </ng-container>
+                        
                 </div>
                 <div class="dndPlaceholder" layout="row" layout-padding layout-fill layout-align="space-between start">
                     <div layout-fill class="dragPlaceHolder">Drop Inside To Insert<br/>Drop Outside To Remove</div>

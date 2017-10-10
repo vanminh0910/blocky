@@ -552,7 +552,7 @@ export default function DashboardController($scope, userService, dashboardServic
     {
         if(command==="add")
         {
-            widget.iconlist.push({name:'',icon:''});
+            widget.iconlist.push({name:'',icon:'icon-air-conditioner'});
         }
         else
         {
