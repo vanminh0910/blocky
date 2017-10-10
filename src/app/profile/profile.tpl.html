@@ -61,6 +61,7 @@
                     <md-button ng-disabled="loading" ng-click="vm.changePassword($event)" class="md-raised md-primary">{{ 'profile.change-password' | translate }}
                     </md-button>
                     <div layout="row" layout-align="end center" width="100%" layout-wrap>
+                        <md-button onclick="window.history.back()" class="md-raised md-warn">{{ 'action.back' | translate }}</md-button>
                         <md-button ng-disabled="loading || theForm.$invalid || !theForm.$dirty" type="submit" class="md-raised md-primary">{{ 'action.save' | translate }}
                         </md-button>
                     </div>
