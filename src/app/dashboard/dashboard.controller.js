@@ -45,8 +45,8 @@ export default function DashboardController($scope, userService, dashboardServic
     vm.currentDashboard.subscribedTopics = [];
     vm.editMode = false;
     vm.isUserLoaded = userService.isAuthenticated();
-    vm.gmapDraggable = true;
-    vm.gmapWidgetMode;
+    // vm.gmapDraggable = true;
+    // vm.gmapWidgetMode;
 
     if (vm.isUserLoaded) {
         authKey = userService.getCurrentUser().authKey;
@@ -242,13 +242,13 @@ export default function DashboardController($scope, userService, dashboardServic
 
     function editDashboard() {
         vm.editMode = true;
-        vm.gmapDraggable = false;
-        if (vm.gmapWidgetMode === true) {
-            vm.initMap();
-        }
-        if (vm.gmapWidgetMode === false) {
-            vm.polylineMap(vm.selectedWidget.listCoordinates);
-        }
+        // vm.gmapDraggable = false;
+        // if (vm.gmapWidgetMode === true) {
+        //     vm.initMap();
+        // }
+        // if (vm.gmapWidgetMode === false) {
+        //     vm.polylineMap(vm.selectedWidget.listCoordinates);
+        // }
         vm.gridsterOptions.draggable.enabled = true;
         vm.gridsterOptions.resizable.enabled = true;
         if (angular.isDefined(vm.gridsterOptions.api)) {
@@ -305,13 +305,13 @@ export default function DashboardController($scope, userService, dashboardServic
 
     function runDashboard() {
         vm.editMode = false;
-        vm.gmapDraggable = true;
-        if (vm.gmapWidgetMode === true) {
-            vm.initMap();
-        }
-        if (vm.gmapWidgetMode === false) {
-            vm.polylineMap(vm.selectedWidget.listCoordinates)
-        }
+        // vm.gmapDraggable = true;
+        // if (vm.gmapWidgetMode === true) {
+        //     vm.initMap();
+        // }
+        // if (vm.gmapWidgetMode === false) {
+        //     vm.polylineMap(vm.selectedWidget.listCoordinates)
+        // }
         vm.gridsterOptions.draggable.enabled = false;
         vm.gridsterOptions.resizable.enabled = false;
         if (angular.isDefined(vm.gridsterOptions.api)) {
@@ -488,23 +488,7 @@ export default function DashboardController($scope, userService, dashboardServic
                     topic: '',
                     dataType: '1'
                 },
-                listCoordinates: [{
-                        lat: 37.772,
-                        lng: -122.214
-                    },
-                    {
-                        lat: 21.291,
-                        lng: -157.821
-                    },
-                    {
-                        lat: -18.142,
-                        lng: 178.431
-                    },
-                    {
-                        lat: -27.467,
-                        lng: 153.027
-                    }
-                ],
+                listCoordinates: [],
                 cols: 4,
                 rows: 3,
                 minItemCols: 4,
@@ -792,7 +776,7 @@ export default function DashboardController($scope, userService, dashboardServic
                     lng: position.coords.longitude
                 },
                 zoom: 15,
-                draggable: vm.gmapDraggable
+                // draggable: vm.gmapDraggable
             });
             vm.gmapWidgetMode = true;
             vm.marker = new google.maps.Marker({
@@ -813,7 +797,7 @@ export default function DashboardController($scope, userService, dashboardServic
                 lng: -180
             },
             mapTypeId: 'terrain',
-            draggable: vm.gmapDraggable,
+            // draggable: vm.gmapDraggable,
         });
         vm.gmapWidgetMode = false;
         vm.flightPath = new google.maps.Polyline({
