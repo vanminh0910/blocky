@@ -32,7 +32,7 @@ export default function DashboardController($scope, userService, dashboardServic
     var vm = this;
     var mqttClient;
     var authKey = '';
-    var baseTopicUrl = '';
+    var baseUserTopicUrl = '';
 
     vm.widgetLibrary = widgetLibrary;
     vm.widgetConfig = widgetConfig;
@@ -48,7 +48,7 @@ export default function DashboardController($scope, userService, dashboardServic
 
     if (vm.isUserLoaded) {
         authKey = userService.getCurrentUser().authKey;
-        baseTopicUrl = '/' + authKey + '/';
+        baseUserTopicUrl = '/' + authKey + '/user/';
         loadUserDashboards();
     } else {
         vm.dashboards = [{
@@ -182,7 +182,7 @@ export default function DashboardController($scope, userService, dashboardServic
                 });
                 mqttClient.on('message', function (topic, message) {
                     $timeout(function () {
-                        topic = topic.replace(baseTopicUrl, '');
+                        topic = topic.replace(baseUserTopicUrl, '');
                         message = message.toString();
                         $log.log('Dashboard Recieved Message:', topic, message);
                         updateDashboardData(topic, message);
@@ -520,7 +520,7 @@ export default function DashboardController($scope, userService, dashboardServic
     }
 
     function sendMqttMessage(topic, message) {
-        topic = baseTopicUrl + topic.trim();
+        topic = baseUserTopicUrl + topic.trim();
         $log.log('Send Message', topic, message);
         if (mqttClient && mqttClient.connected) {
             mqttClient.publish(topic, message, null, function (err) {
@@ -570,7 +570,7 @@ export default function DashboardController($scope, userService, dashboardServic
         if (mqttClient && mqttClient.connected) {
             for (var k = 0; k < vm.currentDashboard.subscribedTopics.length; k++) {
                 var widgetTopic = vm.currentDashboard.subscribedTopics[k].topic;
-                widgetTopic = baseTopicUrl + widgetTopic;
+                widgetTopic = baseUserTopicUrl + widgetTopic;
                 mqttClient.unsubscribe(widgetTopic);
                 $log.log('Save Subscribed Topics:', widgetTopic);
                 mqttClient.subscribe(widgetTopic, {
@@ -618,7 +618,7 @@ export default function DashboardController($scope, userService, dashboardServic
 
     function subscribeDashboardsTopics(data) {
         for (var i = 0; i < data.length; i++) {
-            var topic = baseTopicUrl + data[i].topic;
+            var topic = baseUserTopicUrl + data[i].topic;
             mqttClient.unsubscribe(topic);
             $log.log('Subscribe Dashboards Topics:', topic);
             mqttClient.subscribe(topic, {

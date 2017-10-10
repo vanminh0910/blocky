@@ -23,8 +23,8 @@ export default angular.module('blocky.settings', [])
                 signup: '/users/login'
             },
             mqtt: {
-                url: 'wss://broker.getblocky.com',
-                host: 'broker.getblocky.com',
+                url: 'wss://staging.play.getblocky.com',
+                host: 'staging.play.getblocky.com',
                 port: '8883'
             },
             maxBytesUpload: 900
