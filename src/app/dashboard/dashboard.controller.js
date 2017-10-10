@@ -143,6 +143,7 @@ export default function DashboardController($scope, userService, dashboardServic
     vm.setColor = setColor;
     vm.initMap = initMap;
     vm.polylineMap = polylineMap;
+    vm.viewPolylineMapChecking = viewPolylineMapChecking;
 
     function closeWidgetLibrarySideNav() {
         $mdSidenav('widget-library').close();
@@ -510,6 +511,7 @@ export default function DashboardController($scope, userService, dashboardServic
                 listCoordinates: [],
                 cols: 4,
                 rows: 3,
+                viewPolylineMap: false,
                 minItemCols: 4,
                 minItemRows: 3
             })
@@ -871,6 +873,16 @@ export default function DashboardController($scope, userService, dashboardServic
                 position: coordinates[i],
                 map: vm.map
             });
+        }
+    }
+
+    function viewPolylineMapChecking(params) {
+        if (params.viewPolylineMap === false) {
+            vm.initMap();
+            $log.log(params.viewPolylineMap);
+        } else if (params.viewPolylineMap === true) {
+            vm.polylineMap(params.listCoordinates);
+            $log.log(params.viewPolylineMap);
         }
     }
 }
