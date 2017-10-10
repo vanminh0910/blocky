@@ -28,7 +28,7 @@ import moment from 'moment';
 /* eslint-disable no-undef, angular/window-service, angular/document-service */
 
 /*@ngInject*/
-export default function DashboardController($scope, userService, dashboardService, store, $window, $mdMedia, $mdSidenav, $document, $timeout, $mdDialog, $rootScope, $translate, toast, $state, settings, Fullscreen, $log, $geolocation) {
+export default function DashboardController($scope, userService, dashboardService, store, $window, $mdMedia, $mdSidenav, $document, $timeout, $mdDialog, $rootScope, $translate, toast, $state, settings, Fullscreen, $log) {
     var vm = this;
     var mqttClient;
     var authKey = '';
@@ -245,7 +245,7 @@ export default function DashboardController($scope, userService, dashboardServic
         vm.editMode = true;
         vm.gmapDraggable = false;
         if (vm.gmapWidgetMode === true) {
-            vm.initMap();
+            vm.initMap(vm.selectedWidget.Coordinates);
         }
         if (vm.gmapWidgetMode === false) {
             vm.polylineMap(vm.selectedWidget.listCoordinates);
@@ -308,7 +308,7 @@ export default function DashboardController($scope, userService, dashboardServic
         vm.editMode = false;
         vm.gmapDraggable = true;
         if (vm.gmapWidgetMode === true) {
-            vm.initMap();
+            vm.initMap(vm.selectedWidget.Coordinates);
         }
         if (vm.gmapWidgetMode === false) {
             vm.polylineMap(vm.selectedWidget.listCoordinates)
@@ -490,6 +490,7 @@ export default function DashboardController($scope, userService, dashboardServic
                     dataType: '1'
                 },
                 listCoordinates: [],
+                Coordinates: {},
                 cols: 4,
                 rows: 3,
                 viewPolylineMap: true,
@@ -661,6 +662,9 @@ export default function DashboardController($scope, userService, dashboardServic
     function updateMapData(widget, value) {
         widget.listCoordinates.push(angular.fromJson(value));
         vm.polylineMap(widget.listCoordinates);
+
+        widget.Coordinates = angular.fromJson(value);
+        vm.initMap(angular.fromJson(widget.Coordinates));
     }
 
     function subscribeDashboardsTopics(data) {
@@ -700,6 +704,8 @@ export default function DashboardController($scope, userService, dashboardServic
                                     widget.value = Number(singleValue);
                                 } else if (widget.type === 'chart') {
                                     initChartData(widget, wantedData[0].data);
+                                } else if (widget.type === 'gmap') {
+                                    initMapData(widget, wantedData[0].data);
                                 } else {
                                     widget.value = singleValue;
                                 }
@@ -725,6 +731,13 @@ export default function DashboardController($scope, userService, dashboardServic
         }
         widget.labels = labels;
         widget.data[0] = chartData;
+    }
+
+    function initMapData(widget, data) {
+        $log.log('initMapData');
+        widget.Coordinates = angular.fromJson(data[0].data);
+        $log.log(widget.Coordinates)
+        vm.initMap(widget.Coordinates);
     }
 
     function filterDuplidatedTopics(data) {
@@ -770,24 +783,16 @@ export default function DashboardController($scope, userService, dashboardServic
         return angular.isDefined(window.orientation) || (navigator.userAgent.indexOf('IEMobile') !== -1);
     }
 
-    function initMap() {
-        $geolocation.getCurrentPosition().then(function (position) {
-            vm.map = new google.maps.Map(document.getElementById('tb-gmap-widget'), {
-                center: {
-                    lat: position.coords.latitude,
-                    lng: position.coords.longitude
-                },
-                zoom: 15,
-                draggable: vm.gmapDraggable
-            });
-            vm.gmapWidgetMode = true;
-            vm.marker = new google.maps.Marker({
-                position: {
-                    lat: position.coords.latitude,
-                    lng: position.coords.longitude
-                },
-                map: vm.map
-            });
+    function initMap(coordinates) {
+        vm.map = new google.maps.Map(document.getElementById('tb-gmap-widget'), {
+            center: coordinates,
+            zoom: 15,
+            draggable: vm.gmapDraggable
+        });
+        vm.gmapWidgetMode = true;
+        vm.marker = new google.maps.Marker({
+            position: coordinates,
+            map: vm.map
         });
     }
 
@@ -824,10 +829,10 @@ export default function DashboardController($scope, userService, dashboardServic
     function viewPolylineMapChecking(params) {
         if (params.viewPolylineMap === false) {
             vm.polylineMap(params.listCoordinates);
-            $log.log(params.viewPolylineMap);
-        } else if (params.viewPolylineMap === true) { 
-            vm.initMap();
-            $log.log(params.viewPolylineMap);
+        } else if (params.viewPolylineMap === true) {
+            vm.initMap(params.Coordinates);
+            $log.log('viewPolylineMapChecking');
+            $log.log(params.Coordinates);
         }
     }
 }
