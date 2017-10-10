@@ -6,9 +6,9 @@
         <md-list flex layout="row" layout-align="center center">
             <md-list-item ng-repeat="item in vm.items">
                 <div layout-fill layout-align="center center" layout="column">
-                    <md-button aria-label="iconView" layout-fill layout="row" layout-align="center center" class="md-grid-item-content"  ng-click="vm.listItemClick($index)">
-                        <md-icon layout-fill layout="row" layout-align="center center" class="{{item.icon}}"></md-icon>
-                    </md-button>
+                    <ripple aria-label="iconView" layout-wrap layout="row" layout-align="center center" class="md-grid-item-content"  ng-click="vm.listItemClick($index)">
+                        <div layout-wrap layout>{{item.label}}</div>    
+                    </ripple>
                     <div class="md-grid-text"> {{ item.message }} </div>
                 </div>
             </md-list-item>

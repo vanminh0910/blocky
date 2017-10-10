@@ -284,6 +284,26 @@ md-whiteframe {
             margin-top: 20px !important;
         }
     }
+    .tb-menu-Widget{
+        
+        .icon-index{
+            margin-top:6.5px!important;
+            font-size:10px!important;
+            color: black;
+            border-radius:100%;
+            border:1px solid black;
+            height:15px;
+            width:15px;
+        }
+        .treeHandle{
+            touch-action:none!important;
+            font-size:20px!important;
+            font-weight:bold;
+        }
+        .deleteIcon{
+            color:red!important;
+        }
+    }
 }
 
 
@@ -293,42 +313,10 @@ md-bottom-sheet{
         font-size:48px;
     }
 }
-.tb-widget-menu-item-border{
-    border:1px solid black!important;
-}
-.icon-name-input{
-    margin:6.5px!important;
-}
-.icon-index{
-    margin-top:6.5px!important;
-    font-size:10px!important;
-    color: black;
-    border-radius:100%;
-    border:1px solid black;
-    height:15px;
-    width:15px;
-}
-.bottom-sheet-widget-relocateIcon{
-    i:focus{
-        outline:none!important;
-        border:0 !important;
-        margin-top:4px!important;
-        
-    }
-    md-button{
-        margin-bottom:4px!important;
-    }
-}
+
 .tb-widget-bottom-sheet {
     background-color: #e91e63;
 }
-.dragPlaceHolder{
-    border:1px solid #2A4FF7;
-    color:blue;
-    font-size:14px;
-    padding-top:5px!important;
-    margin-bottom:10px!important;
-}
-.test{
-    background-color:green!important;
+.tb-widget-menu-item-border{
+    border:1px solid black!important;
 }
