@@ -205,8 +205,7 @@
                 <input ng-model="vm.selectedWidget.name">
             </md-input-container>
             <md-input-container>
-                <md-button aria-label="gmapModeOne" ng-click="vm.initMap()"> GMap Mode 1 </md-button>
-                <md-button aria-label="gmapModeOne" ng-click="vm.polylineMap(vm.selectedWidget.listCoordinates)"> GMap Mode 2 </md-button>
+                <md-checkbox ng-model="vm.selectedWidget.viewPolylineMap" aria-label="PolylineMap" ng-click="vm.viewPolylineMapChecking(vm.selectedWidget)">PolylineMap</md-checkbox>
             </md-input-container>
             <md-input-container>
                 <label>Input Topic</label>
