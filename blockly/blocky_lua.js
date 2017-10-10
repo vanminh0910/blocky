@@ -56,6 +56,22 @@ Blockly.Lua['timer_delay'] = function(block) {
   var code = 'tmr.delay(' + number_value + ')\n';
   return code;
 };
+Blockly.Lua['timer_delay'] = function(block) {
+  var number_value = block.getFieldValue('value');
+  var dropdown_time_unit = block.getFieldValue('TIME_UNIT');
+  // TODO: Assemble Lua into code variable.
+  var code = '...\n';
+  
+  if (dropdown_time_unit == 'MICROS')
+	  return 'tmr.delay(' + number_value + ')\n';
+  if (dropdown_time_unit == 'MILLIS')
+	  return 'tmr.delay(' + number_value*1000 + ')\n';
+  
+  if (dropdown_time_unit == 'SECONDS')
+	  return 'tmr.delay(' + number_value*1000000 + ')\n';
+  
+  return code;
+};
 
 Blockly.Lua['timer_now'] = function(block) {
   // TODO: Assemble Lua into code variable.
@@ -69,25 +85,26 @@ Blockly.Lua['timer_event'] = function(block) {
   var number_time = block.getFieldValue('time');
   var statements_handler = Blockly.Lua.statementToCode(block, 'handler');
   // TODO: Assemble Lua into code variable.
-  var code = 'tmr.create():alarm(' + number_time + ', ' + dropdown_when + ', function()\n';
-  code += statements_handler + '\nend)\n';
+  
   return code;
 };
 
-Blockly.Lua['temp_read_temp_pin'] = function(block) {
-  var number_pin = block.getFieldValue('pin');
+Blockly.Lua['timer_event'] = function(block) {
+  var dropdown_when = block.getFieldValue('when');
+  var number_time = block.getFieldValue('time');
+  var dropdown_time_unit = block.getFieldValue('TIME_UNIT');
+  var statements_handler = Blockly.Lua.statementToCode(block, 'handler');
   // TODO: Assemble Lua into code variable.
-  var code = '({dht.read(' + number_pin + ')})[2]';
-  // TODO: Change ORDER_NONE to the correct strength.
-  return [code, Blockly.Lua.ORDER_NONE];
-};
-
-Blockly.Lua['temp_read_humid_pin'] = function(block) {
-  var number_pin = block.getFieldValue('pin');
-  // TODO: Assemble Lua into code variable.
-  var code = '({dht.read(' + number_pin + ')})[3]';
-  // TODO: Change ORDER_NONE to the correct strength.
-  return [code, Blockly.Lua.ORDER_NONE];
+  var code = 'tmr.create():alarm('  + number_value;
+  //if (dropdown_time_unit == 'MICROS')
+	  
+  if (dropdown_time_unit == 'MILLIS')
+	  code +=  '000';
+  if (dropdown_time_unit == 'SECONDS')
+	  code +=  '000000';
+  code += ', ' + dropdown_when + ', function()\n';
+  code += statements_handler + 'end)\n';
+  return code;
 };
 
 Blockly.Lua['blockycloud_send_log'] = function(block) {
@@ -395,5 +412,184 @@ Blockly.Lua['ir_send'] = function(block) {
   var value_id = Blockly.Lua.valueToCode(block, 'ID', Blockly.Lua.ORDER_ATOMIC);
   // TODO: Assemble Lua into code variable.
   var code = 'irBlaster.send(' + value_id + ')\n';
+  return code;
+};
+
+Blockly.Lua['button'] = function(block) {
+  var number_pin = block.getFieldValue('PIN');
+  var statements_handler = Blockly.Lua.statementToCode(block, 'handler');
+  // TODO: Assemble Lua into code variable.
+  var code = "gpio.mode(" + number_pin + ", gpio.INT); gpio.trig(" + number_pin + ", 'up', function(level)\n";
+  code += statements_handler + 'end)\n';
+  return code;
+};
+
+Blockly.Lua['button_released'] = function(block) {
+  var number_pin = block.getFieldValue('PIN');
+  var statements_handler = Blockly.Lua.statementToCode(block, 'handler');
+  // TODO: Assemble Lua into code variable.
+  var code = "gpio.mode(" + number_pin + ", gpio.INT); gpio.trig(" + number_pin + ", 'down', function(level)\n";
+  code += statements_handler + 'end)\n';
+  return code;
+};
+
+Blockly.Lua['light_ldr'] = function(block) {
+  // TODO: Assemble Lua into code variable.
+  var code = 'adc.read(0)';
+  // TODO: Change ORDER_NONE to the correct strength.
+  return [code, Blockly.Lua.ORDER_NONE];
+  
+};
+
+Blockly.Lua['light_bh1750_setup'] = function(block) {
+  // TODO: Assemble Lua into code variable.
+  var code = 'bh1750 = require(\'bh1750\'); bh1750.init(2, 1)\n';
+  return code;
+};
+
+Blockly.Lua['light_bh1750_read'] = function(block) {
+  // TODO: Assemble Lua into code variable.
+  var code = "(function() bh1750.read(); return bh1750.getlux()/100 end)()";
+  // TODO: Change ORDER_NONE to the correct strength.
+  return [code, Blockly.Lua.ORDER_NONE];
+};
+
+Blockly.Lua['temp_dht_read_temp'] = function(block) {
+  var number_pin = block.getFieldValue('PIN');
+  // TODO: Assemble Lua into code variable.
+  var code = "(function() tmr.delay(50000); return ({dht.read(" + number_pin + ")})[2] end)()";
+  // TODO: Change ORDER_NONE to the correct strength.
+  return [code, Blockly.Lua.ORDER_NONE];
+};
+
+Blockly.Lua['temp_dht_read_humid'] = function(block) {
+  var number_pin = block.getFieldValue('PIN');
+  // TODO: Assemble Lua into code variable.
+  var code = "(function() tmr.delay(50000); return ({dht.read(" + number_pin + ")})[3] end)()";
+  // TODO: Change ORDER_NONE to the correct strength.
+  return [code, Blockly.Lua.ORDER_NONE];
+};
+
+Blockly.Lua['temp_am2320_setup'] = function(block) {
+  // TODO: Assemble Lua into code variable.
+  var code = "i2c.setup(0, 2, 1, i2c.SLOW); am2320.setup()\n";
+  return code;
+};
+
+Blockly.Lua['temp_am2320_read_temp'] = function(block) {
+  // TODO: Assemble Lua into code variable.
+  var code = "({am2320.read()})[2]/10";
+  // TODO: Change ORDER_NONE to the correct strength.
+  return [code, Blockly.Lua.ORDER_NONE];
+};
+
+Blockly.Lua['temp_am2320_read_humid'] = function(block) {
+  // TODO: Assemble Lua into code variable.
+  var code = "({am2320.read()})[1]/10";
+  // TODO: Change ORDER_NONE to the correct strength.
+  return [code, Blockly.Lua.ORDER_NONE];
+};
+
+Blockly.Lua['moisture_read'] = function(block) {
+  // TODO: Assemble Lua into code variable.
+  var code = 'adc.read(0)';
+  // TODO: Change ORDER_NONE to the correct strength.
+  return [code, Blockly.Lua.ORDER_NONE];
+};
+
+Blockly.Lua['motion_read'] = function(block) {
+  var number_pin = block.getFieldValue('PIN');
+  var statements_handler = Blockly.Lua.statementToCode(block, 'handler');
+  // TODO: Assemble Lua into code variable.
+  var code = "gpio.mode(" + number_pin + ", gpio.INT); gpio.trig(" + number_pin + ", 'up', function(level)\n";
+  code += statements_handler + 'end)\n';
+  return code;
+};
+
+Blockly.Lua['gas_read'] = function(block) {
+  // TODO: Assemble Lua into code variable.
+  var code = 'adc.read(0)';
+  // TODO: Change ORDER_NONE to the correct strength.
+  return [code, Blockly.Lua.ORDER_NONE];
+};
+
+Blockly.Lua['touch_read'] = function(block) {
+  var number_pin = block.getFieldValue('PIN');
+  var statements_handler = Blockly.Lua.statementToCode(block, 'handler');
+  // TODO: Assemble Lua into code variable.
+  var code = "gpio.mode(" + number_pin + ", gpio.INT); gpio.trig(" + number_pin + ", 'up', function(level)\n";
+  code += statements_handler + 'end)\n';
+  return code;
+};
+
+Blockly.Lua['touch_released'] = function(block) {
+  var number_pin = block.getFieldValue('PIN');
+  var statements_handler = Blockly.Lua.statementToCode(block, 'handler');
+  // TODO: Assemble Lua into code variable.
+  var code = "gpio.mode(" + number_pin + ", gpio.INT); gpio.trig(" + number_pin + ", 'down', function(level)\n";
+  code += statements_handler + 'end)\n';
+  return code;
+};
+
+Blockly.Lua['current_read'] = function(block) {
+  // TODO: Assemble Lua into code variable.
+  var code = 'adc.read(0)';
+  // TODO: Change ORDER_NONE to the correct strength.
+  return [code, Blockly.Lua.ORDER_NONE];
+};
+
+Blockly.Lua['buzzer_on'] = function(block) {
+  var number_pin = block.getFieldValue('PIN');
+  // TODO: Assemble Lua into code variable.
+  var code = 'gpio.mode(' + number_pin + ', gpio.OUTPUT); gpio.write(' + number_pin + ', gpio.HIGH)\n';
+  return code;
+};
+
+Blockly.Lua['buzzer_off'] = function(block) {
+  var number_pin = block.getFieldValue('PIN');
+  // TODO: Assemble Lua into code variable.
+  var code = 'gpio.mode(' + number_pin + ', gpio.OUTPUT); gpio.write(' + number_pin + ', gpio.LOW)\n';
+  return code;
+};
+
+Blockly.Lua['relay_on'] = function(block) {
+  var number_pin = block.getFieldValue('PIN');
+  // TODO: Assemble Lua into code variable.
+  var code = 'gpio.mode(' + number_pin + ', gpio.OUTPUT); gpio.write(' + number_pin + ', gpio.HIGH)\n';
+  return code;
+};
+
+Blockly.Lua['relay_off'] = function(block) {
+  var number_pin = block.getFieldValue('PIN');
+  // TODO: Assemble Lua into code variable.
+  var code = 'gpio.mode(' + number_pin + ', gpio.OUTPUT); gpio.write(' + number_pin + ', gpio.LOW)\n';
+  return code;
+};
+
+Blockly.Lua['mosfet_on'] = function(block) {
+  var number_pin = block.getFieldValue('PIN');
+  // TODO: Assemble Lua into code variable.
+  var code = 'gpio.mode(' + number_pin + ', gpio.OUTPUT); gpio.write(' + number_pin + ', gpio.HIGH)\n';
+  return code;
+};
+
+Blockly.Lua['mosfet_off'] = function(block) {
+  var number_pin = block.getFieldValue('PIN');
+  // TODO: Assemble Lua into code variable.
+  var code = 'gpio.mode(' + number_pin + ', gpio.OUTPUT); gpio.write(' + number_pin + ', gpio.LOW)\n';
+  return code;
+};
+
+Blockly.Lua['led_off'] = function(block) {
+  var number_pin = block.getFieldValue('PIN');
+  // TODO: Assemble Lua into code variable.
+  var code = 'gpio.mode(' + number_pin + ', gpio.OUTPUT); gpio.write(' + number_pin + ', gpio.LOW)\n';
+  return code;
+};
+
+Blockly.Lua['led_on'] = function(block) {
+  var number_pin = block.getFieldValue('PIN');
+  // TODO: Assemble Lua into code variable.
+  var code = 'gpio.mode(' + number_pin + ', gpio.OUTPUT); gpio.write(' + number_pin + ', gpio.HIGH)\n';
   return code;
 };

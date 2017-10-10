@@ -158,3 +158,368 @@ md-bottom-sheet {
     display: none;
   }
 }
+
+#register-new-device {
+  width: 550px;
+  @media (min-width: $layout-breakpoint-sm) {
+    min-height: 600px;
+    overflow: hidden;
+  }
+  h6 {
+    @media (max-width: $layout-breakpoint-xs) {
+      margin: 0;
+    }
+  }
+}
+
+/* Customize toolbox */
+.blocklyTreeRow {
+  height: 40px;
+  line-height: 40px;
+  position: relative;
+}
+
+.blocklyTreeLabel {
+  @media (max-width: $layout-breakpoint-xs) {
+    display: none;
+  }
+}
+
+.blocklyTreeIcon {
+  font-size: 1.5rem;
+  margin-left: 5px;
+  margin-right: 12px;
+}
+
+.blocklyTreeSelected {
+  .blocklyTreeIcon.blocklyTreeIconNone:before {
+    color: #ffffff !important;
+  }
+  .blocklyTreeIcon {
+    &.blocklyTreeIconClosedLtr, &.blocklyTreeIconOpen {
+      margin-right: unset;
+    }
+  }
+}
+
+.blocklyTreeIcon:before {
+  font-family: FontAwesome;
+  position: absolute;
+  top: 0;
+}
+
+/* Timer */
+#\3a 1 .blocklyTreeIcon:before {
+  content: "\f017";
+  color: rgb(165, 91, 91);
+}
+
+/* Message */
+#\3a 2 .blocklyTreeIcon:before {
+  content: "\f0e6";
+  color: rgb(91, 165, 165);
+}
+
+/* Logic */
+#\3a 3 .blocklyTreeIcon:before {
+  content: "\f074";
+  color: rgb(92, 129, 166);
+}
+
+/* Loops */
+#\3a 4 .blocklyTreeIcon:before {
+  content: "\f01e";
+  color: rgb(92, 166, 92);
+}
+
+/* Math */
+#\3a 5 .blocklyTreeIcon:before {
+  content: "\f1ec";
+  color: rgb(92, 104, 166);
+}
+
+/* Text */
+#\3a 6 .blocklyTreeIcon:before {
+  content: "\f035";
+  color: rgb(92, 166, 141);
+}
+
+/* Variables */
+#\3a 7 .blocklyTreeIcon:before {
+  content: "\f27d";
+  color: rgb(166, 92, 129);
+}
+
+/* Category */
+.blocklyTreeIcon.undefined.undefined {
+  display: none;
+}
+
+.blocklyTreeIconClosedLtr, .blocklyTreeIconOpen {
+  background-image: unset;
+  margin-right: 15px !important;
+}
+
+.blocklyTreeRow {
+  padding-left: 0 !important;
+}
+
+/* Input */
+#\3a 9 {
+  .blocklyTreeIconClosedLtr, .blocklyTreeIconOpen {
+    &:before {
+      content: "\f192";
+      margin-left: 2px;
+    }
+  }
+}
+
+/* Button */
+#\3a a .blocklyTreeIcon:before {
+  content: "\f111";
+  color: rgb(91, 165, 165);
+  margin-left: 2px;
+}
+
+/* Light */
+#\3a b .blocklyTreeIcon:before {
+  content: "\f0eb";
+  color: rgb(91, 165, 165);
+  margin-left: 5px;
+}
+
+/* Temperature */
+#\3a c .blocklyTreeIcon:before {
+  content: "\f2c9";
+  color: rgb(147, 165, 91);
+  margin-left: 5px;
+}
+
+/* Soil Moisture */
+#\3a d .blocklyTreeIcon:before {
+  content: "\f043";
+  color: rgb(147, 165, 91);
+  margin-left: 5px;
+}
+
+/* Motion Sensor */
+#\3a e .blocklyTreeIcon:before {
+  content: "\f0ec";
+  color: rgb(147, 165, 91);
+}
+
+/* Gas Sensor */
+#\3a f .blocklyTreeIcon:before {
+  content: "\f134";
+  color: rgb(147, 165, 91);
+  margin-left: 2px;
+}
+
+/* Touch Sensor */
+#\3a g .blocklyTreeIcon:before {
+  content: "\f25a";
+  color: rgb(147, 165, 91);
+}
+
+/* Current Sensor */
+#\3a h .blocklyTreeIcon:before {
+  content: "\f242";
+  color: rgb(147, 165, 91);
+}
+
+/* IOExpander */
+#\3a i .blocklyTreeIcon:before {
+  content: "\f126";
+  color: rgb(91, 147, 165);
+  margin-left: 5px;
+}
+
+/* Control */
+#\3a j {
+  .blocklyTreeIconClosedLtr, .blocklyTreeIconOpen {
+    &:before {
+      content: "\f11b";
+    }
+  }
+}
+
+/* Buzzer */
+#\3a k .blocklyTreeIcon:before {
+  content: "\f0f3";
+  color: rgb(165, 91, 91);
+}
+
+/* Relay */
+#\3a l .blocklyTreeIcon:before {
+  content: "\f1c0";
+  color: rgb(165, 91, 91);
+}
+
+/* Mosfet */
+#\3a m .blocklyTreeIcon:before {
+  content: "\f1c0";
+  color: rgb(165, 91, 91);
+}
+
+/* Servo */
+#\3a n .blocklyTreeIcon:before {
+  content: "\f110";
+  color: rgb(165, 91, 91);
+}
+
+/* Motor */
+#\3a o .blocklyTreeIcon:before {
+  content: "\f11b";
+  color: rgb(165, 91, 91);
+}
+
+/* IR Remote */
+#\3a p .blocklyTreeIcon:before {
+  content: "\f012";
+  color: rgb(165, 91, 91);
+}
+
+/* MP3Player */
+#\3a q .blocklyTreeIcon:before {
+  content: "\f001";
+  color: rgb(165, 91, 91);
+}
+
+/* PWM */
+#\3a r .blocklyTreeIcon:before {
+  content: "\f21e";
+  color: rgb(165, 91, 91);
+}
+
+/* Dislay */
+#\3a s {
+  .blocklyTreeIconClosedLtr, .blocklyTreeIconOpen {
+    &:before {
+      content: "\f26c";
+    }
+  }
+}
+
+/* LED */
+#\3a t .blocklyTreeIcon:before {
+  content: "\f1c0";
+  color: rgb(147, 165, 91);
+}
+
+/* NeoPixel */
+#\3a u .blocklyTreeIcon:before {
+  content: "\f00a";
+  color: rgb(147, 165, 91);
+}
+
+/* OLED LCD */
+#\3a v .blocklyTreeIcon:before {
+  content: "\f1c0";
+  color: rgb(147, 165, 91);
+}
+
+/* LED Bar */
+#\3a w .blocklyTreeIcon:before {
+  content: "\f1c0";
+  color: rgb(147, 165, 91);
+}
+
+/* Communication */
+#\3a x {
+  .blocklyTreeIconClosedLtr, .blocklyTreeIconOpen {
+    &:before {
+      content: "\f0c1";
+    }
+  }
+}
+
+/* Bluetooth */
+#\3a y .blocklyTreeIcon:before {
+  content: "\f293";
+  color: rgb(128, 91, 165);
+}
+
+/* LORA */
+#\3a z .blocklyTreeIcon:before {
+  content: "\f1eb";
+  color: rgb(128, 91, 165);
+}
+
+
+/* Advanced */
+#\3a 11 {
+  .blocklyTreeIconClosedLtr, .blocklyTreeIconOpen {
+    &:before {
+      content: "\f085";
+    }
+  }
+}
+
+/* Pins */
+#\3a 12 .blocklyTreeIcon:before {
+  content: "\f276";
+  color: rgb(109, 91, 165);
+}
+
+/* I2C */
+#\3a 13 .blocklyTreeIcon:before {
+  content: "\f287";
+  color: rgb(91, 109, 165);
+}
+
+/* Lists */
+#\3a 14 .blocklyTreeIcon:before {
+  content: "\f03a";
+  color: rgb(116, 92, 166);
+}
+
+/* Colour */
+#\3a 15 .blocklyTreeIcon:before {
+  content: "\f123";
+  color: rgb(166, 116, 92);
+}
+
+/* Functions */
+#\3a 16 .blocklyTreeIcon:before {
+  content: "\f013";
+  color: rgb(154, 92, 166);
+}
+
+/* Services */
+#\3a 18 {
+  .blocklyTreeIconClosedLtr, .blocklyTreeIconOpen {
+    &:before {
+      content: "\f1e0";
+    }
+  }
+}
+
+/* Email */
+#\3a 19 .blocklyTreeIcon:before {
+  content: "\f0e0";
+  color: rgb(91, 165, 165);
+}
+
+/* Facebook */
+#\3a 1a .blocklyTreeIcon:before {
+  content: "\f082";
+  color: rgb(91, 165, 165);
+}
+
+/* Twitter */
+#\3a 1b .blocklyTreeIcon:before {
+  content: "\f081";
+  color: rgb(91, 165, 165);
+}
+
+/* IFTTT */
+#\3a 1c .blocklyTreeIcon:before {
+  content: "\f1d8";
+  color: rgb(91, 165, 165);
+}
+
+/* Database */
+#\3a 1d .blocklyTreeIcon:before {
+  content: "\f1c0";
+  color: rgb(91, 165, 165);
+}

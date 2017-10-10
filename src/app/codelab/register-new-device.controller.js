@@ -24,15 +24,6 @@ export default function RegisterNewDeviceController($scope, $mdDialog, $log, $q,
     var promise;
 
     vm.connectNotification = true;
-
-    vm.enableNextStep = enableNextStep;
-    vm.moveToPreviousStep = moveToPreviousStep;
-    vm.closeDialog = closeDialog;
-    vm.loadAccessPointList = loadAccessPointList;
-    vm.saveSetting = saveSetting;
-    vm.showConfirmReload = showConfirmReload;
-    vm.reloadPage = reloadPage;
-    vm.showConfirmCancel = showConfirmCancel;
     vm.selectedStep = 0;
     vm.stepProgress = 1;
     vm.maxStep = 4;
@@ -56,6 +47,15 @@ export default function RegisterNewDeviceController($scope, $mdDialog, $log, $q,
             data: {}
         }
     ];
+
+    vm.enableNextStep = enableNextStep;
+    vm.moveToPreviousStep = moveToPreviousStep;
+    vm.closeDialog = closeDialog;
+    vm.loadAccessPointList = loadAccessPointList;
+    vm.saveSetting = saveSetting;
+    vm.showConfirmReload = showConfirmReload;
+    vm.reloadPage = reloadPage;
+    vm.showConfirmCancel = showConfirmCancel;
 
     function closeDialog() {
         $mdDialog.hide();

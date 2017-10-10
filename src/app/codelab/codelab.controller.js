@@ -639,7 +639,7 @@ export default function CodeLabController($mdSidenav, toast, scriptService, user
                 controllerAs: 'vm',
                 templateUrl: registerDeviceTemplate,
                 parent: angular.element($document[0].body),
-                fullscreen: false,
+                fullscreen: true,
                 targetEvent: $event
             })
             .then(function () {}, function () {});
