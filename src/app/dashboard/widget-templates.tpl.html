@@ -154,7 +154,7 @@
                 <md-icon class="material-icons md-light md-48">mode_edit</md-icon>
             </md-button>
         </div>
-        <ripple ng-class="vm.editMode ? 'disabled' : ''" ng-click="vm.widgetAction(item)">
+        <ripple ng-class="vm.editMode ? 'disabled' : ''" ng-click="vm.setColor($event, item)">
             <div class="tb-widget-color tb-widget-tile-body">
                 <color-picker ng-model="item.displayColor"></color-picker>
             </div>

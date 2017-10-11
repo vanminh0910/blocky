@@ -204,15 +204,12 @@
                 <label>Name</label>
                 <input ng-model="vm.selectedWidget.name">
             </md-input-container>
-            <div layout="row" layout-align="start center">
-                    <tb-color-picker color="vm.selectedWidget.bgColor"></tb-color-picker>
-                </div>
             <md-input-container>
                 <label>Output Topic</label>
                 <input type="text" ng-model="vm.selectedWidget.subscribeMessage.topic" />
             </md-input-container>
             <md-input-container>
-                <label>Color code: </label>
+                <label>Color code </label>
                 <input type="text" ng-model="vm.selectedWidget.color" disabled/>
             </md-input-container>
         </div>

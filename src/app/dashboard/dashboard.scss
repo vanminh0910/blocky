@@ -168,15 +168,15 @@ md-whiteframe {
 }
 
 .tb-widget-color-picker {
-    background-color: #e91e63;
+    background-color: #9e9e9e;
     .tb-widget-color {
         position: absolute;
         top: -33px;
         right: -65px;
     }
     color-picker {
-        width: 130px !important;
-        height: 128px !important;
+        width: 120px;
+        height: 120px;
     }
 }
 
@@ -262,8 +262,8 @@ md-whiteframe {
         }
     }
     color-picker {
-        width: 100px !important;
-        height: 100px !important;
+        width: 60px !important;
+        height: 60px !important;
     }
 }
 

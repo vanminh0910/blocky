@@ -45,6 +45,7 @@ export default function DashboardController($scope, userService, dashboardServic
     vm.currentDashboard.subscribedTopics = [];
     vm.editMode = false;
     vm.isUserLoaded = userService.isAuthenticated();
+    vm.selectedColor = '';
 
     if (vm.isUserLoaded) {
         authKey = userService.getCurrentUser().authKey;
@@ -137,6 +138,7 @@ export default function DashboardController($scope, userService, dashboardServic
     vm.closeWidgetConfigSideNav = closeWidgetConfigSideNav;
     vm.toggleFullScreen = toggleFullScreen;
     vm.Fullscreen = Fullscreen;
+    vm.setColor = setColor;
 
     function closeWidgetLibrarySideNav() {
         $mdSidenav('widget-library').close();
@@ -466,7 +468,7 @@ export default function DashboardController($scope, userService, dashboardServic
                 name: 'Color Picker',
                 type: 'colorPicker',
                 icon: 'icon-sun',
-                bgColor: '#e91e63',
+                bgColor: '#9e9e9e',
                 color: '',
                 displayColor: {},
                 subscribeMessage: {
@@ -523,25 +525,7 @@ export default function DashboardController($scope, userService, dashboardServic
 
             sendMessage(widget.subscribeMessage.topic, widget.value.toString());
         } else if (widget.type === 'colorPicker') {
-            // Listening for something interesting to happen: 
-            var deregisterationCallback = $rootScope.$on('color-picker.selected', function (ev, color) {
-                // a) using HSLA color model 
-                // vm.selectedColor = 'hsla(' + color.hsla.hue + ', ' + color.hsla.saturation + '%, ' + color.hsla.luminosity + '%, ' + color.hsla.alpha + ')';
-
-                // b) using RGB color model 
-                // vm.selectedColor = 'rgb(' + color.rgb.red + ', ' + color.rgb.green + ', ' + color.rgb.blue + ')';
-
-                // c) plain old hex 
-                vm.selectedColor = '#' + color.hex;
-
-                widget.color = vm.selectedColor;
-                widget.displayColor = hexToRgb(widget.color);
-                sendMessage(widget.subscribeMessage.topic, widget.color.toString());
-            });
-
-            // The good'n'tested "poke-it-with-a-stick" method: 
-            $rootScope.$broadcast('color-picker.open');
-            $rootScope.$on('$destroy', deregisterationCallback);
+            sendMessage(widget.subscribeMessage.topic, widget.color.toString());
         }
     }
 
@@ -589,6 +573,7 @@ export default function DashboardController($scope, userService, dashboardServic
     }
 
     function saveSubscribedTopics() {
+        $log.log('saveSubscribedTopics');
         var subscribedTopics = [];
         for (var i = 0; i < vm.dashboards.length; i++) {
             if (vm.dashboards[i].content.length) {
@@ -777,5 +762,24 @@ export default function DashboardController($scope, userService, dashboardServic
             green: parseInt(result[2], 16),
             blue: parseInt(result[3], 16)
         } : null;
+    }
+
+    function rgbToHex(rgb) {
+        if (/^#[0-9A-F]{6}$/i.test(rgb)) return rgb;
+
+        rgb = rgb.match(/^rgb\((\d+),\s*(\d+),\s*(\d+)\)$/);
+
+        function hex(x) {
+            return ('0' + parseInt(x).toString(16)).slice(-2);
+        }
+        return '#' + hex(rgb[1]) + hex(rgb[2]) + hex(rgb[3]);
+    }
+
+    function setColor($event, widget) {
+        var selectedColor = $event.currentTarget.querySelector('button').style.backgroundColor;
+        widget.color = rgbToHex(selectedColor);
+        widget.displayColor = hexToRgb(widget.color);
+
+        widgetAction(widget);
     }
 }
