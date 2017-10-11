@@ -204,8 +204,8 @@
                 <label>Name</label>
                 <input ng-model="vm.selectedWidget.name">
             </md-input-container>
-            <md-input-container>
-                <md-checkbox ng-model="vm.selectedWidget.viewPolylineMap" aria-label="PolylineMap" ng-click="vm.viewPolylineMapChecking(vm.selectedWidget)">Polyline Mode</md-checkbox>
+            <md-input-container ng-click="vm.viewPolylineMapChecking(vm.selectedWidget)">
+                <md-checkbox ng-model="vm.selectedWidget.viewPolylineMap" aria-label="PolylineMap">Polyline Mode</md-checkbox>
             </md-input-container>
             <md-input-container>
                 <label>Input Topic</label>

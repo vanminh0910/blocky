@@ -493,7 +493,7 @@ export default function DashboardController($scope, userService, dashboardServic
                 Coordinates: {},
                 cols: 4,
                 rows: 3,
-                viewPolylineMap: true,
+                viewPolylineMap: false,
                 minItemCols: 4,
                 minItemRows: 3
             })
@@ -661,10 +661,13 @@ export default function DashboardController($scope, userService, dashboardServic
 
     function updateMapData(widget, value) {
         widget.listCoordinates.push(angular.fromJson(value));
-        vm.polylineMap(widget.listCoordinates);
-
         widget.Coordinates = angular.fromJson(value);
-        vm.initMap(angular.fromJson(widget.Coordinates));
+        
+        if (widget.viewPolylineMap === true) {
+            vm.polylineMap(widget.listCoordinates);
+        } else if (widget.viewPolylineMap === false) {
+            vm.initMap(angular.fromJson(widget.Coordinates));
+        }
     }
 
     function subscribeDashboardsTopics(data) {
@@ -738,7 +741,7 @@ export default function DashboardController($scope, userService, dashboardServic
         // $log.log('initMapData');
         // $log.log(widget.Coordinates);
 
-        angular.element($window).bind('load', function() {
+        angular.element($window).bind('load', function () {
             vm.initMap(widget.Coordinates);
         });
     }
@@ -836,9 +839,9 @@ export default function DashboardController($scope, userService, dashboardServic
     }
 
     function viewPolylineMapChecking(params) {
-        if (params.viewPolylineMap === false) {
+        if (params.viewPolylineMap === true) {
             vm.polylineMap(params.listCoordinates);
-        } else if (params.viewPolylineMap === true) {
+        } else if (params.viewPolylineMap === false) {
             vm.initMap(params.Coordinates);
         }
     }
