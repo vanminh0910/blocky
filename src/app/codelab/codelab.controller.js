@@ -52,7 +52,7 @@ export default function CodeLabController($mdSidenav, toast, scriptService, user
             name: 'Demo device',
             status: 0
         }];
-    } 
+    }
 
     initMqttSession();
 
@@ -466,7 +466,7 @@ export default function CodeLabController($mdSidenav, toast, scriptService, user
 
     function uploadScript() {
         var chipId = vm.currentDevice.chipId;
-        var topic = baseSysTopicUrl + '/' + chipId;
+        var topic = baseSysTopicUrl + '/' + chipId + '/ota';
         if (vm.script.mode === 'block') {
             vm.script.lua = Blockly.Lua.workspaceToCode(vm.workspace);
         }
@@ -476,16 +476,10 @@ export default function CodeLabController($mdSidenav, toast, scriptService, user
         if (mqttClient && mqttClient.connected && chipId) {
             $log.log('size of lua script', byteLength(vm.script.lua));
             var maxSize = settings.maxBytesUpload;
-            var data = {};
 
             if (byteLength(vm.script.lua) < maxSize) {
                 vm.isUploadSuccess = false;
-                data = {
-                    event: 'ota',
-                    index: 0,
-                    data: vm.script.lua
-                }
-                mqttClient.publish(topic, angular.toJson(data), null, function (err) {
+                mqttClient.publish(topic, vm.script.lua, null, function (err) {
                     if (err) {
                         toast.showError($translate.instant('script.script-upload-failed-error'));
                     }
@@ -497,19 +491,13 @@ export default function CodeLabController($mdSidenav, toast, scriptService, user
                 });
             } else {
                 var splitedStrings = splitString(vm.script.lua, maxSize);
-
                 for (var i = 0; i < splitedStrings.length; i++) {
-                    var index = i + 1;
-                    if (index === splitedStrings.length) {
-                        index = '$';
+                    var sharedTopic = topic + '/' + (i + 1).toString();
+                    if (i === splitedStrings.length - 1) {
+                        sharedTopic = topic + '/$';
                     }
-                    data = {
-                        event: 'ota',
-                        index: index,
-                        data: splitedStrings[i]
-                    }
-
-                    mqttClient.publish(topic, angular.toJson(data), null, function (err) {
+                    $log.log('sharedTopic', sharedTopic);
+                    mqttClient.publish(sharedTopic, splitedStrings[i], null, function (err) {
                         if (err) {
                             toast.showError($translate.instant('script.script-upload-failed-error'));
                         } else {
