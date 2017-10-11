@@ -48,7 +48,7 @@ export default function DashboardController($scope, userService, dashboardServic
 
     if (vm.isUserLoaded) {
         authKey = userService.getCurrentUser().authKey;
-        baseUserTopicUrl = '/' + authKey + '/user/';
+        baseUserTopicUrl = authKey + '/user/';
         loadUserDashboards();
     } else {
         vm.dashboards = [{

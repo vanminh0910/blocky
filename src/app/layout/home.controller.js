@@ -44,7 +44,7 @@ export default function HomeController(menu, $state, Fullscreen, userService, se
 
     if (vm.isUserLoaded) {
         authKey = userService.getCurrentUser().authKey;
-        baseSysTopicUrl = '/' + authKey + '/sys';
+        baseSysTopicUrl = authKey + '/sys';
     }
 
     if (mqtt && vm.isUserLoaded) {

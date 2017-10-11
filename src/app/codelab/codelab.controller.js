@@ -45,7 +45,7 @@ export default function CodeLabController($mdSidenav, toast, scriptService, user
     if (vm.isUserLoaded) {
         authKey = userService.getCurrentUser().authKey;
         $rootScope.authKey = authKey;
-        baseSysTopicUrl = '/' + authKey + '/sys';
+        baseSysTopicUrl = authKey + '/sys';
     } else {
         vm.devices = [{
             id: 0,
