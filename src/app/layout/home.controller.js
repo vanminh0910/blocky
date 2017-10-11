@@ -88,9 +88,9 @@ export default function HomeController(menu, $state, Fullscreen, userService, se
             var chipId = message.chipId;
             var deviceLog = store.get('deviceLog_' + chipId) || '';
             if (deviceLog.length) {
-                message = message + '<br>' + deviceLog;
+                message.data = message.data + '<br>' + deviceLog;
             }
-            store.set('deviceLog_' + chipId, message);
+            store.set('deviceLog_' + chipId, message.data);
         }
     }
 }

@@ -204,7 +204,7 @@ export default function CodeLabController($mdSidenav, toast, scriptService, user
                         } else if (message.event === 'offline') {
                             chipId = message.chipId;
                             updateDeviceStatusByChipId(chipId, 0);
-                        } else if (message.event === 'ota') {
+                        } else if (message.event === 'ota_ack') {
                             vm.isUploadSuccess = true;
                             toast.showSuccess($translate.instant('script.script-upload-success'));
                         }
