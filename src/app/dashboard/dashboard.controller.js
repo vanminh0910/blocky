@@ -250,13 +250,13 @@ export default function DashboardController($scope, userService, dashboardServic
 
     function editDashboard() {
         vm.editMode = true;
-        vm.gmapDraggable = false;
-        if (vm.gmapWidgetMode === true) {
-            vm.initMap(vm.selectedWidget.Coordinates);
-        }
-        if (vm.gmapWidgetMode === false) {
-            vm.polylineMap(vm.selectedWidget.listCoordinates);
-        }
+        // vm.gmapDraggable = false;
+        // if (vm.gmapWidgetMode === true) {
+        //     vm.initMap(vm.selectedWidget.Coordinates);
+        // }
+        // if (vm.gmapWidgetMode === false) {
+        //     vm.polylineMap(vm.selectedWidget.listCoordinates);
+        // }
         vm.gridsterOptions.draggable.enabled = true;
         vm.gridsterOptions.resizable.enabled = true;
         if (angular.isDefined(vm.gridsterOptions.api)) {
@@ -312,13 +312,13 @@ export default function DashboardController($scope, userService, dashboardServic
 
     function runDashboard() {
         vm.editMode = false;
-        vm.gmapDraggable = true;
-        if (vm.gmapWidgetMode === true) {
-            vm.initMap(vm.selectedWidget.Coordinates);
-        }
-        if (vm.gmapWidgetMode === false) {
-            vm.polylineMap(vm.selectedWidget.listCoordinates)
-        }
+        // vm.gmapDraggable = true;
+        // if (vm.gmapWidgetMode === true) {
+        //     vm.initMap(vm.selectedWidget.Coordinates);
+        // }
+        // if (vm.gmapWidgetMode === false) {
+        //     vm.polylineMap(vm.selectedWidget.listCoordinates)
+        // }
         vm.gridsterOptions.draggable.enabled = false;
         vm.gridsterOptions.resizable.enabled = false;
         if (angular.isDefined(vm.gridsterOptions.api)) {
@@ -761,10 +761,13 @@ export default function DashboardController($scope, userService, dashboardServic
     }
 
     function initMapData(widget, data) {
-        $log.log('initMapData');
         widget.Coordinates = angular.fromJson(data[0].data);
-        $log.log(widget.Coordinates)
-        vm.initMap(widget.Coordinates);
+        // $log.log('initMapData');
+        // $log.log(widget.Coordinates);
+
+        angular.element($window).bind('load', function() {
+            vm.initMap(widget.Coordinates);
+        });
     }
 
     function filterDuplidatedTopics(data) {
@@ -867,7 +870,7 @@ export default function DashboardController($scope, userService, dashboardServic
                 lng: -180
             },
             mapTypeId: 'terrain',
-            draggable: vm.gmapDraggable,
+            // draggable: vm.gmapDraggable,
         });
         vm.gmapWidgetMode = false;
         vm.flightPath = new google.maps.Polyline({
@@ -894,8 +897,6 @@ export default function DashboardController($scope, userService, dashboardServic
             vm.polylineMap(params.listCoordinates);
         } else if (params.viewPolylineMap === true) {
             vm.initMap(params.Coordinates);
-            $log.log('viewPolylineMapChecking');
-            $log.log(params.Coordinates);
         }
     }
 }
