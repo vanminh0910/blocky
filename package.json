@@ -14,6 +14,7 @@
     "build": "cross-env NODE_ENV=production webpack -p"
   },
   "dependencies": {
+    "Propeller": "^0.3.2",
     "ace-builds": "^1.2.8",
     "angular": "1.5.8",
     "angular-animate": "1.5.8",
@@ -28,6 +29,7 @@
     "angular-material-data-table": "^0.10.10",
     "angular-material-icons": "^0.7.1",
     "angular-messages": "1.5.8",
+    "angular-radial-color-picker": "^2.1.0",
     "angular-sanitize": "1.5.8",
     "angular-storage": "0.0.15",
     "angular-touch": "1.5.8",

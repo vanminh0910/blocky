@@ -142,3 +142,22 @@
         </div>
     </md-whiteframe>
 </script>
+
+<!-- Template for color picker widget -->
+<script type="text/ng-template" id="colorPicker.html">
+    <md-whiteframe flex layout class="md-whiteframe-4dp tb-widget-color-picker" ng-attr-style="background-color: {{item.bgColor}};">
+        <div class="tb-widget-tile-header">
+            <h4 ng-if="item.name.length">{{item.name}}</h4>
+        </div>
+        <div ng-if="vm.editMode" class="tb-widget-edit">
+            <md-button ng-click="vm.toggleWidgetConfig($index)" ng-touchstart="vm.toggleWidgetConfig($index)">
+                <md-icon class="material-icons md-light md-48">mode_edit</md-icon>
+            </md-button>
+        </div>
+        <ripple ng-class="vm.editMode ? 'disabled' : ''" ng-click="vm.setColor($event, item)">
+            <div class="tb-widget-color tb-widget-tile-body">
+                <color-picker ng-model="item.displayColor"></color-picker>
+            </div>
+        </ripple>
+    </md-whiteframe>
+</script>

@@ -198,6 +198,21 @@
                 </md-input-container>
             </div>
         </div>
+
+        <div ng-if="vm.selectedWidget.type=='colorPicker'">
+            <md-input-container>
+                <label>Name</label>
+                <input ng-model="vm.selectedWidget.name">
+            </md-input-container>
+            <md-input-container>
+                <label>Output Topic</label>
+                <input type="text" ng-model="vm.selectedWidget.subscribeMessage.topic" />
+            </md-input-container>
+            <md-input-container>
+                <label>Color code </label>
+                <input type="text" ng-model="vm.selectedWidget.color" disabled/>
+            </md-input-container>
+        </div>
     </div>
     <div layout="row">
         <md-button class="md-warn" ng-click="vm.removeWidget()">
