@@ -27,7 +27,13 @@
         <div flex layout="column" layout-padding>
             <img src="./esp8266.png">
             <div layout="row" id="device-actions">
-                <md-button ng-disabled="!vm.isUserLoaded || !vm.currentDevice" ng-click="vm.uploadScript()" class="md-icon-button" aria-label="Device Menu">
+                <md-button ng-disabled="!vm.isUserLoaded || !vm.currentDevice" ng-click="vm.uploadScript('run')" class="md-icon-button" aria-label="Device Menu">
+                    <md-tooltip md-direction="bottom">
+                        Run script
+                    </md-tooltip>
+                    <i class="fa fa-play" aria-hidden="true"></i>
+                </md-button>
+                <md-button ng-disabled="!vm.isUserLoaded || !vm.currentDevice" ng-click="vm.uploadScript('ota')" class="md-icon-button" aria-label="Device Menu">
                     <md-tooltip md-direction="bottom">
                         Upload script to board
                     </md-tooltip>
@@ -35,7 +41,7 @@
                 </md-button>
                 <md-select ng-model="vm.currentDevice" placeholder="Select a device" class="md-no-underline">
                     <md-option ng-repeat="device in vm.devices | orderBy:'name'" ng-value="device">
-                        <i ng-class="device.status ? 'fa fa-circle device-online' : 'fa fa-circle device-offline'" aria-hidden="true"></i>                        {{device.name}}
+                        <i ng-class="device.status ? 'fa fa-circle device-online' : 'fa fa-circle device-offline'" aria-hidden="true"></i> {{device.name}}
                     </md-option>
                 </md-select>
 
@@ -89,8 +95,8 @@
 
 <div id="footer" layout="row" class="md-whiteframe-4dp">
     <md-button class="md-accent md-raised tb-editor-mode" ng-click="vm.changeMode($event)">
-        <i class="fa" ng-class="vm.script.mode ==='block' ? 'fa-code' : 'fa-cubes'" aria-hidden="true"></i><span hide-xs
-            hide-sm> {{vm.script.mode ==='block' ? 'Lua' : 'Block'}} Mode</span>
+        <i class="fa" ng-class="vm.script.mode ==='block' ? 'fa-code' : 'fa-cubes'" aria-hidden="true"></i>
+        <span hide-xs hide-sm> {{vm.script.mode ==='block' ? 'Lua' : 'Block'}} Mode</span>
     </md-button>
 
     <md-input-container flex="30" hide-xs>
@@ -98,31 +104,41 @@
         <input required name="clientName" ng-model="vm.script.name">
     </md-input-container>
     <md-button ng-click="vm.saveProject()" ng-disabled="!vm.script.name" hide-xs>
-        <i class="fa fa-floppy-o" aria-hidden="true"></i><span hide-sm> Save</span>
+        <i class="fa fa-floppy-o" aria-hidden="true"></i>
+        <span hide-sm> Save</span>
     </md-button>
     <md-button ng-click="vm.newProject()" hide-xs>
-        <i class="fa fa-file-text-o" aria-hidden="true"></i><span hide-sm> New</span>
+        <i class="fa fa-file-text-o" aria-hidden="true"></i>
+        <span hide-sm> New</span>
     </md-button>
     <md-button ng-click="vm.openProject($event)" hide-xs>
-        <i class="fa fa-folder-open-o" aria-hidden="true"></i><span hide-sm> Open</span>
+        <i class="fa fa-folder-open-o" aria-hidden="true"></i>
+        <span hide-sm> Open</span>
     </md-button>
     <md-button ng-click="vm.downloadProject()" hide-xs>
-        <i class="fa fa-download" aria-hidden="true"></i><span hide-sm> Download</span>
+        <i class="fa fa-download" aria-hidden="true"></i>
+        <span hide-sm> Download</span>
     </md-button>
     <md-button ng-show="vm.script.id" ng-click="vm.deleteProject()" hide-xs>
-        <i class="fa fa-trash-o" aria-hidden="true"></i><span hide-sm> Delete</span>
+        <i class="fa fa-trash-o" aria-hidden="true"></i>
+        <span hide-sm> Delete</span>
     </md-button>
 
     <!-- In Mobile -->
     <md-button aria-label="Save Project" ng-click="vm.saveProjectMobile()" hide-gt-xs>
         <i class="fa fa-floppy-o" aria-hidden="true"></i>
     </md-button>
-    <md-button ng-disabled="!vm.isUserLoaded || !vm.currentDevice" aria-label="Upload Script" ng-click="vm.uploadScript()" hide-gt-xs>
+    <md-button ng-disabled="!vm.isUserLoaded || !vm.currentDevice" aria-label="Upload Script" ng-click="vm.uploadScript('run')"
+        hide-gt-xs>
+        <i class="fa fa-play" aria-hidden="true"></i>
+    </md-button>
+    <md-button ng-disabled="!vm.isUserLoaded || !vm.currentDevice" aria-label="Upload Script" ng-click="vm.uploadScript('ota')"
+        hide-gt-xs>
         <i class="fa fa-upload" aria-hidden="true"></i>
     </md-button>
     <md-select ng-model="vm.currentDevice" placeholder="Select a device" class="md-no-underline" hide-gt-xs>
         <md-option ng-repeat="device in vm.devices | orderBy:'name'" ng-value="device">
-            <i ng-class="device.status ? 'fa fa-circle device-online' : 'fa fa-circle device-offline'" aria-hidden="true"></i>            {{device.name}}
+            <i ng-class="device.status ? 'fa fa-circle device-online' : 'fa fa-circle device-offline'" aria-hidden="true"></i> {{device.name}}
         </md-option>
     </md-select>
 

@@ -211,6 +211,9 @@ export default function CodeLabController($mdSidenav, toast, scriptService, user
                         } else if (message.event === 'ota_ack') {
                             vm.isUploadSuccess = true;
                             toast.showSuccess($translate.instant('script.script-upload-success'));
+                        } else if (message.event === 'run_ack') {
+                            vm.isUploadSuccess = true;
+                            toast.showSuccess($translate.instant('script.script-upload-success'));
                         }
                     } catch (err) {
                         $log.log('error', err.message);
@@ -468,9 +471,9 @@ export default function CodeLabController($mdSidenav, toast, scriptService, user
         );
     }
 
-    function uploadScript() {
+    function uploadScript(mode) {
         var chipId = vm.currentDevice.chipId;
-        var topic = baseSysTopicUrl + '/' + chipId + '/ota';
+        var topic = baseSysTopicUrl + '/' + chipId + '/' + mode;
         if (vm.script.mode === 'block') {
             vm.script.lua = Blockly.Lua.workspaceToCode(vm.workspace);
         }
