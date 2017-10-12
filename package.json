@@ -49,6 +49,8 @@
     "md-steppers": "^0.3.4",
     "moment": "^2.18.1",
     "ng-ripple": "^1.0.3",
+    "ngtouch": "^1.0.1",
+    "nipplejs": "^0.6.7",
     "sass-material-colors": "0.0.5",
     "typeface-roboto": "0.0.29"
   },

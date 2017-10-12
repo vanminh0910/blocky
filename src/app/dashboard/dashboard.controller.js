@@ -25,10 +25,11 @@ import newDashboardTemplate from './new-dashboard.tpl.html';
 import renameDashboardTemplate from './rename-dashboard.tpl.html';
 import moment from 'moment';
 
+import nipplejs from 'nipplejs/dist/nipplejs.js';
 /* eslint-disable no-undef, angular/window-service, angular/document-service */
 
 /*@ngInject*/
-export default function DashboardController($scope, userService, dashboardService, store, $window, $mdMedia, $mdSidenav, $document, $timeout, $mdDialog, $rootScope, $translate, toast, $state, settings, Fullscreen, $log) {
+export default function DashboardController($scope, userService, dashboardService, store, $window, $mdMedia, $mdSidenav, $document, $timeout,$interval, $mdDialog, $rootScope, $translate, toast, $state, settings, Fullscreen, $log) {
     var vm = this;
     var mqttClient;
     var authKey = '';
@@ -481,9 +482,65 @@ export default function DashboardController($scope, userService, dashboardServic
                 minItemRows: 2
             })
         }
+        else if(type==='joystick'){
+            var Joystick = {
+                name:'Joystick',
+                type:'joystick',
+                bgColor:'#e91e63',
+                control:'',
+                id:0,
+                options:{
+                    zone:null,
+                    color:'white',
+                    mode:'dynamic',
+                },
+                position:{
+                    x:0,y:0
+                },
+                angle:'',
+                subscribeMessage:{
+                    topic:'',
+                    message:'',
+                },
+                cols:2,
+                rows:2,
+                minItemCols:2,
+                minItemRows:2,
+                maxItemCols:6,
+                maxItemRows:6,
+            }
+            for(var v = 0;v<vm.currentDashboard.content.length;v++)
+            {
+                if(Joystick.id < vm.currentDashboard.content[v].id){
+                    Joystick.id=vm.currentDashboard.content[v].id;
+                }
+            }
+            Joystick.id++;
+            vm.currentDashboard.content.push(Joystick);
+            var itv=$interval(function(){
+                var v = $document[0].getElementById('Joystick'+Joystick.id);
+                if(v==null){
+                    $log.log("is null");
+                }
+                else
+                {
+                    $log.log(v);
+                    Joystick.options.zone=v;
+                    Joystick.control = nipplejs.create(Joystick.options);
+                    Joystick.control.on('move',function(e,data){
+                        $log.log(e);
+                        $log.log(data);
+                    } )
+                    cancelInterval(itv);
+                }
+            },1000)
+            $log.log(nipplejs);
+        }   
         $mdSidenav('widget-library').close();
     }
-
+    function cancelInterval(intervalId){
+        $interval.cancel(intervalId);
+    }
     function widgetAction(widget, position) {
         if (vm.editMode) {
             return;
