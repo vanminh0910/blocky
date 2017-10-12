@@ -686,7 +686,7 @@ export default function DashboardController($scope, userService, dashboardServic
     function updateMapData(widget, value) {
         widget.listCoordinates.push(angular.fromJson(value));
         widget.Coordinates = angular.fromJson(value);
-        
+
         if (widget.viewPolylineMap === true) {
             vm.polylineMap(widget.listCoordinates);
         } else if (widget.viewPolylineMap === false) {
@@ -765,8 +765,6 @@ export default function DashboardController($scope, userService, dashboardServic
 
     function initMapData(widget, data) {
         widget.Coordinates = angular.fromJson(data[0].data);
-        // $log.log('initMapData');
-        // $log.log(widget.Coordinates);
 
         angular.element($window).bind('load', function () {
             vm.initMap(widget.Coordinates);
@@ -816,6 +814,56 @@ export default function DashboardController($scope, userService, dashboardServic
         return angular.isDefined(window.orientation) || (navigator.userAgent.indexOf('IEMobile') !== -1);
     }
 
+    function initMap(coordinates) {
+        vm.map = new google.maps.Map(document.getElementById('tb-gmap-widget'), {
+            center: coordinates,
+            zoom: 15,
+            // draggable: vm.gmapDraggable
+        });
+        vm.gmapWidgetMode = true;
+        vm.marker = new google.maps.Marker({
+            position: coordinates,
+            map: vm.map
+        });
+    }
+
+    function polylineMap(coordinates) {
+        vm.map = new google.maps.Map(document.getElementById('tb-gmap-widget'), {
+            zoom: 3,
+            center: {
+                lat: 0,
+                lng: -180
+            },
+            mapTypeId: 'terrain',
+            // draggable: vm.gmapDraggable,
+        });
+        vm.gmapWidgetMode = false;
+        vm.flightPath = new google.maps.Polyline({
+            path: coordinates,
+            geodesic: true,
+            strokeColor: '#FF0000',
+            strokeOpacity: 1.0,
+            strokeWeight: 2
+        });
+
+        vm.flightPath.setMap(vm.map);
+
+        for (var i = 0; i < coordinates.length; i++) {
+            vm.marker = new google.maps.Marker({
+                position: coordinates[i],
+                map: vm.map
+            });
+        }
+    }
+
+    function viewPolylineMapChecking(params) {
+        if (params.viewPolylineMap === true) {
+            vm.polylineMap(params.listCoordinates);
+        } else if (params.viewPolylineMap === false) {
+            vm.initMap(params.Coordinates);
+        }
+    }
+
     function hexToRgb(hex) {
         var result = /^#?([a-f\d]{2})([a-f\d]{2})([a-f\d]{2})$/i.exec(hex);
         return result ? {
@@ -842,64 +890,5 @@ export default function DashboardController($scope, userService, dashboardServic
         widget.displayColor = hexToRgb(widget.color);
 
         widgetAction(widget);
-    }
-
-    function initMap() {
-        $geolocation.getCurrentPosition().then(function (position) {
-            vm.map = new google.maps.Map(document.getElementById('tb-gmap-widget'), {
-                center: {
-                    lat: position.coords.latitude,
-                    lng: position.coords.longitude
-                },
-                zoom: 15,
-                draggable: vm.gmapDraggable
-            });
-            vm.gmapWidgetMode = true;
-            vm.marker = new google.maps.Marker({
-                position: {
-                    lat: position.coords.latitude,
-                    lng: position.coords.longitude
-                },
-                map: vm.map
-            });
-        });
-    }
-
-    function polylineMap(coordinates) {
-        vm.map = new google.maps.Map(document.getElementById('tb-gmap-widget'), {
-            zoom: 3,
-            center: {
-                lat: 0,
-                lng: -180
-            },
-            mapTypeId: 'terrain',
-            // draggable: vm.gmapDraggable,
-        });
-        vm.gmapWidgetMode = false;
-        vm.flightPath = new google.maps.Polyline({
-            path: coordinates,
-            geodesic: true,
-            strokeColor: '#FF0000',
-            strokeOpacity: 1.0,
-            strokeWeight: 2
-        });
-
-        vm.flightPath.setMap(vm.map);
-        // $log.log(coordinates.length);
-
-        for (var i = 0; i < coordinates.length; i++) {
-            vm.marker = new google.maps.Marker({
-                position: coordinates[i],
-                map: vm.map
-            });
-        }
-    }
-
-    function viewPolylineMapChecking(params) {
-        if (params.viewPolylineMap === true) {
-            vm.polylineMap(params.listCoordinates);
-        } else if (params.viewPolylineMap === false) {
-            vm.initMap(params.Coordinates);
-        }
     }
 }
