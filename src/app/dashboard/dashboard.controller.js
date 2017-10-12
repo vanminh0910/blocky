@@ -527,10 +527,39 @@ export default function DashboardController($scope, userService, dashboardServic
                     $log.log(v);
                     Joystick.options.zone=v;
                     Joystick.control = nipplejs.create(Joystick.options);
+                    
                     Joystick.control.on('move',function(e,data){
-                        $log.log(e);
-                        $log.log(data);
-                    } )
+                        //$log.log(e);
+                        if(angular.isUndefined(data.direction))
+                        {
+                                //
+                        }
+                        else
+                        {
+                            $log.log("----------------------------------");
+                            if(angular.isUndefined(data.direction.x)){
+                                //
+                            }
+                            else{
+                                $log.log(data.direction.x);
+                            
+                            }
+                            if(angular.isUndefined(data.direction.y)){
+                                //
+                            }
+                            else{
+                                $log.log(data.direction.y);
+                            
+                            }
+                            if(angular.isUndefined(data.direction.angle)){
+                                //
+                            }
+                            else{
+                                $log.log(data.direction.angle);
+                            
+                            }
+                        }
+                    } );
                     cancelInterval(itv);
                 }
             },1000)
