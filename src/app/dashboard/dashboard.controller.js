@@ -139,6 +139,7 @@ export default function DashboardController($scope, userService, dashboardServic
     vm.toggleFullScreen = toggleFullScreen;
     vm.Fullscreen = Fullscreen;
     vm.setColor = setColor;
+    vm.landScapeModeWidget = landScapeModeWidget;
 
     function closeWidgetLibrarySideNav() {
         $mdSidenav('widget-library').close();
@@ -454,6 +455,7 @@ export default function DashboardController($scope, userService, dashboardServic
                     topic: '',
                     dataType: '1'
                 },
+                landScapeMode: false,
                 cols: 2,
                 rows: 3,
                 minItemCols: 2,
@@ -776,5 +778,22 @@ export default function DashboardController($scope, userService, dashboardServic
         widget.displayColor = hexToRgb(widget.color);
 
         widgetAction(widget);
+    }
+
+    function landScapeModeWidget(params) {
+        if (params.landScapeMode === false) {
+            params.cols = 2;
+            params.rows = 3;
+            params.minItemCols = 2;
+            params.minItemRows = 3;
+        } else if (params.landScapeMode === true) {
+            params.cols = 4;
+            params.rows = 2;
+            params.minItemCols = 4;
+            params.minItemRows = 2;
+        }
+        if (angular.isDefined(vm.gridsterOptions.api)) {
+            vm.gridsterOptions.api.optionsChanged();
+        }
     }
 }

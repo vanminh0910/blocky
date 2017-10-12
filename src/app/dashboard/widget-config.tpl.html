@@ -197,6 +197,9 @@
                     <input type="number" ng-model="vm.selectedWidget.max">
                 </md-input-container>
             </div>
+            <label ng-click="vm.landScapeModeWidget(vm.selectedWidget)">
+                <md-checkbox ng-model="vm.selectedWidget.landScapeMode" aria-label="Landscape Mode">Landscape Mode</md-checkbox>
+            </label>
         </div>
 
         <div ng-if="vm.selectedWidget.type=='colorPicker'">
