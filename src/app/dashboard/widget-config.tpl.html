@@ -213,14 +213,14 @@
                 <input type="text" ng-model="vm.selectedWidget.color" disabled/>
             </md-input-container>
         </div>
-      
+
         <div ng-if="vm.selectedWidget.type=='gmap'">
             <md-input-container>
                 <label>Name</label>
                 <input ng-model="vm.selectedWidget.name">
             </md-input-container>
             <md-input-container ng-click="vm.viewPolylineMapChecking(vm.selectedWidget)">
-                <md-checkbox ng-model="vm.selectedWidget.viewPolylineMap" aria-label="PolylineMap">Polyline Mode</md-checkbox>
+                <md-checkbox ng-model="vm.selectedWidget.viewPolylineMap" aria-label="PolylineMap">Tracking Mode</md-checkbox>
             </md-input-container>
             <md-input-container>
                 <label>Input Topic</label>

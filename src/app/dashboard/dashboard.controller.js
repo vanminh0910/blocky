@@ -678,7 +678,7 @@ export default function DashboardController($scope, userService, dashboardServic
     function updateMapData(widget, value) {
         widget.listCoordinates.push(angular.fromJson(value));
         widget.Coordinates = angular.fromJson(value);
-        
+
         if (widget.viewPolylineMap === true) {
             vm.polylineMap(widget.listCoordinates);
         } else if (widget.viewPolylineMap === false) {
@@ -757,8 +757,6 @@ export default function DashboardController($scope, userService, dashboardServic
 
     function initMapData(widget, data) {
         widget.Coordinates = angular.fromJson(data[0].data);
-        // $log.log('initMapData');
-        // $log.log(widget.Coordinates);
 
         angular.element($window).bind('load', function () {
             vm.initMap(widget.Coordinates);
@@ -809,12 +807,6 @@ export default function DashboardController($scope, userService, dashboardServic
     }
 
     function initMap(coordinates) {
-        // if (!document.getElementById('tb-gmap-widget')) {
-        //     $log.log('Chua render');
-        // } else {
-        //     $log.log('Render roi');
-        // }
-
         vm.map = new google.maps.Map(document.getElementById('tb-gmap-widget'), {
             center: coordinates,
             zoom: 15,
@@ -847,7 +839,6 @@ export default function DashboardController($scope, userService, dashboardServic
         });
 
         vm.flightPath.setMap(vm.map);
-        // $log.log(coordinates.length);
 
         for (var i = 0; i < coordinates.length; i++) {
             vm.marker = new google.maps.Marker({
@@ -863,7 +854,8 @@ export default function DashboardController($scope, userService, dashboardServic
         } else if (params.viewPolylineMap === false) {
             vm.initMap(params.Coordinates);
         }
-      
+    }
+
     function hexToRgb(hex) {
         var result = /^#?([a-f\d]{2})([a-f\d]{2})([a-f\d]{2})$/i.exec(hex);
         return result ? {
