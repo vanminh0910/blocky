@@ -767,13 +767,21 @@ export default function DashboardController($scope, userService, dashboardServic
     function initMapData(widget, data) {
         widget.Coordinates = angular.fromJson(data[0].data);
 
-        angular.element($window).bind('load', function () {
-            if (widget.viewPolylineMap === true) {
-                vm.polylineMap(widget.listCoordinates, widget.id);
-            } else if (widget.viewPolylineMap === false) {
-                vm.initMap(angular.fromJson(widget.Coordinates), widget.id);
-            }
+        jQuery(document).ready(function () {
+            checkContainer();
         });
+
+        function checkContainer() {
+            if ($('#' + widget.id).is(':visible')) { //if the container is visible on the page
+                if (widget.viewPolylineMap === true) {
+                    vm.polylineMap(widget.listCoordinates, widget.id);
+                } else if (widget.viewPolylineMap === false) {
+                    vm.initMap(angular.fromJson(widget.Coordinates), widget.id);
+                }
+            } else {
+                $timeout(checkContainer, 50); //wait 50 ms, then try again
+            }
+        }
     }
 
     function filterDuplidatedTopics(data) {
