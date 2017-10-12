@@ -54,7 +54,11 @@ export default function CodeLabController($mdSidenav, toast, scriptService, user
         }];
     }
 
-    initMqttSession();
+    try {
+        initMqttSession();
+    } catch (err) {
+        $log.log('Exception:', err.message);
+    }
 
     var emptyScript = {
         name: '',
@@ -173,7 +177,7 @@ export default function CodeLabController($mdSidenav, toast, scriptService, user
     vm.clearDeviceLog = clearDeviceLog;
 
     function initMqttSession() {
-        if (mqtt && vm.isUserLoaded) {
+        if (angular.isDefined(mqtt) && vm.isUserLoaded) {
             mqttClient = mqtt.connect(settings.mqtt.url, {
                 host: settings.mqtt.host,
                 port: settings.mqtt.port,

@@ -47,32 +47,27 @@ export default function HomeController(menu, $state, Fullscreen, userService, se
         baseSysTopicUrl = authKey + '/sys';
     }
 
-    if (mqtt && vm.isUserLoaded) {
-        try {
+    try {
+        if (angular.isDefined(mqtt) && vm.isUserLoaded) {
             mqttClient = mqtt.connect(settings.mqtt.url, {
                 host: settings.mqtt.host,
                 port: settings.mqtt.port,
                 username: '',
                 password: authKey
             });
-        }
-        catch(err) {
-            $log.log('mqtt connect failed', err.message);
-        }
 
-        mqttClient.on('connect', function () {
-            initDevicesLogs();
-        });
-        mqttClient.on('message', function (topic, message) {
-            if (topic === baseSysTopicUrl) {
-                try {
+            mqttClient.on('connect', function () {
+                initDevicesLogs();
+            });
+            mqttClient.on('message', function (topic, message) {
+                if (topic === baseSysTopicUrl) {
                     message = angular.fromJson(message.toString());
                     updateDevicesLogs(message);
-                } catch (err) {
-                    $log.log('error', err.message);
                 }
-            }
-        });
+            });
+        }
+    } catch (err) {
+        $log.log('Exception:', err.message);
     }
 
     function initDevicesLogs() {

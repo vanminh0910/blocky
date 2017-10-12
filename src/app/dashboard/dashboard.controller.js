@@ -172,25 +172,30 @@ export default function DashboardController($scope, userService, dashboardServic
                 vm.currentDashboard = vm.dashboards[0];
             }
 
-            if (mqtt) {
-                mqttClient = mqtt.connect(settings.mqtt.url, {
-                    host: settings.mqtt.host,
-                    port: settings.mqtt.port,
-                    username: '',
-                    password: authKey
-                });
-                mqttClient.on('connect', function () {
-                    subscribeDashboardsTopics(data.data);
-                });
-                mqttClient.on('message', function (topic, message) {
-                    $timeout(function () {
-                        topic = topic.replace(baseUserTopicUrl, '');
-                        message = message.toString();
-                        $log.log('Dashboard Recieved Message:', topic, message);
-                        updateDashboardData(topic, message);
+            try {
+                if (angular.isDefined(mqtt)) {
+                    mqttClient = mqtt.connect(settings.mqtt.url, {
+                        host: settings.mqtt.host,
+                        port: settings.mqtt.port,
+                        username: '',
+                        password: authKey
                     });
-                });
+                    mqttClient.on('connect', function () {
+                        subscribeDashboardsTopics(data.data);
+                    });
+                    mqttClient.on('message', function (topic, message) {
+                        $timeout(function () {
+                            topic = topic.replace(baseUserTopicUrl, '');
+                            message = message.toString();
+                            $log.log('Dashboard Recieved Message:', topic, message);
+                            updateDashboardData(topic, message);
+                        });
+                    });
+                }
+            } catch (err) {
+                $log.log('Exception:', err.message);
             }
+
             initDashboardData(data.data);
         });
     }
