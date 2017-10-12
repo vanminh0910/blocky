@@ -23,6 +23,7 @@ import blockyConfirmOnExit from '../components/confirm-on-exit.directive';
 import ProfileRoutes from './profile.routes';
 import ProfileController from './profile.controller';
 import ChangePasswordController from './change-password.controller';
+import ResetPasswordController from './reset-password.controller';
 
 export default angular.module('blocky.profile', [
     uiRouter,
@@ -35,4 +36,5 @@ export default angular.module('blocky.profile', [
     .config(ProfileRoutes)
     .controller('ProfileController', ProfileController)
     .controller('ChangePasswordController', ChangePasswordController)
+    .controller('ResetPasswordController', ResetPasswordController)
     .name;

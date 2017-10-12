@@ -16,6 +16,7 @@
 /* eslint-disable import/no-unresolved, import/default */
 
 import profileTemplate from './profile.tpl.html';
+import resetPasswordTemplate from './reset-password.tpl.html';
 
 /* eslint-enable import/no-unresolved, import/default */
 
@@ -35,6 +36,19 @@ export default function ProfileRoutes($stateProvider) {
             },
             data: {
                 pageTitle: 'profile.profile'
+            }
+        }).state('home.resetPassword', {
+            url: '/resetPassword?resetToken',
+            module: 'public',
+            views: {
+                "@": {
+                    controller: 'ResetPasswordController',
+                    controllerAs: 'vm',
+                    templateUrl: resetPasswordTemplate
+                }
+            },
+            data: {
+                pageTitle: 'login.reset-password'
             }
         });
 

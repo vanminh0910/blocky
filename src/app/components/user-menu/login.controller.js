@@ -14,20 +14,25 @@
  * limitations under the License.
  */
 
+import resetPasswordRequestTemplate from './reset-password-request.tpl.html';
+
 /* eslint-enable import/no-unresolved, import/default */
 
 /*@ngInject*/
-export default function LoginController(toast, loginService, userService, $rootScope, $mdDialog, $window) {
+export default function LoginController(toast, loginService, userService, $rootScope, $mdDialog, $window, $document, $scope, $translate) {
     var vm = this;
 
     vm.user = {
         name: '',
-        password: ''
+        password: '',
+        email: ''
     };
 
+    vm.sendResetPasswordLink = sendResetPasswordLink;
     vm.login = login;
     vm.cancel = cancel;
     vm.signUp = signUp;
+    vm.resetPasswordRequest = resetPasswordRequest;
 
     function login() {
         loginService.login(vm.user).then(function success(response) {
@@ -43,5 +48,24 @@ export default function LoginController(toast, loginService, userService, $rootS
 
     function signUp() {
         $rootScope.signUp();
+    }
+
+    function resetPasswordRequest($event) {
+        $mdDialog.show({
+            controller: () => this,
+            controllerAs: 'vm',
+            templateUrl: resetPasswordRequestTemplate,
+            parent: angular.element($document[0].body),
+            fullscreen: true,
+            targetEvent: $event,
+            scope: $scope,
+            preserveScope: true
+        });
+    }
+
+    function sendResetPasswordLink() {
+        loginService.sendResetPasswordLink(vm.user.email).then(function success() {
+            toast.showSuccess($translate.instant('login.password-link-sent-message'));
+        }, function fail() {});
     }
 }

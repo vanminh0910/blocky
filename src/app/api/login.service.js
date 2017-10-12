@@ -25,6 +25,7 @@ function LoginService($http, $q, settings) {
         login: login,
         changePassword: changePassword,
         resetPassword: resetPassword,
+        sendResetPasswordLink: sendResetPasswordLink,
     }
 
     return service;
@@ -75,7 +76,31 @@ function LoginService($http, $q, settings) {
         return deferred.promise;
     }
 
-    function resetPassword() {
-        // TODO
+    function sendResetPasswordLink(email) {
+        var deferred = $q.defer();
+        var url = settings.baseApiUrl + '/users/resetPassword';
+        var sendResetPasswordLinkRequest = {
+            email: email
+        }
+        $http.post(url, sendResetPasswordLinkRequest).then(function success(response) {
+            deferred.resolve(response);
+        }, function fail() {
+            deferred.reject();
+        });
+        return deferred.promise;
+    }
+
+    function resetPassword(resetToken, password) {
+        var deferred = $q.defer();
+        var url = settings.baseApiUrl + '/users/resetPassword?resetToken=' + resetToken;
+        var resetPasswordRequest = {
+            password: password
+        }
+        $http.post(url, resetPasswordRequest).then(function success(response) {
+            deferred.resolve(response);
+        }, function fail() {
+            deferred.reject();
+        });
+        return deferred.promise;
     }
 }

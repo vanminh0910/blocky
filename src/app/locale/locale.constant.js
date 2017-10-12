@@ -249,6 +249,7 @@ export default angular.module('blocky.locale', [])
                 "login": {
                     "login": "Login",
                     "request-password-reset": "Request Password Reset",
+                    "forgotten-password": "Forgotten Password",
                     "reset-password": "Reset Password",
                     "create-password": "Create Password",
                     "passwords-mismatch-error": "Entered passwords must be same!",
