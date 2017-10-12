@@ -504,6 +504,7 @@ export default function CodeLabController($mdSidenav, toast, scriptService, user
                             toast.showSuccess($translate.instant('script.script-upload-success'));
                         }
                     });
+                    pause(500);
                 }
             }
         } else {
@@ -712,5 +713,10 @@ export default function CodeLabController($mdSidenav, toast, scriptService, user
             }
             return output;
         }
+    }
+
+    function pause(milliseconds) {
+        var dt = new Date();
+        while ((new Date()) - dt <= milliseconds) { /* Do nothing */ }
     }
 }
