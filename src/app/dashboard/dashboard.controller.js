@@ -478,6 +478,7 @@ export default function DashboardController($scope, userService, dashboardServic
             })
         } else if (type === 'gmap') {
             vm.currentDashboard.content.push({
+                id: 'gmapForTest',
                 name: 'gmap',
                 type: 'gmap',
                 bgColor: '#e91e63',
@@ -680,9 +681,9 @@ export default function DashboardController($scope, userService, dashboardServic
         widget.Coordinates = angular.fromJson(value);
 
         if (widget.viewPolylineMap === true) {
-            vm.polylineMap(widget.listCoordinates);
+            vm.polylineMap(widget.listCoordinates, widget.id);
         } else if (widget.viewPolylineMap === false) {
-            vm.initMap(angular.fromJson(widget.Coordinates));
+            vm.initMap(angular.fromJson(widget.Coordinates), widget.id);
         }
     }
 
@@ -759,7 +760,11 @@ export default function DashboardController($scope, userService, dashboardServic
         widget.Coordinates = angular.fromJson(data[0].data);
 
         angular.element($window).bind('load', function () {
-            vm.initMap(widget.Coordinates);
+            if (widget.viewPolylineMap === true) {
+                vm.polylineMap(widget.listCoordinates, widget.id);
+            } else if (widget.viewPolylineMap === false) {
+                vm.initMap(angular.fromJson(widget.Coordinates), widget.id);
+            }
         });
     }
 
@@ -806,8 +811,8 @@ export default function DashboardController($scope, userService, dashboardServic
         return angular.isDefined(window.orientation) || (navigator.userAgent.indexOf('IEMobile') !== -1);
     }
 
-    function initMap(coordinates) {
-        vm.map = new google.maps.Map(document.getElementById('tb-gmap-widget'), {
+    function initMap(coordinates, id) {
+        vm.map = new google.maps.Map(document.getElementById(id), {
             center: coordinates,
             zoom: 15,
             // draggable: vm.gmapDraggable
@@ -819,8 +824,8 @@ export default function DashboardController($scope, userService, dashboardServic
         });
     }
 
-    function polylineMap(coordinates) {
-        vm.map = new google.maps.Map(document.getElementById('tb-gmap-widget'), {
+    function polylineMap(coordinates, id) {
+        vm.map = new google.maps.Map(document.getElementById(id), {
             zoom: 3,
             center: {
                 lat: 0,
@@ -850,9 +855,9 @@ export default function DashboardController($scope, userService, dashboardServic
 
     function viewPolylineMapChecking(params) {
         if (params.viewPolylineMap === true) {
-            vm.polylineMap(params.listCoordinates);
+            vm.polylineMap(params.listCoordinates, params.id);
         } else if (params.viewPolylineMap === false) {
-            vm.initMap(params.Coordinates);
+            vm.initMap(params.Coordinates, params.id);
         }
     }
 
