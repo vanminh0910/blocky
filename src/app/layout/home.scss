@@ -67,3 +67,61 @@
   [x-ng-click] {
     cursor: pointer;
   }
+  /**
+ * Blocky policy
+ */
+
+  .cl-banner {
+    background: rgba(0, 0, 0, 0.87);
+    height: auto;
+    min-height: 24px;
+    line-height: 24px;
+    color: #eeeeee;
+    text-align: center;
+    padding: 10px 25px 15px;
+    z-index: 10000;
+    position: fixed;
+    bottom: 0;
+    left: 0;
+    right: 0;
+  }
+
+  .cl-banner p {
+    color: white;
+    margin: 0;
+    padding: 0;
+    font-size: 1rem;
+  }
+
+  .cl-banner a {
+    color: white;
+    display: inline-block;
+    border-radius: 3px;
+    text-decoration: none;
+    padding: 0 6px;
+    margin: 11px 20px 0 20px;
+  }
+
+  .cl-banner .cl-accept {
+    background: #007700;
+  }
+
+  .cl-banner .cl-accept:hover {
+    background: #009900;
+  }
+
+  .cl-banner .cl-disable {
+    background: #990000;
+  }
+
+  .cl-banner .cl-disable:hover {
+    background: #bb0000;
+  }
+
+  .cl-banner .cl-policy {
+    background: #0033bb;
+  }
+
+  .cl-banner .cl-policy:hover {
+    background: #0055dd;
+  }

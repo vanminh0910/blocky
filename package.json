@@ -20,6 +20,7 @@
     "angular-animate": "1.5.8",
     "angular-aria": "1.5.8",
     "angular-chart.js": "^1.1.1",
+    "angular-cookie-law": "^0.2.4",
     "angular-cookies": "1.5.8",
     "angular-fullscreen": "git://github.com/fabiobiondi/angular-fullscreen.git#master",
     "angular-gridster2": "^1.15.1",

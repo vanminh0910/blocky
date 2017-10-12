@@ -62,6 +62,8 @@ import AppRun from './app.run';
 import 'md-steppers/dist/md-steppers.css';
 import 'md-steppers/dist/md-steppers.js';
 
+import 'angular-cookie-law/dist/angular-cookie-law.min.js';
+
 angular.module('blocky', [
         ngMaterial,
         ngMdIcons,
@@ -84,7 +86,8 @@ angular.module('blocky', [
         blockyApiLogin,
         blockyApiUser,
         uiRouter,
-        'md-steppers'
+        'md-steppers',
+        'angular-cookie-law'
     ])
     .config(AppConfig)
     .factory('globalInterceptor', GlobalInterceptor)
