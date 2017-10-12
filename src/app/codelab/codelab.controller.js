@@ -481,8 +481,8 @@ export default function CodeLabController($mdSidenav, toast, scriptService, user
             $log.log('size of lua script', byteLength(vm.script.lua));
             var maxSize = settings.maxBytesUpload;
 
+            vm.isUploadSuccess = false;
             if (byteLength(vm.script.lua) < maxSize) {
-                vm.isUploadSuccess = false;
                 mqttClient.publish(topic, vm.script.lua, null, function (err) {
                     if (err) {
                         toast.showError($translate.instant('script.script-upload-failed-error'));
@@ -504,9 +504,12 @@ export default function CodeLabController($mdSidenav, toast, scriptService, user
                     mqttClient.publish(sharedTopic, splitedStrings[i], null, function (err) {
                         if (err) {
                             toast.showError($translate.instant('script.script-upload-failed-error'));
-                        } else {
-                            toast.showSuccess($translate.instant('script.script-upload-success'));
                         }
+                        $timeout(function () {
+                            if (!vm.isUploadSuccess) {
+                                toast.showError($translate.instant('script.script-upload-failed-error'));
+                            }
+                        }, 5000);
                     });
                 }
             }
