@@ -32,7 +32,7 @@ export default function DashboardController($scope, userService, dashboardServic
     var vm = this;
     var mqttClient;
     var authKey = '';
-    var baseTopicUrl = '';
+    var baseUserTopicUrl = '';
 
     vm.widgetLibrary = widgetLibrary;
     vm.widgetConfig = widgetConfig;
@@ -45,12 +45,11 @@ export default function DashboardController($scope, userService, dashboardServic
     vm.currentDashboard.subscribedTopics = [];
     vm.editMode = false;
     vm.isUserLoaded = userService.isAuthenticated();
-    // vm.gmapDraggable = true;
-    // vm.gmapWidgetMode;
+    vm.selectedColor = '';
 
     if (vm.isUserLoaded) {
         authKey = userService.getCurrentUser().authKey;
-        baseTopicUrl = '/' + authKey + '/';
+        baseUserTopicUrl = authKey + '/user/';
         loadUserDashboards();
     } else {
         vm.dashboards = [{
@@ -142,6 +141,7 @@ export default function DashboardController($scope, userService, dashboardServic
     vm.initMap = initMap;
     vm.polylineMap = polylineMap;
     vm.viewPolylineMapChecking = viewPolylineMapChecking;
+    vm.setColor = setColor;
 
     function closeWidgetLibrarySideNav() {
         $mdSidenav('widget-library').close();
@@ -187,7 +187,7 @@ export default function DashboardController($scope, userService, dashboardServic
                 });
                 mqttClient.on('message', function (topic, message) {
                     $timeout(function () {
-                        topic = topic.replace(baseTopicUrl, '');
+                        topic = topic.replace(baseUserTopicUrl, '');
                         message = message.toString();
                         $log.log('Dashboard Recieved Message:', topic, message);
                         updateDashboardData(topic, message);
@@ -254,7 +254,7 @@ export default function DashboardController($scope, userService, dashboardServic
         vm.gridsterOptions.resizable.enabled = true;
         if (angular.isDefined(vm.gridsterOptions.api)) {
             if (isMobileDevice()) {
-                vm.gridsterOptions.margin = 15;
+                vm.gridsterOptions.draggable.delayStart = 300;
                 vm.gridsterOptions.resizable = {
                     enabled: true,
                     handles: {
@@ -270,7 +270,6 @@ export default function DashboardController($scope, userService, dashboardServic
                 }
             }
             vm.gridsterOptions.api.optionsChanged();
-            vm.gridsterOptions.api.resize();
         }
     }
 
@@ -316,9 +315,7 @@ export default function DashboardController($scope, userService, dashboardServic
         vm.gridsterOptions.draggable.enabled = false;
         vm.gridsterOptions.resizable.enabled = false;
         if (angular.isDefined(vm.gridsterOptions.api)) {
-            vm.gridsterOptions.margin = 4;
             vm.gridsterOptions.api.optionsChanged();
-            vm.gridsterOptions.api.resize();
         }
         if (vm.isUserLoaded) {
             saveDashboard();
@@ -338,7 +335,6 @@ export default function DashboardController($scope, userService, dashboardServic
         }
         if (angular.isDefined(vm.gridsterOptions.api)) {
             vm.gridsterOptions.api.optionsChanged();
-            vm.gridsterOptions.api.resize();
         }
     }
 
@@ -497,6 +493,21 @@ export default function DashboardController($scope, userService, dashboardServic
                 minItemCols: 4,
                 minItemRows: 3
             })
+        } else if (type === 'colorPicker') {
+            vm.currentDashboard.content.push({
+                name: 'Color Picker',
+                type: 'colorPicker',
+                icon: 'icon-sun',
+                bgColor: '#9e9e9e',
+                color: '',
+                displayColor: {},
+                subscribeMessage: {
+                    topic: '',
+                },
+                cols: 2,
+                rows: 2,
+                minItemCols: 2,
+            })
         }
         $mdSidenav('widget-library').close();
     }
@@ -542,6 +553,8 @@ export default function DashboardController($scope, userService, dashboardServic
             widget.value = currentValue;
 
             sendMessage(widget.subscribeMessage.topic, widget.value.toString());
+        } else if (widget.type === 'colorPicker') {
+            sendMessage(widget.subscribeMessage.topic, widget.color.toString());
         }
     }
 
@@ -560,7 +573,7 @@ export default function DashboardController($scope, userService, dashboardServic
     }
 
     function sendMqttMessage(topic, message) {
-        topic = baseTopicUrl + topic.trim();
+        topic = baseUserTopicUrl + topic.trim();
         $log.log('Send Message', topic, message);
         if (mqttClient && mqttClient.connected) {
             mqttClient.publish(topic, message, null, function (err) {
@@ -579,7 +592,6 @@ export default function DashboardController($scope, userService, dashboardServic
             .then(function () {
                 if (angular.isDefined(vm.gridsterOptions.api)) {
                     vm.gridsterOptions.api.optionsChanged();
-                    vm.gridsterOptions.api.resize();
                 }
             });
     }
@@ -589,6 +601,7 @@ export default function DashboardController($scope, userService, dashboardServic
     }
 
     function saveSubscribedTopics() {
+        $log.log('saveSubscribedTopics');
         var subscribedTopics = [];
         for (var i = 0; i < vm.dashboards.length; i++) {
             if (vm.dashboards[i].content.length) {
@@ -611,7 +624,7 @@ export default function DashboardController($scope, userService, dashboardServic
         if (mqttClient && mqttClient.connected) {
             for (var k = 0; k < vm.currentDashboard.subscribedTopics.length; k++) {
                 var widgetTopic = vm.currentDashboard.subscribedTopics[k].topic;
-                widgetTopic = baseTopicUrl + widgetTopic;
+                widgetTopic = baseUserTopicUrl + widgetTopic;
                 mqttClient.unsubscribe(widgetTopic);
                 $log.log('Save Subscribed Topics:', widgetTopic);
                 mqttClient.subscribe(widgetTopic, {
@@ -641,6 +654,9 @@ export default function DashboardController($scope, userService, dashboardServic
                             updateChartData(widget, message);
                         } else if (widget.type === 'gmap') {
                             updateMapData(widget, message);
+                        } else if (widget.type === 'colorPicker') {
+                            widget.color = message;
+                            widget.displayColor = hexToRgb(widget.color);
                         } else {
                             widget.value = message;
                         }
@@ -672,7 +688,7 @@ export default function DashboardController($scope, userService, dashboardServic
 
     function subscribeDashboardsTopics(data) {
         for (var i = 0; i < data.length; i++) {
-            var topic = baseTopicUrl + data[i].topic;
+            var topic = baseUserTopicUrl + data[i].topic;
             mqttClient.unsubscribe(topic);
             $log.log('Subscribe Dashboards Topics:', topic);
             mqttClient.subscribe(topic, {
@@ -709,6 +725,9 @@ export default function DashboardController($scope, userService, dashboardServic
                                     initChartData(widget, wantedData[0].data);
                                 } else if (widget.type === 'gmap') {
                                     initMapData(widget, wantedData[0].data);
+                                } else if (widget.type === 'colorPicker') {
+                                    widget.color = singleValue;
+                                    widget.displayColor = hexToRgb(widget.color);
                                 } else {
                                     widget.value = singleValue;
                                 }
@@ -844,5 +863,32 @@ export default function DashboardController($scope, userService, dashboardServic
         } else if (params.viewPolylineMap === false) {
             vm.initMap(params.Coordinates);
         }
+      
+    function hexToRgb(hex) {
+        var result = /^#?([a-f\d]{2})([a-f\d]{2})([a-f\d]{2})$/i.exec(hex);
+        return result ? {
+            red: parseInt(result[1], 16),
+            green: parseInt(result[2], 16),
+            blue: parseInt(result[3], 16)
+        } : null;
+    }
+
+    function rgbToHex(rgb) {
+        if (/^#[0-9A-F]{6}$/i.test(rgb)) return rgb;
+
+        rgb = rgb.match(/^rgb\((\d+),\s*(\d+),\s*(\d+)\)$/);
+
+        function hex(x) {
+            return ('0' + parseInt(x).toString(16)).slice(-2);
+        }
+        return '#' + hex(rgb[1]) + hex(rgb[2]) + hex(rgb[3]);
+    }
+
+    function setColor($event, widget) {
+        var selectedColor = $event.currentTarget.querySelector('button').style.backgroundColor;
+        widget.color = rgbToHex(selectedColor);
+        widget.displayColor = hexToRgb(widget.color);
+
+        widgetAction(widget);
     }
 }

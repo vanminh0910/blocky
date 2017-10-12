@@ -14,6 +14,7 @@
  * limitations under the License.
  */
 import './dashboard.scss';
+import 'angular-radial-color-picker/dist/css/color-picker.min.css';
 import uiRouter from 'angular-ui-router';
 
 import DashboardRoutes from './dashboard.routes';
@@ -23,6 +24,8 @@ import blockyIconPicker from '../components/icon-picker/icon-picker.directive';
 import blockyColorPicker from '../components/color-picker/color-picker.directive';
 import blockySwitchWidget from '../components/switch-widget/switch-widget.directive';
 import blockyDisplayFormat from '../components/display-format.filter';
+import 'angular-radial-color-picker/dist/js/color-picker.min.js';
+import 'Propeller/dist/propeller.min.js';
 
 export default angular.module('blocky.dashboard', [
     uiRouter,
@@ -31,6 +34,7 @@ export default angular.module('blocky.dashboard', [
     blockyColorPicker,
     blockySwitchWidget,
     blockyDisplayFormat,
+    'color.picker.core'
 ])
     .config(DashboardRoutes)
     .controller('DashboardController', DashboardController)

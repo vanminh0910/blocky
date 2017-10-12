@@ -39,20 +39,20 @@ export default function CodeLabController($mdSidenav, toast, scriptService, user
     var vm = this;
     var mqttClient;
     var authKey = '';
-    var baseTopicUrl = '';
+    var baseSysTopicUrl = '';
 
     vm.isUserLoaded = userService.isAuthenticated();
     if (vm.isUserLoaded) {
         authKey = userService.getCurrentUser().authKey;
         $rootScope.authKey = authKey;
-        baseTopicUrl = '/' + authKey + '/';
+        baseSysTopicUrl = authKey + '/sys';
     } else {
         vm.devices = [{
             id: 0,
             name: 'Demo device',
             status: 0
         }];
-    } 
+    }
 
     initMqttSession();
 
@@ -187,24 +187,29 @@ export default function CodeLabController($mdSidenav, toast, scriptService, user
             });
             mqttClient.on('message', function (topic, message) {
                 $timeout(function () {
-                    message = message.toString();
                     $log.log('Code Lab Recieved Message:', topic, message);
-                    var chipId = '';
-                    if (topic.indexOf('/log') > -1 && message.length) {
-                        chipId = topic.replace(baseTopicUrl, '').replace('/log', '');
-                        var deviceLog = store.get('deviceLog_' + chipId) || '';
-                        if (vm.currentDevice && vm.currentDevice.chipId === chipId) {
-                            vm.currentLog = deviceLog;
+
+                    try {
+                        message = angular.fromJson(message.toString());
+                        var chipId = '';
+                        if (message.event === 'log') {
+                            chipId = message.chipId;
+                            var deviceLog = store.get('deviceLog_' + chipId) || '';
+                            if (vm.currentDevice && vm.currentDevice.chipId === chipId) {
+                                vm.currentLog = deviceLog;
+                            }
+                        } else if (message.event === 'register') {
+                            chipId = message.chipId;
+                            updateDeviceStatusByChipId(chipId, 1);
+                        } else if (message.event === 'offline') {
+                            chipId = message.chipId;
+                            updateDeviceStatusByChipId(chipId, 0);
+                        } else if (message.event === 'ota_ack') {
+                            vm.isUploadSuccess = true;
+                            toast.showSuccess($translate.instant('script.script-upload-success'));
                         }
-                    } else if (topic.indexOf('/register') > -1) {
-                        chipId = angular.fromJson(message).chipId;
-                        updateDeviceStatusByChipId(chipId, 1);
-                    } else if (topic.indexOf('/offline') > -1) {
-                        chipId = topic.replace(baseTopicUrl, '').replace('/offline', '');
-                        updateDeviceStatusByChipId(chipId, 0);
-                    } else if (topic.indexOf('/ota_ack') > -1) {
-                        vm.isUploadSuccess = true;
-                        toast.showSuccess($translate.instant('script.script-upload-success'));
+                    } catch (err) {
+                        $log.log('error', err.message);
                     }
                 }, 500);
             });
@@ -363,33 +368,11 @@ export default function CodeLabController($mdSidenav, toast, scriptService, user
     }
 
     function subscribeDeviceTopics() {
-        var chipId = '';
-        if (mqttClient && mqttClient.connected) {
-            for (var i = 0; i < vm.devices.length; i++) {
-                chipId = vm.devices[i].chipId;
-                var logTopic = baseTopicUrl + chipId + '/log';
-                var offlineTopic = baseTopicUrl + chipId + '/offline';
-                var otaAckTopic = baseTopicUrl + chipId + '/ota_ack';
-                mqttClient.unsubscribe(logTopic);
-                mqttClient.unsubscribe(offlineTopic);
-                mqttClient.unsubscribe(otaAckTopic);
-                mqttClient.subscribe(logTopic, {
-                    qos: 2
-                });
-                mqttClient.subscribe(offlineTopic, {
-                    qos: 2
-                });
-                mqttClient.subscribe(otaAckTopic, {
-                    qos: 2
-                });
-                $log.log('subscribe', chipId, '/log', '/offline', '/ota_ack');
-            }
-        }
-        var registerTopic = baseTopicUrl + 'register';
-        mqttClient.unsubscribe(registerTopic);
-        mqttClient.subscribe(registerTopic, {
+        mqttClient.unsubscribe(baseSysTopicUrl);
+        mqttClient.subscribe(baseSysTopicUrl, {
             qos: 2
         });
+        $log.log('Subscribe system topics');
     }
 
     function changeMode($event) {
@@ -483,7 +466,7 @@ export default function CodeLabController($mdSidenav, toast, scriptService, user
 
     function uploadScript() {
         var chipId = vm.currentDevice.chipId;
-        var topic = baseTopicUrl + chipId + '/ota';
+        var topic = baseSysTopicUrl + '/' + chipId + '/ota';
         if (vm.script.mode === 'block') {
             vm.script.lua = Blockly.Lua.workspaceToCode(vm.workspace);
         }
@@ -639,7 +622,7 @@ export default function CodeLabController($mdSidenav, toast, scriptService, user
                 controllerAs: 'vm',
                 templateUrl: registerDeviceTemplate,
                 parent: angular.element($document[0].body),
-                fullscreen: false,
+                fullscreen: true,
                 targetEvent: $event
             })
             .then(function () {}, function () {});

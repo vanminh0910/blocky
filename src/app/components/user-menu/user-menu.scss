@@ -34,10 +34,8 @@ md-icon.tb-mini-avatar {
   width: 36px;
 }
 
+
 .tb-login-button .md-button {
-  margin-left: 30px !important;
-  margin-right: 0 !important;
-  padding-right: 0 !important;
   i {
     vertical-align: middle !important;
   }
@@ -48,9 +46,8 @@ md-icon.tb-mini-avatar {
 
 tb-user-menu {
   md-menu button {
-    margin-left: 20px !important;
-    width: 26px !important;
-    padding-right: 0 !important;
-    margin-right: 0 !important;
+    width: 30px !important;
+    padding-right: 15px !important;
+    margin-right: 15px !important;
   }
 }
