@@ -161,3 +161,26 @@
         </ripple>
     </md-whiteframe>
 </script>
+
+
+
+<!-- Template for Joystick widget -->
+<script type="text/ng-template" id="joystick.html">
+    <md-whiteframe flex layout class="md-whiteframe-4dp tb-widget-bottom-sheet" ng-attr-style="background-color: {{item.bgColor}};">
+        <div class="tb-widget-tile-header">
+            <h4 ng-if="item.name.length">{{item.name}}</h4>
+        </div>
+        <div ng-if="vm.editMode" class="tb-widget-edit">
+            <md-button ng-click="vm.toggleWidgetConfig($index)" ng-touchstart="vm.toggleWidgetConfig($index)">
+                <md-icon class="material-icons md-light md-48">mode_edit</md-icon>
+            </md-button>
+        </div>
+        <div class="joystick_container" layout layout-fill layout-align="center center" id="{{'Joystick'+item.id}}" ng-class="vm.editMode ? 'disabled' : ''">
+            <div class="nipple">
+                <div class="front"></div>
+                <div class="back"></div>
+            </div>
+        </div>
+    </md-whiteframe>
+</script>
+
