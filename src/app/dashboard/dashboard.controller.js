@@ -853,12 +853,12 @@ export default function DashboardController($scope, userService, dashboardServic
 
         vm.flightPath.setMap(vm.map);
 
-        for (var i = 0; i < coordinates.length; i++) {
-            vm.marker = new google.maps.Marker({
-                position: coordinates[i],
-                map: vm.map
-            });
-        }
+        // for (var i = 0; i < coordinates.length; i++) {
+        //     vm.marker = new google.maps.Marker({
+        //         position: coordinates[i],
+        //         map: vm.map
+        //     });
+        // }
     }
 
     function viewPolylineMapChecking(params) {
