@@ -243,13 +243,6 @@ export default function DashboardController($scope, userService, dashboardServic
 
     function editDashboard() {
         vm.editMode = true;
-        // vm.gmapDraggable = false;
-        // if (vm.gmapWidgetMode === true) {
-        //     vm.initMap(vm.selectedWidget.Coordinates);
-        // }
-        // if (vm.gmapWidgetMode === false) {
-        //     vm.polylineMap(vm.selectedWidget.listCoordinates);
-        // }
         vm.gridsterOptions.draggable.enabled = true;
         vm.gridsterOptions.resizable.enabled = true;
         if (angular.isDefined(vm.gridsterOptions.api)) {
@@ -305,13 +298,6 @@ export default function DashboardController($scope, userService, dashboardServic
 
     function runDashboard() {
         vm.editMode = false;
-        // vm.gmapDraggable = true;
-        // if (vm.gmapWidgetMode === true) {
-        //     vm.initMap(vm.selectedWidget.Coordinates);
-        // }
-        // if (vm.gmapWidgetMode === false) {
-        //     vm.polylineMap(vm.selectedWidget.listCoordinates)
-        // }
         vm.gridsterOptions.draggable.enabled = false;
         vm.gridsterOptions.resizable.enabled = false;
         if (angular.isDefined(vm.gridsterOptions.api)) {
@@ -824,7 +810,6 @@ export default function DashboardController($scope, userService, dashboardServic
         vm.map = new google.maps.Map(document.getElementById(id), {
             center: coordinates,
             zoom: 15,
-            // draggable: vm.gmapDraggable
         });
         vm.gmapWidgetMode = true;
         vm.marker = new google.maps.Marker({
@@ -836,12 +821,8 @@ export default function DashboardController($scope, userService, dashboardServic
     function polylineMap(coordinates, id) {
         vm.map = new google.maps.Map(document.getElementById(id), {
             zoom: 3,
-            center: {
-                lat: 0,
-                lng: -180
-            },
+            center: coordinates[coordinates.length - 1],
             mapTypeId: 'terrain',
-            // draggable: vm.gmapDraggable,
         });
         vm.gmapWidgetMode = false;
         vm.flightPath = new google.maps.Polyline({
