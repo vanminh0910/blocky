@@ -16,15 +16,15 @@
 export default angular.module('blocky.settings', [])
     .constant('settings',
         {
-            baseApiUrl: 'https://api.getblocky.com/staging',
+            baseApiUrl: 'https://api.getblocky.com/staging', //'https://api.getblocky.com/prod',
             localApiUrl: 'http://192.168.4.1',
             entryPoints: {
                 login: '/users/signup',
                 signup: '/users/login'
             },
             mqtt: {
-                url: 'wss://staging.broker.getblocky.com',
-                host: 'staging.broker.getblocky.com',
+                url: 'wss://staging.broker.getblocky.com', //'wss://broker.getblocky.com',
+                host: 'staging.broker.getblocky.com', //'broker.getblocky.com',
                 port: '8883'
             },
             maxBytesUpload: 900
