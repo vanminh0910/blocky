@@ -37,6 +37,12 @@
                 </md-button>
             </md-menu-item>
             <md-menu-item>
+                <md-button ng-click="vm.openAccountSetting()">
+                    <md-icon md-menu-align-target aria-label="{{ 'home.accountSetting' | translate }}" class="material-icons">settings</md-icon>
+                    <span translate>home.accountSetting</span>
+                </md-button>
+            </md-menu-item>
+            <md-menu-item>
                 <md-button ng-click="vm.logout()">
                     <md-icon md-menu-align-target aria-label="{{ 'home.logout' | translate }}" class="material-icons">exit_to_app</md-icon>
                     <span translate>home.logout</span>

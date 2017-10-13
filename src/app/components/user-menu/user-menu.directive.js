@@ -49,6 +49,7 @@ function UserMenuController($scope, $rootScope, userService, $translate, $state,
     $rootScope.signUp = signUp;
     vm.logout = logout;
     vm.openProfile = openProfile;
+    vm.openAccountSetting = openAccountSetting;
     vm.userDisplayName = '';
     vm.userLoaded = false;
 
@@ -90,6 +91,10 @@ function UserMenuController($scope, $rootScope, userService, $translate, $state,
 
     function openProfile() {
         $state.go('home.profile');
+    }
+
+    function openAccountSetting() {
+        $state.go('home.setting');
     }
 
     function logout() {

@@ -27,7 +27,8 @@ export default angular.module('blocky.locale', [])
                     "profile": "Profile",
                     "logout": "Logout",
                     "codelab": "Code Lab",
-                    "dashboard": "Dashboard"
+                    "dashboard": "Dashboard",
+                    "accountSetting": "Account Setting"
                 },
                 "access": {
                     "unauthorized": "Unauthorized",
@@ -371,7 +372,8 @@ export default angular.module('blocky.locale', [])
                 "profile": {
                     "profile": "Profile",
                     "change-password": "Change Password",
-                    "current-password": "Current password"
+                    "current-password": "Current password",
+                    "accountSetting": "Account Setting"
                 },
                 "timeinterval": {
                     "seconds-interval": "{ seconds, select, 1 {1 second} other {# seconds} }",
