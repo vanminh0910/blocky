@@ -180,6 +180,21 @@ md-whiteframe {
     }
 }
 
+.tb-widget-clock {
+    background-color: #2196f3;
+    text-align: center;
+    ds-widget-clock {
+        font-size: 1.5em;
+        padding-top: 0%;
+        font-weight: bold;
+        color: white;
+        text-align: center;
+    } 
+    .tb-day {
+        padding-top: 10%;
+        font-size: 0.7em;
+    }
+}
 .white-slider .md-thumb:after,
 .white-slider .md-track-fill {
     background-color: #ffffff !important;

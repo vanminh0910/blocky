@@ -161,3 +161,18 @@
         </ripple>
     </md-whiteframe>
 </script>
+
+<!-- Temlate for clock widget -->
+<script type="text/ng-template" id="clock.html">
+    <md-whiteframe flex layout class="md-whiteframe-4dp tb-widget-clock" ng-attr-style="background-color: {{item.bgColor}};">
+        <div ng-if="vm.editMode" class="tb-widget-edit">
+            <md-button ng-click="vm.toggleWidgetConfig($index)" ng-touchstart="vm.toggleWidgetConfig($index)">
+                <md-icon class="material-icons md-light md-48">mode_edit</md-icon>
+            </md-button>
+        </div>
+        <ripple ng-class="vm.editMode ? 'disabled' : ''" ng-click="vm.widgetAction(item)">
+            <ds-widget-clock ng-attr-style="color: {{item.txtColor}};" class="tb-day" show-digital digital-format="'MM/d/yyyy'"></ds-widget-clock>
+            <ds-widget-clock ng-attr-style="color: {{item.txtColor}};" show-digital digital-format="'hh:mm a'"></ds-widget-clock>
+        </ripple>
+    </md-whiteframe>
+</script>
