@@ -53,7 +53,6 @@
     "typeface-roboto": "0.0.29"
   },
   "devDependencies": {
-    "angular-drag-and-drop-lists": "^2.1.0",
     "angular-ui-tree": "^2.22.6",
     "babel-cli": "^6.24.1",
     "babel-core": "^6.25.0",
