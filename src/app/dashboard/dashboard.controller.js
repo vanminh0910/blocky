@@ -483,6 +483,7 @@ export default function DashboardController($scope, userService, dashboardServic
                 type:'joystick',
                 bgColor:'#e91e63',
                 control:'',
+                itv:'',
                 id:0,
                 options:{
                     zone:null,
@@ -492,6 +493,7 @@ export default function DashboardController($scope, userService, dashboardServic
                 position:{
                     x:0,y:0
                 },
+                newangle:'',
                 angle:'',
                 subscribeMessage:{
                     topic:'',
@@ -506,61 +508,80 @@ export default function DashboardController($scope, userService, dashboardServic
             }
             for(var v = 0;v<vm.currentDashboard.content.length;v++)
             {
-                if(Joystick.id < vm.currentDashboard.content[v].id){
-                    Joystick.id=vm.currentDashboard.content[v].id;
+                if(vm.currentDashboard.content[v].type==='joystick')
+                {
+                    if(Joystick.id < vm.currentDashboard.content[v].id){
+                        Joystick.id=vm.currentDashboard.content[v].id;
+                    }
                 }
             }
             Joystick.id++;
             vm.currentDashboard.content.push(Joystick);
-            var itv=$interval(function(){
+            initJoystick(Joystick);
+        }
+        $mdSidenav('widget-library').close();
+    }
+    function initJoystick(Joystick)
+    {
+        
+        Joystick.itv= $interval(function(){
+            if(Joystick.angle!==Joystick.newangle)
+            {
+                Joystick.angle = Joystick.newangle;
+                $log.log(Joystick.angle);
+                //sendMessage(Joystick.subscribeMessage.topic,Joystick.angle.toString());
+            }
+        },100);
+        var itv=$interval(function(){
                 var v = $document[0].getElementById('Joystick'+Joystick.id);
                 if(v==null){
-                    $log.log("is null");
+                    $log.log("Joystick returned as null.");
                 }
                 else
                 {
-                    $log.log(v);
                     Joystick.options.zone=v;
                     Joystick.control = nipplejs.create(Joystick.options);
                     
-                    Joystick.control.on('move',function(e,data){
+                    Joystick.control.on('move end',function(e,data){
                         //$log.log(e);
                         if(angular.isUndefined(data.direction))
                         {
                                 //
+                                
+                                Joystick.newangle="stop";
                         }
                         else
                         {
-                            $log.log("----------------------------------");
+                            
+                            //$log.log("----------------------------------");
                             if(angular.isUndefined(data.direction.x)){
                                 //
                             }
                             else{
-                                $log.log(data.direction.x);
+                                //$log.log(data.direction.x);
                             
                             }
                             if(angular.isUndefined(data.direction.y)){
                                 //
                             }
                             else{
-                                $log.log(data.direction.y);
+                                //$log.log(data.direction.y);
                             
                             }
                             if(angular.isUndefined(data.direction.angle)){
                                 //
                             }
                             else{
-                                $log.log(data.direction.angle);
-                            
+                                //$log.log(data.direction.angle);
+                                Joystick.newangle=data.direction.angle;
                             }
                         }
                     } );
                     cancelInterval(itv);
                 }
-            },1000)
-            $log.log(nipplejs);
-        }   
-        $mdSidenav('widget-library').close();
+            },1000);
+
+
     }
     function cancelInterval(intervalId){
         $interval.cancel(intervalId);
