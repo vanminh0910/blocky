@@ -59,6 +59,12 @@
     margin-right: auto;
   }
   #device-actions {
+    &> div > button:nth-child(1) {
+      margin-right: 0;
+    }
+    &> div > button:nth-child(2) {
+      margin-left: 0;
+    }
     justify-content: space-between !important;
     button>i {
       font-size: 1.5em;

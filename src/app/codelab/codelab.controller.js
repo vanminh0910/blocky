@@ -194,26 +194,29 @@ export default function CodeLabController($mdSidenav, toast, scriptService, user
                     $log.log('Code Lab Recieved Message:', topic, message);
 
                     try {
-                        message = angular.fromJson(message.toString());
                         var chipId = '';
-                        if (topic.indexOf('/log') > -1 && message.length) {
+                        if (topic.indexOf('/log') > -1) {
+                            message = message.toString();
                             chipId = topic.replace(baseSysTopicUrl, '').replace('/log', '').replace('/', '');
                             var deviceLog = store.get('deviceLog_' + chipId) || '';
                             if (vm.currentDevice && vm.currentDevice.chipId === chipId) {
                                 vm.currentLog = deviceLog;
                             }
-                        } else if (message.event === 'register') {
-                            chipId = message.chipId;
-                            updateDeviceStatusByChipId(chipId, 1);
-                        } else if (message.event === 'offline') {
-                            chipId = message.chipId;
-                            updateDeviceStatusByChipId(chipId, 0);
-                        } else if (message.event === 'ota_ack') {
-                            vm.isUploadSuccess = true;
-                            toast.showSuccess($translate.instant('script.script-upload-success'));
-                        } else if (message.event === 'run_ack') {
-                            vm.isUploadSuccess = true;
-                            toast.showSuccess($translate.instant('script.script-upload-success'));
+                        } else {
+                            message = angular.fromJson(message.toString());
+                            if (message.event === 'register') {
+                                chipId = message.chipId;
+                                updateDeviceStatusByChipId(chipId, 1);
+                            } else if (message.event === 'offline') {
+                                chipId = message.chipId;
+                                updateDeviceStatusByChipId(chipId, 0);
+                            } else if (message.event === 'ota_ack') {
+                                vm.isUploadSuccess = true;
+                                toast.showSuccess($translate.instant('script.script-upload-success'));
+                            } else if (message.event === 'run_ack') {
+                                vm.isUploadSuccess = true;
+                                toast.showSuccess($translate.instant('script.script-upload-success'));
+                            }
                         }
                     } catch (err) {
                         $log.log('error', err.message);

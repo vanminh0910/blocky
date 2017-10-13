@@ -27,18 +27,20 @@
         <div flex layout="column" layout-padding>
             <img src="./esp8266.png">
             <div layout="row" id="device-actions">
-                <md-button ng-disabled="!vm.isUserLoaded || !vm.currentDevice" ng-click="vm.uploadScript('run')" class="md-icon-button" aria-label="Device Menu">
-                    <md-tooltip md-direction="bottom">
-                        Run script
-                    </md-tooltip>
-                    <i class="fa fa-play" aria-hidden="true"></i>
-                </md-button>
-                <md-button ng-disabled="!vm.isUserLoaded || !vm.currentDevice" ng-click="vm.uploadScript('ota')" class="md-icon-button" aria-label="Device Menu">
-                    <md-tooltip md-direction="bottom">
-                        Upload script to board
-                    </md-tooltip>
-                    <i class="fa fa-upload" aria-hidden="true"></i>
-                </md-button>
+                <div layout="row">
+                    <md-button ng-disabled="!vm.isUserLoaded || !vm.currentDevice" ng-click="vm.uploadScript('run')" class="md-icon-button" aria-label="Device Menu">
+                        <md-tooltip md-direction="bottom">
+                            Run script
+                        </md-tooltip>
+                        <i class="fa fa-play" aria-hidden="true"></i>
+                    </md-button>
+                    <md-button ng-disabled="!vm.isUserLoaded || !vm.currentDevice" ng-click="vm.uploadScript('ota')" class="md-icon-button" aria-label="Device Menu">
+                        <md-tooltip md-direction="bottom">
+                            Upload script to board
+                        </md-tooltip>
+                        <i class="fa fa-upload" aria-hidden="true"></i>
+                    </md-button>
+                </div>
                 <md-select ng-model="vm.currentDevice" placeholder="Select a device" class="md-no-underline">
                     <md-option ng-repeat="device in vm.devices | orderBy:'name'" ng-value="device">
                         <i ng-class="device.status ? 'fa fa-circle device-online' : 'fa fa-circle device-offline'" aria-hidden="true"></i> {{device.name}}
