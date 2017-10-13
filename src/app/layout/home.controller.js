@@ -88,7 +88,7 @@ export default function HomeController(menu, $state, Fullscreen, deviceService, 
         });
     }
 
-    function updateDevicesLogs(message) {
+    function updateDevicesLogs(topic, message) {
         var chipId = '';
         if (topic.indexOf('/log') > -1 && message.length) {
             chipId = topic.replace('/log', '');
