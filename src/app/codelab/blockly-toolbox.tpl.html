@@ -1,729 +1,885 @@
 <xml xmlns="http://www.w3.org/1999/xhtml" id="toolbox" style="display: none;">
-  
-  <category name="Timer" colour="#a55b5b">
-    <block type="timer_delay">
-      <field name="value">0</field>
-    </block>
-    <block type="timer_now"></block>
-    <block type="timer_event">
-      <field name="when">tmr.ALARM_AUTO</field>
-      <field name="time">0</field>
-    </block>
-  </category>
-  <category name="Message" colour="#5ba5a5">
-    <block type="blockycloud_send_message">
-      <field name="topic">topic</field>
-      <value name="message">
-        <block type="text">
-          <field name="TEXT">test</field>
-        </block>
-      </value>
-    </block>
-    <block type="blockycloud_on_message_received">
-      <field name="topic">topic</field>
-      <field name="message" id="(KQwYbv{zlK%#5*h=-qC" variabletype="">message</field>
-      <field name="type">STRING</field>
-    </block>
-    <block type="blockycloud_send_log">
-      <value name="message">
-        <block type="text">
-          <field name="TEXT">test</field>
-        </block>
-      </value>
-    </block>
-  </category>
-  <category name="Logic" colour="#5C81A6">
-    <block type="controls_if"></block>
-    <block type="logic_compare">
-      <field name="OP">EQ</field>
-    </block>
-    <block type="logic_operation">
-      <field name="OP">AND</field>
-    </block>
-    <block type="logic_negate"></block>
-    <block type="logic_boolean">
-      <field name="BOOL">TRUE</field>
-    </block>
-    <block type="logic_null"></block>
-    <block type="logic_ternary"></block>
-  </category>
-  <category name="Loops" colour="#5CA65C">
-    <block type="controls_repeat_ext">
-      <value name="TIMES">
-        <shadow type="math_number">
-          <field name="NUM">10</field>
-        </shadow>
-      </value>
-    </block>
-    <block type="controls_whileUntil">
-      <field name="MODE">WHILE</field>
-    </block>
-    <block type="controls_for">
-      <field name="VAR" id="zh?oO;i,/SN4j4G^Y?g}" variabletype="">i</field>
-      <value name="FROM">
-        <shadow type="math_number">
-          <field name="NUM">1</field>
-        </shadow>
-      </value>
-      <value name="TO">
-        <shadow type="math_number">
-          <field name="NUM">10</field>
-        </shadow>
-      </value>
-      <value name="BY">
-        <shadow type="math_number">
-          <field name="NUM">1</field>
-        </shadow>
-      </value>
-    </block>
-    <block type="controls_forEach">
-      <field name="VAR" id="Z2Y?YDxRX{s}7(%BO1B{" variabletype="">j</field>
-    </block>
-    <block type="controls_flow_statements">
-      <field name="FLOW">BREAK</field>
-    </block>
-  </category>
-  <category name="Math" colour="#5C68A6">
-    <block type="math_number">
-      <field name="NUM">0</field>
-    </block>
-    <block type="math_arithmetic">
-      <field name="OP">ADD</field>
-      <value name="A">
-        <shadow type="math_number">
-          <field name="NUM">1</field>
-        </shadow>
-      </value>
-      <value name="B">
-        <shadow type="math_number">
-          <field name="NUM">1</field>
-        </shadow>
-      </value>
-    </block>
-    <block type="math_single">
-      <field name="OP">ROOT</field>
-      <value name="NUM">
-        <shadow type="math_number">
-          <field name="NUM">9</field>
-        </shadow>
-      </value>
-    </block>
-    <block type="math_trig">
-      <field name="OP">SIN</field>
-      <value name="NUM">
-        <shadow type="math_number">
-          <field name="NUM">45</field>
-        </shadow>
-      </value>
-    </block>
-    <block type="math_constant">
-      <field name="CONSTANT">PI</field>
-    </block>
-    <block type="math_number_property">
-      <mutation divisor_input="false"></mutation>
-      <field name="PROPERTY">EVEN</field>
-      <value name="NUMBER_TO_CHECK">
-        <shadow type="math_number">
-          <field name="NUM">0</field>
-        </shadow>
-      </value>
-    </block>
-    <block type="math_round">
-      <field name="OP">ROUND</field>
-      <value name="NUM">
-        <shadow type="math_number">
-          <field name="NUM">3.1</field>
-        </shadow>
-      </value>
-    </block>
-    <block type="math_on_list">
-      <mutation op="SUM"></mutation>
-      <field name="OP">SUM</field>
-    </block>
-    <block type="math_modulo">
-      <value name="DIVIDEND">
-        <shadow type="math_number">
-          <field name="NUM">64</field>
-        </shadow>
-      </value>
-      <value name="DIVISOR">
-        <shadow type="math_number">
-          <field name="NUM">10</field>
-        </shadow>
-      </value>
-    </block>
-    <block type="math_constrain">
-      <value name="VALUE">
-        <shadow type="math_number">
-          <field name="NUM">50</field>
-        </shadow>
-      </value>
-      <value name="LOW">
-        <shadow type="math_number">
-          <field name="NUM">1</field>
-        </shadow>
-      </value>
-      <value name="HIGH">
-        <shadow type="math_number">
-          <field name="NUM">100</field>
-        </shadow>
-      </value>
-    </block>
-    <block type="math_random_int">
-      <value name="FROM">
-        <shadow type="math_number">
-          <field name="NUM">1</field>
-        </shadow>
-      </value>
-      <value name="TO">
-        <shadow type="math_number">
-          <field name="NUM">100</field>
-        </shadow>
-      </value>
-    </block>
-    <block type="math_random_float"></block>
-  </category>
-  <category name="Text" colour="#5CA68D">
-    <block type="text">
-      <field name="TEXT"></field>
-    </block>
-    <block type="text_print">
-      <value name="TEXT">
-        <shadow type="text">
-          <field name="TEXT">abc</field>
-        </shadow>
-      </value>
-    </block>
-    <block type="text_join">
-      <mutation items="2"></mutation>
-    </block>
-    <block type="text_append">
-      <field name="VAR" id="*j_[}nuC{o~o5AXB6u4E" variabletype="">item</field>
-      <value name="TEXT">
-        <shadow type="text">
-          <field name="TEXT"></field>
-        </shadow>
-      </value>
-    </block>
-    <block type="text_length">
-      <value name="VALUE">
-        <shadow type="text">
-          <field name="TEXT">abc</field>
-        </shadow>
-      </value>
-    </block>
-    <block type="text_isEmpty">
-      <value name="VALUE">
-        <shadow type="text">
-          <field name="TEXT"></field>
-        </shadow>
-      </value>
-    </block>
-    <block type="text_indexOf">
-      <field name="END">FIRST</field>
-      <value name="VALUE">
-        <block type="variables_get">
-          <field name="VAR" id="I_=yeo4!bntU`l.?8Be," variabletype="">text</field>
-        </block>
-      </value>
-      <value name="FIND">
-        <shadow type="text">
-          <field name="TEXT">abc</field>
-        </shadow>
-      </value>
-    </block>
-    <block type="text_charAt">
-      <mutation at="true"></mutation>
-      <field name="WHERE">FROM_START</field>
-      <value name="VALUE">
-        <block type="variables_get">
-          <field name="VAR" id="I_=yeo4!bntU`l.?8Be," variabletype="">text</field>
-        </block>
-      </value>
-    </block>
-    <block type="text_getSubstring">
-      <mutation at1="true" at2="true"></mutation>
-      <field name="WHERE1">FROM_START</field>
-      <field name="WHERE2">FROM_START</field>
-      <value name="STRING">
-        <block type="variables_get">
-          <field name="VAR" id="I_=yeo4!bntU`l.?8Be," variabletype="">text</field>
-        </block>
-      </value>
-    </block>
-    <block type="text_changeCase">
-      <field name="CASE">UPPERCASE</field>
-      <value name="TEXT">
-        <shadow type="text">
-          <field name="TEXT">abc</field>
-        </shadow>
-      </value>
-    </block>
-    <block type="text_trim">
-      <field name="MODE">BOTH</field>
-      <value name="TEXT">
-        <shadow type="text">
-          <field name="TEXT">abc</field>
-        </shadow>
-      </value>
-    </block>    
-    <block type="text_prompt_ext">
-      <mutation type="TEXT"></mutation>
-      <field name="TYPE">TEXT</field>
-      <value name="TEXT">
-        <shadow type="text">
-          <field name="TEXT">abc</field>
-        </shadow>
-      </value>
-    </block>
-  </category>
-  <category name="Variables" colour="#A65C81" custom="VARIABLE"></category>
-  <sep></sep>
-  <category name="Input">
-    <category name="Button" colour="#5ba5a5">
-      <block type="button">
-        <field name="PIN">5</field>
-      </block>
-      <block type="button_released">
-        <field name="PIN">5</field>
-      </block>
-    </category>
-    <category name="Light" colour="#5ba5a5">
-      <block type="light_ldr"></block>
-      <block type="light_bh1750_setup"></block>
-      <block type="light_bh1750_read"></block>
-    </category>
-    <category name="Temperature" colour="#5ba5a5">
-      <block type="temp_dht_read_temp">
-        <field name="PIN">5</field>
-      </block>
-      <block type="temp_dht_read_humid">
-        <field name="PIN">5</field>
-      </block>
-      <block type="temp_am2320_setup"></block>
-      <block type="temp_am2320_read_temp"></block>
-      <block type="temp_am2320_read_humid"></block>
-    </category>
-    <category name="Soil Moisture" colour="#5ba5a5">
-      <block type="moisture_read"></block>
-    </category>
-    <category name="Motion Sensor" colour="#5ba5a5">
-      <block type="motion_read">
-        <field name="PIN">5</field>
-      </block>
-    </category>
-    <category name="Gas Sensor" colour="#5ba5a5">
-      <block type="gas_read"></block>
-    </category>
-    <category name="Touch Sensor" colour="#5ba5a5">
-      <block type="touch_read"></block>
-      <block type="touch_released"></block>
-    </category>
-    <category name="Current Sensor" colour="#5ba5a5">
-      <block type="current_read"></block>
-    </category>
-    <category name="IOExpander" colour="#5b93a5">
-      <block type="io_expander_setup"></block>
-      <block type="io_expander_set_mode">
-        <field name="MODE">ADC</field>
-        <value name="CHANNEL">
-          <block type="math_number">
-            <field name="NUM">1</field>
-          </block>
-        </value>
-      </block>
-      <block type="io_expander_set_data">
-        <value name="CHANNEL">
-          <block type="math_number">
-            <field name="NUM">1</field>
-          </block>
-        </value>
-        <value name="DATA">
+    <category name="Timer" colour="#a55b5b">
+      <block type="timer_event_every">
+        <field name="type">sec</field>
+        <value name="time">
           <block type="math_number">
             <field name="NUM">0</field>
           </block>
         </value>
       </block>
-      <block type="io_expander_get_data">
-        <value name="CHANNEL">
+      <block type="timer_event_after">
+        <field name="type">sec</field>
+        <value name="time">
           <block type="math_number">
+            <field name="NUM">0</field>
+          </block>
+        </value>
+      </block>
+      <block type="timer_delay">
+        <field name="NAME">sec</field>
+        <value name="time">
+          <block type="math_number">
+            <field name="NUM">0</field>
+          </block>
+        </value>
+      </block>
+      <block type="timer_now">
+        <field name="type">sec</field>
+      </block>
+    </category>
+    <category name="Message" colour="#5ba5a5">
+      <block type="blockycloud_send_message">
+        <value name="topic">
+          <block type="text">
+            <field name="TEXT">test</field>
+          </block>
+        </value>
+        <value name="message">
+          <block type="text">
+            <field name="TEXT">test</field>
+          </block>
+        </value>
+      </block>
+      <block type="blockycloud_on_message_received">
+        <field name="message" id="lS4/VaJI4HQFhS)mfMBo" variabletype="">message</field>
+        <field name="type">STRING</field>
+        <value name="topic">
+          <block type="text">
+            <field name="TEXT">test</field>
+          </block>
+        </value>
+      </block>
+      <block type="blockycloud_send_log">
+        <value name="message">
+          <block type="text">
+            <field name="TEXT">test</field>
+          </block>
+        </value>
+      </block>
+    </category>
+    <category name="Logic" colour="#5C81A6">
+      <block type="controls_if">
+        <value name="IF0">
+          <block type="logic_compare">
+            <field name="OP">EQ</field>
+          </block>
+        </value>
+      </block>
+      <block type="controls_if"></block>
+      <block type="logic_compare">
+        <field name="OP">EQ</field>
+      </block>
+      <block type="logic_operation">
+        <field name="OP">AND</field>
+      </block>
+      <block type="logic_negate"></block>
+      <block type="logic_boolean">
+        <field name="BOOL">TRUE</field>
+      </block>
+      <block type="logic_null"></block>
+      <block type="logic_ternary"></block>
+    </category>
+    <category name="Loops" colour="#5CA65C">
+      <block type="controls_repeat_ext">
+        <value name="TIMES">
+          <shadow type="math_number">
+            <field name="NUM">10</field>
+          </shadow>
+        </value>
+      </block>
+      <block type="controls_whileUntil">
+        <field name="MODE">WHILE</field>
+      </block>
+      <block type="controls_for">
+        <field name="VAR" id="G$MQ+qSA3_=/pfs5I5]3" variabletype="">i</field>
+        <value name="FROM">
+          <shadow type="math_number">
             <field name="NUM">1</field>
-          </block>
+          </shadow>
         </value>
-      </block>
-    </category>
-    </category>
-    <category name="Control">
-    <category name="Buzzer" colour="#a55b5b">
-      <block type="buzzer_on">
-        <field name="PIN">5</field>
-      </block>
-      <block type="buzzer_off">
-        <field name="PIN">5</field>
-      </block>
-    </category>
-    <category name="Relay" colour="#a55b5b">
-      <block type="relay_on">
-        <field name="PIN">5</field>
-      </block>
-      <block type="relay_off">
-        <field name="PIN">5</field>
-      </block>
-    </category>
-    <category name="Mosfet" colour="#a55b5b">
-      <block type="mosfet_on">
-        <field name="PIN">5</field>
-      </block>
-      <block type="mosfet_off">
-        <field name="PIN">5</field>
-      </block>
-    </category>
-    <category name="Servo" colour="#a55b5b"></category>
-    <category name="Motor" colour="#a55b5b">
-      <block type="motor_setup"></block>
-      <block type="motor_set_speed">
-        <value name="CHANNEL">
-          <block type="math_number">
+        <value name="TO">
+          <shadow type="math_number">
+            <field name="NUM">10</field>
+          </shadow>
+        </value>
+        <value name="BY">
+          <shadow type="math_number">
             <field name="NUM">1</field>
-          </block>
+          </shadow>
         </value>
-        <value name="DIR">
-          <block type="math_number">
-            <field name="NUM">90</field>
-          </block>
+      </block>
+      <block type="controls_forEach">
+        <field name="VAR" id=":Zgk`Ujjz=sa8~jC%k=$" variabletype="">j</field>
+      </block>
+      <block type="controls_flow_statements">
+        <field name="FLOW">BREAK</field>
+      </block>
+    </category>
+    <category name="Math" colour="#5C68A6">
+      <block type="math_number">
+        <field name="NUM">0</field>
+      </block>
+      <block type="math_arithmetic">
+        <field name="OP">ADD</field>
+        <value name="A">
+          <shadow type="math_number">
+            <field name="NUM">1</field>
+          </shadow>
         </value>
-        <value name="SPEED">
-          <block type="math_number">
+        <value name="B">
+          <shadow type="math_number">
+            <field name="NUM">1</field>
+          </shadow>
+        </value>
+      </block>
+      <block type="math_single">
+        <field name="OP">ROOT</field>
+        <value name="NUM">
+          <shadow type="math_number">
+            <field name="NUM">9</field>
+          </shadow>
+        </value>
+      </block>
+      <block type="math_trig">
+        <field name="OP">SIN</field>
+        <value name="NUM">
+          <shadow type="math_number">
+            <field name="NUM">45</field>
+          </shadow>
+        </value>
+      </block>
+      <block type="math_constant">
+        <field name="CONSTANT">PI</field>
+      </block>
+      <block type="math_number_property">
+        <mutation divisor_input="false"></mutation>
+        <field name="PROPERTY">EVEN</field>
+        <value name="NUMBER_TO_CHECK">
+          <shadow type="math_number">
+            <field name="NUM">0</field>
+          </shadow>
+        </value>
+      </block>
+      <block type="math_round">
+        <field name="OP">ROUND</field>
+        <value name="NUM">
+          <shadow type="math_number">
+            <field name="NUM">3.1</field>
+          </shadow>
+        </value>
+      </block>
+      <block type="math_on_list">
+        <mutation op="SUM"></mutation>
+        <field name="OP">SUM</field>
+      </block>
+      <block type="math_modulo">
+        <value name="DIVIDEND">
+          <shadow type="math_number">
+            <field name="NUM">64</field>
+          </shadow>
+        </value>
+        <value name="DIVISOR">
+          <shadow type="math_number">
+            <field name="NUM">10</field>
+          </shadow>
+        </value>
+      </block>
+      <block type="math_constrain">
+        <value name="VALUE">
+          <shadow type="math_number">
+            <field name="NUM">50</field>
+          </shadow>
+        </value>
+        <value name="LOW">
+          <shadow type="math_number">
+            <field name="NUM">1</field>
+          </shadow>
+        </value>
+        <value name="HIGH">
+          <shadow type="math_number">
             <field name="NUM">100</field>
-          </block>
+          </shadow>
         </value>
       </block>
-    </category>
-    <category name="IR Remote" colour="#a55b5b">
-      <block type="ir_setup"></block>
-      <block type="ir_learn">
-        <value name="ID">
-          <block type="math_number">
+      <block type="math_random_int">
+        <value name="FROM">
+          <shadow type="math_number">
             <field name="NUM">1</field>
+          </shadow>
+        </value>
+        <value name="TO">
+          <shadow type="math_number">
+            <field name="NUM">100</field>
+          </shadow>
+        </value>
+      </block>
+      <block type="math_random_float"></block>
+    </category>
+    <category name="Text" colour="#5CA68D">
+      <block type="text">
+        <field name="TEXT"></field>
+      </block>
+      <block type="text_print">
+        <value name="TEXT">
+          <shadow type="text">
+            <field name="TEXT">abc</field>
+          </shadow>
+        </value>
+      </block>
+      <block type="text_join">
+        <mutation items="2"></mutation>
+      </block>
+      <block type="text_append">
+        <field name="VAR" id="1@Sb/2@.%Vl55Y3F}9`d" variabletype="">item</field>
+        <value name="TEXT">
+          <shadow type="text">
+            <field name="TEXT"></field>
+          </shadow>
+        </value>
+      </block>
+      <block type="text_length">
+        <value name="VALUE">
+          <shadow type="text">
+            <field name="TEXT">abc</field>
+          </shadow>
+        </value>
+      </block>
+      <block type="text_isEmpty">
+        <value name="VALUE">
+          <shadow type="text">
+            <field name="TEXT"></field>
+          </shadow>
+        </value>
+      </block>
+      <block type="text_indexOf">
+        <field name="END">FIRST</field>
+        <value name="VALUE">
+          <block type="variables_get">
+            <field name="VAR" id="8:JzZcc2-8c45oiMfq^+" variabletype="">text</field>
+          </block>
+        </value>
+        <value name="FIND">
+          <shadow type="text">
+            <field name="TEXT">abc</field>
+          </shadow>
+        </value>
+      </block>
+      <block type="text_charAt">
+        <mutation at="true"></mutation>
+        <field name="WHERE">FROM_START</field>
+        <value name="VALUE">
+          <block type="variables_get">
+            <field name="VAR" id="8:JzZcc2-8c45oiMfq^+" variabletype="">text</field>
           </block>
         </value>
       </block>
-      <block type="ir_send">
-        <value name="ID">
-          <block type="math_number">
-            <field name="NUM">1</field>
+      <block type="text_getSubstring">
+        <mutation at1="true" at2="true"></mutation>
+        <field name="WHERE1">FROM_START</field>
+        <field name="WHERE2">FROM_START</field>
+        <value name="STRING">
+          <block type="variables_get">
+            <field name="VAR" id="8:JzZcc2-8c45oiMfq^+" variabletype="">text</field>
           </block>
+        </value>
+      </block>
+      <block type="text_changeCase">
+        <field name="CASE">UPPERCASE</field>
+        <value name="TEXT">
+          <shadow type="text">
+            <field name="TEXT">abc</field>
+          </shadow>
+        </value>
+      </block>
+      <block type="text_trim">
+        <field name="MODE">BOTH</field>
+        <value name="TEXT">
+          <shadow type="text">
+            <field name="TEXT">abc</field>
+          </shadow>
+        </value>
+      </block>
+      <block type="text_prompt_ext">
+        <mutation type="TEXT"></mutation>
+        <field name="TYPE">TEXT</field>
+        <value name="TEXT">
+          <shadow type="text">
+            <field name="TEXT">abc</field>
+          </shadow>
         </value>
       </block>
     </category>
-    <category name="MP3Player" colour="#a55b5b">
-      <block type="mp3player_next"></block>
-      <block type="mp3player_setup"></block>
-      <block type="mp3player_play">
-        <value name="NAME">
-          <block type="math_number">
-            <field name="NUM">1</field>
-          </block>
-        </value>
-      </block>
-      <block type="mp3player_loop">
-        <value name="NAME">
-          <block type="math_number">
-            <field name="NUM">1</field>
-          </block>
-        </value>
-      </block>
-      <block type="mp3player_stop"></block>
-      <block type="mp3player_reset"></block>
-      <block type="mp3player_previous"></block>
-      <block type="mp3player_volume_up"></block>
-      <block type="mp3player_volume_down"></block>
-      <block type="mp3player_set_eq">
-        <field name="MODE">NORMAL</field>
-      </block>
-      <block type="mp3player_set_volume">
-        <value name="VOLUME">
-          <block type="math_number">
-            <field name="NUM">20</field>
-          </block>
-        </value>
-      </block>
+    <category name="Variables" colour="#A65C81" custom="VARIABLE"></category>
+    <category name="Functions" colour="#9A5CA6" custom="PROCEDURE"></category>
+    <sep></sep>
+    <category name="Input">
+      <category name="Button" colour="#5ba5a5">
+        <block type="button_whensomething">
+          <value name="pin">
+            <block type="flex_dropdown_pin">
+              <field name="PIN">D5</field>
+            </block>
+          </value>
+        </block>
+        <block type="button_current_state">
+          <value name="NAME">
+            <block type="flex_dropdown_pin">
+              <field name="PIN">D5</field>
+            </block>
+          </value>
+        </block>
+      </category>
+      <category name="Light" colour="#5ba5a5">
+        <block type="read_light_sensor"></block>
+      </category>
+      <category name="Temperature" colour="#5ba5a5">
+        <block type="temp_read_temp_pin">
+          <value name="NAME">
+            <block type="flex_dropdown_pin">
+              <field name="PIN">D5</field>
+            </block>
+          </value>
+        </block>
+        <block type="temp_read_humid_pin">
+          <value name="NAME">
+            <block type="flex_dropdown_pin">
+              <field name="PIN">D5</field>
+            </block>
+          </value>
+        </block>
+      </category>
+      <category name="Soil Moisture" colour="#5ba5a5">
+        <block type="read_moisture"></block>
+      </category>
+      <category name="Motion Sensor" colour="#5ba5a5">
+        <block type="motion_event">
+          <value name="pin">
+            <block type="flex_dropdown_pin">
+              <field name="PIN">D5</field>
+            </block>
+          </value>
+        </block>
+      </category>
+      <category name="Gas Sensor" colour="#5ba5a5">
+        <block type="gas_sensor"></block>
+      </category>
+      <category name="Touch Sensor" colour="#5ba5a5">
+        <block type="touch_whensomething">
+          <value name="pin">
+            <block type="flex_dropdown_pin">
+              <field name="PIN">D5</field>
+            </block>
+          </value>
+        </block>
+      </category>
+      <category name="Current Sensor" colour="#5ba5a5">
+        <block type="current_sensor"></block>
+      </category>
+      <category name="IOExpander" colour="#5b93a5">
+        <block type="io_expander_setup"></block>
+        <block type="io_expander_set_mode">
+          <field name="MODE">ADC</field>
+          <value name="CHANNEL">
+            <block type="math_number">
+              <field name="NUM">1</field>
+            </block>
+          </value>
+        </block>
+        <block type="io_expander_set_data">
+          <value name="CHANNEL">
+            <block type="math_number">
+              <field name="NUM">1</field>
+            </block>
+          </value>
+          <value name="DATA">
+            <block type="math_number">
+              <field name="NUM">0</field>
+            </block>
+          </value>
+        </block>
+        <block type="io_expander_get_data">
+          <value name="CHANNEL">
+            <block type="math_number">
+              <field name="NUM">1</field>
+            </block>
+          </value>
+        </block>
+      </category>
+      <category name="Touch Sensing" colour="#5b93a5">
+        <block type="mpr121_setup"></block>
+        <block type="mpr121_trig_event"></block>
+        <block type="mpr121_iftouched">
+          <value name="channel">
+            <block type="math_number">
+              <field name="NUM">1</field>
+            </block>
+          </value>
+        </block>
+        <block type="mpr121_ifrelease">
+          <value name="channel">
+            <block type="math_number">
+              <field name="NUM">1</field>
+            </block>
+          </value>
+        </block>
+        <block type="mpr121_update"></block>
+        <block type="mpr121_istouching">
+          <value name="channel">
+            <block type="math_number">
+              <field name="NUM">1</field>
+            </block>
+          </value>
+        </block>
+        <block type="mpr121_isreleasing">
+          <value name="channel">
+            <block type="math_number">
+              <field name="NUM">1</field>
+            </block>
+          </value>
+        </block>
+      </category>
     </category>
-    <category name="PWM" colour="#a55b5b">
-      <block type="pwm_setup">
-        <field name="pin">0</field>
-        <field name="frequency">1000</field>
-        <value name="duty">
-          <block type="math_number">
-            <field name="NUM">0</field>
-          </block>
-        </value>
-      </block>
-      <block type="pwm_start">
-        <field name="pin">0</field>
-      </block>
-      <block type="pwm_stop">
-        <field name="pin">0</field>
-      </block>
-      <block type="pwm_set_duty">
-        <field name="pin">0</field>
-        <value name="duty">
-          <block type="math_number">
-            <field name="NUM">0</field>
-          </block>
-        </value>
-      </block>
+    <sep></sep>    
+    <category name="Control">
+      <category name="Buzzer" colour="#a55b5b">
+        <block type="buzzer_on">
+          <value name="NAME">
+            <block type="flex_dropdown_pin">
+              <field name="PIN">D5</field>
+            </block>
+          </value>
+        </block>
+        <block type="buzzer_off">
+          <value name="NAME">
+            <block type="flex_dropdown_pin">
+              <field name="PIN">D5</field>
+            </block>
+          </value>
+        </block>
+      </category>
+      <category name="Relay" colour="#a55b5b">
+        <block type="relay_on">
+          <value name="NAME">
+            <block type="flex_dropdown_pin">
+              <field name="PIN">D5</field>
+            </block>
+          </value>
+        </block>
+        <block type="relay_off">
+          <value name="NAME">
+            <block type="flex_dropdown_pin">
+              <field name="PIN">D5</field>
+            </block>
+          </value>
+        </block>
+      </category>
+      <category name="Mosfet" colour="#a55b5b">
+        <block type="mosfet_on">
+          <value name="NAME">
+            <block type="flex_dropdown_pin">
+              <field name="PIN">D5</field>
+            </block>
+          </value>
+        </block>
+        <block type="mosfet_off">
+          <value name="NAME">
+            <block type="flex_dropdown_pin">
+              <field name="PIN">D5</field>
+            </block>
+          </value>
+        </block>
+      </category>
+      <category name="Servo" colour="#a55b5b">
+        <block type="servo_setup">
+          <value name="pin">
+            <block type="flex_dropdown_pin">
+              <field name="PIN">D5</field>
+            </block>
+          </value>
+        </block>
+        <block type="servo_write">
+          <value name="pin">
+            <block type="flex_dropdown_pin">
+              <field name="PIN">D5</field>
+            </block>
+          </value>
+          <value name="angle">
+            <block type="math_number">
+              <field name="NUM">0</field>
+            </block>
+          </value>
+        </block>
+      </category>
+      <category name="Motor" colour="#a55b5b">
+        <block type="motor_setup"></block>
+        <block type="motor_set_speed">
+          <value name="CHANNEL">
+            <block type="math_number">
+              <field name="NUM">1</field>
+            </block>
+          </value>
+          <value name="SPEED">
+            <block type="math_number">
+              <field name="NUM">100</field>
+            </block>
+          </value>
+        </block>
+      </category>
+      <category name="IR Remote" colour="#a55b5b">
+        <block type="ir_setup"></block>
+        <block type="ir_learn">
+          <value name="ID">
+            <block type="math_number">
+              <field name="NUM">1</field>
+            </block>
+          </value>
+        </block>
+        <block type="ir_send">
+          <value name="ID">
+            <block type="math_number">
+              <field name="NUM">1</field>
+            </block>
+          </value>
+        </block>
+      </category>
+      <category name="MP3Player" colour="#a55b5b">
+        <block type="mp3player_setup"></block>
+        <block type="mp3player_set_eq">
+          <field name="MODE">NORMAL</field>
+        </block>
+        <block type="mp3player_set_volume">
+          <value name="VOLUME">
+            <block type="math_number">
+              <field name="NUM">20</field>
+            </block>
+          </value>
+        </block>
+        <block type="mp3player_play">
+          <value name="NAME">
+            <block type="math_number">
+              <field name="NUM">1</field>
+            </block>
+          </value>
+        </block>
+        <block type="mp3player_pause"></block>
+        <block type="mp3player_resume"></block>
+        <block type="mp3player_reset"></block>
+        <block type="mp3player_previous"></block>
+        <block type="mp3player_next"></block>
+        <block type="mp3player_volume_up"></block>
+        <block type="mp3player_volume_down"></block>
+        <block type="mp3player_loop">
+          <value name="NAME">
+            <block type="math_number">
+              <field name="NUM">1</field>
+            </block>
+          </value>
+        </block>
+        <block type="mp3player_stop"></block>
+      </category>
+      <category name="PWM" colour="#a55b5b">
+        <block type="pwm_setup">
+          <field name="pin">0</field>
+          <field name="frequency">1000</field>
+          <value name="duty">
+            <block type="math_number">
+              <field name="NUM">0</field>
+            </block>
+          </value>
+        </block>
+        <block type="pwm_start">
+          <field name="pin">0</field>
+        </block>
+        <block type="pwm_stop">
+          <field name="pin">0</field>
+        </block>
+        <block type="pwm_set_duty">
+          <field name="pin">0</field>
+          <value name="duty">
+            <block type="math_number">
+              <field name="NUM">0</field>
+            </block>
+          </value>
+        </block>
+      </category>
     </category>
-    </category>
+    <sep></sep>    
     <category name="Display">
-    <category name="LED" colour="#93a55b">
-      <block type="led_on">
-        <field name="PIN">5</field>
-      </block>
-      <block type="led_off">
-        <field name="PIN">5</field>
-      </block>
+      <category name="LED" colour="#93a55b">
+        <block type="led_on">
+          <value name="NAME">
+            <block type="flex_dropdown_pin">
+              <field name="PIN">D5</field>
+            </block>
+          </value>
+        </block>
+        <block type="led_off">
+          <value name="NAME">
+            <block type="flex_dropdown_pin">
+              <field name="PIN">D5</field>
+            </block>
+          </value>
+        </block>
+      </category>
+      <category name="NeoPixel" colour="#93a55b">
+        <block type="neopixel_setup"></block>
+        <block type="neopixel_set_brightness">
+          <value name="BRIGHT">
+            <block type="math_number">
+              <field name="NUM">255</field>
+            </block>
+          </value>
+        </block>
+        <block type="neopixel_set_color_all">
+          <value name="COLOR">
+            <block type="colour_picker">
+              <field name="COLOUR">#ff0000</field>
+            </block>
+          </value>
+        </block>
+        <block type="neopixel_set_color">
+          <value name="POS">
+            <block type="math_number">
+              <field name="NUM">1</field>
+            </block>
+          </value>
+          <value name="COLOR">
+            <block type="colour_picker">
+              <field name="COLOUR">#ff0000</field>
+            </block>
+          </value>
+        </block>
+        <block type="neopixel_set_color_all">
+          <value name="COLOR">
+            <block type="colour_rgb">
+              <value name="RED">
+                <shadow type="math_number">
+                  <field name="NUM">100</field>
+                </shadow>
+              </value>
+              <value name="GREEN">
+                <shadow type="math_number">
+                  <field name="NUM">50</field>
+                </shadow>
+              </value>
+              <value name="BLUE">
+                <shadow type="math_number">
+                  <field name="NUM">0</field>
+                </shadow>
+              </value>
+            </block>
+          </value>
+        </block>
+        <block type="neopixel_set_color">
+          <value name="POS">
+            <block type="math_number">
+              <field name="NUM">1</field>
+            </block>
+          </value>
+          <value name="COLOR">
+            <block type="colour_rgb">
+              <value name="RED">
+                <shadow type="math_number">
+                  <field name="NUM">100</field>
+                </shadow>
+              </value>
+              <value name="GREEN">
+                <shadow type="math_number">
+                  <field name="NUM">50</field>
+                </shadow>
+              </value>
+              <value name="BLUE">
+                <shadow type="math_number">
+                  <field name="NUM">0</field>
+                </shadow>
+              </value>
+            </block>
+          </value>
+        </block>
+      </category>
+      <category name="OLED LCD" colour="#93a55b"></category>
+      <category name="LED Bar" colour="#93a55b"></category>
     </category>
-    <category name="NeoPixel" colour="#93a55b">
-      <block type="neopixel_setup"></block>
-      <block type="neopixel_set_brightness">
-        <value name="BRIGHT">
-          <block type="math_number">
-            <field name="NUM">255</field>
-          </block>
-        </value>
-      </block>
-      <block type="neopixel_set_color_all">
-        <value name="COLOR">
-          <block type="colour_picker">
-            <field name="COLOUR">#ff0000</field>
-          </block>
-        </value>
-      </block>
-      <block type="neopixel_set_color">
-        <value name="POS">
-          <block type="math_number">
-            <field name="NUM">1</field>
-          </block>
-        </value>
-        <value name="COLOR">
-          <block type="colour_picker">
-            <field name="COLOUR">#ff0000</field>
-          </block>
-        </value>
-      </block>
-      <block type="neopixel_set_color_all">
-        <value name="COLOR">
-          <block type="colour_rgb">
-            <value name="RED">
-              <shadow type="math_number">
-                <field name="NUM">100</field>
-              </shadow>
-            </value>
-            <value name="GREEN">
-              <shadow type="math_number">
-                <field name="NUM">50</field>
-              </shadow>
-            </value>
-            <value name="BLUE">
-              <shadow type="math_number">
-                <field name="NUM">0</field>
-              </shadow>
-            </value>
-          </block>
-        </value>
-      </block>
-      <block type="neopixel_set_color">
-        <value name="POS">
-          <block type="math_number">
-            <field name="NUM">1</field>
-          </block>
-        </value>
-        <value name="COLOR">
-          <block type="colour_rgb">
-            <value name="RED">
-              <shadow type="math_number">
-                <field name="NUM">100</field>
-              </shadow>
-            </value>
-            <value name="GREEN">
-              <shadow type="math_number">
-                <field name="NUM">50</field>
-              </shadow>
-            </value>
-            <value name="BLUE">
-              <shadow type="math_number">
-                <field name="NUM">0</field>
-              </shadow>
-            </value>
-          </block>
-        </value>
-      </block>
-    </category>
-    <category name="OLED LCD" colour="#93a55b"></category>
-    <category name="LED Bar" colour="#93a55b"></category>
-    </category>
+    <sep></sep>    
     <category name="Communication">
-    <category name="Bluetooth" colour="#805ba5"></category>
-    <category name="LORA" colour="#805ba5"></category>
+      <category name="Bluetooth" colour="#805ba5"></category>
+      <category name="LORA" colour="#805ba5"></category>
     </category>
     <sep></sep>
-  <category name="Advanced">
-  <category name="Pins" colour="#6d5ba5">
-    <block type="io_pin_mode">
-      <field name="pin">5</field>
-      <field name="mode">INPUT</field>
-    </block>
-    <block type="io_digital_read">
-      <field name="pin">5</field>
-    </block>
-    <block type="io_digital_write">
-      <field name="pin">0</field>
-      <field name="value">HIGH</field>
-    </block>
-    <block type="io_read_analog"></block>
-    <block type="io_analog_write">
-      <field name="value">0</field>
-    </block>
-    <block type="io_pin_event">
-      <field name="pin">0</field>
-      <field name="value">low</field>
-    </block>
-  </category>
-  <category name="I2C" colour="#5b6da5">
-    <block type="i2c_setup">
-      <field name="SCL">1</field>
-      <field name="SDA">2</field>
-    </block>
-    <block type="i2c_address">
-      <field name="ADDR">0x00</field>
-      <field name="DIR">READ</field>
-    </block>
-    <block type="i2c_start"></block>
-    <block type="i2c_write">
-      <field name="DATA">0</field>
-    </block>
-    <block type="i2c_stop"></block>
-    <block type="i2c_read">
-      <field name="LEN">1</field>
-    </block>
-  </category>
-  <category name="Lists" colour="#745CA6">
-    <block type="lists_create_with">
-      <mutation items="0"></mutation>
-    </block>
-    <block type="lists_create_with">
-      <mutation items="3"></mutation>
-    </block>
-    <block type="lists_repeat">
-      <value name="NUM">
-        <shadow type="math_number">
-          <field name="NUM">5</field>
-        </shadow>
-      </value>
-    </block>
-    <block type="lists_length"></block>
-    <block type="lists_isEmpty"></block>
-    <block type="lists_indexOf">
-      <field name="END">FIRST</field>
-      <value name="VALUE">
-        <block type="variables_get">
-          <field name="VAR" id="+][F~IJl^5SR]@Fsb6hT" variabletype="">list</field>
+    <category name="Advanced">
+      <category name="Pins " colour="#805ba5">
+        <block type="io_pin_mode">
+          <field name="mode">INPUT</field>
+          <value name="NAME">
+            <block type="flex_dropdown_pin">
+              <field name="PIN">D5</field>
+            </block>
+          </value>
         </block>
-      </value>
-    </block>
-    <block type="lists_getIndex">
-      <mutation statement="false" at="true"></mutation>
-      <field name="MODE">GET</field>
-      <field name="WHERE">FROM_START</field>
-      <value name="VALUE">
-        <block type="variables_get">
-          <field name="VAR" id="+][F~IJl^5SR]@Fsb6hT" variabletype="">list</field>
+        <block type="io_digital_read">
+          <value name="NAME">
+            <block type="flex_dropdown_pin">
+              <field name="PIN">D5</field>
+            </block>
+          </value>
         </block>
-      </value>
-    </block>
-    <block type="lists_setIndex">
-      <mutation at="true"></mutation>
-      <field name="MODE">SET</field>
-      <field name="WHERE">FROM_START</field>
-      <value name="LIST">
-        <block type="variables_get">
-          <field name="VAR" id="+][F~IJl^5SR]@Fsb6hT" variabletype="">list</field>
+        <block type="io_digital_write">
+          <value name="pin">
+            <block type="flex_dropdown_pin">
+              <field name="PIN">D5</field>
+            </block>
+          </value>
+          <value name="state">
+            <block type="flex_dropdown_state">
+              <field name="STATE">gpio.HIGH</field>
+            </block>
+          </value>
         </block>
-      </value>
-    </block>
-    <block type="lists_getSublist">
-      <mutation at1="true" at2="true"></mutation>
-      <field name="WHERE1">FROM_START</field>
-      <field name="WHERE2">FROM_START</field>
-      <value name="LIST">
-        <block type="variables_get">
-          <field name="VAR" id="+][F~IJl^5SR]@Fsb6hT" variabletype="">list</field>
+        <block type="io_read_analog"></block>
+        <block type="io_pin_event">
+          <field name="value">down</field>
+          <value name="NAME">
+            <block type="flex_dropdown_pin">
+              <field name="PIN">D5</field>
+            </block>
+          </value>
         </block>
-      </value>
-    </block>
-    <block type="lists_split">
-      <mutation mode="SPLIT"></mutation>
-      <field name="MODE">SPLIT</field>
-      <value name="DELIM">
-        <shadow type="text">
-          <field name="TEXT">,</field>
-        </shadow>
-      </value>
-    </block>
-    <block type="lists_sort">
-      <field name="TYPE">NUMERIC</field>
-      <field name="DIRECTION">1</field>
-    </block>
-  </category>
-  <category name="Colour" colour="#A6745C">
-    <block type="colour_picker">
-      <field name="COLOUR">#ff0000</field>
-    </block>
-    <block type="colour_random"></block>
-    <block type="colour_rgb">
-      <value name="RED">
-        <shadow type="math_number">
-          <field name="NUM">100</field>
-        </shadow>
-      </value>
-      <value name="GREEN">
-        <shadow type="math_number">
-          <field name="NUM">50</field>
-        </shadow>
-      </value>
-      <value name="BLUE">
-        <shadow type="math_number">
-          <field name="NUM">0</field>
-        </shadow>
-      </value>
-    </block>
-    <block type="colour_blend">
-      <value name="COLOUR1">
-        <shadow type="colour_picker">
+      </category>
+      <category name="I2C" colour="#805ba5">
+        <block type="i2c_setup">
+          <field name="SCL">1</field>
+          <field name="SDA">2</field>
+        </block>
+        <block type="i2c_start"></block>
+        <block type="i2c_address">
+          <field name="ADDR">0x00</field>
+          <field name="DIR">READ</field>
+        </block>
+        <block type="i2c_read">
+          <field name="LEN">1</field>
+        </block>
+        <block type="i2c_stop"></block>
+        <block type="i2c_write">
+          <field name="DATA">0</field>
+        </block>
+      </category>
+      <category name="List" colour="#805ba5">
+        <block type="lists_create_with">
+          <mutation items="3"></mutation>
+        </block>
+        <block type="lists_indexOf">
+          <field name="END">FIRST</field>
+          <value name="VALUE">
+            <block type="variables_get">
+              <field name="VAR" id="5`P=m6T`ovSUq,V:[B[;" variabletype="">list</field>
+            </block>
+          </value>
+        </block>
+        <block type="lists_repeat">
+          <value name="NUM">
+            <shadow type="math_number">
+              <field name="NUM">5</field>
+            </shadow>
+          </value>
+        </block>
+        <block type="lists_length"></block>
+        <block type="lists_isEmpty"></block>
+        <block type="lists_create_with">
+          <mutation items="0"></mutation>
+        </block>
+        <block type="lists_getIndex">
+          <mutation statement="false" at="true"></mutation>
+          <field name="MODE">GET</field>
+          <field name="WHERE">FROM_START</field>
+          <value name="VALUE">
+            <block type="variables_get">
+              <field name="VAR" id="5`P=m6T`ovSUq,V:[B[;" variabletype="">list</field>
+            </block>
+          </value>
+        </block>
+        <block type="lists_setIndex">
+          <mutation at="true"></mutation>
+          <field name="MODE">SET</field>
+          <field name="WHERE">FROM_START</field>
+          <value name="LIST">
+            <block type="variables_get">
+              <field name="VAR" id="5`P=m6T`ovSUq,V:[B[;" variabletype="">list</field>
+            </block>
+          </value>
+        </block>
+        <block type="lists_getSublist">
+          <mutation at1="true" at2="true"></mutation>
+          <field name="WHERE1">FROM_START</field>
+          <field name="WHERE2">FROM_START</field>
+          <value name="LIST">
+            <block type="variables_get">
+              <field name="VAR" id="5`P=m6T`ovSUq,V:[B[;" variabletype="">list</field>
+            </block>
+          </value>
+        </block>
+        <block type="lists_split">
+          <mutation mode="SPLIT"></mutation>
+          <field name="MODE">SPLIT</field>
+          <value name="DELIM">
+            <shadow type="text">
+              <field name="TEXT">,</field>
+            </shadow>
+          </value>
+        </block>
+        <block type="lists_sort">
+          <field name="TYPE">NUMERIC</field>
+          <field name="DIRECTION">1</field>
+        </block>
+      </category>
+      <category name="Colour" colour="#805ba5">
+        <block type="colour_picker">
           <field name="COLOUR">#ff0000</field>
-        </shadow>
-      </value>
-      <value name="COLOUR2">
-        <shadow type="colour_picker">
-          <field name="COLOUR">#3333ff</field>
-        </shadow>
-      </value>
-      <value name="RATIO">
-        <shadow type="math_number">
-          <field name="NUM">0.5</field>
-        </shadow>
-      </value>
-    </block>
-  </category>
-  <category name="Functions" colour="#9A5CA6" custom="PROCEDURE"></category>
-  </category>
-  <sep></sep>
-  <category name="Services">
-  <category name="Email" colour="#5ba5a5"></category>
-  <category name="Facebook" colour="#5ba5a5"></category>
-  <category name="Twitter" colour="#5ba5a5"></category>
-  <category name="IFTTT" colour="#5ba5a5"></category>
-  <category name="Database" colour="#5ba5a5"></category>
-  </category>
-</xml>
+        </block>
+        <block type="colour_random"></block>
+        <block type="colour_rgb">
+          <value name="RED">
+            <shadow type="math_number">
+              <field name="NUM">100</field>
+            </shadow>
+          </value>
+          <value name="GREEN">
+            <shadow type="math_number">
+              <field name="NUM">50</field>
+            </shadow>
+          </value>
+          <value name="BLUE">
+            <shadow type="math_number">
+              <field name="NUM">0</field>
+            </shadow>
+          </value>
+        </block>
+        <block type="colour_blend">
+          <value name="COLOUR1">
+            <shadow type="colour_picker">
+              <field name="COLOUR">#ff0000</field>
+            </shadow>
+          </value>
+          <value name="COLOUR2">
+            <shadow type="colour_picker">
+              <field name="COLOUR">#3333ff</field>
+            </shadow>
+          </value>
+          <value name="RATIO">
+            <shadow type="math_number">
+              <field name="NUM">0.5</field>
+            </shadow>
+          </value>
+        </block>
+      </category>
+    </category>
+    <sep></sep>
+    <category name="Services">
+      <category name="Email " colour="#805ba5"></category>
+      <category name="Facebook " colour="#805ba5"></category>
+      <category name="Twitter " colour="#805ba5"></category>
+      <category name="IFTTT " colour="#805ba5"></category>
+      <category name="Youtube " colour="#805ba5"></category>
+      <category name="Database " colour="#805ba5"></category>
+    </category>    
+  </xml>
