@@ -15,4 +15,36 @@
     limitations under the License.
 
 -->
-<h2>{{vm.demo}}</h2>
+<div class="test" layout="row" layout-fill ng-cloak>
+    <md-sidenav flex="20" id="setting-sidenav" md-is-locked-open="$mdMedia('gt-md')" class=" md-sidenav-left" md-component-id="setting-sidenav">
+            <md-toolbar class="md-theme-indigo">
+                <h1 hide show-xs  class="md-toolbar-tools">Setting left sidenav</h1>
+                <h1 hide-xs  class="md-toolbar-tools">Setting </h1>
+                <md-button hide show-xs ng-click="close()" class="md-primary" hide-gt-md>
+                    Close Sidenav 
+                </md-button>
+            </md-toolbar>
+            <md-content layout="column">
+                <div hide show-gt-md>
+                    Setting page is locked open
+                </div>
+                <div hide show-xs>
+                    Setting page must be toggle to open
+                </div>
+                <br/>
+                <p>
+                    Setting options
+                </p>
+            </md-content>
+    </md-sidenav>
+    <md-content flex layout-padding layout="column" layout-wrap layout-align="start start">
+        <ng-container layout-padding layout="row" layout-align="center center">
+            Setting Area
+        </ng-container>
+        
+        <ng-container hide-gt-md layout-wrap>
+                <md-button class="md-raised md-primary" ng-click="vm.toggleSideNav()">Open Left Sidenav</md-button>
+        </ng-container>
+    </md-content>
+    
+</div>

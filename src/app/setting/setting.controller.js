@@ -18,7 +18,11 @@
 /* eslint-enable import/no-unresolved, import/default */
 
 /*@ngInject*/
-export default function SettingController() {
+export default function SettingController($mdSidenav) {
     var vm = this;
     vm.demo = 'Setting page';
+    vm.toggleSideNav= toggleSideNav;
+    function toggleSideNav(){
+        $mdSidenav('setting-sidenav').toggle();
+    }
 }
