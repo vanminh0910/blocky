@@ -20,5 +20,5 @@
 /*@ngInject*/
 export default function SettingController() {
     var vm = this;
-    vm.demo = 'Page setting';
+    vm.demo = 'Setting page';
 }

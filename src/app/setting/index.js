@@ -13,6 +13,7 @@
  * See the License for the specific language governing permissions and
  * limitations under the License.
  */
+import './setting.scss';
 
 import SettingRoutes from './setting.routes';
 import SettingController from './setting.controller';
