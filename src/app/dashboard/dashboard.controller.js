@@ -477,8 +477,9 @@ export default function DashboardController($scope, userService, dashboardServic
                 minItemRows: 3
             })
         } else if (type === 'gmap') {
+            var randomId = Math.random().toString(36).substring(7);
             vm.currentDashboard.content.push({
-                id: 'gmapForTest',
+                id: randomId,
                 name: 'gmap',
                 type: 'gmap',
                 bgColor: '#e91e63',
@@ -771,7 +772,7 @@ export default function DashboardController($scope, userService, dashboardServic
                     vm.initMap(angular.fromJson(widget.Coordinates), widget.id);
                 }
             } else {
-                $timeout(checkContainer, 50); //wait 50 ms, then try again
+                $timeout(checkContainer, 100); //wait 50 ms, then try again
             }
         }
     }
