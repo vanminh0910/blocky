@@ -132,7 +132,7 @@
                                 </div>
                                 <div flex layout="row" layout-align="end top">
                                     <md-button class="md-warn" ng-click="vm.closeDialog(); vm.showConfirmCancel()">CANCEL</md-button>
-                                    <md-button type="submit" class="md-primary md-raised" ng-disabled="myForm.$invalid" ng-click="vm.enableNextStep(); vm.saveSetting(selectedWifi.ssid, passWifi, blockyName); vm.closeDialog(); vm.showConfirmReload()">SAVE</md-button>
+                                    <md-button type="submit" class="md-primary md-raised" ng-disabled="myForm.$invalid" ng-click="vm.enableNextStep(); vm.saveSetting(selectedWifi.ssid, passWifi, deviceName); vm.closeDialog(); vm.showConfirmReload()">SAVE</md-button>
                                 </div>
                             </md-step-actions>
                         </md-step-body>

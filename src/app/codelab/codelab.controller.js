@@ -196,8 +196,8 @@ export default function CodeLabController($mdSidenav, toast, scriptService, user
                     try {
                         message = angular.fromJson(message.toString());
                         var chipId = '';
-                        if (message.event === 'log') {
-                            chipId = message.chipId;
+                        if (topic.indexOf('/log') > -1 && message.length) {
+                            chipId = topic.replace(baseSysTopicUrl, '').replace('/log', '').replace('/', '');
                             var deviceLog = store.get('deviceLog_' + chipId) || '';
                             if (vm.currentDevice && vm.currentDevice.chipId === chipId) {
                                 vm.currentLog = deviceLog;

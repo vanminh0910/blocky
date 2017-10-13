@@ -24,7 +24,7 @@
 /* eslint-disable no-undef, angular/window-service, angular/document-service */
 
 /*@ngInject*/
-export default function HomeController(menu, $state, Fullscreen, userService, settings, store, $scope, $log) {
+export default function HomeController(menu, $state, Fullscreen, deviceService, userService, settings, store, $scope, $log) {
     var vm = this;
     var mqttClient;
     var authKey = '';
@@ -44,7 +44,7 @@ export default function HomeController(menu, $state, Fullscreen, userService, se
 
     if (vm.isUserLoaded) {
         authKey = userService.getCurrentUser().authKey;
-        baseSysTopicUrl = authKey + '/sys';
+        baseSysTopicUrl = authKey + '/sys/';
     }
 
     try {
@@ -60,10 +60,9 @@ export default function HomeController(menu, $state, Fullscreen, userService, se
                 initDevicesLogs();
             });
             mqttClient.on('message', function (topic, message) {
-                if (topic === baseSysTopicUrl) {
-                    message = angular.fromJson(message.toString());
-                    updateDevicesLogs(message);
-                }
+                topic = topic.replace(baseSysTopicUrl, '');
+                message = message.toString();
+                updateDevicesLogs(topic, message);
             });
         }
     } catch (err) {
@@ -71,21 +70,33 @@ export default function HomeController(menu, $state, Fullscreen, userService, se
     }
 
     function initDevicesLogs() {
-        mqttClient.unsubscribe(baseSysTopicUrl);
-        mqttClient.subscribe(baseSysTopicUrl, {
-            qos: 2
+        deviceService.getAllDevices().then(function success(devices) {
+            if (devices.length) {
+                var chipId = '';
+                if (mqttClient && mqttClient.connected) {
+                    for (var i = 0; i < devices.length; i++) {
+                        chipId = devices[i].chipId;
+                        var logTopic = baseSysTopicUrl + chipId + '/log';
+                        mqttClient.unsubscribe(logTopic);
+                        mqttClient.subscribe(logTopic, {
+                            qos: 2
+                        });
+                        $log.log('subscribe device log', chipId, '/log');
+                    }
+                }
+            }
         });
-        $log.log('Subscribe system topics');
     }
 
     function updateDevicesLogs(message) {
-        if (message.event === 'log') {
-            var chipId = message.chipId;
+        var chipId = '';
+        if (topic.indexOf('/log') > -1 && message.length) {
+            chipId = topic.replace('/log', '');
             var deviceLog = store.get('deviceLog_' + chipId) || '';
             if (deviceLog.length) {
-                message.data = message.data + '<br>' + deviceLog;
+                message = message + '<br>' + deviceLog;
             }
-            store.set('deviceLog_' + chipId, message.data);
+            store.set('deviceLog_' + chipId, message);
         }
     }
 }
