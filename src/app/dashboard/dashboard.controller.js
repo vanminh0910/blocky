@@ -198,6 +198,7 @@ export default function DashboardController($scope, userService, dashboardServic
             }
 
             initDashboardData(data.data);
+            initDashboardContent();
         });
     }
 
@@ -534,7 +535,7 @@ export default function DashboardController($scope, userService, dashboardServic
             {
                 Joystick.angle = Joystick.newangle;
                 $log.log(Joystick.angle);
-                //sendMessage(Joystick.subscribeMessage.topic,Joystick.angle.toString());
+                sendMessage(Joystick.subscribeMessage.topic,Joystick.angle.toString());
             }
         },100);
         var itv=$interval(function(){
@@ -762,7 +763,15 @@ export default function DashboardController($scope, userService, dashboardServic
             });
         }
     }
-
+    function initDashboardContent(){
+        for(var i=0;i<vm.currentDashboard.content.length;i++)
+        {
+            if(vm.currentDashboard.content[i].type==='joystick')
+            {
+                    initJoystick(vm.currentDashboard.content[i]);
+            }
+        }
+    }
     function initDashboardData(data) {
         if (!data.length) {
             return;
@@ -771,6 +780,7 @@ export default function DashboardController($scope, userService, dashboardServic
             if (vm.dashboards[i].content.length) {
                 for (var j = 0; j < vm.dashboards[i].content.length; j++) {
                     var widget = vm.dashboards[i].content[j];
+                    
                     if (angular.isDefined(widget.subscribeMessage)) {
                         var wantedData = data.filter(function (item) {
                             return item.topic === widget.subscribeMessage.topic && item.dataType === widget.subscribeMessage.dataType;
