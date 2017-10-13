@@ -30,13 +30,13 @@
                 <div layout="row">
                     <md-button ng-disabled="!vm.isUserLoaded || !vm.currentDevice" ng-click="vm.uploadScript('run')" class="md-icon-button" aria-label="Device Menu">
                         <md-tooltip md-direction="bottom">
-                            Run script
+                            Send and run script without saving. Mainly for testing purpose.
                         </md-tooltip>
                         <i class="fa fa-play" aria-hidden="true"></i>
                     </md-button>
                     <md-button ng-disabled="!vm.isUserLoaded || !vm.currentDevice" ng-click="vm.uploadScript('ota')" class="md-icon-button" aria-label="Device Menu">
                         <md-tooltip md-direction="bottom">
-                            Upload script to board
+                            Send and save script. It will be run every time blocky starts.
                         </md-tooltip>
                         <i class="fa fa-upload" aria-hidden="true"></i>
                     </md-button>
