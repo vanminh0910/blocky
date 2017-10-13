@@ -56,7 +56,9 @@ export default function Toast($mdToast, $document) {
             controller: 'ToastController',
             controllerAs: 'vm',
             templateUrl: templateUrl,
-            locals: {message: message},
+            locals: {
+                message: message
+            },
             parent: toastParent
         });
     }
@@ -76,7 +78,9 @@ export default function Toast($mdToast, $document) {
                 controller: 'ToastController',
                 controllerAs: 'vm',
                 templateUrl: errorToast,
-                locals: {message: errorMessage},
+                locals: {
+                    message: errorMessage
+                },
                 parent: toastParent
             }).then(function hide() {
                 showing = false;

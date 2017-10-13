@@ -46,10 +46,9 @@
 					<input required id="password-input" type="password" ng-model="vm.user.password" />
 				</md-input-container>
 
-				<div layout-gt-sm="column" layout-align="space-between stretch">
+				<div layout-gt-sm="column" layout-align="space-between stretch" ng-click="vm.resetPassWord()">
 					<div layout-gt-sm="column" layout-align="space-between end">
-						<md-button ui-sref="login.resetPasswordRequest">Forgot password?
-						</md-button>
+						<md-button>Forgot password?</md-button>
 					</div>
 				</div>
 				<div layout="column">

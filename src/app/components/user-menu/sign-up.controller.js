@@ -35,8 +35,7 @@ export default function SignUpController($translate, toast, loginService, userSe
                 var token = response.data.token;
                 userService.setUserFromJwtToken(token, true);
                 $window.location.reload();
-            }, function fail() {
-            });
+            }, function fail() {});
         }
     }
 

@@ -13,40 +13,27 @@
  * See the License for the specific language governing permissions and
  * limitations under the License.
  */
-
-/* eslint-enable import/no-unresolved, import/default */
-
 /*@ngInject*/
-export default function LoginController(toast, loginService, userService, $rootScope, $mdDialog, $window) {
+export default function resetPassWordController($translate, toast, loginService, userService, $mdDialog, $rootScope) {
     var vm = this;
 
     vm.user = {
-        name: '',
-        password: ''
+        email: ''
     };
-
     vm.login = login;
-    vm.cancel = cancel;
-    vm.signUp = signUp;
     vm.resetPassWord = resetPassWord;
+    vm.cancel = cancel;
+
+    function resetPassWord() {
+        toast.showSuccess('Password had been reset. Please check your mail!', 3000, 'theForm');
+        $mdDialog.cancel();
+    }
 
     function login() {
-        loginService.login(vm.user).then(function success(response) {
-            var token = response.data.token;
-            userService.setUserFromJwtToken(token, true);
-            $window.location.reload();
-        }, function fail() {});
+        $rootScope.login();
     }
 
     function cancel() {
         $mdDialog.cancel();
-    }
-
-    function signUp() {
-        $rootScope.signUp();
-    }
-
-    function resetPassWord() {
-        $rootScope.resetPassWord();
     }
 }

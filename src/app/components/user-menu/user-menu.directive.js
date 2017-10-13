@@ -23,6 +23,8 @@ import LoginController from './login.controller';
 import loginTemplate from './login.tpl.html';
 import SignUpController from './sign-up.controller';
 import signUpTemplate from './sign-up.tpl.html';
+import resetPassWordController from './resetPassWord.controller';
+import resetPassWordTemplate from './reset-password.tpl.html';
 
 /* eslint-enable import/no-unresolved, import/default */
 
@@ -47,6 +49,8 @@ function UserMenuController($scope, $rootScope, userService, $translate, $state,
 
     $rootScope.login = login;
     $rootScope.signUp = signUp;
+    $rootScope.resetPassWord = resetPassWord;
+
     vm.logout = logout;
     vm.openProfile = openProfile;
     vm.userDisplayName = '';
@@ -97,4 +101,18 @@ function UserMenuController($scope, $rootScope, userService, $translate, $state,
         store.remove('script');
         $window.location.reload();
     }
+
+    function resetPassWord($event) {
+        $mdDialog.show({
+            controller: resetPassWordController,
+            controllerAs: 'vm',
+            templateUrl: resetPassWordTemplate,
+            parent: angular.element($document[0].body),
+            fullscreen: true,
+            targetEvent: $event,
+            scope: $scope,
+            preserveScope: true
+        });
+    }
+
 }
