@@ -197,7 +197,7 @@ Blockly.Lua['i2c_address'] = function(block) {
 };
 
 Blockly.Lua['i2c_read'] = function(block) {
-  var value_len = Blockly.Lua.valueToCode(block, 'LEN', Blockly.Lua.ORDER_ATOMIC);
+  var number_len = block.getFieldValue('LEN');
   // TODO: Assemble Lua into code variable.
   var code = 'i2c.read(0, ' + value_len + ')';
   // TODO: Change ORDER_NONE to the correct strength.
