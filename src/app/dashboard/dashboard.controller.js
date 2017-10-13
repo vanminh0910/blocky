@@ -480,6 +480,17 @@ export default function DashboardController($scope, userService, dashboardServic
                 minItemCols: 2,
                 minItemRows: 2
             })
+        } else if (type==="clock") {
+            vm.currentDashboard.content.push({
+                type: 'clock',
+                icon: 'icon-calender',
+                bgColor: '#9e9e9e',
+                txtColor: '#e91e63',
+                cols: 4,
+                rows: 2,
+                minItemCols: 4,
+                minItemRows: 2
+            })
         }
         $mdSidenav('widget-library').close();
     }

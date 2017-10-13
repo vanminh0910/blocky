@@ -194,6 +194,23 @@ md-whiteframe {
         padding-top: 10%;
         font-size: 0.7em;
     }
+    @media (max-width: $layout-breakpoint-xs){
+        ds-widget-clock {
+            font-size: 2.5em;
+        } 
+        .tb-day {
+            font-size: 1.6em;
+        }
+      }
+    @media (max-width: $layout-breakpoint-gt-md) {
+        ds-widget-clock {
+            font-size: 1.3em;
+        } 
+        .tb-day {
+            font-size: 0.6em;
+        }
+      }
+
 }
 .white-slider .md-thumb:after,
 .white-slider .md-track-fill {
