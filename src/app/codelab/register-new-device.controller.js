@@ -110,7 +110,7 @@ export default function RegisterNewDeviceController($scope, $mdDialog, $log, $q,
         vm.passWifi = pass;
         vm.deviceName = name;
         vm.authKey = $rootScope.authKey;
-        vm.urlCommitInfo = settings.localApiUrl + '/set?ssid=' + vm.ssid + '&password=' + vm.passWifi + '&authKey=' + vm.authKey;
+        vm.urlCommitInfo = settings.localApiUrl + '/set?ssid=' + vm.ssid + '&password=' + vm.passWifi + '&authKey=' + vm.authKey + '&deviceName=' + vm.deviceName;
         $log.log(vm.urlCommitInfo);
         deviceService.saveDeviceConfig(vm.urlCommitInfo);
     }
