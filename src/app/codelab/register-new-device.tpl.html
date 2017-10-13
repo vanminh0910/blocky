@@ -18,7 +18,7 @@
 <md-dialog aria-label="Device" id="register-new-device">
     <md-toolbar>
         <div class="md-toolbar-tools">
-            <h2 translate>Register new device</h2>
+            <h2 translate>Setup device</h2>
             <span flex></span>
             <md-button aria-label="Close" class="md-icon-button" ng-click="vm.closeDialog()">
                 <ng-md-icon icon="close" aria-label="{{ 'dialog.close' | translate }}"></ng-md-icon>
@@ -37,14 +37,14 @@
                                     <img src="images/step1.1.png" flex layout-fill alt="images for step 1.A" style="max-width: 350px;">
                                 </div>
                                 <div flex>
-                                    <h6>A) Press the button as a image for 2 seconds. Blocky will switch to config mode.
+                                    <h6>A. Press Config button for 2 seconds to tell Blocky to boot to config mode
                                     </h6>
                                 </div>
                                 <div flex layout="row" layout-align="center center">
                                     <img src="images/step1.2.png" alt="images for step 1.B" style="max-width: 150px;">
                                 </div>
                                 <div flex>
-                                    <h6>B) Connect to Blocky with name BLOCKY_XXXXXXX.</h6>
+                                    <h6>B. Go to Wi-Fi settings on this computer/mobile and select the network of the format <b>blocky_xxxxx<b> or custom name if the blocky was renamed before. Click Next after connected.</h6>
                                 </div>
                             </div>
                             <md-step-actions layout="row">
