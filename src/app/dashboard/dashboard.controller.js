@@ -772,7 +772,7 @@ export default function DashboardController($scope, userService, dashboardServic
                     vm.initMap(angular.fromJson(widget.Coordinates), widget.id);
                 }
             } else {
-                $timeout(checkContainer, 100); //wait 50 ms, then try again
+                $timeout(checkContainer, 50); //wait 50 ms, then try again
             }
         }
     }
