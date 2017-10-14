@@ -32,7 +32,7 @@
                         <md-tooltip md-direction="bottom">
                             Send and run script without saving. Mainly for testing purpose.
                         </md-tooltip>
-                        <i class="fa fa-play" aria-hidden="true"></i>
+                        <i class="fa fa-arrow-circle-right" aria-hidden="true"></i>
                     </md-button>
                     <md-button ng-disabled="!vm.isUserLoaded || !vm.currentDevice" ng-click="vm.uploadScript('ota')" class="md-icon-button" aria-label="Device Menu">
                         <md-tooltip md-direction="bottom">
@@ -132,7 +132,7 @@
     </md-button>
     <md-button ng-disabled="!vm.isUserLoaded || !vm.currentDevice" aria-label="Upload Script" ng-click="vm.uploadScript('run')"
         hide-gt-xs>
-        <i class="fa fa-play" aria-hidden="true"></i>
+        <i class="fa fa-arrow-circle-right" aria-hidden="true"></i>
     </md-button>
     <md-button ng-disabled="!vm.isUserLoaded || !vm.currentDevice" aria-label="Upload Script" ng-click="vm.uploadScript('ota')"
         hide-gt-xs>
