@@ -488,25 +488,6 @@ export default function DashboardController($scope, userService, dashboardServic
                 minItemCols: 2,
                 minItemRows: 3
             })
-        } else if (type === 'gmap') {
-            var randomId = Math.random().toString(36).substring(7);
-            vm.currentDashboard.content.push({
-                id: randomId,
-                name: 'gmap',
-                type: 'gmap',
-                bgColor: '#e91e63',
-                subscribeMessage: {
-                    topic: '',
-                    dataType: '1'
-                },
-                listCoordinates: [],
-                Coordinates: {},
-                cols: 4,
-                rows: 3,
-                viewPolylineMap: false,
-                minItemCols: 4,
-                minItemRows: 3
-            })
         } else if (type === 'colorPicker') {
             vm.currentDashboard.content.push({
                 name: 'Color Picker',
