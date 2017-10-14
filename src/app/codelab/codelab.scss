@@ -27,6 +27,9 @@
   md-select {
     margin: 0;
     max-width: 45%;
+    @media (max-width: $layout-breakpoint-xs) {
+      max-width: 30% !important;
+    }
     padding-bottom: 2px;
   }
   md-select-value {
