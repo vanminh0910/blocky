@@ -194,19 +194,6 @@ md-bottom-sheet {
   }
 }
 
-.blocklyToolboxDiv {
-  @media (max-width: $layout-breakpoint-xs) {
-    overflow-y: auto !important;
-    z-index: 200;
-  }
-}
-
-.blocklyToolboxDiv {
-  @media (max-width: $layout-breakpoint-xs) {
-    width: 60px;
-  }
-}
-
 .blocklyTreeIcon {
   font-size: 1.5rem;
   margin-left: 5px;
