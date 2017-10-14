@@ -140,6 +140,9 @@ export default function DashboardController($scope, userService, dashboardServic
     vm.closeWidgetConfigSideNav = closeWidgetConfigSideNav;
     vm.toggleFullScreen = toggleFullScreen;
     vm.Fullscreen = Fullscreen;
+    vm.initMap = initMap;
+    vm.polylineMap = polylineMap;
+    vm.viewPolylineMapChecking = viewPolylineMapChecking;
     vm.setColor = setColor;
     vm.initMap = initMap;
     vm.polylineMap = polylineMap;
@@ -485,6 +488,25 @@ export default function DashboardController($scope, userService, dashboardServic
                 minItemCols: 2,
                 minItemRows: 3
             })
+        } else if (type === 'gmap') {
+            var randomId = Math.random().toString(36).substring(7);
+            vm.currentDashboard.content.push({
+                id: randomId,
+                name: 'gmap',
+                type: 'gmap',
+                bgColor: '#e91e63',
+                subscribeMessage: {
+                    topic: '',
+                    dataType: '1'
+                },
+                listCoordinates: [],
+                Coordinates: {},
+                cols: 4,
+                rows: 3,
+                viewPolylineMap: false,
+                minItemCols: 4,
+                minItemRows: 3
+            })
         } else if (type === 'colorPicker') {
             vm.currentDashboard.content.push({
                 name: 'Color Picker',
@@ -499,7 +521,6 @@ export default function DashboardController($scope, userService, dashboardServic
                 cols: 2,
                 rows: 2,
                 minItemCols: 2,
-                minItemRows: 2
             })
         } else if (type === 'gmap') {
             var randomId = Math.random().toString(36).substring(7);
@@ -664,6 +685,8 @@ export default function DashboardController($scope, userService, dashboardServic
                             widget.value = Number(message);
                         } else if (widget.type === 'chart') {
                             updateChartData(widget, message);
+                        } else if (widget.type === 'gmap') {
+                            updateMapData(widget, message);
                         } else if (widget.type === 'colorPicker') {
                             widget.color = message;
                             widget.displayColor = hexToRgb(widget.color);
@@ -735,6 +758,8 @@ export default function DashboardController($scope, userService, dashboardServic
                                     widget.value = Number(singleValue);
                                 } else if (widget.type === 'chart') {
                                     initChartData(widget, wantedData[0].data);
+                                } else if (widget.type === 'gmap') {
+                                    initMapData(widget, wantedData[0].data);
                                 } else if (widget.type === 'colorPicker') {
                                     widget.color = singleValue;
                                     widget.displayColor = hexToRgb(widget.color);
