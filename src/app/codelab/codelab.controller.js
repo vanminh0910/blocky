@@ -199,12 +199,8 @@ export default function CodeLabController($mdSidenav, toast, scriptService, user
                             message = message.toString();
                             chipId = topic.replace(baseSysTopicUrl, '').replace('/log', '').replace('/', '');
                             var deviceLog = store.get('deviceLog_' + chipId) || '';
-                            $log.log('deviceLog:', deviceLog);
                             if (vm.currentDevice && vm.currentDevice.chipId === chipId) {
-                                $log.log('currentDeviceLog:', deviceLog);
-                                $timeout(function () {
-                                    vm.currentLog = deviceLog;
-                                });
+                                vm.currentLog = deviceLog;
                             }
                         } else {
                             message = angular.fromJson(message.toString());
@@ -386,6 +382,19 @@ export default function CodeLabController($mdSidenav, toast, scriptService, user
         mqttClient.subscribe(baseSysTopicUrl, {
             qos: 2
         });
+
+        var chipId = '';
+        if (mqttClient && mqttClient.connected) {
+            for (var i = 0; i < vm.devices.length; i++) {
+                chipId = vm.devices[i].chipId;
+                var logTopic = baseSysTopicUrl + '/' + chipId + '/log';
+                mqttClient.unsubscribe(logTopic);
+                mqttClient.subscribe(logTopic, {
+                    qos: 2
+                });
+                $log.log('subscribe', chipId, '/log');
+            }
+        }
         $log.log('Subscribe system topics');
     }
 
