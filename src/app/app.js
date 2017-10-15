@@ -47,7 +47,6 @@ import 'angular-hotkeys/build/hotkeys.min.css';
 import '../scss/main.scss';
 import 'ng-ripple/dist/css/ng-ripple.css';
 import 'ng-ripple/dist/js/ng-ripple.js';
-import 'ngtouch/build/ngTouch.min.js';
 
 import 'angular-gridster2/dist/gridster.css';
 import 'angular-gridster2/dist/gridster.js';
@@ -75,7 +74,6 @@ angular.module('blocky', [
         mdDataTable,
         angularStorage,
         'ngRipple',
-        'ngTouch',
         'angular-gridster2',
         'angularjs-gauge',
         'chart.js',
