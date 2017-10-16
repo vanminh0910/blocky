@@ -575,14 +575,13 @@ export default function DashboardController($scope, userService, dashboardServic
     {
         if(command==="add")
         {
-            widget.iconlist.push({name:'',icon:'icon-air-conditioner'});
+            widget.iconlist.push({label:'',message:''});
         }
         else
         {
             widget.iconlist.splice(command,1);
         }
     }
-
     function sendMessage(topic, message) {
         if (!vm.isUserLoaded || !topic.trim().length) {
             return;
