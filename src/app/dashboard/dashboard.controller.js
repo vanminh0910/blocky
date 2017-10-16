@@ -29,7 +29,7 @@ import nipplejs from 'nipplejs/dist/nipplejs.js';
 /* eslint-disable no-undef, angular/window-service, angular/document-service */
 
 /*@ngInject*/
-export default function DashboardController($scope, userService, dashboardService, store, $window, $mdMedia, $mdSidenav, $document, $timeout,$interval, $mdDialog, $rootScope, $translate, toast, $state, settings, Fullscreen, $log) {
+export default function DashboardController($scope, userService, dashboardService, store, $window, $mdMedia, $mdSidenav, $document, $timeout, $mdDialog, $rootScope, $translate, toast, $state, settings, Fullscreen, $log,$interval) {
     var vm = this;
     var mqttClient;
     var authKey = '';
