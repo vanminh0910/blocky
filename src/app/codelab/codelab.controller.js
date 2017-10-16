@@ -254,6 +254,7 @@ export default function CodeLabController($mdSidenav, toast, scriptService, user
 
     function updateDeviceStatusByChipId(chipId, status) {
         vm.currentDevice = undefined;
+        loadUserDevices();
         for (var i = 0; i < vm.devices.length; i++) {
             if (chipId.toString() === vm.devices[i].chipId.toString()) {
                 $log.log('updateDeviceStatusByChipId', chipId, status);
@@ -269,7 +270,6 @@ export default function CodeLabController($mdSidenav, toast, scriptService, user
                 return;
             }
         }
-        loadUserDevices();
     }
 
     function injectBlockly() {
