@@ -488,7 +488,7 @@ export default function DashboardController($scope, userService, dashboardServic
                 txtColor: '#e91e63',
                 cols: 4,
                 rows: 2,
-                minItemCols: 4,
+                minItemCols: 2,
                 minItemRows: 2
             })
         }

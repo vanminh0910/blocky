@@ -184,7 +184,7 @@ md-whiteframe {
     background-color: #2196f3;
     text-align: center;
     ds-widget-clock {
-        font-size: 2vw;
+        font-size: 1vw;
         padding-top: 0%;
         font-weight: bold;
         color: white;
@@ -192,33 +192,33 @@ md-whiteframe {
     }
     .tb-day {
         padding-top: 10%;
-        font-size: 0.75vw;
+        font-size: 0.4vw;
     }
     .tb-padding {
         padding-top: 0.8vw;
     }
     @media (max-width: $layout-breakpoint-xs) {
         ds-widget-clock {
-            font-size: 7.5vw;
+            font-size: 3.8vw;
         }
         .tb-day {
-            font-size: 3.5vw;
+            font-size: 1.8vw;
         }
     }
     @media (min-width: $layout-breakpoint-xs) and (max-width: $layout-breakpoint-sm) {
         ds-widget-clock {
-            font-size: 4vw;
+            font-size: 2vw;
         }
         .tb-day {
-            font-size: 1.5vw;
+            font-size: 1vw;
         }
     }
     @media (min-width: $layout-breakpoint-gt-sm) {
         ds-widget-clock {
-            font-size: 2vw;
+            font-size: 0.8vw;
         }
         .tb-day {
-            font-size: 0.75vw;
+            font-size: 0.5vw;
         }
     }
 }
