@@ -194,6 +194,9 @@ md-whiteframe {
         padding-top: 10%;
         font-size: 0.75vw;
     }
+    .tb-padding {
+        padding-top: 0.8vw;
+    }
     @media (max-width: $layout-breakpoint-xs) {
         ds-widget-clock {
             font-size: 7.5vw;
@@ -202,7 +205,15 @@ md-whiteframe {
             font-size: 3.5vw;
         }
     }
-    @media (min-width: $layout-breakpoint-gt-md) {
+    @media (min-width: $layout-breakpoint-xs) and (max-width: $layout-breakpoint-sm) {
+        ds-widget-clock {
+            font-size: 4vw;
+        }
+        .tb-day {
+            font-size: 1.5vw;
+        }
+    }
+    @media (min-width: $layout-breakpoint-gt-sm) {
         ds-widget-clock {
             font-size: 2vw;
         }

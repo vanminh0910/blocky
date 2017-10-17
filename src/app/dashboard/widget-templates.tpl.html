@@ -172,7 +172,7 @@
         </div>
         <ripple ng-class="vm.editMode ? 'disabled' : ''" ng-click="vm.widgetAction(item)">
             <ds-widget-clock ng-attr-style="color: {{item.txtColor}};" class="tb-day" show-digital digital-format="'MM/d/yyyy'"></ds-widget-clock>
-            <div flex="5" ></div>
+            <div flex="5" class="tb-padding"></div>
             <ds-widget-clock ng-attr-style="color: {{item.txtColor}};" show-digital digital-format="'hh:mm a'"></ds-widget-clock>
         </ripple>
     </md-whiteframe>
