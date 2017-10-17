@@ -500,6 +500,7 @@ export default function DashboardController($scope, userService, dashboardServic
                 subscribeMessage: {
                     topic: '',
                     message:'',
+                    dataType:'1',
                 },
                 cols: 2,
                 rows: 2,
