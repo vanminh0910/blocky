@@ -534,7 +534,6 @@ export default function DashboardController($scope, userService, dashboardServic
             if(Joystick.angle!==Joystick.newangle)
             {
                 Joystick.angle = Joystick.newangle;
-                $log.log(Joystick.angle);
                 sendMessage(Joystick.subscribeMessage.topic,Joystick.angle.toString());
             }
         },100);
@@ -558,27 +557,10 @@ export default function DashboardController($scope, userService, dashboardServic
                         }
                         else
                         {
-                            
-                            //$log.log("----------------------------------");
-                            if(angular.isUndefined(data.direction.x)){
-                                //
-                            }
-                            else{
-                                //$log.log(data.direction.x);
-                            
-                            }
-                            if(angular.isUndefined(data.direction.y)){
-                                //
-                            }
-                            else{
-                                //$log.log(data.direction.y);
-                            
-                            }
                             if(angular.isUndefined(data.direction.angle)){
                                 //
                             }
                             else{
-                                //$log.log(data.direction.angle);
                                 Joystick.newangle=data.direction.angle;
                             }
                         }
