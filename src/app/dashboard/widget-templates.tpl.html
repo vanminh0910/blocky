@@ -166,7 +166,7 @@
 
 <!-- Template for Joystick widget -->
 <script type="text/ng-template" id="joystick.html">
-    <md-whiteframe flex layout class="md-whiteframe-4dp tb-widget-bottom-sheet" ng-attr-style="background-color: {{item.bgColor}};">
+    <md-whiteframe flex layout class="md-whiteframe-4dp" ng-attr-style="background-color: {{item.bgColor}};">
         <div class="tb-widget-tile-header">
             <h4 ng-if="item.name.length">{{item.name}}</h4>
         </div>
@@ -176,6 +176,9 @@
             </md-button>
         </div>
         <div ng-hide="vm.editMode" class="joystick_container" layout layout-fill layout-align="center center" id="{{'Joystick'+item.id}}" ng-class="vm.editMode ? 'disabled' : ''">
+            <div class="material-icons tb-widget-joystick-icon">
+                touch_app
+            </div>
             <div class="nipple">
                 <div class="front"></div>
                 <div class="back"></div>
