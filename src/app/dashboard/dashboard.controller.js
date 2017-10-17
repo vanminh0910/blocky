@@ -252,15 +252,14 @@ export default function DashboardController($scope, userService, dashboardServic
     }
 
     function editDashboard() {
-        var content = vm.currentDashboard.content;
-        $log.log(content);
-        for (var i = 0; i < vm.currentDashboard.content.length; i++) {
-            if (content[i].type == 'gmap' && content[i].mapObject) {
-                content[i].mapObject.setOptions({
-                    draggable: false
-                });
-            }
-        }
+        // var content = vm.currentDashboard.content;
+        // for (var i = 0; i < vm.currentDashboard.content.length; i++) {
+        //     if (content[i].type == 'gmap' && content[i].mapObject) {
+        //         content[i].mapObject.setOptions({
+        //             draggable: false
+        //         });
+        //     }
+        // }
 
         vm.editMode = true;
         vm.gridsterOptions.draggable.enabled = true;
@@ -317,14 +316,14 @@ export default function DashboardController($scope, userService, dashboardServic
     }
 
     function runDashboard() {
-        var content = vm.currentDashboard.content;
-        for (var i = 0; i < vm.currentDashboard.content.length; i++) {
-            if (content[i].type == 'gmap' && content[i].mapObject) {
-                content[i].mapObject.setOptions({
-                    draggable: true
-                });
-            }
-        }
+        // var content = vm.currentDashboard.content;
+        // for (var i = 0; i < vm.currentDashboard.content.length; i++) {
+        //     if (content[i].type == 'gmap' && content[i].mapObject) {
+        //         content[i].mapObject.setOptions({
+        //             draggable: true
+        //         });
+        //     }
+        // }
 
         vm.editMode = false;
         vm.gridsterOptions.draggable.enabled = false;
@@ -840,17 +839,17 @@ export default function DashboardController($scope, userService, dashboardServic
     }
 
     function initMap(coordinates, id) {
-        var thisMap;
-        var content = vm.currentDashboard.content;
-        for (var i = 0; i < content.length; i++) {
-            if (content[i].type == 'gmap' && content[i].id == id) {
-                thisMap = content[i];
-                break;
-            }
-        }
+        // var thisMap;
+        // var content = vm.currentDashboard.content;
+        // for (var i = 0; i < content.length; i++) {
+        //     if (content[i].type == 'gmap' && content[i].id == id) {
+        //         thisMap = content[i];
+        //         break;
+        //     }
+        // }
 
-        thisMap.mapObject = vm.map = new google.maps.Map(document.getElementById(id), {
-            // vm.map = new google.maps.Map(document.getElementById(id), {
+        // thisMap.mapObject = vm.map = new google.maps.Map(document.getElementById(id), {
+        vm.map = new google.maps.Map(document.getElementById(id), {
             center: coordinates,
             zoom: 15,
         });
@@ -862,17 +861,17 @@ export default function DashboardController($scope, userService, dashboardServic
     }
 
     function polylineMap(coordinates, id) {
-        var thisMap;
-        var content = vm.currentDashboard.content;
-        for (var i = 0; i < content.length; i++) {
-            if (content[i].type == 'gmap' && content[i].id == id) {
-                thisMap = content[i];
-                break;
-            }
-        }
+        // var thisMap;
+        // var content = vm.currentDashboard.content;
+        // for (var i = 0; i < content.length; i++) {
+        //     if (content[i].type == 'gmap' && content[i].id == id) {
+        //         thisMap = content[i];
+        //         break;
+        //     }
+        // }
 
-        thisMap.mapObject = vm.map = new google.maps.Map(document.getElementById(id), {
-            // vm.map = new google.maps.Map(document.getElementById(id), {
+        // thisMap.mapObject = vm.map = new google.maps.Map(document.getElementById(id), {
+        vm.map = new google.maps.Map(document.getElementById(id), {
             zoom: 3,
             center: coordinates[coordinates.length - 1],
             mapTypeId: 'terrain',
