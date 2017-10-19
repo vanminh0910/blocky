@@ -64,6 +64,9 @@ import 'md-steppers/dist/md-steppers.js';
 import 'angular-cookie-law/dist/angular-cookie-law.min.js';
 import '../../bower_components/ngGeolocation/ngGeolocation.js';
 
+import '../../bower_components/angular-ui-clock/dist/angular-clock.js';
+import '../../bower_components/angular-ui-clock/dist/angular-clock.css';
+
 angular.module('blocky', [
         ngMaterial,
         ngMdIcons,
@@ -87,7 +90,8 @@ angular.module('blocky', [
         uiRouter,
         'md-steppers',
         'angular-cookie-law',
-        'ngGeolocation'
+        'ngGeolocation',
+        'ds.clock',
     ])
     .config(AppConfig)
     .factory('globalInterceptor', GlobalInterceptor)

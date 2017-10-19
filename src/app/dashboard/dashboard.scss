@@ -184,6 +184,26 @@ md-whiteframe {
     background-color: #2196f3;
 }
 
+.tb-widget-clock {
+    background-color: #2196f3;
+    text-align: center;
+    ds-widget-clock {
+        padding-top: 0;
+        font-weight: bold;
+        color: #ffffff;
+        text-align: center;
+    }
+    .tb-date .widget-clock .time {
+        font-size: 1.2em !important;
+    }
+    .tb-time .widget-clock .time {
+        font-size: 2em !important;
+    }
+    .tb-padding {
+        padding-top: 0.8vw;
+    }
+}
+
 .white-slider .md-thumb:after,
 .white-slider .md-track-fill {
     background-color: #ffffff !important;
