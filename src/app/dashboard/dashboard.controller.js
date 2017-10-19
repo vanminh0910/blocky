@@ -46,8 +46,6 @@ export default function DashboardController($scope, userService, dashboardServic
     vm.editMode = false;
     vm.isUserLoaded = userService.isAuthenticated();
     vm.selectedColor = '';
-    // vm.gmapDraggable = true;
-    // vm.gmapWidgetMode;
 
     if (vm.isUserLoaded) {
         authKey = userService.getCurrentUser().authKey;
@@ -145,8 +143,6 @@ export default function DashboardController($scope, userService, dashboardServic
     vm.viewPolylineMapChecking = viewPolylineMapChecking;
     vm.setColor = setColor;
     vm.initMap = initMap;
-    vm.polylineMap = polylineMap;
-    vm.viewPolylineMapChecking = viewPolylineMapChecking;
 
     function closeWidgetLibrarySideNav() {
         $mdSidenav('widget-library').close();
@@ -252,15 +248,6 @@ export default function DashboardController($scope, userService, dashboardServic
     }
 
     function editDashboard() {
-        // var content = vm.currentDashboard.content;
-        // for (var i = 0; i < vm.currentDashboard.content.length; i++) {
-        //     if (content[i].type == 'gmap' && content[i].mapObject) {
-        //         content[i].mapObject.setOptions({
-        //             draggable: false
-        //         });
-        //     }
-        // }
-
         vm.editMode = true;
         vm.gridsterOptions.draggable.enabled = true;
         vm.gridsterOptions.resizable.enabled = true;
@@ -316,15 +303,6 @@ export default function DashboardController($scope, userService, dashboardServic
     }
 
     function runDashboard() {
-        // var content = vm.currentDashboard.content;
-        // for (var i = 0; i < vm.currentDashboard.content.length; i++) {
-        //     if (content[i].type == 'gmap' && content[i].mapObject) {
-        //         content[i].mapObject.setOptions({
-        //             draggable: true
-        //         });
-        //     }
-        // }
-
         vm.editMode = false;
         vm.gridsterOptions.draggable.enabled = false;
         vm.gridsterOptions.resizable.enabled = false;
@@ -511,7 +489,7 @@ export default function DashboardController($scope, userService, dashboardServic
                 id: randomId,
                 name: 'gmap',
                 type: 'gmap',
-                bgColor: '#e91e63',
+                bgColor: '#2196f3',
                 subscribeMessage: {
                     topic: '',
                     dataType: '1'
@@ -741,8 +719,6 @@ export default function DashboardController($scope, userService, dashboardServic
                                     widget.value = Number(singleValue);
                                 } else if (widget.type === 'chart') {
                                     initChartData(widget, wantedData[0].data);
-                                } else if (widget.type === 'gmap') {
-                                    initMapData(widget, wantedData[0].data);
                                 } else if (widget.type === 'colorPicker') {
                                     widget.color = singleValue;
                                     widget.displayColor = hexToRgb(widget.color);
@@ -839,16 +815,6 @@ export default function DashboardController($scope, userService, dashboardServic
     }
 
     function initMap(coordinates, id) {
-        // var thisMap;
-        // var content = vm.currentDashboard.content;
-        // for (var i = 0; i < content.length; i++) {
-        //     if (content[i].type == 'gmap' && content[i].id == id) {
-        //         thisMap = content[i];
-        //         break;
-        //     }
-        // }
-
-        // thisMap.mapObject = vm.map = new google.maps.Map(document.getElementById(id), {
         vm.map = new google.maps.Map(document.getElementById(id), {
             center: coordinates,
             zoom: 15,
@@ -861,16 +827,6 @@ export default function DashboardController($scope, userService, dashboardServic
     }
 
     function polylineMap(coordinates, id) {
-        // var thisMap;
-        // var content = vm.currentDashboard.content;
-        // for (var i = 0; i < content.length; i++) {
-        //     if (content[i].type == 'gmap' && content[i].id == id) {
-        //         thisMap = content[i];
-        //         break;
-        //     }
-        // }
-
-        // thisMap.mapObject = vm.map = new google.maps.Map(document.getElementById(id), {
         vm.map = new google.maps.Map(document.getElementById(id), {
             zoom: 3,
             center: coordinates[coordinates.length - 1],
@@ -886,13 +842,6 @@ export default function DashboardController($scope, userService, dashboardServic
         });
 
         vm.flightPath.setMap(vm.map);
-
-        // for (var i = 0; i < coordinates.length; i++) {
-        //     vm.marker = new google.maps.Marker({
-        //         position: coordinates[i],
-        //         map: vm.map
-        //     });
-        // }
     }
 
     function viewPolylineMapChecking(params) {
