@@ -138,7 +138,6 @@ export default function DashboardController($scope, userService, dashboardServic
     vm.closeWidgetConfigSideNav = closeWidgetConfigSideNav;
     vm.toggleFullScreen = toggleFullScreen;
     vm.Fullscreen = Fullscreen;
-    vm.initMap = initMap;
     vm.polylineMap = polylineMap;
     vm.viewPolylineMapChecking = viewPolylineMapChecking;
     vm.setColor = setColor;
@@ -484,10 +483,9 @@ export default function DashboardController($scope, userService, dashboardServic
                 minItemCols: 2,
             })
         } else if (type === 'gmap') {
-            var randomId = Math.random().toString(36).substring(7);
             vm.currentDashboard.content.push({
-                id: randomId,
-                name: 'gmap',
+                id: Math.round((new Date()).getTime() / 1000),
+                name: 'Google Map',
                 type: 'gmap',
                 bgColor: '#2196f3',
                 subscribeMessage: {
@@ -753,22 +751,15 @@ export default function DashboardController($scope, userService, dashboardServic
 
     function initMapData(widget, data) {
         widget.Coordinates = angular.fromJson(data[0].data);
-
-        jQuery(document).ready(function () {
-            checkContainer();
-        });
-
-        function checkContainer() {
+        $timeout(function () {
             if ($('#' + widget.id).is(':visible')) { //if the container is visible on the page
                 if (widget.viewPolylineMap === true) {
                     vm.polylineMap(widget.listCoordinates, widget.id);
                 } else if (widget.viewPolylineMap === false) {
                     vm.initMap(angular.fromJson(widget.Coordinates), widget.id);
                 }
-            } else {
-                $timeout(checkContainer, 50); //wait 50 ms, then try again
             }
-        }
+        }, 1000);
     }
 
     function filterDuplidatedTopics(data) {
@@ -844,11 +835,11 @@ export default function DashboardController($scope, userService, dashboardServic
         vm.flightPath.setMap(vm.map);
     }
 
-    function viewPolylineMapChecking(params) {
-        if (params.viewPolylineMap === true) {
-            vm.polylineMap(params.listCoordinates, params.id);
-        } else if (params.viewPolylineMap === false) {
-            vm.initMap(params.Coordinates, params.id);
+    function viewPolylineMapChecking(widget) {
+        if (widget.viewPolylineMap === true) {
+            vm.polylineMap(widget.listCoordinates, widget.id);
+        } else {
+            vm.initMap(widget.Coordinates, widget.id);
         }
     }
 
