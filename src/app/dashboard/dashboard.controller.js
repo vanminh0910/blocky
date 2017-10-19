@@ -138,7 +138,10 @@ export default function DashboardController($scope, userService, dashboardServic
     vm.closeWidgetConfigSideNav = closeWidgetConfigSideNav;
     vm.toggleFullScreen = toggleFullScreen;
     vm.Fullscreen = Fullscreen;
+    vm.polylineMap = polylineMap;
+    vm.viewPolylineMapChecking = viewPolylineMapChecking;
     vm.setColor = setColor;
+    vm.initMap = initMap;
 
     function closeWidgetLibrarySideNav() {
         $mdSidenav('widget-library').close();
@@ -478,7 +481,24 @@ export default function DashboardController($scope, userService, dashboardServic
                 cols: 2,
                 rows: 2,
                 minItemCols: 2,
-                minItemRows: 2
+            })
+        } else if (type === 'gmap') {
+            vm.currentDashboard.content.push({
+                id: Math.round((new Date()).getTime() / 1000),
+                name: 'Google Map',
+                type: 'gmap',
+                bgColor: '#2196f3',
+                subscribeMessage: {
+                    topic: '',
+                    dataType: '1'
+                },
+                listCoordinates: [],
+                Coordinates: {},
+                cols: 4,
+                rows: 3,
+                viewPolylineMap: false,
+                minItemCols: 4,
+                minItemRows: 3
             })
         }
         $mdSidenav('widget-library').close();
@@ -627,6 +647,8 @@ export default function DashboardController($scope, userService, dashboardServic
                         } else if (widget.type === 'colorPicker') {
                             widget.color = message;
                             widget.displayColor = hexToRgb(widget.color);
+                        } else if (widget.type === 'gmap') {
+                            updateMapData(widget, message);
                         } else {
                             widget.value = message;
                         }
@@ -643,6 +665,17 @@ export default function DashboardController($scope, userService, dashboardServic
         widget.data[0].push(
             Number(value)
         );
+    }
+
+    function updateMapData(widget, value) {
+        widget.listCoordinates.push(angular.fromJson(value));
+        widget.Coordinates = angular.fromJson(value);
+
+        if (widget.viewPolylineMap === true) {
+            vm.polylineMap(widget.listCoordinates, widget.id);
+        } else if (widget.viewPolylineMap === false) {
+            vm.initMap(angular.fromJson(widget.Coordinates), widget.id);
+        }
     }
 
     function subscribeDashboardsTopics(data) {
@@ -685,6 +718,8 @@ export default function DashboardController($scope, userService, dashboardServic
                                 } else if (widget.type === 'colorPicker') {
                                     widget.color = singleValue;
                                     widget.displayColor = hexToRgb(widget.color);
+                                } else if (widget.type === 'gmap') {
+                                    initMapData(widget, wantedData[0].data);
                                 } else {
                                     widget.value = singleValue;
                                 }
@@ -710,6 +745,19 @@ export default function DashboardController($scope, userService, dashboardServic
         }
         widget.labels = labels;
         widget.data[0] = chartData;
+    }
+
+    function initMapData(widget, data) {
+        widget.Coordinates = angular.fromJson(data[0].data);
+        $timeout(function () {
+            if ($('#' + widget.id).is(':visible')) { //if the container is visible on the page
+                if (widget.viewPolylineMap === true) {
+                    vm.polylineMap(widget.listCoordinates, widget.id);
+                } else if (widget.viewPolylineMap === false) {
+                    vm.initMap(angular.fromJson(widget.Coordinates), widget.id);
+                }
+            }
+        }, 1000);
     }
 
     function filterDuplidatedTopics(data) {
@@ -753,6 +801,44 @@ export default function DashboardController($scope, userService, dashboardServic
 
     function isMobileDevice() {
         return angular.isDefined(window.orientation) || (navigator.userAgent.indexOf('IEMobile') !== -1);
+    }
+
+    function initMap(coordinates, id) {
+        vm.map = new google.maps.Map(document.getElementById(id), {
+            center: coordinates,
+            zoom: 15,
+        });
+        vm.gmapWidgetMode = true;
+        vm.marker = new google.maps.Marker({
+            position: coordinates,
+            map: vm.map
+        });
+    }
+
+    function polylineMap(coordinates, id) {
+        vm.map = new google.maps.Map(document.getElementById(id), {
+            zoom: 3,
+            center: coordinates[coordinates.length - 1],
+            mapTypeId: 'terrain',
+        });
+        vm.gmapWidgetMode = false;
+        vm.flightPath = new google.maps.Polyline({
+            path: coordinates,
+            geodesic: true,
+            strokeColor: '#FF0000',
+            strokeOpacity: 1.0,
+            strokeWeight: 2
+        });
+
+        vm.flightPath.setMap(vm.map);
+    }
+
+    function viewPolylineMapChecking(widget) {
+        if (widget.viewPolylineMap === true) {
+            vm.polylineMap(widget.listCoordinates, widget.id);
+        } else {
+            vm.initMap(widget.Coordinates, widget.id);
+        }
     }
 
     function hexToRgb(hex) {

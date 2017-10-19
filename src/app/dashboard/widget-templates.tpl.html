@@ -161,3 +161,15 @@
         </ripple>
     </md-whiteframe>
 </script>
+
+<!-- Template for gmap widget -->
+<script type="text/ng-template" id="gmap.html">
+    <md-whiteframe flex layout class="md-whiteframe-4dp tb-widget-button" ng-attr-style="background-color: {{item.bgColor}};">
+        <div ng-if="vm.editMode" class="tb-widget-edit">
+            <md-button ng-click="vm.toggleWidgetConfig($index)">
+                <md-icon class="material-icons md-light md-48">mode_edit</md-icon>
+            </md-button>
+        </div>
+        <div id="{{item.id}}" class="tb-gmap-widget"></div>
+    </md-whiteframe>
+</script>
