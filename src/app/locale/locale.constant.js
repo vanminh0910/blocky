@@ -393,7 +393,7 @@ export default angular.module('blocky.locale', [])
                     "realtime": "Realtime",
                     "history": "History",
                     "last-prefix": "last",
-                    "period": "from {{ startTime }} to {{ endTime }}",
+                    "period": "from {{startTime}} to {{endTime}}",
                     "edit": "Edit timewindow",
                     "date-range": "Date range",
                     "last": "Last",

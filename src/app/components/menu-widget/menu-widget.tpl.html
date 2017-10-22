@@ -15,11 +15,14 @@
     limitations under the License.
 
 -->
-<md-toast class="tb-info-toast">
-    <div class="md-toast-content">
-        <div class="md-toast-text" ng-bind-html="vm.message"></div>
-        <md-button class="md-action md-highlight md-accent" ng-click="vm.closeToast()">
-            {{'action.close' | translate}}
-        </md-button>
+<md-bottom-sheet class="md-grid" layout="column">
+    <div ng-cloak>
+        <md-list flex layout="row" layout-align="center center">
+            <md-list-item ng-repeat="item in vm.items">
+                <div layout-fill layout-align="center center" layout="column">
+                    <md-button ng-click="vm.listItemClick($index)" class="md-raised">{{item.label}}</md-button>
+                </div>
+            </md-list-item>
+        </md-list>
     </div>
-</md-toast>
+</md-bottom-sheet>

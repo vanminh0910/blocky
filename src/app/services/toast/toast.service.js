@@ -51,7 +51,7 @@ export default function Toast($mdToast, $document) {
             position = 'top left';
         }
         $mdToast.show({
-            hideDelay: delay || 0,
+            hideDelay: delay || 5000,
             position: position,
             controller: 'ToastController',
             controllerAs: 'vm',

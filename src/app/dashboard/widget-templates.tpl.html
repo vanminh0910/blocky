@@ -189,3 +189,22 @@
         </ripple>
     </md-whiteframe>
 </script>
+
+<!-- Template for menu widget -->
+<script type="text/ng-template" id="menu.html">
+    <md-whiteframe flex layout class="md-whiteframe-4dp tb-widget-menu" ng-attr-style="background-color: {{item.bgColor}};">
+        <div class="tb-widget-tile-header">
+            <h4 ng-if="item.name.length">{{item.name}}</h4>
+        </div>
+        <div ng-if="vm.editMode" class="tb-widget-edit">
+            <md-button ng-click="vm.toggleWidgetConfig($index)">
+                <md-icon class="material-icons md-light md-48">mode_edit</md-icon>
+            </md-button>
+        </div>
+        <ripple ng-class="vm.editMode ? 'disabled' : ''" ng-click="vm.showMenuWidget(item)">
+            <div class="tb-widget-tile-body" layout-fill layout="column" layout-align="center center">
+                <i class="{{item.icon}}" aria-hidden="true"></i>
+            </div>
+        </ripple>
+    </md-whiteframe>
+</script>

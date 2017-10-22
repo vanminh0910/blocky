@@ -42,6 +42,7 @@
     "angular-translate-storage-local": "2.15.2",
     "angular-ui-ace": "^0.2.3",
     "angular-ui-router": "^0.3.1",
+    "angular-ui-tree": "^2.22.6",
     "angularjs-gauge": "^2.1.0",
     "compass-sass-mixins": "^0.12.7",
     "font-awesome": "^4.7.0",

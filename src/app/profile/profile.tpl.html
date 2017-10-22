@@ -20,7 +20,7 @@
         <md-card-title>
             <md-card-title-text>
                 <span translate class="md-headline">profile.profile</span>
-                <span style='opacity: 0.7;'>{{ vm.profileUser.email }}</span>
+                <span style='opacity: 0.7;'>{{vm.profileUser.email}}</span>
             </md-card-title-text>
         </md-card-title>
         <md-progress-linear md-mode="indeterminate" ng-disabled="!loading" ng-show="loading"></md-progress-linear>
@@ -58,11 +58,11 @@
                             </md-option>
                         </md-select>
                     </md-input-container>
-                    <md-button ng-disabled="loading" ng-click="vm.changePassword($event)" class="md-raised md-primary">{{ 'profile.change-password' | translate }}
+                    <md-button ng-disabled="loading" ng-click="vm.changePassword($event)" class="md-raised md-primary">{{'profile.change-password' | translate}}
                     </md-button>
                     <div layout="row" layout-align="end center" width="100%" layout-wrap>
-                        <md-button onclick="window.history.back()" class="md-raised">{{ 'action.back' | translate }}</md-button>
-                        <md-button ng-disabled="loading || theForm.$invalid || !theForm.$dirty" type="submit" class="md-raised md-primary">{{ 'action.save' | translate }}
+                        <md-button onclick="window.history.back()" class="md-raised">{{'action.back' | translate}}</md-button>
+                        <md-button ng-disabled="loading || theForm.$invalid || !theForm.$dirty" type="submit" class="md-raised md-primary">{{'action.save' | translate}}
                         </md-button>
                     </div>
                 </fieldset>

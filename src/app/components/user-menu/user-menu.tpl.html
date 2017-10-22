@@ -23,21 +23,21 @@
     </div>
     <md-menu ng-show="vm.userLoaded" md-position-mode="target-right target">
         <div class="tb-user-info" ng-click="$mdOpenMenu($event)">
-            <md-icon hide-xs hide-sm md-menu-origin aria-label="{{ 'home.avatar' | translate }}" class="material-icons tb-mini-avatar">account_circle</md-icon>
+            <md-icon hide-xs hide-sm md-menu-origin aria-label="{{'home.avatar' | translate}}" class="material-icons tb-mini-avatar">account_circle</md-icon>
             <span hide-xs hide-sm class="tb-user-display-name">{{vm.userDisplayName}}</span>
-            <md-icon hide-xs hide-sm md-menu-origin aria-label="{{ 'home.arrowDown' | translate }}" class="material-icons">arrow_drop_down</md-icon>
-            <md-icon hide-gt-sm md-menu-origin aria-label="{{ 'home.arrowDown' | translate }}" class="material-icons">more_vert</md-icon>
+            <md-icon hide-xs hide-sm md-menu-origin aria-label="{{'home.arrowDown' | translate}}" class="material-icons">arrow_drop_down</md-icon>
+            <md-icon hide-gt-sm md-menu-origin aria-label="{{'home.arrowDown' | translate}}" class="material-icons">more_vert</md-icon>
         </div>
         <md-menu-content width="4">
             <md-menu-item>
                 <md-button ng-click="vm.openProfile()">
-                    <md-icon md-menu-align-target aria-label="{{ 'home.profile' | translate }}" class="material-icons">account_circle</md-icon>
+                    <md-icon md-menu-align-target aria-label="{{'home.profile' | translate}}" class="material-icons">account_circle</md-icon>
                     <span translate>home.profile</span>
                 </md-button>
             </md-menu-item>
             <md-menu-item>
                 <md-button ng-click="vm.logout()">
-                    <md-icon md-menu-align-target aria-label="{{ 'home.logout' | translate }}" class="material-icons">exit_to_app</md-icon>
+                    <md-icon md-menu-align-target aria-label="{{'home.logout' | translate}}" class="material-icons">exit_to_app</md-icon>
                     <span translate>home.logout</span>
                 </md-button>
             </md-menu-item>

@@ -19,12 +19,6 @@ import angular from 'angular';
 import ngMaterial from 'angular-material';
 import ngMdIcons from 'angular-material-icons';
 import ngCookies from 'angular-cookies';
-import 'angular-translate';
-import 'angular-translate-loader-static-files';
-import 'angular-translate-storage-local';
-import 'angular-translate-storage-cookie';
-import 'angular-translate-handler-log';
-import 'angular-translate-interpolation-messageformat';
 import ngSanitize from 'angular-sanitize';
 import ngAnimate from 'angular-animate';
 import uiRouter from 'angular-ui-router';
@@ -39,6 +33,12 @@ import blockySettings from './common/settings.constant';
 import blockyApiLogin from './api/login.service';
 import blockyApiUser from './api/user.service';
 
+import 'angular-translate';
+import 'angular-translate-loader-static-files';
+import 'angular-translate-storage-local';
+import 'angular-translate-storage-cookie';
+import 'angular-translate-handler-log';
+import 'angular-translate-interpolation-messageformat';
 import 'typeface-roboto';
 import 'font-awesome/css/font-awesome.min.css';
 import 'angular-material/angular-material.min.css';
@@ -47,25 +47,26 @@ import 'angular-hotkeys/build/hotkeys.min.css';
 import '../scss/main.scss';
 import 'ng-ripple/dist/css/ng-ripple.css';
 import 'ng-ripple/dist/js/ng-ripple.js';
-
 import 'angular-gridster2/dist/gridster.css';
 import 'angular-gridster2/dist/gridster.js';
 import 'angularjs-gauge/dist/angularjs-gauge.min.js';
 import 'chart.js/dist/Chart.min.js';
 import 'angular-chart.js/dist/angular-chart.min.js';
+import 'angular-radial-color-picker/dist/js/color-picker.min.js';
+import 'angular-radial-color-picker/dist/css/color-picker.min.css';
+import 'Propeller/dist/propeller.min.js';
+import 'angular-ui-tree/dist/angular-ui-tree.min.js';
+import 'angular-ui-tree/dist/angular-ui-tree.min.css'
+import 'md-steppers/dist/md-steppers.css';
+import 'md-steppers/dist/md-steppers.js';
+import 'angular-cookie-law/dist/angular-cookie-law.min.js';
+import '../../bower_components/ngGeolocation/ngGeolocation.js';
+import '../../bower_components/angular-ui-clock/dist/angular-clock.js';
+import '../../bower_components/angular-ui-clock/dist/angular-clock.css';
 
 import AppConfig from './app.config';
 import GlobalInterceptor from './global-interceptor.service';
 import AppRun from './app.run';
-
-import 'md-steppers/dist/md-steppers.css';
-import 'md-steppers/dist/md-steppers.js';
-
-import 'angular-cookie-law/dist/angular-cookie-law.min.js';
-import '../../bower_components/ngGeolocation/ngGeolocation.js';
-
-import '../../bower_components/angular-ui-clock/dist/angular-clock.js';
-import '../../bower_components/angular-ui-clock/dist/angular-clock.css';
 
 angular.module('blocky', [
         ngMaterial,
@@ -92,6 +93,7 @@ angular.module('blocky', [
         'angular-cookie-law',
         'ngGeolocation',
         'ds.clock',
+        'ui.tree',
     ])
     .config(AppConfig)
     .factory('globalInterceptor', GlobalInterceptor)

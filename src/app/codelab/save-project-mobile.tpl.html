@@ -22,7 +22,7 @@
                 <h2 translate>Project</h2>
                 <span flex></span>
                 <md-button aria-label="Close" class="md-icon-button" ng-click="vm.cancel()">
-                    <ng-md-icon icon="close" aria-label="{{ 'dialog.close' | translate }}"></ng-md-icon>
+                    <ng-md-icon icon="close" aria-label="{{'dialog.close' | translate}}"></ng-md-icon>
                 </md-button>
             </div>
         </md-toolbar>
@@ -38,9 +38,9 @@
         </md-dialog-content>
         <md-dialog-actions layout="row">
                 <md-button ng-disabled="loading || theForm.$invalid || !theForm.$dirty" type="submit" class="md-raised md-primary">
-                    {{ 'action.save' | translate }}
+                    {{'action.save' | translate}}
                 </md-button>
-                <md-button ng-disabled="loading" ng-click="vm.cancel()" style="margin-right:20px;">{{ 'action.cancel' | translate }}</md-button>
+                <md-button ng-disabled="loading" ng-click="vm.cancel()" style="margin-right:20px;">{{'action.cancel' | translate}}</md-button>
         </md-dialog-actions>
     </form>
 </md-dialog>

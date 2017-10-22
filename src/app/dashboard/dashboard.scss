@@ -204,6 +204,14 @@ md-whiteframe {
     }
 }
 
+.tb-widget-menu {
+    background-color: #e91e63;
+}
+
+.tb-widget-menu-item-border {
+    border: 1px solid #000000!important;
+}
+
 .white-slider .md-thumb:after,
 .white-slider .md-track-fill {
     background-color: #ffffff !important;
@@ -326,9 +334,24 @@ md-whiteframe {
     md-select {
         margin-top: 0;
     }
-    .tb-gauge-config {
+    #gauge-widget-config {
         md-select {
             margin-top: 20px !important;
+        }
+    }
+    #menu-widget-config {
+        .icon-index {
+            font-size: 11px!important;
+            color: #000000;
+            border-radius: 16px;
+            border: 1px solid #000000;
+            height: 16px;
+            width: 16px;
+        }
+        .treeHandle {
+            touch-action: none!important;
+            font-size: 20px!important;
+            font-weight: bold;
         }
     }
 }

@@ -78,7 +78,7 @@
             </div>
         </div>
 
-        <div class="tb-gauge-config" ng-if="vm.selectedWidget.type=='gauge'">
+        <div id="gauge-widget-config" ng-if="vm.selectedWidget.type=='gauge'">
             <md-input-container>
                 <label>Name</label>
                 <input ng-model="vm.selectedWidget.name">
@@ -235,6 +235,49 @@
             <div layout="row" layout-align="space-around end">
                 <tb-color-picker color="vm.selectedWidget.bgColor"></tb-color-picker>
                 <tb-color-picker color="vm.selectedWidget.txtColor"></tb-color-picker>
+            </div>
+        </div>
+
+        <div ng-if="vm.selectedWidget.type=='menu'" layout="column" layout-align="start start" id="menu-widget-config">
+            <md-input-container>
+                <label>Name</label>
+                <input ng-model="vm.selectedWidget.name" aria-label="MenuName">
+            </md-input-container>
+            <md-input-container>
+                <label>Input Topic</label>
+                <input ng-model="vm.selectedWidget.subscribeMessage.topic" aria-label="MenuTopic">
+            </md-input-container>
+            <div layout="row" layout-fill layout-align="space-around center">
+                <tb-icon-picker icon="vm.selectedWidget.icon"></tb-icon-picker>
+                <tb-color-picker color="vm.selectedWidget.bgColor"></tb-color-picker>
+            </div>
+            <div ui-tree layout-align="center center" layout>
+                <div ui-tree-nodes="" ng-model="vm.selectedWidget.actionList" layout-fill>
+                    <div ui-tree-node ng-repeat="item in vm.selectedWidget.actionList" layout-fill>
+                        <div layout="row" layout-align="center center">
+                            <ng-container layout-wrap layout="column" layout-align="start start">
+                                <div class="icon-index" layout="column" layout-align="center center"> {{$index + 1}}</div>
+                            </ng-container>
+                            <md-input-container class="icon-label-input">
+                                <label>Label</label>
+                                <input type="text" ng-model="item.label" aria-label="Action Label">
+                            </md-input-container>
+                            <md-input-container class="icon-name-input">
+                                <label>Message</label>
+                                <input type="text" ng-model="item.message" aria-label="Action Message">
+                            </md-input-container>
+                            <div class="treeHandle" ui-tree-handle layout-padding>
+                                :::
+                            </div>
+                            <div ng-style="{'visibility': $index ? 'visible' : 'hidden'}" ng-click="vm.selectedWidget.actionList.splice($index, 1)">
+                                <md-icon aria-label="Remove Menu Item" class="material-icons">delete</md-icon>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <div layout="row" layout-fill>
+                <md-button class="md-raised md-primary" ng-click="vm.editMenuWidget(vm.selectedWidget,'add')" layout-fill>Add</md-button>
             </div>
         </div>
     </div>

@@ -23,12 +23,14 @@ import widgetConfig from './widget-config.tpl.html';
 import widgetTemplates from './widget-templates.tpl.html';
 import newDashboardTemplate from './new-dashboard.tpl.html';
 import renameDashboardTemplate from './rename-dashboard.tpl.html';
+import menuWidgetController from '../components/menu-widget/menu-widget.controller.js';
+import menuWidgetTemplate from '../components/menu-widget/menu-widget.tpl.html';
 import moment from 'moment';
 
 /* eslint-disable no-undef, angular/window-service, angular/document-service */
 
 /*@ngInject*/
-export default function DashboardController($scope, userService, dashboardService, store, $window, $mdMedia, $mdSidenav, $document, $timeout, $mdDialog, $rootScope, $translate, toast, $state, settings, Fullscreen, $log) {
+export default function DashboardController($scope, userService, dashboardService, store, $window, $mdMedia, $mdSidenav, $document, $timeout, $mdDialog, $rootScope, $translate, toast, $state, settings, Fullscreen, $log, menuWidgetService, $mdBottomSheet) {
     var vm = this;
     var mqttClient;
     var authKey = '';
@@ -142,6 +144,8 @@ export default function DashboardController($scope, userService, dashboardServic
     vm.viewPolylineMapChecking = viewPolylineMapChecking;
     vm.setColor = setColor;
     vm.initMap = initMap;
+    vm.editMenuWidget = editMenuWidget;
+    vm.showMenuWidget = showMenuWidget;
 
     function closeWidgetLibrarySideNav() {
         $mdSidenav('widget-library').close();
@@ -485,7 +489,7 @@ export default function DashboardController($scope, userService, dashboardServic
         } else if (type === 'gmap') {
             vm.currentDashboard.content.push({
                 id: Math.round((new Date()).getTime() / 1000),
-                name: 'Google Map',
+                name: 'Map',
                 type: 'gmap',
                 bgColor: '#2196f3',
                 subscribeMessage: {
@@ -500,7 +504,7 @@ export default function DashboardController($scope, userService, dashboardServic
                 minItemCols: 4,
                 minItemRows: 3
             })
-        } else if (type === "clock") {
+        } else if (type === 'clock') {
             vm.currentDashboard.content.push({
                 type: 'clock',
                 icon: 'icon-calender',
@@ -511,11 +515,49 @@ export default function DashboardController($scope, userService, dashboardServic
                 minItemCols: 2,
                 minItemRows: 1
             })
+        } else if (type === 'menu') {
+            var menu = {
+                name: 'Menu',
+                type: 'menu',
+                icon: 'icon-list-ol',
+                bgColor: '#e91e63',
+                pendingItem: {
+                    message: '',
+                    label: '',
+                    pending: true,
+                    type: 'pendingItem'
+                },
+                actionList: [{
+                        message: 'general',
+                        label: 'General'
+                    },
+                    {
+                        message: 'loud',
+                        label: 'Loud'
+                    },
+                    {
+                        message: 'silent',
+                        label: 'Silent'
+                    },
+                ],
+                subscribeMessage: {
+                    topic: '',
+                    message: '',
+                    dataType: '1',
+                },
+                cols: 2,
+                rows: 2,
+                minItemCols: 2,
+                minItemRows: 2,
+                maxItemCols: 4
+            };
+            vm.currentDashboard.content.push(menu);
+            menuWidgetService.saveData(menu.actionList);
         }
         $mdSidenav('widget-library').close();
     }
 
-    function widgetAction(widget, position) {
+    function widgetAction(widget, option) {
         if (vm.editMode) {
             return;
         }
@@ -539,12 +581,12 @@ export default function DashboardController($scope, userService, dashboardServic
             widget.max = parseFloat(widget.max);
             widget.min = parseFloat(widget.min);
 
-            if (position === 1) {
+            if (option === 1) {
                 currentValue = currentValue + widget.steps;
                 if (currentValue > widget.max) {
                     currentValue = widget.max;
                 }
-            } else if (position === -1) {
+            } else if (option === -1) {
                 currentValue = currentValue - widget.steps;
                 if (currentValue < widget.min) {
                     currentValue = widget.min;
@@ -558,6 +600,11 @@ export default function DashboardController($scope, userService, dashboardServic
             sendMessage(widget.subscribeMessage.topic, widget.value.toString());
         } else if (widget.type === 'colorPicker') {
             sendMessage(widget.subscribeMessage.topic, widget.color.toString());
+        } else if (widget.type === 'menu') {
+            widget.name = option.label;
+            widget.subscribeMessage.message = option.message;
+            menuWidgetService.saveData(widget.actionList);
+            sendMessage(widget.subscribeMessage.topic, widget.subscribeMessage.message.toString());
         }
     }
 
@@ -660,6 +707,8 @@ export default function DashboardController($scope, userService, dashboardServic
                             widget.displayColor = hexToRgb(widget.color);
                         } else if (widget.type === 'gmap') {
                             updateMapData(widget, message);
+                        } else if (widget.type === 'menu') {
+                            updateMenuWidgetState(widget, message);
                         } else {
                             widget.value = message;
                         }
@@ -731,6 +780,8 @@ export default function DashboardController($scope, userService, dashboardServic
                                     widget.displayColor = hexToRgb(widget.color);
                                 } else if (widget.type === 'gmap') {
                                     initMapData(widget, wantedData[0].data);
+                                } else if (widget.type === 'menu') {
+                                    updateMenuWidgetState(widget, singleValue);
                                 } else {
                                     widget.value = singleValue;
                                 }
@@ -878,5 +929,42 @@ export default function DashboardController($scope, userService, dashboardServic
         widget.displayColor = hexToRgb(widget.color);
 
         widgetAction(widget);
+    }
+
+    function editMenuWidget(widget, command) {
+        if (command === "add") {
+            widget.actionList.push({
+                label: '',
+                message: ''
+            });
+        } else {
+            widget.actionList.splice(command, 1);
+        }
+    }
+
+    function showMenuWidget(item) {
+        if (vm.editMode) {
+            return;
+        }
+        menuWidgetService.saveData(item.actionList);
+        $mdBottomSheet.show({
+            templateUrl: menuWidgetTemplate,
+            controller: menuWidgetController,
+            controllerAs: 'vm',
+            clickOutsideToClose: true
+        }).then(function (clickedItem) {
+            widgetAction(item, {
+                message: clickedItem.message,
+                label: clickedItem.label
+            });
+        });
+    }
+
+    function updateMenuWidgetState(widget, message) {
+        for (var i = 0; i < widget.actionList.length; i++) {
+            if (widget.actionList[i].message === message) {
+                widget.name = widget.actionList[i].label;
+            }
+        }
     }
 }

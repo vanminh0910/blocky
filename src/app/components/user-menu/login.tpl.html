@@ -15,7 +15,7 @@
     limitations under the License.
 
 -->
-<md-dialog flex="20" aria-label="{{ 'login.login' | translate }}">
+<md-dialog flex="20" aria-label="{{'login.login' | translate}}">
 	<form name="theForm" ng-submit="vm.login()">
 		<md-toolbar>
 			<div class="md-toolbar-tools">
@@ -32,7 +32,7 @@
 			<div class="md-dialog-content">
 				<md-input-container class="md-block">
 					<label translate>Username (email)</label>
-					<md-icon aria-label="{{ 'login.username' | translate }}" class="material-icons">
+					<md-icon aria-label="{{'login.username' | translate}}" class="material-icons">
 						email
 					</md-icon>
 					<input required id="username-input" type="email" autofocus ng-model="vm.user.name" />
@@ -40,7 +40,7 @@
 
 				<md-input-container class="md-block">
 					<label translate>Password</label>
-					<md-icon aria-label="{{ 'common.password' | translate }}" class="material-icons">
+					<md-icon aria-label="{{'common.password' | translate}}" class="material-icons">
 						lock
 					</md-icon>
 					<input required id="password-input" type="password" ng-model="vm.user.password" />
