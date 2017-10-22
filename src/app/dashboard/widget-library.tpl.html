@@ -75,12 +75,14 @@
                 </div>
             </md-whiteframe>
 
-            <md-whiteframe layout="row" layout-margin ng-click="vm.addWidget('colorPicker')" class="md-whiteframe-4dp tb-widget-color-picker"
+            <md-whiteframe layout="row" layout-margin ng-click="vm.addWidget('joystick')" class="md-whiteframe-4dp tb-widget-joystick"
                 flex="40">
-
+                <div class="tb-widget-tile-header">
+                    <h4>Joystick</h4>
+                </div>
                 <ripple r-disabled>
                     <div class="tb-widget-tile-body" layout-fill layout="column" layout-align="center center">
-                        <color-picker style="pointer-events:none !IMPORTANT"></color-picker>
+                        <i class="material-icons" aria-hidden="true">games</i>
                     </div>
                 </ripple>
             </md-whiteframe>
@@ -149,14 +151,11 @@
                 </ripple>
             </md-whiteframe>
 
-            <md-whiteframe layout="row" layout-margin ng-click="vm.addWidget('joystick')" class="md-whiteframe-4dp tb-widget-joystick"
+            <md-whiteframe layout="row" layout-margin ng-click="vm.addWidget('colorPicker')" class="md-whiteframe-4dp tb-widget-color-picker"
                 flex="40">
-                <div class="tb-widget-tile-header">
-                    <h4>Joystick</h4>
-                </div>
                 <ripple r-disabled>
                     <div class="tb-widget-tile-body" layout-fill layout="column" layout-align="center center">
-                        <i class="material-icons" aria-hidden="true">games</i>
+                        <color-picker style="pointer-events:none !important;"></color-picker>
                     </div>
                 </ripple>
             </md-whiteframe>

@@ -26,7 +26,7 @@ import renameDashboardTemplate from './rename-dashboard.tpl.html';
 import menuWidgetController from '../components/menu-widget/menu-widget.controller.js';
 import menuWidgetTemplate from '../components/menu-widget/menu-widget.tpl.html';
 import moment from 'moment';
-import nipplejs from 'nipplejs/dist/nipplejs.js';
+import nipplejs from 'nipplejs/dist/nipplejs.min.js';
 
 /* eslint-disable no-undef, angular/window-service, angular/document-service */
 
@@ -367,6 +367,7 @@ export default function DashboardController($scope, userService, dashboardServic
             }
 
             initDashboardData(data.data);
+            initDashboardWithoutData();
         });
     }
 
@@ -977,8 +978,6 @@ export default function DashboardController($scope, userService, dashboardServic
                                     initMapData(widget, wantedData[0].data);
                                 } else if (widget.type === 'menu') {
                                     updateMenuWidgetState(widget, singleValue);
-                                } else if (widget.type === 'joystick') {
-                                    initJoystick(widget);
                                 } else {
                                     widget.value = singleValue;
                                 }
@@ -986,6 +985,14 @@ export default function DashboardController($scope, userService, dashboardServic
                         }
                     }
                 }
+            }
+        }
+    }
+
+    function initDashboardWithoutData() {
+        for (var i = 0; i < vm.currentDashboard.content.length; i++) {
+            if (vm.currentDashboard.content[i].type === 'joystick') {
+                initJoystick(vm.currentDashboard.content[i]);
             }
         }
     }
