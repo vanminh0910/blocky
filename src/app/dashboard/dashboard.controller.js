@@ -26,11 +26,12 @@ import renameDashboardTemplate from './rename-dashboard.tpl.html';
 import menuWidgetController from '../components/menu-widget/menu-widget.controller.js';
 import menuWidgetTemplate from '../components/menu-widget/menu-widget.tpl.html';
 import moment from 'moment';
+import nipplejs from 'nipplejs/dist/nipplejs.js';
 
 /* eslint-disable no-undef, angular/window-service, angular/document-service */
 
 /*@ngInject*/
-export default function DashboardController($scope, userService, dashboardService, store, $window, $mdMedia, $mdSidenav, $document, $timeout, $mdDialog, $rootScope, $translate, toast, $state, settings, Fullscreen, $log, menuWidgetService, $mdBottomSheet) {
+export default function DashboardController($scope, userService, dashboardService, store, $window, $mdMedia, $mdSidenav, $document, $timeout, $mdDialog, $rootScope, $translate, toast, $state, settings, Fullscreen, $log, menuWidgetService, $mdBottomSheet, $interval) {
     var vm = this;
     var mqttClient;
     var authKey = '';
@@ -715,6 +716,38 @@ export default function DashboardController($scope, userService, dashboardServic
             };
             vm.currentDashboard.content.push(menu);
             menuWidgetService.saveData(menu.actionList);
+        } else if (type === 'joystick') {
+            var joystick = {
+                name: 'Joystick',
+                type: 'joystick',
+                bgColor: '#e91e63',
+                control: '',
+                itv: '',
+                id: Math.round((new Date()).getTime() / 1000),
+                options: {
+                    zone: null,
+                    color: 'white',
+                    mode: 'dynamic',
+                },
+                position: {
+                    x: 0,
+                    y: 0
+                },
+                newangle: '',
+                angle: '',
+                subscribeMessage: {
+                    topic: '',
+                    message: '',
+                },
+                cols: 2,
+                rows: 2,
+                minItemCols: 2,
+                minItemRows: 2,
+                maxItemCols: 4,
+                maxItemRows: 4,
+            }
+            vm.currentDashboard.content.push(joystick);
+            initJoystick(joystick);
         }
         $mdSidenav('widget-library').close();
     }
@@ -944,6 +977,8 @@ export default function DashboardController($scope, userService, dashboardServic
                                     initMapData(widget, wantedData[0].data);
                                 } else if (widget.type === 'menu') {
                                     updateMenuWidgetState(widget, singleValue);
+                                } else if (widget.type === 'joystick') {
+                                    initJoystick(widget);
                                 } else {
                                     widget.value = singleValue;
                                 }
@@ -1128,5 +1163,35 @@ export default function DashboardController($scope, userService, dashboardServic
                 widget.name = widget.actionList[i].label;
             }
         }
+    }
+
+    function initJoystick(joystick) {
+        joystick.itv = $interval(function () {
+            if (joystick.angle !== joystick.newangle) {
+                joystick.angle = joystick.newangle;
+                sendMessage(joystick.subscribeMessage.topic, joystick.angle.toString());
+            }
+        }, 100);
+
+        var itv = $interval(function () {
+            var el = $document[0].getElementById('joystick' + joystick.id);
+            if (el == null) {
+                $log.log("Joystick returned as null.");
+            } else {
+                joystick.options.zone = el;
+                joystick.control = nipplejs.create(joystick.options);
+
+                joystick.control.on('move end', function (e, data) {
+                    if (angular.isUndefined(data.direction)) {
+                        joystick.newangle = "stop";
+                    } else {
+                        if (angular.isDefined(data.direction.angle)) {
+                            joystick.newangle = data.direction.angle;
+                        }
+                    }
+                });
+                $interval.cancel(itv);
+            }
+        }, 1000);
     }
 }
