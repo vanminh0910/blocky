@@ -228,14 +228,18 @@
             </md-input-container>
         </div>
         <div ng-if="vm.selectedWidget.type=='clock'">
-            <div layout="row" layout-align="space-around end">
-                <label class="tb-label-color">Widget Color</label>
-                <label class="tb-label-color">Text Color</label>
-            </div>
-            <div layout="row" layout-align="space-around end">
-                <tb-color-picker color="vm.selectedWidget.bgColor"></tb-color-picker>
-                <tb-color-picker color="vm.selectedWidget.txtColor"></tb-color-picker>
-            </div>
+            <md-input-container>
+                <label>Name</label>
+                <input ng-model="vm.selectedWidget.name">
+            </md-input-container>
+            <md-input-container>
+                <label>Timezone</label>
+                <md-select ng-model="vm.selectedWidget.timezone">
+                    <md-option ng-repeat="timezone in vm.timezones" value="{{timezone.value}}">
+                        {{timezone.name}}
+                    </md-option>
+                </md-select>
+            </md-input-container>
         </div>
 
         <div ng-if="vm.selectedWidget.type=='menu'" layout="column" layout-align="start start" id="menu-widget-config">
@@ -243,14 +247,14 @@
                 <label>Name</label>
                 <input ng-model="vm.selectedWidget.name" aria-label="MenuName">
             </md-input-container>
-            <md-input-container>
-                <label>Input Topic</label>
-                <input ng-model="vm.selectedWidget.subscribeMessage.topic" aria-label="MenuTopic">
-            </md-input-container>
             <div layout="row" layout-fill layout-align="space-around center">
                 <tb-icon-picker icon="vm.selectedWidget.icon"></tb-icon-picker>
                 <tb-color-picker color="vm.selectedWidget.bgColor"></tb-color-picker>
             </div>
+            <md-input-container>
+                <label>Input Topic</label>
+                <input ng-model="vm.selectedWidget.subscribeMessage.topic" aria-label="MenuTopic">
+            </md-input-container>
             <div ui-tree layout-align="center center" layout>
                 <div ui-tree-nodes="" ng-model="vm.selectedWidget.actionList" layout-fill>
                     <div ui-tree-node ng-repeat="item in vm.selectedWidget.actionList" layout-fill>

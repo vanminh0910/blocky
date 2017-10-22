@@ -45,11 +45,42 @@
                 </md-slider>
             </md-whiteframe>
 
-            <md-whiteframe layout="row" layout-margin ng-click="vm.addWidget('gauge')" class="md-whiteframe-4dp tb-widget-gauge" flex="40">
+            <md-whiteframe layout="row" layout-margin ng-click="vm.addWidget('menu')" class="md-whiteframe-4dp tb-widget-menu" flex="40">
+                <div class="tb-widget-tile-header">
+                    <h4>Menu</h4>
+                </div>
                 <ripple r-disabled>
                     <div class="tb-widget-tile-body" layout-fill layout="column" layout-align="center center">
-                        <ng-gauge thick="10" size="80" type="arch" min="0" max="100" value="50" cap="round" label="" foreground-color="gold" append="">
-                        </ng-gauge>
+                        <i class="icon-list-ol" aria-hidden="true"></i>
+                    </div>
+                </ripple>
+            </md-whiteframe>
+        </div>
+
+        <div layout="row">
+            <md-whiteframe layout="row" layout-margin ng-click="vm.addWidget('stepControl')" class="md-whiteframe-4dp tb-widget-step-control"
+                flex="40">
+                <div class="tb-icon-up">
+                    <i class="icon-chevron-up" aria-hidden="true"></i>
+                </div>
+                <ripple r-disabled>
+                    <div class="tb-widget-tile-body" layout-fill layout="column" layout-align="center center">
+                        <div class="tb-widget-tile-body">
+                            <span>50</span>
+                        </div>
+                    </div>
+                </ripple>
+                <div class="tb-icon-down">
+                    <i class="icon-chevron-down" aria-hidden="true"></i>
+                </div>
+            </md-whiteframe>
+
+            <md-whiteframe layout="row" layout-margin ng-click="vm.addWidget('colorPicker')" class="md-whiteframe-4dp tb-widget-color-picker"
+                flex="40">
+
+                <ripple r-disabled>
+                    <div class="tb-widget-tile-body" layout-fill layout="column" layout-align="center center">
+                        <color-picker style="pointer-events:none !IMPORTANT"></color-picker>
                     </div>
                 </ripple>
             </md-whiteframe>
@@ -86,35 +117,6 @@
         </div>
 
         <div layout="row">
-            <md-whiteframe layout="row" layout-margin ng-click="vm.addWidget('stepControl')" class="md-whiteframe-4dp tb-widget-step-control"
-                flex="40">
-                <div class="tb-icon-up">
-                    <i class="icon-chevron-up" aria-hidden="true"></i>
-                </div>
-                <ripple r-disabled>
-                    <div class="tb-widget-tile-body" layout-fill layout="column" layout-align="center center">
-                        <div class="tb-widget-tile-body">
-                            <span>50</span>
-                        </div>
-                    </div>
-                </ripple>
-                <div class="tb-icon-down">
-                    <i class="icon-chevron-down" aria-hidden="true"></i>
-                </div>
-            </md-whiteframe>
-
-            <md-whiteframe layout="row" layout-margin ng-click="vm.addWidget('colorPicker')" class="md-whiteframe-4dp tb-widget-color-picker"
-                flex="40">
-
-                <ripple r-disabled>
-                    <div class="tb-widget-tile-body" layout-fill layout="column" layout-align="center center">
-                        <color-picker style="pointer-events:none !IMPORTANT"></color-picker>
-                    </div>
-                </ripple>
-            </md-whiteframe>
-        </div>
-
-        <div layout="row">
             <md-whiteframe layout="row" layout-margin ng-click="vm.addWidget('gmap')" class="md-whiteframe-4dp tb-widget-gmap" flex="40">
                 <div class="tb-widget-tile-header">
                     <h4>Map</h4>
@@ -137,15 +139,12 @@
                 </ripple>
             </md-whiteframe>
         </div>
-
         <div layout="row">
-            <md-whiteframe layout="row" layout-margin ng-click="vm.addWidget('menu')" class="md-whiteframe-4dp tb-widget-menu" flex="40">
-                <div class="tb-widget-tile-header">
-                    <h4>Menu</h4>
-                </div>
+            <md-whiteframe layout="row" layout-margin ng-click="vm.addWidget('gauge')" class="md-whiteframe-4dp tb-widget-gauge" flex="40">
                 <ripple r-disabled>
                     <div class="tb-widget-tile-body" layout-fill layout="column" layout-align="center center">
-                        <i class="icon-list-ol" aria-hidden="true"></i>
+                        <ng-gauge thick="10" size="80" type="arch" min="0" max="100" value="50" cap="round" label="" foreground-color="gold" append="">
+                        </ng-gauge>
                     </div>
                 </ripple>
             </md-whiteframe>

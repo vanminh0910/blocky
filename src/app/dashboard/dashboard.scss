@@ -199,17 +199,10 @@ md-whiteframe {
     .tb-time .widget-clock .time {
         font-size: 2em !important;
     }
-    .tb-padding {
-        padding-top: 0.8vw;
-    }
 }
 
 .tb-widget-menu {
     background-color: #e91e63;
-}
-
-.tb-widget-menu-item-border {
-    border: 1px solid #000000!important;
 }
 
 .white-slider .md-thumb:after,
@@ -279,7 +272,7 @@ md-whiteframe {
         }
     }
     .tb-widget-step-control {
-        background-color: #2196f3;
+        background-color: #e91e63;
         color: #ffffff;
         position: relative;
         text-align: center;

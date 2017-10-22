@@ -103,6 +103,168 @@ export default function DashboardController($scope, userService, dashboardServic
         }
     }
 
+    vm.timezones = [{
+            name: '−12.00',
+            value: '-12.00'
+        },
+        {
+            name: '−11.00',
+            value: '-11.00'
+        },
+        {
+            name: '−10.00',
+            value: '-10.00'
+        },
+        {
+            name: '−09.30',
+            value: '-9.30'
+        },
+        {
+            name: '−09.00',
+            value: '-9'
+        },
+        {
+            name: '−08.00',
+            value: '-8'
+        },
+        {
+            name: '−07.00',
+            value: '-7'
+        },
+        {
+            name: '−06.00',
+            value: '-6'
+        },
+        {
+            name: '−05.00',
+            value: '-5'
+        },
+        {
+            name: '−04.30',
+            value: '-4.3'
+        },
+        {
+            name: '−04.00',
+            value: '-4'
+        },
+        {
+            name: '−03.30',
+            value: '-3.3'
+        },
+        {
+            name: '−03.00',
+            value: '-3'
+        },
+        {
+            name: '−02.00',
+            value: '-2'
+        },
+        {
+            name: '−01.00',
+            value: '-1'
+        },
+        {
+            name: 'GMT(00.00)',
+            value: '0'
+        },
+        {
+            name: '+01.00',
+            value: '1'
+        },
+        {
+            name: '+02.00',
+            value: '2'
+        },
+        {
+            name: '+03.00',
+            value: '3'
+        },
+        {
+            name: '+03.30',
+            value: '3.30'
+        },
+        {
+            name: '+04.00',
+            value: '4'
+        },
+        {
+            name: '+04.30',
+            value: '4.30'
+        },
+        {
+            name: '+05.00',
+            value: '5'
+        },
+        {
+            name: '+05.30',
+            value: '5.30'
+        },
+        {
+            name: '+05.45',
+            value: '5.45'
+        },
+        {
+            name: '+06.00',
+            value: '6.00'
+        },
+        {
+            name: '+06.30',
+            value: '6.30'
+        },
+        {
+            name: '+07.00',
+            value: '7'
+        },
+        {
+            name: '+08.00',
+            value: '8'
+        },
+        {
+            name: '+08.45',
+            value: '8.45'
+        },
+        {
+            name: '+09.00',
+            value: '9'
+        },
+        {
+            name: '+09.30',
+            value: '9.30'
+        },
+        {
+            name: '+10.00',
+            value: '10'
+        },
+        {
+            name: '+10.30',
+            value: '10.30'
+        },
+        {
+            name: '+11.00',
+            value: '11'
+        },
+        {
+            name: '+11.30',
+            value: '11.30'
+        },
+        {
+            name: '+12.00',
+            value: '12'
+        },
+        {
+            name: '+12.45',
+            value: '12.45'
+        },
+        {
+            name: '+13.00',
+            value: '13'
+        },
+        {
+            name: '+14.00',
+            value: '14'
+        }
+    ];
+
     $timeout(function () {
         onresize();
     });
@@ -506,10 +668,10 @@ export default function DashboardController($scope, userService, dashboardServic
             })
         } else if (type === 'clock') {
             vm.currentDashboard.content.push({
+                name: 'Ho Chi Minh',
                 type: 'clock',
-                icon: 'icon-calender',
-                bgColor: '#9e9e9e',
-                txtColor: '#e91e63',
+                bgColor: '#2196f3',
+                timezone: '+07.00',
                 cols: 2,
                 rows: 2,
                 minItemCols: 2,
