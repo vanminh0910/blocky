@@ -232,14 +232,17 @@
                 <label>Name</label>
                 <input ng-model="vm.selectedWidget.name">
             </md-input-container>
-            <md-input-container>
-                <label>Timezone</label>
-                <md-select ng-model="vm.selectedWidget.timezone">
-                    <md-option ng-repeat="timezone in vm.timezones" value="{{timezone.value}}">
-                        {{timezone.name}}
-                    </md-option>
-                </md-select>
-            </md-input-container>
+            <div layout="row" layout-align="space-around end">
+                <tb-color-picker color="vm.selectedWidget.bgColor"></tb-color-picker>
+                <md-input-container style="margin-bottom: 26px;">
+                    <label>Timezone</label>
+                    <md-select ng-model="vm.selectedWidget.timezone">
+                        <md-option ng-repeat="timezone in vm.timezones" value="{{timezone.value}}">
+                            {{timezone.name}}
+                        </md-option>
+                    </md-select>
+                </md-input-container>
+            </div>
         </div>
 
         <div ng-if="vm.selectedWidget.type=='menu'" layout="column" layout-align="start start" id="menu-widget-config">
