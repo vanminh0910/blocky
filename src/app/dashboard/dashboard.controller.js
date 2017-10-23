@@ -734,8 +734,8 @@ export default function DashboardController($scope, userService, dashboardServic
                     x: 0,
                     y: 0
                 },
-                newangle: '',
-                angle: '',
+                newangle: 0,
+                angle: 0,
                 subscribeMessage: {
                     topic: '',
                     message: '',
@@ -1178,7 +1178,7 @@ export default function DashboardController($scope, userService, dashboardServic
                 joystick.angle = joystick.newangle;
                 sendMessage(joystick.subscribeMessage.topic, joystick.angle.toString());
             }
-        }, 100);
+        }, 300);
 
         var itv = $interval(function () {
             var el = $document[0].getElementById('joystick' + joystick.id);
@@ -1189,11 +1189,11 @@ export default function DashboardController($scope, userService, dashboardServic
                 joystick.control = nipplejs.create(joystick.options);
 
                 joystick.control.on('move end', function (e, data) {
-                    if (angular.isUndefined(data.direction)) {
+                    if (angular.isUndefined(data.angle)) {
                         joystick.newangle = "stop";
                     } else {
-                        if (angular.isDefined(data.direction.angle)) {
-                            joystick.newangle = data.direction.angle;
+                        if (angular.isDefined(data.angle)) {
+                            joystick.newangle = Math.round(data.angle.degree);
                         }
                     }
                 });
