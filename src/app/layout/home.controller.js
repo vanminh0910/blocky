@@ -81,7 +81,6 @@ export default function HomeController(menu, $state, Fullscreen, deviceService, 
                         mqttClient.subscribe(logTopic, {
                             qos: 2
                         });
-                        $log.log('subscribe device log', chipId, '/log');
                     }
                 }
             }

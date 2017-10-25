@@ -20,7 +20,7 @@ export default angular.module('blocky.api.user', [blockyApiLogin])
     .name;
 
 /*@ngInject*/
-function UserService($http, $q, $rootScope, loginService, toast, store, jwtHelper, $translate, $state, settings, $log) {
+function UserService($http, $q, $rootScope, loginService, toast, store, jwtHelper, $translate, $state, settings) {
     var currentUser = null,
         userLoaded = false;
 
@@ -163,7 +163,6 @@ function UserService($http, $q, $rootScope, loginService, toast, store, jwtHelpe
     }
 
     function notifyUserLoaded() {
-        $log.log('notifyUserLoaded');
         userLoaded = true;
         $rootScope.$broadcast('userLoaded');
     }

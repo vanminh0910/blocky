@@ -19,7 +19,7 @@
 /* eslint-enable import/no-unresolved, import/default */
 
 /*@ngInject*/
-export default function OpenProjectController($scope, scriptService, $mdDialog, $log, $state) {
+export default function OpenProjectController($scope, scriptService, $mdDialog, $state) {
     var vm = this;
 
     vm.removeFilter = removeFilter;

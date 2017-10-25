@@ -31,7 +31,7 @@ import nipplejs from 'nipplejs/dist/nipplejs.min.js';
 /* eslint-disable no-undef, angular/window-service, angular/document-service */
 
 /*@ngInject*/
-export default function DashboardController($scope, userService, dashboardService, store, $window, $mdMedia, $mdSidenav, $document, $timeout, $mdDialog, $rootScope, $translate, toast, $state, settings, Fullscreen, $log, menuWidgetService, $mdBottomSheet, $interval) {
+export default function DashboardController($scope, userService, dashboardService, store, $window, $mdMedia, $mdSidenav, $document, $timeout, $mdDialog, $rootScope, $translate, toast, $state, settings, Fullscreen, menuWidgetService, $mdBottomSheet, $interval, $log) {
     var vm = this;
     var mqttClient;
     var authKey = '';
@@ -357,7 +357,6 @@ export default function DashboardController($scope, userService, dashboardServic
                         $timeout(function () {
                             topic = topic.replace(baseUserTopicUrl, '');
                             message = message.toString();
-                            $log.log('Dashboard Recieved Message:', topic, message);
                             updateDashboardData(topic, message);
                         });
                     });
@@ -683,7 +682,7 @@ export default function DashboardController($scope, userService, dashboardServic
             var menu = {
                 name: 'Menu',
                 type: 'menu',
-                icon: 'icon-list-ol',
+                icon: 'icon-solarpanel-1',
                 bgColor: '#e91e63',
                 pendingItem: {
                     message: '',
@@ -820,7 +819,6 @@ export default function DashboardController($scope, userService, dashboardServic
 
     function sendMqttMessage(topic, message) {
         topic = baseUserTopicUrl + topic.trim();
-        $log.log('Send Message', topic, message);
         if (mqttClient && mqttClient.connected) {
             mqttClient.publish(topic, message, null, function (err) {
                 if (err) {
@@ -847,7 +845,6 @@ export default function DashboardController($scope, userService, dashboardServic
     }
 
     function saveSubscribedTopics() {
-        $log.log('saveSubscribedTopics');
         var subscribedTopics = [];
         for (var i = 0; i < vm.dashboards.length; i++) {
             if (vm.dashboards[i].content.length) {
@@ -872,13 +869,10 @@ export default function DashboardController($scope, userService, dashboardServic
                 var widgetTopic = vm.currentDashboard.subscribedTopics[k].topic;
                 widgetTopic = baseUserTopicUrl + widgetTopic;
                 mqttClient.unsubscribe(widgetTopic);
-                $log.log('Save Subscribed Topics:', widgetTopic);
                 mqttClient.subscribe(widgetTopic, {
                     qos: 2
                 });
             }
-        } else {
-            $log.log('Save Subscribed Topics. Could not connect to mqtt');
         }
     }
 
@@ -938,7 +932,6 @@ export default function DashboardController($scope, userService, dashboardServic
         for (var i = 0; i < data.length; i++) {
             var topic = baseUserTopicUrl + data[i].topic;
             mqttClient.unsubscribe(topic);
-            $log.log('Subscribe Dashboards Topics:', topic);
             mqttClient.subscribe(topic, {
                 qos: 2
             });
@@ -1182,9 +1175,7 @@ export default function DashboardController($scope, userService, dashboardServic
 
         var itv = $interval(function () {
             var el = $document[0].getElementById('joystick' + joystick.id);
-            if (el == null) {
-                $log.log("Joystick returned as null.");
-            } else {
+            if (el !== null) {
                 joystick.options.zone = el;
                 joystick.control = nipplejs.create(joystick.options);
 

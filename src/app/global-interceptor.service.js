@@ -14,7 +14,7 @@
  * limitations under the License.
  */
 /*@ngInject*/
-export default function GlobalInterceptor($rootScope, $q, $injector, $log) {
+export default function GlobalInterceptor($rootScope, $q, $injector) {
 
     var toast;
     var translate;
@@ -101,7 +101,6 @@ export default function GlobalInterceptor($rootScope, $q, $injector, $log) {
     }
 
     function responseError(rejection) {
-        $log.log(rejection);
         if (rejection.config.url.includes('api')) {
             updateLoadingState(rejection.config, false);
         }

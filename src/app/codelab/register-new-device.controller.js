@@ -19,7 +19,7 @@
 /* eslint-enable import/no-unresolved, import/default */
 
 /*@ngInject*/
-export default function RegisterNewDeviceController($scope, $mdDialog, $log, $q, $timeout, deviceService, $rootScope, settings, $window, $interval) {
+export default function RegisterNewDeviceController($scope, $mdDialog, $q, $timeout, deviceService, $rootScope, settings, $window, $interval) {
     var vm = this;
     var promise;
 
@@ -82,7 +82,6 @@ export default function RegisterNewDeviceController($scope, $mdDialog, $log, $q,
     }
 
     function loadAccessPointList() {
-        $log.log('loadUserDevices');
         vm.APList;
         vm.counter = 1;
 
@@ -91,7 +90,6 @@ export default function RegisterNewDeviceController($scope, $mdDialog, $log, $q,
                 vm.APList = APList;
                 $interval.cancel(promise);
                 vm.enableNextStep();
-                $log.log(vm.APList);
             }, function fail(APList) {
                 vm.APList = APList;
                 if (vm.counter < 3) {
@@ -99,7 +97,6 @@ export default function RegisterNewDeviceController($scope, $mdDialog, $log, $q,
                 } else {
                     $interval.cancel(promise);
                     vm.connectNotification = false;
-                    $log.log(vm.counter);
                 }
             });
         }, 2000);
@@ -111,7 +108,6 @@ export default function RegisterNewDeviceController($scope, $mdDialog, $log, $q,
         vm.deviceName = name;
         vm.authKey = $rootScope.authKey;
         vm.urlCommitInfo = settings.localApiUrl + '/set?ssid=' + vm.ssid + '&password=' + vm.passWifi + '&authKey=' + vm.authKey + '&deviceName=' + vm.deviceName;
-        $log.log(vm.urlCommitInfo);
         deviceService.saveDeviceConfig(vm.urlCommitInfo);
     }
 

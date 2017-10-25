@@ -45,8 +45,8 @@ module.exports = {
                 to: 'blocky.ico'
             },
             {
-                from: './src/app/libs/worker-lua.js',
-                to: '../worker-lua.js'
+                from: './src/app/libs',
+                to: '../'
             }
         ]),
         new HtmlWebpackPlugin({

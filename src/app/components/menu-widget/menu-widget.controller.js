@@ -19,7 +19,7 @@
 /* eslint-enable import/no-unresolved, import/default */
 
 /*@ngInject*/
-export default function MenuWidgetController($log, $mdBottomSheet, menuWidgetService) {
+export default function MenuWidgetController($mdBottomSheet, menuWidgetService) {
     var vm = this;
     vm.listItemClick = listItemClick;
     vm.items = [];

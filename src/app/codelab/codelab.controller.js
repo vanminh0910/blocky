@@ -136,7 +136,6 @@ export default function CodeLabController($mdSidenav, toast, scriptService, user
 
     $scope.$watch(() => this.xmlText, function (newValue, oldValue) {
         if (vm.workspace && newValue && !angular.equals(newValue, oldValue)) {
-            $log.log('load xml');
             if (Blockly.mainWorkspace !== null) {
                 Blockly.mainWorkspace.clear();
             }
@@ -191,8 +190,6 @@ export default function CodeLabController($mdSidenav, toast, scriptService, user
             });
             mqttClient.on('message', function (topic, message) {
                 $timeout(function () {
-                    $log.log('Code Lab Recieved Message:', topic, message);
-
                     try {
                         var chipId = '';
                         if (topic.indexOf('/log') > -1) {
@@ -238,7 +235,6 @@ export default function CodeLabController($mdSidenav, toast, scriptService, user
                     if (vm.script.mode === 'block') {
                         vm.xmlText = vm.script.xml;
                     }
-                    $log.log('Load existing script');
                     store.set('script', vm.script);
                 },
                 function fail() {
@@ -257,7 +253,6 @@ export default function CodeLabController($mdSidenav, toast, scriptService, user
         loadUserDevices();
         for (var i = 0; i < vm.devices.length; i++) {
             if (chipId.toString() === vm.devices[i].chipId.toString()) {
-                $log.log('updateDeviceStatusByChipId', chipId, status);
                 vm.devices[i].status = status;
                 if (status) {
                     toast.showSuccess('Device ' + vm.devices[i].name + ' has come online');
@@ -274,7 +269,6 @@ export default function CodeLabController($mdSidenav, toast, scriptService, user
 
     function injectBlockly() {
         if (!vm.workspace) {
-            $log.log('injectBlockly');
             var blocklyDiv = document.getElementById('blocklyDiv');
             vm.workspace = Blockly.inject(blocklyDiv, {
                 grid: {
@@ -295,7 +289,6 @@ export default function CodeLabController($mdSidenav, toast, scriptService, user
             onResize();
             localScript = store.get('script');
             if (!scriptId && angular.isDefined(localScript.xml)) {
-                $log.log('load local');
                 if (angular.isDefined(Blockly.mainWorkspace)) {
                     Blockly.mainWorkspace.clear();
                 }
@@ -312,7 +305,6 @@ export default function CodeLabController($mdSidenav, toast, scriptService, user
         if (vm.script.mode !== 'block') {
             return;
         }
-        $log.log('on resize');
         var blocklyArea = document.getElementById('main-content');
         var blocklyDiv = document.getElementById('blocklyDiv');
         // Compute the absolute coordinates and dimensions of blocklyArea.
@@ -345,7 +337,6 @@ export default function CodeLabController($mdSidenav, toast, scriptService, user
         if (vm.script.mode !== 'block') {
             return;
         }
-        $log.log('watch workspace');
         var script = store.get('script');
         var xml = Blockly.Xml.workspaceToDom(vm.workspace);
         script.mode = 'block';
@@ -355,11 +346,9 @@ export default function CodeLabController($mdSidenav, toast, scriptService, user
     }
 
     function loadUserDevices() {
-        $log.log('loadUserDevices');
         deviceService.getAllDevices().then(function success(devices) {
             if (devices.length) {
                 vm.devices = devices;
-                $log.log(vm.devices);
                 loadSelectedDevice();
                 subscribeDeviceTopics();
             }
@@ -392,14 +381,11 @@ export default function CodeLabController($mdSidenav, toast, scriptService, user
                 mqttClient.subscribe(logTopic, {
                     qos: 2
                 });
-                $log.log('subscribe', chipId, '/log');
             }
         }
-        $log.log('Subscribe system topics');
     }
 
     function changeMode($event) {
-        $log.log('changeMode');
         if (vm.script.mode === 'lua') {
             if (vm.script.lua !== Blockly.Lua.workspaceToCode(vm.workspace)) {
                 var confirm = $mdDialog.confirm()
@@ -497,7 +483,6 @@ export default function CodeLabController($mdSidenav, toast, scriptService, user
             return;
         }
         if (mqttClient && mqttClient.connected && chipId) {
-            $log.log('size of lua script', byteLength(vm.script.lua));
             var maxSize = settings.maxBytesUpload;
 
             vm.isUploadSuccess = false;
@@ -519,7 +504,6 @@ export default function CodeLabController($mdSidenav, toast, scriptService, user
                     if (i === splitedStrings.length - 1) {
                         sharedTopic = topic + '/$';
                     }
-                    $log.log('sharedTopic', sharedTopic);
                     mqttClient.publish(sharedTopic, splitedStrings[i], null, function (err) {
                         if (err) {
                             toast.showError($translate.instant('script.script-upload-failed-error'));
@@ -656,7 +640,15 @@ export default function CodeLabController($mdSidenav, toast, scriptService, user
     }
 
     function saveDevice() {
-        deviceService.saveDevice(vm.currentDevice);
+        deviceService.saveDevice(vm.currentDevice).then(
+            function success() {
+                var chipId = vm.currentDevice.chipId;
+                var topic = baseSysTopicUrl + '/' + chipId + '/rename';
+                mqttClient.publish(topic, vm.currentDevice.name, null, function () {
+                });
+            },
+            function fail() {}
+        );
         $mdDialog.hide();
     }
 

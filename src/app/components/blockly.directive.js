@@ -24,7 +24,7 @@ export default angular.module('blocky.directives.blockly', [])
 /* eslint-disable no-undef, angular/window-service, angular/document-service */
 
 /*@ngInject*/
-function GoogleBlockly($timeout, store, $stateParams, $log) {
+function GoogleBlockly($timeout, store, $stateParams) {
     var linker = function (scope, element) {
         if (scope.mode !== 'block') {
             return;
@@ -48,7 +48,6 @@ function GoogleBlockly($timeout, store, $stateParams, $log) {
 
             var localScript = store.get('script');
             if (angular.isUndefined($stateParams.scriptId) && angular.isDefined(localScript.xml)) {
-                $log.log('load local');
                 if (angular.isDefined(Blockly.mainWorkspace)) {
                     Blockly.mainWorkspace.clear();
                 }
@@ -57,7 +56,6 @@ function GoogleBlockly($timeout, store, $stateParams, $log) {
             }
             scope.$watch('xmlText', function (newValue, oldValue) {
                 if (newValue && !angular.equals(newValue, oldValue)) {
-                    $log.log('load xml');
                     if (Blockly.mainWorkspace !== null) {
                         Blockly.mainWorkspace.clear();
                     }
@@ -95,14 +93,12 @@ function GoogleBlockly($timeout, store, $stateParams, $log) {
             blocklyDiv.style.top = y + 'px';
             blocklyDiv.style.width = blocklyArea.offsetWidth + 'px';
             blocklyDiv.style.height = blocklyArea.offsetHeight + 'px';
-            $log.log('size', blocklyDiv.style.width, blocklyDiv.style.height);
             if (scope.workspace) {
                 Blockly.svgResize(scope.workspace);
             }
         }
 
         function onWorkspaceChange() {
-            $log.log('watch workspace');
             var script = store.get('script');
             var xml = Blockly.Xml.workspaceToDom(scope.workspace);
             script.xml = Blockly.Xml.domToText(xml);
