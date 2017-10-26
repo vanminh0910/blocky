@@ -495,7 +495,7 @@ export default function CodeLabController($mdSidenav, toast, scriptService, user
                         if (!vm.isUploadSuccess) {
                             toast.showError($translate.instant('script.script-upload-failed-error'));
                         }
-                    }, 5000);
+                    }, 10000);
                 });
             } else {
                 var splitedStrings = splitString(vm.script.lua, maxSize);
@@ -512,7 +512,7 @@ export default function CodeLabController($mdSidenav, toast, scriptService, user
                             if (!vm.isUploadSuccess) {
                                 toast.showError($translate.instant('script.script-upload-failed-error'));
                             }
-                        }, 5000);
+                        }, 10000);
                     });
                 }
             }
