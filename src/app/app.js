@@ -60,9 +60,9 @@ import 'angular-ui-tree/dist/angular-ui-tree.min.css'
 import 'md-steppers/dist/md-steppers.css';
 import 'md-steppers/dist/md-steppers.js';
 import 'angular-cookie-law/dist/angular-cookie-law.min.js';
-import '../../bower_components/ngGeolocation/ngGeolocation.js';
-import '../../bower_components/angular-ui-clock/dist/angular-clock.js';
-import '../../bower_components/angular-ui-clock/dist/angular-clock.css';
+import 'ngGeolocation/ngGeolocation.min.js';
+import 'angular-clock/dist/angular-clock.min.js';
+import 'angular-clock/dist/angular-clock.css';
 
 import AppConfig from './app.config';
 import GlobalInterceptor from './global-interceptor.service';

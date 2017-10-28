@@ -2,5 +2,4 @@ node_modules
 .tern-project
 dist
 *.log
-bower_components
 package-lock.json
