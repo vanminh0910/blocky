@@ -259,7 +259,7 @@ export default angular.module('blocky.locale', [])
                     "username": "Username (email)",
                     "remember-me": "Remember me",
                     "forgot-password": "Forgot Password?",
-                    "password-reset": "Password reset",
+                    "password-reset": "Password Reset",
                     "new-password": "New password",
                     "new-password-again": "New password again",
                     "password-link-sent-message": "Password reset link was successfully sent!",

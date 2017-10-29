@@ -26,7 +26,7 @@ export default function ResetPasswordController($stateParams, $translate, toast,
         if (vm.newPassword !== vm.newPassword2) {
             toast.showError($translate.instant('login.passwords-mismatch-error'));
         } else {
-            loginService.resetPassword($stateParams.resetToken, vm.newPassword).then(function success(response) {
+            loginService.resetPassword($stateParams.token, vm.newPassword).then(function success(response) {
                 var token = response.data.token;
                 userService.setUserFromJwtToken(token, true);
                 $window.location.reload();

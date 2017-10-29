@@ -28,7 +28,7 @@ export default function LoginController(toast, loginService, userService, $rootS
         email: ''
     };
 
-    vm.sendResetPasswordLink = sendResetPasswordLink;
+    vm.forgotPassword = forgotPassword;
     vm.login = login;
     vm.cancel = cancel;
     vm.signUp = signUp;
@@ -63,9 +63,10 @@ export default function LoginController(toast, loginService, userService, $rootS
         });
     }
 
-    function sendResetPasswordLink() {
-        loginService.sendResetPasswordLink(vm.user.email).then(function success() {
+    function forgotPassword() {
+        loginService.forgotPassword(vm.user.email).then(function success() {
             toast.showSuccess($translate.instant('login.password-link-sent-message'));
+            $mdDialog.cancel();
         }, function fail() {});
     }
 }

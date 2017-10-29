@@ -54,6 +54,13 @@
     }
   }
 
+  .tb-reset-password-card {
+    margin: 0 !important;
+    @media (max-width: $layout-breakpoint-sm) {
+      width: 100% !important;
+    }
+  }
+
   md-content {
     overflow-y: hidden !important;
   }

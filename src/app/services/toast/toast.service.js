@@ -71,7 +71,7 @@ export default function Toast($mdToast, $document) {
             }
             showing = true;
             $mdToast.show({
-                hideDelay: 0,
+                hideDelay: 5000,
                 position: position,
                 controller: 'ToastController',
                 controllerAs: 'vm',

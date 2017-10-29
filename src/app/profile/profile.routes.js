@@ -38,7 +38,7 @@ export default function ProfileRoutes($stateProvider) {
                 pageTitle: 'profile.profile'
             }
         }).state('home.resetPassword', {
-            url: '/resetPassword?resetToken',
+            url: '/resetPassword?token',
             module: 'public',
             views: {
                 "@": {
