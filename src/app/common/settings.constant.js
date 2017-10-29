@@ -20,7 +20,9 @@ export default angular.module('blocky.settings', [])
             localApiUrl: 'http://192.168.4.1',
             entryPoints: {
                 login: '/users/signup',
-                signup: '/users/login'
+                signup: '/users/login',
+                forgotPassword: '/users/forgotPassword',
+                resetPassword: '/users/resetPassword'
             },
             mqtt: {
                 url: 'wss://staging.broker.getblocky.com', //'wss://broker.getblocky.com',

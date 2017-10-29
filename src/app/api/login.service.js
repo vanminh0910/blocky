@@ -18,7 +18,7 @@ export default angular.module('blocky.api.login', [])
     .name;
 
 /*@ngInject*/
-function LoginService($http, $q, settings, $log) {
+function LoginService($http, $q, settings) {
 
     var service = {
         signUp: signUp,
@@ -82,11 +82,9 @@ function LoginService($http, $q, settings, $log) {
         var forgotPasswordRequest = {
             email: email
         }
-        $log.log('call forgot');
         $http.post(url, forgotPasswordRequest).then(function success(response) {
             deferred.resolve(response);
-        }, function fail(error) {
-            $log.log(error);
+        }, function fail() {
             deferred.reject();
         });
         return deferred.promise;

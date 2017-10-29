@@ -61,7 +61,9 @@ export default function GlobalInterceptor($rootScope, $q, $injector) {
     function isTokenBasedAuthEntryPoint(url) {
         return  url.includes('api') &&
                !url.includes(getSettings().entryPoints.login) &&
-               !url.includes(getSettings().entryPoints.signup);
+               !url.includes(getSettings().entryPoints.signup) &&
+               !url.includes(getSettings().entryPoints.forgotPassword) &&
+               !url.includes(getSettings().entryPoints.resetPassword);
     }
 
 
