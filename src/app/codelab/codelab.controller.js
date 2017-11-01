@@ -60,27 +60,9 @@ export default function CodeLabController($mdSidenav, toast, scriptService, user
         $log.log('Exception:', err.message);
     }
 
-    var emptyScript = {
-        name: '',
-        xml: '',
-        lua: '',
-        mode: 'block'
-    };
-    vm.script = {
-        name: '',
-        xml: '',
-        lua: '',
-        mode: 'block'
-    };
-    vm.isSidenavOpen = true;
-    vm.blocklyToolbox = blocklyToolbox;
-    vm.xmlText = '';
-
-    var scriptId = $stateParams.scriptId;
-    var localScript = store.get('script');
-
-    initScriptData();
-
+    vm.currentDevice = null;
+    vm.currentLog = '';
+    vm.isUploadSuccess = false;
     vm.luaEditorOptions = {
         useWrapMode: true,
         showGutter: true,
@@ -93,37 +75,20 @@ export default function CodeLabController($mdSidenav, toast, scriptService, user
             enableLiveAutocompletion: true
         }
     };
-    vm.currentDevice = null;
-    vm.currentLog = '';
-    vm.isUploadSuccess = false;
+    vm.script = {
+        name: '',
+        xml: '',
+        lua: '',
+        mode: 'block'
+    };
+    vm.isSidenavOpen = true;
+    vm.blocklyToolbox = blocklyToolbox;
+    vm.xmlText = '';
+    vm.scriptId = $stateParams.scriptId;
+    vm.localScript = store.get('script');
+    vm.workspace = null;
 
-    if ($state.current.name === 'home.codelab.new') {
-        store.remove('script');
-        vm.script = {
-            name: '',
-            xml: '',
-            lua: '',
-            mode: 'block'
-        };
-        vm.xmlText = vm.script.xml;
-        store.set('script', vm.script);
-    }
-
-    $scope.$watch(() => this.script.lua, function (newValue, oldValue) {
-        if (newValue && !angular.equals(newValue, oldValue)) {
-            var script = store.get('script');
-            script.mode = 'lua';
-            script.lua = newValue;
-            store.set('script', script);
-        }
-    });
-    $scope.$watch(() => this.script.name, function (newValue, oldValue) {
-        if (newValue && !angular.equals(newValue, oldValue)) {
-            var script = store.get('script');
-            script.name = newValue;
-            store.set('script', script);
-        }
-    });
+    initScriptData();
 
     $scope.$watch(() => this.currentDevice, function (newValue, oldValue) {
         if (newValue && !angular.equals(newValue, oldValue)) {
@@ -146,6 +111,15 @@ export default function CodeLabController($mdSidenav, toast, scriptService, user
 
     window.addEventListener('resize', onResize, false);
     $scope.$on("$destroy", function () {
+        // Save project to local storage
+        if (vm.workspace) {
+            var xml = Blockly.Xml.workspaceToDom(vm.workspace);
+            vm.script.xml = Blockly.Xml.domToText(xml);
+            updateLuaFromBlock();
+        }
+        store.set('script', vm.script);
+
+        // Clean up mqtt session
         if (mqttClient) {
             mqttClient.end();
         }
@@ -224,8 +198,17 @@ export default function CodeLabController($mdSidenav, toast, scriptService, user
     }
 
     function initScriptData() {
-        if (scriptId) { // Load existing script
-            scriptService.getScript(scriptId).then(
+        if ($state.current.name === 'home.codelab.new') {
+            store.remove('script');
+            vm.script = {
+                name: '',
+                xml: '',
+                lua: '',
+                mode: 'block'
+            };
+            vm.xmlText = '';
+        } else if (vm.scriptId) { // Load existing script
+            scriptService.getScript(vm.scriptId).then(
                 function success(script) {
                     vm.script.id = script.id;
                     vm.script.name = script.name;
@@ -235,16 +218,16 @@ export default function CodeLabController($mdSidenav, toast, scriptService, user
                     if (vm.script.mode === 'block') {
                         vm.xmlText = vm.script.xml;
                     }
-                    store.set('script', vm.script);
                 },
                 function fail() {
                     toast.showError($translate.instant('script.script-load-failed-error'));
                 }
             );
-        } else if (localScript) {
-            vm.script = localScript;
-        } else {
-            store.set('script', emptyScript);
+        } else if (vm.localScript) {
+            vm.script = vm.localScript;
+            if (vm.script.mode === 'block') {
+                vm.xmlText = vm.script.xml;
+            }
         }
     }
 
@@ -287,17 +270,6 @@ export default function CodeLabController($mdSidenav, toast, scriptService, user
             });
 
             onResize();
-            localScript = store.get('script');
-            if (!scriptId && angular.isDefined(localScript.xml)) {
-                if (angular.isDefined(Blockly.mainWorkspace)) {
-                    Blockly.mainWorkspace.clear();
-                }
-                if (localScript.xml) {
-                    var xml = Blockly.Xml.textToDom(localScript.xml);
-                    Blockly.Xml.domToWorkspace(xml, vm.workspace);
-                }
-            }
-            vm.workspace.addChangeListener(onWorkspaceChange);
         }
     }
 
@@ -323,26 +295,12 @@ export default function CodeLabController($mdSidenav, toast, scriptService, user
             if (angular.isDefined(Blockly.mainWorkspace)) {
                 Blockly.mainWorkspace.clear();
             }
-            localScript = store.get('script');
-            if (localScript.xml) {
-                var xml = Blockly.Xml.textToDom(localScript.xml);
+            if (vm.script.xml) {
+                var xml = Blockly.Xml.textToDom(vm.script.xml);
                 Blockly.Xml.domToWorkspace(xml, vm.workspace);
             }
-
             Blockly.svgResize(vm.workspace);
         }
-    }
-
-    function onWorkspaceChange() {
-        if (vm.script.mode !== 'block') {
-            return;
-        }
-        var script = store.get('script');
-        var xml = Blockly.Xml.workspaceToDom(vm.workspace);
-        script.mode = 'block';
-        script.xml = Blockly.Xml.domToText(xml);
-        script.lua = Blockly.Lua.workspaceToCode(vm.workspace);
-        store.set('script', script);
     }
 
     function loadUserDevices() {
@@ -421,9 +379,7 @@ export default function CodeLabController($mdSidenav, toast, scriptService, user
         if (vm.isUserLoaded) {
             var xml = Blockly.Xml.workspaceToDom(vm.workspace);
             vm.script.xml = Blockly.Xml.domToText(xml);
-            if (vm.script.mode === 'block') {
-                vm.script.lua = Blockly.Lua.workspaceToCode(vm.workspace);
-            }
+            updateLuaFromBlock();
 
             if (angular.isUndefined(vm.script.id)) { // New project
                 addProject();
@@ -476,9 +432,7 @@ export default function CodeLabController($mdSidenav, toast, scriptService, user
     function uploadScript(mode) {
         var chipId = vm.currentDevice.chipId;
         var topic = baseSysTopicUrl + '/' + chipId + '/' + mode;
-        if (vm.script.mode === 'block') {
-            vm.script.lua = Blockly.Lua.workspaceToCode(vm.workspace);
-        }
+        updateLuaFromBlock();
         if (vm.script.lua.length === 0) {
             return;
         }
@@ -522,7 +476,6 @@ export default function CodeLabController($mdSidenav, toast, scriptService, user
     }
 
     function newProject() {
-        store.set('script', emptyScript);
         $mdBottomSheet.hide();
         $state.go('home.codelab.new');
     }
@@ -653,9 +606,7 @@ export default function CodeLabController($mdSidenav, toast, scriptService, user
     }
 
     function downloadProject() {
-        if (vm.script.mode === 'block') {
-            vm.script.lua = Blockly.Lua.workspaceToCode(vm.workspace);
-        }
+        updateLuaFromBlock();
         exportToPc(vm.script.lua, vm.script.name + '.lua');
     }
 
@@ -729,6 +680,12 @@ export default function CodeLabController($mdSidenav, toast, scriptService, user
                 }
             }
             return output;
+        }
+    }
+
+    function updateLuaFromBlock() {
+        if (vm.script.mode === 'block') {
+            vm.script.lua = Blockly.Lua.workspaceToCode(vm.workspace);
         }
     }
 }
