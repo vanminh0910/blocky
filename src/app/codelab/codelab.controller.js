@@ -128,7 +128,7 @@ export default function CodeLabController($mdSidenav, toast, scriptService, user
 
     $timeout(function () {
         injectBlockly();
-    }, 1000);
+    }, 100);
 
     vm.changeMode = changeMode;
     vm.saveProject = saveProject;
@@ -269,7 +269,14 @@ export default function CodeLabController($mdSidenav, toast, scriptService, user
                 trashcan: true
             });
 
-            onResize();
+            var blocklyArea = document.getElementById('main-content');
+            if (blocklyArea.offsetHeight) {
+                onResize();
+            } else {
+                $timeout(function () {
+                    onResize();
+                }, 200);
+            }
         }
     }
 
@@ -291,14 +298,15 @@ export default function CodeLabController($mdSidenav, toast, scriptService, user
         blocklyDiv.style.top = y + 'px';
         blocklyDiv.style.width = blocklyArea.offsetWidth + 'px';
         blocklyDiv.style.height = blocklyArea.offsetHeight + 'px';
-        if (vm.workspace) {
+        if (vm.workspace && vm.script.xml) {
+            var xml = Blockly.Xml.workspaceToDom(vm.workspace);
+            if (vm.script.xml.length > (new XMLSerializer()).serializeToString(xml).length) {
+                xml = Blockly.Xml.textToDom(vm.script.xml);
+            }
             if (angular.isDefined(Blockly.mainWorkspace)) {
                 Blockly.mainWorkspace.clear();
             }
-            if (vm.script.xml) {
-                var xml = Blockly.Xml.textToDom(vm.script.xml);
-                Blockly.Xml.domToWorkspace(xml, vm.workspace);
-            }
+            Blockly.Xml.domToWorkspace(xml, vm.workspace);
             Blockly.svgResize(vm.workspace);
         }
     }
