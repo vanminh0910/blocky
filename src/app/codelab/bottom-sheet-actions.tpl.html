@@ -11,6 +11,11 @@
                 <i class="fa fa-folder-open-o" aria-hidden="true"></i><span> Open Project</span>
             </md-button>
         </md-list-item>
+        <md-list-item ng-show="vm.isUserLoaded">
+            <md-button aria-label="Duplicate Project" ng-click="vm.duplicateProject()" class="md-list-item-content">
+                <i class="fa fa-files-o" aria-hidden="true"></i><span> Duplicate Project</span>
+            </md-button>
+        </md-list-item>
         <md-list-item>
             <md-button ng-click="vm.downloadProject()" aria-label="Download Project" class="md-list-item-content">
                 <i class="fa fa-download" aria-hidden="true"></i><span> Download Project</span>

@@ -100,7 +100,7 @@ export default function CodeLabController($mdSidenav, toast, scriptService, user
     });
 
     $scope.$watch(() => this.xmlText, function (newValue, oldValue) {
-        if (vm.workspace && newValue && !angular.equals(newValue, oldValue)) {
+        if (vm.workspace && !angular.equals(newValue, oldValue)) {
             if (Blockly.mainWorkspace !== null) {
                 Blockly.mainWorkspace.clear();
             }
@@ -148,6 +148,7 @@ export default function CodeLabController($mdSidenav, toast, scriptService, user
     vm.deleteDevice = deleteDevice;
     vm.addDevice = addDevice;
     vm.clearDeviceLog = clearDeviceLog;
+    vm.duplicateProject = duplicateProject;
 
     function initMqttSession() {
         if (angular.isDefined(mqtt) && vm.isUserLoaded) {
@@ -217,6 +218,7 @@ export default function CodeLabController($mdSidenav, toast, scriptService, user
                     vm.script.mode = script.mode || 'block';
                     if (vm.script.mode === 'block') {
                         vm.xmlText = vm.script.xml;
+                        onResize();
                     }
                 },
                 function fail() {
@@ -275,7 +277,7 @@ export default function CodeLabController($mdSidenav, toast, scriptService, user
             } else {
                 $timeout(function () {
                     onResize();
-                }, 200);
+                }, 500);
             }
         }
     }
@@ -298,7 +300,7 @@ export default function CodeLabController($mdSidenav, toast, scriptService, user
         blocklyDiv.style.top = y + 'px';
         blocklyDiv.style.width = blocklyArea.offsetWidth + 'px';
         blocklyDiv.style.height = blocklyArea.offsetHeight + 'px';
-        if (vm.workspace && vm.script.xml) {
+        if (vm.workspace) {
             var xml = Blockly.Xml.workspaceToDom(vm.workspace);
             if (vm.script.xml.length > (new XMLSerializer()).serializeToString(xml).length) {
                 xml = Blockly.Xml.textToDom(vm.script.xml);
@@ -388,8 +390,8 @@ export default function CodeLabController($mdSidenav, toast, scriptService, user
             var xml = Blockly.Xml.workspaceToDom(vm.workspace);
             vm.script.xml = Blockly.Xml.domToText(xml);
             updateLuaFromBlock();
-
-            if (angular.isUndefined(vm.script.id)) { // New project
+            store.set('script', vm.script);
+            if (angular.isUndefined(vm.script.id) || vm.script.id.length === 0) { // New project
                 addProject();
             } else { // Existing project
                 scriptService.saveScript(vm.script);
@@ -428,13 +430,21 @@ export default function CodeLabController($mdSidenav, toast, scriptService, user
         scriptService.addScript(vm.script).then(
             function success(script) {
                 vm.script.id = script.id;
-                store.set('script', vm.script);
                 $location.path('/codelab/' + script.id);
             },
             function fail() {
                 toast.showError($translate.instant('script.script-save-failed-error'));
             }
         );
+    }
+
+    function duplicateProject() {
+        vm.script.name = vm.script.name + ' (Duplicated)';
+        vm.script.id = '';
+        //$location.path('/codelab/' + script.id);
+        store.set('script', vm.script);
+        $mdBottomSheet.hide();
+        $state.go('home.codelab');
     }
 
     function uploadScript(mode) {
